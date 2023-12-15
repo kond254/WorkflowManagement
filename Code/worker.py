@@ -34,6 +34,10 @@ def main():
     @worker.task(task_type="saveContract")
     async def save_contract(job: Job):
         print("Contract saved")
+        
+    @worker.task(task_type="checkTopCandidatesAmount")
+    async def save_contract(job: Job):
+        print("Top Candidates Amount")
 
     @worker.task(task_type="sendJobStandards")
     async def send_job_standards(job: Job):
@@ -170,6 +174,10 @@ def main():
     @worker.task(task_type="answerInquiryFromWeplacm")
     async def inquiry_from_weplacm(job: Job):
         print("Inquiry from WEPLACM answered")
+        
+    @worker.task(task_type="scheduleInterviewDate")
+    async def inquiry_from_weplacm(job: Job):
+        print("Interview scheduled")
 
 
 if __name__ == '__main__':
