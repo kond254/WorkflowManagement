@@ -1,0 +1,128 @@
+
+{ //send contract
+    "name": "Contract",
+    "variables": {
+            "contract_signed": true, //Boolean
+            "capacity": true, //Boolean
+            "compensation_per_worker": 0.1 //double, 0-10 // 0.1 = 10%
+            'type': [CEO, MANAGER, WORKER, INTERN] // Aufwand je nach Type unterschiedlich
+
+        }
+
+}
+
+
+
+{ // send
+    "name": "JobStandards"
+    "variables": "{
+        'job_title':"", //string
+        'job_level': [CEO, MANAGER, WORKER, INTERN] //
+        'required_experience': //integer
+        'job_description': text,
+        'responsibilities': text,
+        'location': [GERMANY, CHINA, USA]
+        'job_mode': [HOMEOFFICE, INOFFICE, REMOTE]
+        'hours': ,integer
+        'pay': ,integer
+        'pto': ,//integer
+        'benefits':, string
+        'industry': , string
+        'min_education_level': , string
+        'language': [GERMAN, ENGLISH]
+    }"
+}
+
+{ // recieve Standard Mail: Lets go
+    "name": "ConfirmationStart"
+    "variables":  ""
+}
+
+{ // recieve
+    "name": "Candidates"
+    "variables": "{
+       'candidates': [
+            {
+                'first_name', String
+                'last_name' , String
+                'gender' ['m', 'f', 'd']
+
+                'email' , String
+                'linkedIn' , String
+
+                'address', String
+                'city' ,String
+                'zip_code' , String
+                'country' , String
+
+                'age' , int
+                'previous_company' , String
+
+                ('cv', file/pdf
+                'image', String)
+
+                //WICHTIG
+                //
+                //
+                "rating": int // 0-10
+
+            } //... mehrere Kandidaten in diesem Format
+
+            { //send
+            "name": "MoreRequest"
+            "variables":  "{
+               
+            }"
+        }
+        
+        { // send number of accepted positions
+            "name": "AcceptedCandidate"
+            "variables": "{
+                'amount':"", //integer
+            }"
+        }
+        
+        //Falls Rechnung falsch erstellt worden ist 
+        { // send
+            "name": "FaultyInvoice"
+            "variables": " {
+                
+            }"
+        }
+        
+        
+        { // send
+            "name": "Invoice"
+            "variables": " {
+                'salarie_sum': , int
+            }"
+        }
+        
+        { // recieve
+            "name": "PaymentReminder"
+            "variables": "{
+                'salarie_sum' : , int
+            }"
+        }
+        
+        { // pay invoice
+            "name": "PaymentComplete"
+            "variables": ""
+        }
+        
+        { // send Standard Mail mit Nachfrage
+            "name": "StatusRequest"
+            "variables": ""
+        }
+        
+        { // recieve Mail mit Status
+            "name": "StatusResponse"
+            "variables": ""
+        }
+        
+        { // receive Standard Mail: ABBRUCH
+            "name": "ProjectCancellation"
+            "variables": ""
+        }
+        
+

@@ -29,6 +29,7 @@ def main():
 
     @worker.task(task_type="sendAdjustedContract")
     async def send_adjusted_contract(job: Job):
+        job.bpmn_process_id
         print("Adjusted Contract send")
 
     @worker.task(task_type="saveContract")
