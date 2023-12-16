@@ -16,6 +16,7 @@ def main():
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job):
         cW.sendContract()  
+        print("Anpassung")
         print("Contract send")
 
     @worker.task(task_type="contractReminder")
