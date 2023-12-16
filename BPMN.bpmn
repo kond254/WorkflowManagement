@@ -417,7 +417,6 @@
         <bpmn:flowNodeRef>Event_17fi950</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1a2xikj</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0g5zrme</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_0yjh27d</bpmn:flowNodeRef>
@@ -585,7 +584,6 @@
             <bpmn:flowNodeRef>Activity_1wvjm9i</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0sfgfyw</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0g5zrme</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -2030,7 +2028,6 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_029p5m2" sourceRef="Gateway_0a6arms" targetRef="Event_17mmcer" />
     <bpmn:sequenceFlow id="Flow_0p5bnlk" sourceRef="Activity_02hnk4e" targetRef="Gateway_0a6arms" />
-    <bpmn:task id="Activity_0g5zrme" name="asdasf" />
     <bpmn:textAnnotation id="TextAnnotation_17w8og7">
       <bpmn:text>variable: contract_phase</bpmn:text>
     </bpmn:textAnnotation>
@@ -2261,22 +2258,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_16iycxx_di" bpmnElement="Lane_16iycxx" isHorizontal="true">
         <dc:Bounds x="185" y="335" width="17800" height="790" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_10cb1em_di" bpmnElement="TextAnnotation_10cb1em">
-        <dc:Bounds x="4300" y="2240" width="99.99274099883856" height="29.997822299651567" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_09i1o4r_di" bpmnElement="TextAnnotation_09i1o4r">
-        <dc:Bounds x="14550" y="2220" width="99.99274099883856" height="29.997822299651567" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_12xn4iv_di" bpmnElement="TextAnnotation_12xn4iv">
-        <dc:Bounds x="17300" y="2080" width="99.99274099883856" height="40.65040650406504" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1lwarof_di" bpmnElement="TextAnnotation_1lwarof">
-        <dc:Bounds x="16650" y="2220" width="99.9933932346723" height="29.994714587737842" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_05xqwb1_di" bpmnElement="Activity_0qdlhuo">
@@ -3216,10 +3197,6 @@
         <dc:Bounds x="11940" y="2275" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0g5zrme_di" bpmnElement="Activity_0g5zrme">
-        <dc:Bounds x="330" y="1290" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
         <dc:Bounds x="6235" y="1248" width="660" height="362" />
         <bpmndi:BPMNLabel />
@@ -3390,22 +3367,22 @@
         <dc:Bounds x="11100" y="2210" width="100" height="41" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0jiboh8_di" bpmnElement="Association_0jiboh8">
-        <di:waypoint x="4286" y="2331" />
-        <di:waypoint x="4338" y="2270" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1wcrhs5_di" bpmnElement="Association_1wcrhs5">
-        <di:waypoint x="14536" y="2311" />
-        <di:waypoint x="14588" y="2250" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0y2n0ah_di" bpmnElement="Association_0y2n0ah">
-        <di:waypoint x="17286" y="2171" />
-        <di:waypoint x="17329" y="2121" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1etz7p3_di" bpmnElement="Association_1etz7p3">
-        <di:waypoint x="16636" y="2311" />
-        <di:waypoint x="16688" y="2250" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_10cb1em_di" bpmnElement="TextAnnotation_10cb1em">
+        <dc:Bounds x="4300" y="2240" width="99.99274099883856" height="29.997822299651567" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_09i1o4r_di" bpmnElement="TextAnnotation_09i1o4r">
+        <dc:Bounds x="14550" y="2220" width="99.99274099883856" height="29.997822299651567" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_12xn4iv_di" bpmnElement="TextAnnotation_12xn4iv">
+        <dc:Bounds x="17300" y="2080" width="99.99274099883856" height="40.65040650406504" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1lwarof_di" bpmnElement="TextAnnotation_1lwarof">
+        <dc:Bounds x="16650" y="2220" width="99.9933932346723" height="29.994714587737842" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1qcrmp9_di" bpmnElement="Event_1a2xikj">
         <dc:Bounds x="12022" y="2257" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -4420,6 +4397,22 @@
       <bpmndi:BPMNEdge id="Association_0qhgo1z_di" bpmnElement="Association_0qhgo1z">
         <di:waypoint x="11086" y="2301" />
         <di:waypoint x="11128" y="2251" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0jiboh8_di" bpmnElement="Association_0jiboh8">
+        <di:waypoint x="4286" y="2331" />
+        <di:waypoint x="4338" y="2270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1wcrhs5_di" bpmnElement="Association_1wcrhs5">
+        <di:waypoint x="14536" y="2311" />
+        <di:waypoint x="14588" y="2250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0y2n0ah_di" bpmnElement="Association_0y2n0ah">
+        <di:waypoint x="17286" y="2171" />
+        <di:waypoint x="17329" y="2121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1etz7p3_di" bpmnElement="Association_1etz7p3">
+        <di:waypoint x="16636" y="2311" />
+        <di:waypoint x="16688" y="2250" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_19f8ut9_di" bpmnElement="Participant_19f8ut9" isHorizontal="true">
         <dc:Bounds x="450" y="80" width="17270" height="60" />
