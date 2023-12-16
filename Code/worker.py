@@ -2,17 +2,20 @@ import asyncio
 
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
-
+from clientWeplacm import ClientWeplacm
 
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
                                       port=26500)
+    
     print("Channel created")
-
+    cW= ClientWeplacm()
+     
     worker = ZeebeWorker(channel)
 
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job):
+        cW.sendContract()  
         print("Contract send")
 
     @worker.task(task_type="contractReminder")
@@ -178,6 +181,12 @@ def main():
     @worker.task(task_type="scheduleInterviewDate")
     async def inquiry_from_weplacm(job: Job):
         print("Interview scheduled")
+        
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(worker.work())
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':
