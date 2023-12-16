@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0iwfirf" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <decision id="dmnCompensation" name="Compensation">
+    <informationRequirement id="InformationRequirement_13wxu16">
+      <requiredInput href="#InputData_1r24vy6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0mb05kd">
+      <requiredInput href="#InputData_0gr78x8" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1a6osie">
+      <input id="Input_1" label="number_of_positions">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text>number_of_positions</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0zem1zc" label="jobType">
+        <inputExpression id="LiteralExpression_0wx22tv" typeRef="string">
+          <text>jobType</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="compensation" typeRef="number" />
+      <rule id="DecisionRule_0nivq95">
+        <inputEntry id="UnaryTests_0zwfse5">
+          <text>[0..1]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1usmcrj">
+          <text>"Worker"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08l7gff">
+          <text>0.1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01w1par">
+        <inputEntry id="UnaryTests_0dy24j4">
+          <text>[2..3]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xraxjy">
+          <text>"Worker"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0k0w7sn">
+          <text>0.08</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07vmiiu">
+        <inputEntry id="UnaryTests_1k13z1i">
+          <text>[4..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19mmcdn">
+          <text>"Worker"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16id8te">
+          <text>0.06</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_072y0dh">
+        <inputEntry id="UnaryTests_1r9yr21">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r1vfs4">
+          <text>"Worker"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1b1caz0">
+          <text>0.04</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p03lic">
+        <inputEntry id="UnaryTests_0f26nu0">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0beeh3o">
+          <text>"Worker"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13lavlk">
+          <text>0.02</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r1yeso">
+        <inputEntry id="UnaryTests_1pf9x3l">
+          <text>[0..1]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0upd15u">
+          <text>"CEO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1318i9a">
+          <text>0.4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0aw07bi">
+        <inputEntry id="UnaryTests_1fesd4f">
+          <text>[0..1]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d2dnlq">
+          <text>"Intern"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0holjyg">
+          <text>0.08</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ca9857">
+        <inputEntry id="UnaryTests_1ezq2u2">
+          <text>[2..3]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ntsmci">
+          <text>"Intern"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1413h5q">
+          <text>0.05</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09o4u26">
+        <inputEntry id="UnaryTests_1lrm232">
+          <text>[4..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ivg3u0">
+          <text>"Intern"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cvzvvg">
+          <text>0.03</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fwrjtw">
+        <inputEntry id="UnaryTests_1tz7glq">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cc0grc">
+          <text>"Intern"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rkd1z1">
+          <text>0.02</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ha8fn4">
+        <inputEntry id="UnaryTests_02hblq7">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bu2uby">
+          <text>"Intern"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q1tapb">
+          <text>0.01</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zsu2lo">
+        <inputEntry id="UnaryTests_1etblqz">
+          <text>[0..1]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l7shzx">
+          <text>"Manager"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02k6quu">
+          <text>0.2</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m08ife">
+        <inputEntry id="UnaryTests_0sazzsz">
+          <text>[2..3]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00iiq1n">
+          <text>"Manager"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1el38lz">
+          <text>0.18</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h4c3ia">
+        <inputEntry id="UnaryTests_1h2ar4a">
+          <text>[4..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nrgl54">
+          <text>"Manager"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z7jzcx">
+          <text>0.15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1a35p11">
+        <inputEntry id="UnaryTests_0u9d4sg">
+          <text>[5..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_159hj7e">
+          <text>"Manager"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09z122o">
+          <text>0.12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bawtvh">
+        <inputEntry id="UnaryTests_1p3db7v">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0p767yd">
+          <text>"Manager"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_132981y">
+          <text>0.1</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1r24vy6" name="number_of_positions" />
+  <inputData id="InputData_0gr78x8" name="jobType" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="dmnCompensation">
+        <dc:Bounds height="80" width="180" x="240" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1hdy10b" dmnElementRef="InputData_1r24vy6">
+        <dc:Bounds height="45" width="125" x="157" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0o0bmq8" dmnElementRef="InformationRequirement_13wxu16">
+        <di:waypoint x="220" y="257" />
+        <di:waypoint x="300" y="180" />
+        <di:waypoint x="300" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0xg8kmm" dmnElementRef="InputData_0gr78x8">
+        <dc:Bounds height="45" width="125" x="397" y="257" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0s84hyp" dmnElementRef="InformationRequirement_0mb05kd">
+        <di:waypoint x="460" y="257" />
+        <di:waypoint x="360" y="180" />
+        <di:waypoint x="360" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

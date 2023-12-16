@@ -9,15 +9,20 @@ def main():
                                       port=26500)
     
     print("Channel created")
-    cW= ClientWeplacm("False", 12)
+    cW = ClientWeplacm()
      
     worker = ZeebeWorker(channel)
 
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job):
         #cW.sendContract()  
-        print(cW.capacity)
-        await cW.sendContract()
+        jobType="jobType"
+        amountOfWorkers="amountOfW"
+        compensationPerWorker="compensationPerWorker"
+        print("NEEEW")
+        print(job.variables)
+        print(job.variables.values)
+        await cW.sendContract(jobType, amountOfWorkers, compensationPerWorker)
         print("Contract send")
 
 
