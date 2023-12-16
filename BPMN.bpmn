@@ -417,6 +417,7 @@
         <bpmn:flowNodeRef>Event_17fi950</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1a2xikj</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0g5zrme</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_0yjh27d</bpmn:flowNodeRef>
@@ -584,6 +585,7 @@
             <bpmn:flowNodeRef>Activity_1wvjm9i</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0sfgfyw</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_0g5zrme</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -2028,6 +2030,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_029p5m2" sourceRef="Gateway_0a6arms" targetRef="Event_17mmcer" />
     <bpmn:sequenceFlow id="Flow_0p5bnlk" sourceRef="Activity_02hnk4e" targetRef="Gateway_0a6arms" />
+    <bpmn:task id="Activity_0g5zrme" name="asdasf" />
     <bpmn:textAnnotation id="TextAnnotation_17w8og7">
       <bpmn:text>variable: contract_phase</bpmn:text>
     </bpmn:textAnnotation>
@@ -3211,6 +3214,10 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0lg9nkp_di" bpmnElement="Activity_0lg9nkp">
         <dc:Bounds x="11940" y="2275" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g5zrme_di" bpmnElement="Activity_0g5zrme">
+        <dc:Bounds x="330" y="1290" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
