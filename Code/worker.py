@@ -13,12 +13,13 @@ def main():
      
     worker = ZeebeWorker(channel)
 
-    @worker.task(task_type="sendContract")
+    @worker.task(task_type="countIncrease")
     async def count_increase(job: Job, count: int):
         print(count)
-        new_count = count+1
-        print(new_count)
-        await count_increase(new_count)
+        count = count+1
+        print(count)
+        job.variables.update({"count": count})
+        print("Finish")
 
     loop = asyncio.get_event_loop()
     try:

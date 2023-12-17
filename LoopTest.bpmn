@@ -5,7 +5,7 @@
       <zeebe:userTaskForm id="UserTaskForm_091enjn">{
   "components": [
     {
-      "label": "DBcount",
+      "label": "Counter",
       "type": "number",
       "layout": {
         "row": "Row_0k5jq7i",
@@ -13,8 +13,7 @@
       },
       "id": "Field_1baovdt",
       "key": "DBcount",
-      "defaultValue": 8,
-      "readonly": true
+      "readonly": false
     }
   ],
   "type": "default",
@@ -39,7 +38,10 @@
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_0crbxow" name="count +1">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="CountIncrease" />
+        <zeebe:taskDefinition type="countIncrease" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=count" target="count" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0jjt555</bpmn:incoming>
       <bpmn:outgoing>Flow_07mgfyk</bpmn:outgoing>
@@ -55,16 +57,20 @@
     <bpmn:sequenceFlow id="Flow_17umfrg" sourceRef="Activity_0pp90en" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_0z9g8jy" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_0jjt555" name="no" sourceRef="Gateway_0kjqywr" targetRef="Activity_0crbxow">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=DBcount &lt; 8</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count &lt; DBcount</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1fdj5oy" name="yes" sourceRef="Gateway_0kjqywr" targetRef="Event_1h4a5c3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=DBcount = 8</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count = DBcount</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_07mgfyk" sourceRef="Activity_0crbxow" targetRef="Gateway_1q0cit7" />
     <bpmn:sequenceFlow id="Flow_1l3e7y3" sourceRef="StartEvent_1" targetRef="Activity_0pp90en" />
     <bpmn:userTask id="Activity_0pp90en" name="DBcount">
       <bpmn:extensionElements>
         <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_091enjn" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=0" target="count" />
+          <zeebe:output source="=DBcount" target="DBcount" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1l3e7y3</bpmn:incoming>
       <bpmn:outgoing>Flow_17umfrg</bpmn:outgoing>
@@ -76,11 +82,18 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_12hykx7">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0kjqywr_di" bpmnElement="Gateway_0kjqywr" isMarkerVisible="true">
         <dc:Bounds x="435" y="235" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="408" y="278" width="43" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_149scg2_di" bpmnElement="Activity_0crbxow">
+        <dc:Bounds x="600" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1wx55ok_di" bpmnElement="Gateway_1q0cit7">
         <dc:Bounds x="835" y="235" width="50" height="50" />
@@ -88,18 +101,11 @@
       <bpmndi:BPMNShape id="Event_1h4a5c3_di" bpmnElement="Event_1h4a5c3">
         <dc:Bounds x="442" y="342" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="242" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1egopxp_di" bpmnElement="Activity_0pp90en">
         <dc:Bounds x="300" y="220" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0t6y89i_di" bpmnElement="Event_0t6y89i">
         <dc:Bounds x="1082" y="242" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_149scg2_di" bpmnElement="Activity_0crbxow">
-        <dc:Bounds x="600" y="220" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_17umfrg_di" bpmnElement="Flow_17umfrg">
         <di:waypoint x="400" y="260" />
