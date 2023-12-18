@@ -36,10 +36,10 @@ def main():
 
     #check the answer and print responses
     @worker.task(task_type="checkContractAnswer")
-    async def check_contract_answer(job: Job, compensation_new: float, compensation:float, contract_signed: bool, capacity: bool, contract_cycle: int):
+    async def check_contract_answer(job: Job, suggestion: float, compensation:float, contract_signed: bool, capacity: bool, contract_cycle: int):
         print("Contract answer checked")
         print("Process Instance Key: " +str(job.process_instance_key))
-        print("New Compensation: "  + str(compensation_new))
+        print("New Compensation: "  + str(suggestion))
         print("Original Compensation: "  + str(compensation))
         print("Signed: "  + str(contract_signed))
         print("Capacity: "  + str(capacity))
@@ -47,13 +47,13 @@ def main():
         
         
         #validate correctness of answer
-        if((compensation==compensation_new) & contract_signed & capacity): 
-            return {"compensation": compensation_new,
+        if((compensation==suggestion) & contract_signed & capacity): 
+            return {"compensation": suggestion,
                     "contract_signed": contract_signed,
                     "capacity": capacity
                     }
         else:
-            return {"compensation_new": compensation_new,
+            return {"compensation_new": suggestion,
                     "contract_signed": False,
                     "capacity": capacity,
                     "contract_cycle": contract_cycle+1 
