@@ -54,6 +54,187 @@
       "id": "Field_0cve348"
     },
     {
+      "label": "Job Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0lkqkid",
+        "columns": null
+      },
+      "id": "Field_1xua5fm",
+      "key": "JobName",
+      "validate": {
+        "required": false
+      },
+      "disabled": false,
+      "readonly": true
+    },
+    {
+      "values": [
+        {
+          "label": "CEO",
+          "value": "CEO"
+        },
+        {
+          "label": "Worker",
+          "value": "Worker"
+        },
+        {
+          "label": "Manager",
+          "value": "Manager"
+        },
+        {
+          "label": "Intern",
+          "value": "Intern"
+        }
+      ],
+      "label": "Job Type",
+      "type": "select",
+      "layout": {
+        "row": "Row_0w038zn",
+        "columns": null
+      },
+      "id": "Field_1rcqdqz",
+      "key": "jobType",
+      "readonly": true,
+      "defaultValue": "value",
+      "disabled": false
+    },
+    {
+      "label": "Amount of new Job positions",
+      "type": "number",
+      "layout": {
+        "row": "Row_0h7nd8r",
+        "columns": null
+      },
+      "id": "Field_1p98mms",
+      "key": "number_of_positions"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0kt4r16",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_1l42ucn">{
+  "components": [
+    {
+      "text": "# Information about new Job",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_01xa6iv",
+        "columns": null
+      },
+      "id": "Field_0cve348"
+    },
+    {
+      "label": "Job Name",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0lkqkid",
+        "columns": null
+      },
+      "id": "Field_1xua5fm",
+      "key": "JobName",
+      "validate": {
+        "required": false
+      },
+      "disabled": false,
+      "readonly": true
+    },
+    {
+      "values": [
+        {
+          "label": "CEO",
+          "value": "CEO"
+        },
+        {
+          "label": "Worker",
+          "value": "Worker"
+        },
+        {
+          "label": "Manager",
+          "value": "Manager"
+        },
+        {
+          "label": "Intern",
+          "value": "Intern"
+        }
+      ],
+      "label": "Job Type",
+      "type": "select",
+      "layout": {
+        "row": "Row_0w038zn",
+        "columns": null
+      },
+      "id": "Field_1rcqdqz",
+      "key": "jobType",
+      "readonly": true,
+      "defaultValue": "value",
+      "disabled": false
+    },
+    {
+      "label": "Amount of new Job positions",
+      "type": "number",
+      "layout": {
+        "row": "Row_0h7nd8r",
+        "columns": null
+      },
+      "id": "Field_1p98mms",
+      "key": "number_of_positions"
+    },
+    {
+      "values": [
+        {
+          "label": "Accept",
+          "value": "True"
+        },
+        {
+          "label": "Reject",
+          "value": "False"
+        }
+      ],
+      "label": "Decision",
+      "type": "select",
+      "layout": {
+        "row": "Row_1izfqlf",
+        "columns": null
+      },
+      "id": "Field_0yf1u5c",
+      "key": "decision",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0kt4r16",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_32tefg1">{
+  "components": [
+    {
+      "text": "# Information about new Job",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_01xa6iv",
+        "columns": null
+      },
+      "id": "Field_0cve348"
+    },
+    {
       "label": "Job Title",
       "type": "textfield",
       "layout": {
@@ -253,159 +434,6 @@
       },
       "id": "Field_001bzjd",
       "key": "language"
-    }
-  ],
-  "type": "default",
-  "id": "Form_0kt4r16",
-  "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.3.0",
-  "exporter": {
-    "name": "Camunda Modeler",
-    "version": "5.17.0"
-  },
-  "schemaVersion": 12
-}</zeebe:userTaskForm>
-      <zeebe:userTaskForm id="UserTaskForm_1l42ucn">{
-  "components": [
-    {
-      "text": "# Information about new Job",
-      "label": "Text view",
-      "type": "text",
-      "layout": {
-        "row": "Row_01xa6iv",
-        "columns": null
-      },
-      "id": "Field_0cve348"
-    },
-    {
-      "label": "Job Name",
-      "type": "textfield",
-      "layout": {
-        "row": "Row_0lkqkid",
-        "columns": null
-      },
-      "id": "Field_1xua5fm",
-      "key": "JobName",
-      "validate": {
-        "required": false
-      },
-      "disabled": false,
-      "readonly": true
-    },
-    {
-      "values": [
-        {
-          "label": "CEO",
-          "value": "CEO"
-        },
-        {
-          "label": "Worker",
-          "value": "Worker"
-        },
-        {
-          "label": "Manager",
-          "value": "Manager"
-        },
-        {
-          "label": "Intern",
-          "value": "Intern"
-        }
-      ],
-      "label": "Job Type",
-      "type": "select",
-      "layout": {
-        "row": "Row_0w038zn",
-        "columns": null
-      },
-      "id": "Field_1rcqdqz",
-      "key": "jobType",
-      "readonly": true,
-      "defaultValue": "value",
-      "disabled": false
-    },
-    {
-      "label": "Amount of new Job positions",
-      "type": "number",
-      "layout": {
-        "row": "Row_0h7nd8r",
-        "columns": null
-      },
-      "id": "Field_1p98mms",
-      "key": "number_of_positions"
-    },
-    {
-      "values": [
-        {
-          "label": "Accept",
-          "value": "True"
-        },
-        {
-          "label": "Reject",
-          "value": "False"
-        }
-      ],
-      "label": "Decision",
-      "type": "select",
-      "layout": {
-        "row": "Row_1izfqlf",
-        "columns": null
-      },
-      "id": "Field_0yf1u5c",
-      "key": "decision",
-      "validate": {
-        "required": true
-      }
-    }
-  ],
-  "type": "default",
-  "id": "Form_0kt4r16",
-  "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.3.0",
-  "exporter": {
-    "name": "Camunda Modeler",
-    "version": "5.17.0"
-  },
-  "schemaVersion": 12
-}</zeebe:userTaskForm>
-      <zeebe:userTaskForm id="UserTaskForm_32tefg1">{
-  "components": [
-    {
-      "text": "# Job Standards",
-      "label": "Text view",
-      "type": "text",
-      "layout": {
-        "row": "Row_01xa6iv",
-        "columns": null
-      },
-      "id": "Field_0cve348"
-    },
-    {
-      "label": "Job Name",
-      "type": "textfield",
-      "layout": {
-        "row": "Row_0lkqkid",
-        "columns": null
-      },
-      "id": "Field_1xua5fm",
-      "key": "JobName",
-      "validate": {
-        "required": true
-      },
-      "disabled": false,
-      "readonly": false
-    },
-    {
-      "label": "Job Standards",
-      "type": "textfield",
-      "layout": {
-        "row": "Row_1vft764",
-        "columns": null
-      },
-      "id": "Field_0hz54i5",
-      "key": "jobStandards",
-      "validate": {
-        "required": true
-      }
     }
   ],
   "type": "default",
