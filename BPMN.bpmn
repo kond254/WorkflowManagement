@@ -489,7 +489,6 @@
         <bpmn:flowNodeRef>Activity_0mp0xq0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_02mucq1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1w8696g</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1fwk4tr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0xiy9v6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_17cx4yv</bpmn:flowNodeRef>
@@ -621,6 +620,7 @@
         <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0f8d7of</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1qmf7c7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Gateway_17cx4yv</bpmn:flowNodeRef>
@@ -766,7 +766,6 @@
           <bpmn:lane id="Lane_0u4k6fr" name="HR Manager">
             <bpmn:flowNodeRef>Activity_0fzhrp9</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_029z5e7</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_111143q</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0kvi3i3</bpmn:flowNodeRef>
@@ -791,6 +790,7 @@
             <bpmn:flowNodeRef>Activity_0sfgfyw</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1s9yx06</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0pj96j3</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -1299,13 +1299,6 @@
     <bpmn:dataStoreReference id="DataStoreReference_10tktfn" name="systemDB" />
     <bpmn:dataObjectReference id="DataObjectReference_1puqvka" name="contract" dataObjectRef="DataObject_1o2an14" />
     <bpmn:dataObject id="DataObject_1o2an14" />
-    <bpmn:userTask id="Activity_1qena75" name="create job standards">
-      <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_32tefg1" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0lryadi</bpmn:incoming>
-      <bpmn:outgoing>Flow_1eymdsw</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:businessRuleTask id="Activity_1fwk4tr" name="calculate suitable contract for WEPLACM">
       <bpmn:extensionElements>
         <zeebe:calledDecision decisionId="dmnCompensation" resultVariable="compensation" />
@@ -1315,6 +1308,15 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_04f2r7j</bpmn:incoming>
       <bpmn:outgoing>Flow_0qlstxg</bpmn:outgoing>
+      <bpmn:property id="Property_1ayi0rx" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0tm24eg">
+        <bpmn:sourceRef>DataObjectReference_0z8cupr</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1ayi0rx</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_1gi5mkf">
+        <bpmn:sourceRef>DataObjectReference_06culxf</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1ayi0rx</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
     </bpmn:businessRuleTask>
     <bpmn:startEvent id="Event_0xiy9v6" name="Need for new Job">
       <bpmn:outgoing>Flow_0o9izjp</bpmn:outgoing>
@@ -2283,6 +2285,17 @@
     </bpmn:boundaryEvent>
     <bpmn:dataObjectReference id="DataObjectReference_08m7n3r" name="contract [adjusted]" dataObjectRef="DataObject_0rmx0dq" />
     <bpmn:dataObject id="DataObject_0rmx0dq" />
+    <bpmn:userTask id="Activity_1qena75" name="create job standards">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_32tefg1" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0lryadi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eymdsw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:dataObjectReference id="DataObjectReference_0z8cupr" name="Job Type" dataObjectRef="DataObject_1en70i2" />
+    <bpmn:dataObject id="DataObject_1en70i2" />
+    <bpmn:dataObjectReference id="DataObjectReference_06culxf" name="Amount of Workers" dataObjectRef="DataObject_05xdnsn" />
+    <bpmn:dataObject id="DataObject_05xdnsn" />
     <bpmn:textAnnotation id="TextAnnotation_1yvvd5v">
       <bpmn:text>Count+1</bpmn:text>
     </bpmn:textAnnotation>
@@ -2726,9 +2739,6 @@
           <dc:Bounds x="1530" y="2578" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0zfsf9k_di" bpmnElement="Activity_1qena75">
-        <dc:Bounds x="3390" y="1430" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1uz0mnk_di" bpmnElement="Activity_1fwk4tr">
         <dc:Bounds x="1400" y="2335" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -2771,6 +2781,21 @@
         <dc:Bounds x="1682" y="2135" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1655" y="2111" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zfsf9k_di" bpmnElement="Activity_1qena75">
+        <dc:Bounds x="3370" y="1430" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0z8cupr_di" bpmnElement="DataObjectReference_0z8cupr">
+        <dc:Bounds x="1342" y="2455" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1338" y="2512" width="45" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_06culxf_di" bpmnElement="DataObjectReference_06culxf">
+        <dc:Bounds x="1402" y="2485" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1395" y="2542" width="51" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
@@ -4455,10 +4480,10 @@
         <di:waypoint x="3235" y="2375" />
         <di:waypoint x="3288" y="2375" />
         <di:waypoint x="3288" y="1470" />
-        <di:waypoint x="3390" y="1470" />
+        <di:waypoint x="3370" y="1470" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1eymdsw_di" bpmnElement="Flow_1eymdsw">
-        <di:waypoint x="3490" y="1470" />
+        <di:waypoint x="3470" y="1470" />
         <di:waypoint x="3568" y="1470" />
         <di:waypoint x="3568" y="2375" />
         <di:waypoint x="3620" y="2375" />
@@ -5036,6 +5061,14 @@
       <bpmndi:BPMNEdge id="Flow_0ggtjli_di" bpmnElement="Flow_0ggtjli">
         <di:waypoint x="16360" y="3590" />
         <di:waypoint x="16360" y="3243" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0tm24eg_di" bpmnElement="DataInputAssociation_0tm24eg">
+        <di:waypoint x="1370" y="2455" />
+        <di:waypoint x="1400" y="2376" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1gi5mkf_di" bpmnElement="DataInputAssociation_1gi5mkf">
+        <di:waypoint x="1426" y="2485" />
+        <di:waypoint x="1441" y="2415" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
