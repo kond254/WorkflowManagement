@@ -242,12 +242,12 @@
         "columns": null
       },
       "id": "Field_1xua5fm",
-      "key": "job_title",
+      "key": "JobName",
       "validate": {
         "required": true
       },
       "disabled": false,
-      "readonly": false
+      "readonly": true
     },
     {
       "values": [
@@ -275,7 +275,7 @@
         "columns": null
       },
       "id": "Field_0yn0o7h",
-      "key": "job_type",
+      "key": "jobType",
       "readonly": true
     },
     {
@@ -364,7 +364,7 @@
         "columns": null
       },
       "id": "Field_1hf3pag",
-      "key": "hours"
+      "key": "weekly_hours"
     },
     {
       "label": "Annual salary",

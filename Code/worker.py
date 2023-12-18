@@ -3,6 +3,7 @@ import asyncio
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
+from db import * 
 
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
@@ -10,7 +11,7 @@ def main():
     
     print("Channel created")
     cW = ClientWeplacm()
-     
+    db = Databank()
     worker = ZeebeWorker(channel)
 
     @worker.task(task_type="countIncrease")
@@ -53,7 +54,7 @@ def main():
                     "capacity": capacity
                     }
         else:
-            return {"compensation_new": suggestion,
+            return {"suggestion": suggestion,
                     "contract_signed": False,
                     "capacity": capacity,
                     "contract_cycle": contract_cycle+1 
@@ -77,9 +78,13 @@ def main():
         print("Process Instance Key: " +str(job.process_instance_key))
         
     @worker.task(task_type="saveContract")
-    async def save_contract(job: Job):
+    async def save_contract(job: Job, compensation: float, contract_signed: bool):
         print("Contract saved")
         print("Process Instance Key: " +str(job.process_instance_key))
+        
+        print("Inserting into DB")
+        db.insert_contract_in_systemdb(job.process_instance_key, contract_signed, compensation)
+        
         
     #checking if reminder was already send
     @worker.task(task_type="contractReminder")
@@ -88,8 +93,14 @@ def main():
         if(ReminderExist==False):
             return{"ReminderExist": True}
         
-
-
+    #create Job standards in SystemDB
+    @worker.task(task_type="sendJobStandards")
+    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str):
+        print("Job standards send")
+        print("Inserting into DB")
+        db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language)
+       
+        
     
     ##  else:
     ## Worker runs until it will be canceled manually
