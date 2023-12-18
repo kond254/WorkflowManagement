@@ -1012,14 +1012,14 @@
     <bpmn:sequenceFlow id="Flow_115hh8b" sourceRef="Activity_1lo72ql" targetRef="Gateway_0wf49r2" />
     <bpmn:sequenceFlow id="Flow_17umfrg" sourceRef="Activity_0pp90en" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_0jjt555" name="no" sourceRef="Gateway_0kjqywr" targetRef="Activity_0je6110">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count &lt; DBcount</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=countVar &lt; DBcount</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1c26k1c" sourceRef="Activity_0je6110" targetRef="Activity_0crbxow" />
     <bpmn:sequenceFlow id="Flow_07mgfyk" sourceRef="Activity_0crbxow" targetRef="Gateway_1q0cit7" />
     <bpmn:sequenceFlow id="Flow_03kc9nz" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0wp1s97" />
     <bpmn:sequenceFlow id="Flow_0z9g8jy" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_1fdj5oy" name="yes" sourceRef="Gateway_0kjqywr" targetRef="Event_1h4a5c3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count = DBcount</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=countVar = countDB</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:boundaryEvent id="Event_0fwboa9" name="5 Days" attachedToRef="Activity_0zl8vmt">
       <bpmn:outgoing>Flow_06uyj67</bpmn:outgoing>
@@ -1039,6 +1039,12 @@
     <bpmn:serviceTask id="Activity_0crbxow" name="Schedule interview date for candidate">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="scheduleInterview" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=countVar" target="countVar" />
+          <zeebe:input source="=countDB" target="countDB" />
+          <zeebe:output source="=countVar" target="countVar" />
+          <zeebe:output source="=countDB" target="countDB" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1c26k1c</bpmn:incoming>
       <bpmn:outgoing>Flow_07mgfyk</bpmn:outgoing>
@@ -1046,6 +1052,12 @@
     <bpmn:serviceTask id="Activity_0je6110" name="Checking Interview date">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="checkInterviewDate" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=countVar" target="countVar" />
+          <zeebe:input source="=countDB" target="countDB" />
+          <zeebe:output source="=countVar" target="countVar" />
+          <zeebe:output source="=countDB" target="countDB" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0jjt555</bpmn:incoming>
       <bpmn:outgoing>Flow_1c26k1c</bpmn:outgoing>
@@ -1060,7 +1072,7 @@
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
     <bpmn:dataStoreReference id="DataStoreReference_0437vv2" name="systemDB" />
-    <bpmn:exclusiveGateway id="Gateway_0kjqywr" name="Count =&#10;DBcount">
+    <bpmn:exclusiveGateway id="Gateway_0kjqywr" name="countVar =&#10;countDB">
       <bpmn:incoming>Flow_17umfrg</bpmn:incoming>
       <bpmn:incoming>Flow_0z9g8jy</bpmn:incoming>
       <bpmn:outgoing>Flow_0jjt555</bpmn:outgoing>
@@ -1070,6 +1082,10 @@
     <bpmn:serviceTask id="Activity_0pp90en" name="Checking topCandidateDB count">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="countDB" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=countDB" target="countDB" />
+          <zeebe:output source="=countVar" target="countVar" />
+        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0all43o</bpmn:incoming>
       <bpmn:outgoing>Flow_17umfrg</bpmn:outgoing>
@@ -2526,7 +2542,7 @@
       <bpmndi:BPMNShape id="Gateway_0kjqywr_di" bpmnElement="Gateway_0kjqywr" isMarkerVisible="true">
         <dc:Bounds x="7125" y="2140" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="7098" y="2183" width="44" height="27" />
+          <dc:Bounds x="7094" y="2183" width="53" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0fi2jp7" bpmnElement="DataStoreReference_1f05rmp">
@@ -4546,7 +4562,7 @@
         <di:waypoint x="7150" y="2190" />
         <di:waypoint x="7150" y="2247" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="7157" y="2216" width="17" height="14" />
+          <dc:Bounds x="7157" y="2216" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1r5d80o_di" bpmnElement="Flow_1r5d80o">
