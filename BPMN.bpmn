@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0atk1t9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.18.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="170515db-6022-4723-a9e5-566225bd305d">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0atk1t9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="170515db-6022-4723-a9e5-566225bd305d">
   <bpmn:collaboration id="BPMN_15_12_23">
     <bpmn:participant id="Participant_1fzour1" name="WEPLACM" />
     <bpmn:participant id="Participant_0ek1uqk" name="WBIG" processRef="Process_0tyj0f6" />
@@ -54,14 +54,14 @@
       "id": "Field_0cve348"
     },
     {
-      "label": "Job Name",
+      "label": "Job Title",
       "type": "textfield",
       "layout": {
         "row": "Row_0lkqkid",
         "columns": null
       },
       "id": "Field_1xua5fm",
-      "key": "JobName",
+      "key": "job_title",
       "validate": {
         "required": true
       },
@@ -87,24 +87,172 @@
           "value": "Intern"
         }
       ],
-      "label": "Job Type",
+      "label": "Job Level",
       "type": "select",
       "layout": {
         "row": "Row_0dhgba8",
         "columns": null
       },
       "id": "Field_0yn0o7h",
-      "key": "jobType"
+      "key": "job_level"
     },
     {
-      "label": "Amount of new Job positions",
+      "label": "Required Expeience",
       "type": "number",
       "layout": {
         "row": "Row_1hgwmxv",
         "columns": null
       },
       "id": "Field_0nt5g8b",
-      "key": "number_of_positions"
+      "key": "required_experience"
+    },
+    {
+      "label": "Job Description",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1qrbbli",
+        "columns": null
+      },
+      "id": "Field_1rg0krj",
+      "key": "job_description"
+    },
+    {
+      "label": "Responsbilities",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0hyt64e",
+        "columns": null
+      },
+      "id": "Field_1em7wcw",
+      "key": "responsibilities"
+    },
+    {
+      "values": [
+        {
+          "label": "Germany",
+          "value": "Germany"
+        },
+        {
+          "label": "USA",
+          "value": "USA"
+        },
+        {
+          "label": "China",
+          "value": "China"
+        }
+      ],
+      "label": "Location",
+      "type": "select",
+      "layout": {
+        "row": "Row_1eesfqu",
+        "columns": null
+      },
+      "id": "Field_173tfdl",
+      "key": "location"
+    },
+    {
+      "values": [
+        {
+          "label": "Homeoffice",
+          "value": "Homeoffice"
+        },
+        {
+          "label": "Inoffice",
+          "value": "Inoffice"
+        },
+        {
+          "label": "Remote",
+          "value": "Remote"
+        }
+      ],
+      "label": "Job Mode",
+      "type": "select",
+      "layout": {
+        "row": "Row_1tc7m0w",
+        "columns": null
+      },
+      "id": "Field_1osd0js",
+      "key": "job_mode"
+    },
+    {
+      "label": "Weekly hours",
+      "type": "number",
+      "layout": {
+        "row": "Row_0a6s4jj",
+        "columns": null
+      },
+      "id": "Field_1hf3pag",
+      "key": "hours"
+    },
+    {
+      "label": "Annual salary",
+      "type": "number",
+      "layout": {
+        "row": "Row_1bmvu23",
+        "columns": null
+      },
+      "id": "Field_1po0py6",
+      "key": "pay"
+    },
+    {
+      "label": "Paid time off",
+      "type": "number",
+      "layout": {
+        "row": "Row_0uv594z",
+        "columns": null
+      },
+      "id": "Field_1wd39b1",
+      "key": "pto"
+    },
+    {
+      "label": "Benefits",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1epe9xb",
+        "columns": null
+      },
+      "id": "Field_0dnryly",
+      "key": "benefits"
+    },
+    {
+      "label": "Industry",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ddj2xr",
+        "columns": null
+      },
+      "id": "Field_120pf88",
+      "key": "industry"
+    },
+    {
+      "label": "Graduation level",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_198gb5c",
+        "columns": null
+      },
+      "id": "Field_1f9bb63",
+      "key": "min_education_level"
+    },
+    {
+      "values": [
+        {
+          "label": "German",
+          "value": "German"
+        },
+        {
+          "label": "English",
+          "value": "English"
+        }
+      ],
+      "label": "Language",
+      "type": "select",
+      "layout": {
+        "row": "Row_121qe42",
+        "columns": null
+      },
+      "id": "Field_001bzjd",
+      "key": "language"
     }
   ],
   "type": "default",
@@ -2348,14 +2496,6 @@
         <dc:Bounds x="185" y="335" width="17080" height="790" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1lwarof_di" bpmnElement="TextAnnotation_1lwarof">
-        <dc:Bounds x="15905" y="2360" width="99.98292349726775" height="29.997723132969035" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_12xn4iv_di" bpmnElement="TextAnnotation_12xn4iv">
-        <dc:Bounds x="16500" y="2362" width="155" height="26" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0gaty6f" bpmnElement="DataStoreReference_0ljhcgk">
         <dc:Bounds x="7245" y="2250" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -3478,14 +3618,14 @@
         <dc:Bounds x="16360" y="3240" width="100" height="27" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_1etz7p3_di" bpmnElement="Association_1etz7p3">
-        <di:waypoint x="15976" y="2340" />
-        <di:waypoint x="15964" y="2360" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0hskjn1_di" bpmnElement="Association_0hskjn1">
-        <di:waypoint x="16564" y="2362" />
-        <di:waypoint x="16580" y="2340" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1lwarof_di" bpmnElement="TextAnnotation_1lwarof">
+        <dc:Bounds x="15905" y="2360" width="99.98292349726775" height="29.997723132969035" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_12xn4iv_di" bpmnElement="TextAnnotation_12xn4iv">
+        <dc:Bounds x="16500" y="2362" width="155" height="26" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1qcrmp9_di" bpmnElement="Event_1a2xikj">
         <dc:Bounds x="11472" y="2257" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -4544,6 +4684,14 @@
       <bpmndi:BPMNEdge id="Association_0y548de_di" bpmnElement="Association_0y548de">
         <di:waypoint x="16463" y="3198" />
         <di:waypoint x="16423" y="3240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1etz7p3_di" bpmnElement="Association_1etz7p3">
+        <di:waypoint x="15976" y="2340" />
+        <di:waypoint x="15964" y="2360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0hskjn1_di" bpmnElement="Association_0hskjn1">
+        <di:waypoint x="16564" y="2362" />
+        <di:waypoint x="16580" y="2340" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_19f8ut9_di" bpmnElement="Participant_19f8ut9" isHorizontal="true">
         <dc:Bounds x="155" y="80" width="17110" height="60" />
