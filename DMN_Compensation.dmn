@@ -54,7 +54,7 @@
       </rule>
       <rule id="DecisionRule_072y0dh">
         <inputEntry id="UnaryTests_1r9yr21">
-          <text>[5..10]</text>
+          <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0r1vfs4">
           <text>"Worker"</text>
@@ -120,7 +120,7 @@
       </rule>
       <rule id="DecisionRule_0fwrjtw">
         <inputEntry id="UnaryTests_1tz7glq">
-          <text>[5..10]</text>
+          <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0cc0grc">
           <text>"Intern"</text>
@@ -175,7 +175,7 @@
       </rule>
       <rule id="DecisionRule_1a35p11">
         <inputEntry id="UnaryTests_0u9d4sg">
-          <text>[5..10]</text>
+          <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_159hj7e">
           <text>"Manager"</text>

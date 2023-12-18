@@ -66,7 +66,7 @@
         "required": false
       },
       "disabled": false,
-      "readonly": true
+      "readonly": false
     },
     {
       "values": [
@@ -95,7 +95,7 @@
       },
       "id": "Field_1rcqdqz",
       "key": "jobType",
-      "readonly": true,
+      "readonly": false,
       "defaultValue": "value",
       "disabled": false
     },
@@ -803,20 +803,20 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=decision = "False"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1ta7biv" name="no" sourceRef="Gateway_01mke92" targetRef="Event_175cmn0">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=capacity="False"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(capacity)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0oj3wdu" name="no" sourceRef="Gateway_0y7aibe" targetRef="Gateway_01mke92">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_signed="False"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(contract_signed)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0ksevcv" name="yes" sourceRef="Gateway_01mke92" targetRef="Gateway_0fwtvq7">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=capacity="True"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=capacity</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_03y4grx" sourceRef="Activity_1hrx44c" targetRef="Event_0xpwdbg" />
     <bpmn:sequenceFlow id="Flow_0we1gj9" name="yes" sourceRef="Gateway_0fwtvq7" targetRef="Activity_1hrx44c">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_phase&gt;3</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_cycle&gt;3</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1noaayx" name="no" sourceRef="Gateway_0fwtvq7" targetRef="Activity_0ecanps">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_phase&lt;=3</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_cycle&lt;=3</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0ujlk0o" sourceRef="Activity_0ecanps" targetRef="Activity_1jobk0j" />
     <bpmn:sequenceFlow id="Flow_0l52oej" sourceRef="Activity_1bud1nu" targetRef="Gateway_1ow7yy4" />
@@ -825,7 +825,7 @@
     <bpmn:sequenceFlow id="Flow_1ebrre5" sourceRef="Gateway_07w8oqs" targetRef="Event_0mymrj5" />
     <bpmn:sequenceFlow id="Flow_1xzoild" sourceRef="Activity_050qlb5" targetRef="Gateway_0y7aibe" />
     <bpmn:sequenceFlow id="Flow_092puag" name="yes" sourceRef="Gateway_0y7aibe" targetRef="Activity_0y6exwu">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_signed="True"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=contract_signed</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1gh1tao" sourceRef="Event_0ldettd" targetRef="Activity_050qlb5" />
     <bpmn:sequenceFlow id="Flow_0ays6ye" sourceRef="Activity_00tdwot" targetRef="Gateway_0wf49r2" />
@@ -1559,17 +1559,6 @@
     <bpmn:sendTask id="Activity_1bud1nu" name="send contract and job description to WEPLACM">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sendContract" />
-        <zeebe:ioMapping>
-          <zeebe:input source="=jobType" target="jobType" />
-          <zeebe:input source="=compensation" target="compensation" />
-          <zeebe:output source="=jobType" target="jobType" />
-          <zeebe:output source="=compensation" target="Compensation" />
-          <zeebe:output source="=number_of_positions" target="amountOfWorkers" />
-        </zeebe:ioMapping>
-        <zeebe:taskHeaders>
-          <zeebe:header key="a" value="jobType" />
-          <zeebe:header key="ab" value="compensation" />
-        </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0qlstxg</bpmn:incoming>
       <bpmn:outgoing>Flow_0l52oej</bpmn:outgoing>
