@@ -21,7 +21,7 @@
       <output id="Output_1" label="compensation" typeRef="number" />
       <rule id="DecisionRule_0nivq95">
         <inputEntry id="UnaryTests_0zwfse5">
-          <text>[0..1]</text>
+          <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1usmcrj">
           <text>"Worker"</text>
@@ -76,7 +76,7 @@
       </rule>
       <rule id="DecisionRule_1r1yeso">
         <inputEntry id="UnaryTests_1pf9x3l">
-          <text>[0..1]</text>
+          <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0upd15u">
           <text>"CEO"</text>
@@ -87,7 +87,7 @@
       </rule>
       <rule id="DecisionRule_0aw07bi">
         <inputEntry id="UnaryTests_1fesd4f">
-          <text>[0..1]</text>
+          <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1d2dnlq">
           <text>"Intern"</text>
@@ -142,7 +142,7 @@
       </rule>
       <rule id="DecisionRule_0zsu2lo">
         <inputEntry id="UnaryTests_1etblqz">
-          <text>[0..1]</text>
+          <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1l7shzx">
           <text>"Manager"</text>
