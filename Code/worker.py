@@ -3,7 +3,7 @@ import asyncio
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
-from db import * 
+from db import Databank 
 
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
@@ -100,8 +100,21 @@ def main():
         print("Inserting into DB")
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language)
        
+    #receive Candidates from WEPLACM
+    @worker.task(task_type="storeAndSortCandidates")
+    async def store_and_sort_candidates(job: Job, first_name: str, last_name: str, gender: str, email:str, linkedin: str, adress: str, city: str, zip_code: str, country: str, age: int, previous_company: str, rating: int):
         
-    
+        db.insert_candidates_in_db(job.process_instance_key, first_name, last_name, gender, email, linkedin, adress, city, zip_code, country, age, previous_company, rating)
+        print("Candidates inserted in CandidateDB") 
+
+    #move the first 19 entrys in the topcandidateDB
+    @worker.task(task_type="moveCandidatesToTopDatabase")
+    async def move_candidates_to_topDatabase(self):
+        db.move_top10_candidates_into_topCandidateDB()
+        print("Candidates moved")
+
+
+
     ##  else:
     ## Worker runs until it will be canceled manually
     ##

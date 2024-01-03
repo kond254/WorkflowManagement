@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0atk1t9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="170515db-6022-4723-a9e5-566225bd305d">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0atk1t9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="170515db-6022-4723-a9e5-566225bd305d">
   <bpmn:collaboration id="BPMN_15_12_23">
     <bpmn:participant id="Participant_1fzour1" name="WEPLACM" />
     <bpmn:participant id="Participant_0ek1uqk" name="WBIG" processRef="Process_0tyj0f6" />
@@ -482,7 +482,6 @@
         <bpmn:flowNodeRef>Activity_0crbxow</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0je6110</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0kjqywr</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0pp90en</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0baw2fv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0lp3xng</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0fzhrp9</bpmn:flowNodeRef>
@@ -645,7 +644,6 @@
             <bpmn:flowNodeRef>Activity_0crbxow</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0je6110</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0kjqywr</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0pp90en</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0baw2fv</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0lp3xng</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0wp1s97</bpmn:flowNodeRef>
@@ -828,9 +826,6 @@
     <bpmn:sequenceFlow id="Flow_1qqrqf0" name="no" sourceRef="Gateway_02mucq1" targetRef="Activity_0mp0xq0">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=remainingCandidatesInTopDB=0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_0all43o" name="yes" sourceRef="Gateway_02mucq1" targetRef="Activity_0pp90en">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=remainingCandidatesInTopDB&gt;=1</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_08l2qgb" sourceRef="Activity_0baw2fv" targetRef="Gateway_0wp1s97" />
     <bpmn:sequenceFlow id="Flow_18sb1ke" sourceRef="Activity_0fzhrp9" targetRef="Gateway_0qnk75a" />
     <bpmn:sequenceFlow id="Flow_0cxt2bn" sourceRef="Activity_0dlsb5s" targetRef="Gateway_0qnk75a" />
@@ -997,7 +992,6 @@
     <bpmn:sequenceFlow id="Flow_0m4ewv6" sourceRef="Gateway_0wf49r2" targetRef="Gateway_02w8khj" />
     <bpmn:sequenceFlow id="Flow_0o99ve4" sourceRef="Gateway_02w8khj" targetRef="Event_1w4g21g" />
     <bpmn:sequenceFlow id="Flow_115hh8b" sourceRef="Activity_1lo72ql" targetRef="Gateway_0wf49r2" />
-    <bpmn:sequenceFlow id="Flow_17umfrg" sourceRef="Activity_0pp90en" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_0jjt555" name="no" sourceRef="Gateway_0kjqywr" targetRef="Activity_0je6110">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=countVar &lt; DBcount</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -1060,28 +1054,11 @@
     </bpmn:serviceTask>
     <bpmn:dataStoreReference id="DataStoreReference_0437vv2" name="systemDB" />
     <bpmn:exclusiveGateway id="Gateway_0kjqywr" name="countVar =&#10;countDB">
-      <bpmn:incoming>Flow_17umfrg</bpmn:incoming>
       <bpmn:incoming>Flow_0z9g8jy</bpmn:incoming>
+      <bpmn:incoming>Flow_1meeee9</bpmn:incoming>
       <bpmn:outgoing>Flow_0jjt555</bpmn:outgoing>
       <bpmn:outgoing>Flow_1fdj5oy</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:dataStoreReference id="DataStoreReference_1f05rmp" name="topCandidateDB" />
-    <bpmn:serviceTask id="Activity_0pp90en" name="Checking topCandidateDB count">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="countDB" />
-        <zeebe:ioMapping>
-          <zeebe:output source="=countDB" target="countDB" />
-          <zeebe:output source="=countVar" target="countVar" />
-        </zeebe:ioMapping>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0all43o</bpmn:incoming>
-      <bpmn:outgoing>Flow_17umfrg</bpmn:outgoing>
-      <bpmn:property id="Property_1yik1dt" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_1gdwdkm">
-        <bpmn:sourceRef>DataStoreReference_1f05rmp</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1yik1dt</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-    </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_0baw2fv" name="schedule interview date">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="scheduleInterviewDate" />
@@ -1240,7 +1217,7 @@
     <bpmn:exclusiveGateway id="Gateway_02mucq1" name="any candidate passed?">
       <bpmn:incoming>Flow_15x3xrj</bpmn:incoming>
       <bpmn:outgoing>Flow_1qqrqf0</bpmn:outgoing>
-      <bpmn:outgoing>Flow_0all43o</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1meeee9</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_1w8696g" name="check remaining candidates">
       <bpmn:extensionElements>
@@ -2168,6 +2145,9 @@
         <bpmn:targetRef>Property_1mernez</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_1meeee9" name="yes" sourceRef="Gateway_02mucq1" targetRef="Gateway_0kjqywr">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=remainingCandidatesInTopDB=1</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:textAnnotation id="TextAnnotation_1yvvd5v">
       <bpmn:text>Count+1</bpmn:text>
     </bpmn:textAnnotation>
@@ -2432,15 +2412,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="7094" y="2183" width="53" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0fi2jp7" bpmnElement="DataStoreReference_1f05rmp" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="7015" y="2250" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="6999" y="2307" width="81" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1v7pehq_di" bpmnElement="Activity_0pp90en" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="6990" y="2125" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06e4jbj_di" bpmnElement="Activity_0baw2fv">
         <dc:Bounds x="7698" y="2565" width="100" height="80" />
@@ -3617,13 +3588,6 @@
           <dc:Bounds x="6874" y="2203" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0all43o_di" bpmnElement="Flow_0all43o">
-        <di:waypoint x="6890" y="2165" />
-        <di:waypoint x="6990" y="2165" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="6898" y="2150" width="17" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08l2qgb_di" bpmnElement="Flow_08l2qgb">
         <di:waypoint x="7748" y="2565" />
         <di:waypoint x="7748" y="2190" />
@@ -4199,10 +4163,6 @@
         <di:waypoint x="3830" y="2160" />
         <di:waypoint x="3830" y="2350" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_17umfrg_di" bpmnElement="Flow_17umfrg">
-        <di:waypoint x="7090" y="2165" />
-        <di:waypoint x="7125" y="2165" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jjt555_di" bpmnElement="Flow_0jjt555">
         <di:waypoint x="7175" y="2165" />
         <di:waypoint x="7220" y="2165" />
@@ -4391,6 +4351,13 @@
         <di:waypoint x="6715" y="1222" />
         <di:waypoint x="6715" y="1248" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1meeee9_di" bpmnElement="Flow_1meeee9">
+        <di:waypoint x="6890" y="2165" />
+        <di:waypoint x="7125" y="2165" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="6999" y="2147" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_19f8ut9_di" bpmnElement="Participant_19f8ut9" isHorizontal="true">
         <dc:Bounds x="155" y="80" width="17105" height="60" />
         <bpmndi:BPMNLabel />
@@ -4402,10 +4369,6 @@
       <bpmndi:BPMNEdge id="DataInputAssociation_1bcqdxp_di" bpmnElement="DataInputAssociation_1bcqdxp">
         <di:waypoint x="7270" y="2085" />
         <di:waypoint x="7270" y="2125" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_10x5jqw" bpmnElement="DataInputAssociation_1gdwdkm">
-        <di:waypoint x="7040" y="2250" />
-        <di:waypoint x="7040" y="2205" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1e3zm5q_di" bpmnElement="DataInputAssociation_1e3zm5q">
         <di:waypoint x="7620" y="2605" />
