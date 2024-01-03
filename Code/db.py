@@ -90,17 +90,17 @@ class Databank:
         with con:
             cur = con.cursor()
 
-            sql_query = "DELETE FROM TopCandidateDB WHERE first_name = 'first_name' AND last_name = 'last_name';"
+            sql_query = f"DELETE FROM TopCandidateDB WHERE first_name = {first_name} AND last_name = {last_name};"
             cur.execute(sql_query)
             con.commit()
             print("Candidate removed from TopCandidateDatabase")
 
 
-    def check_amount_of_candidates(self):
+    def check_amount_of_candidates(self, process_id: int):
         with con:
             cur = con.cursor()
 
-            sql_query = "SELECT COUNT(*) FROM TopCandidateDB"
+            sql_query = f"SELECT COUNT(CandidateID) FROM TopCandidateDB WHERE ProcessID={process_id}"
             cur.execute(sql_query)
             con.commit()
             print(cur.execute(sql_query))
