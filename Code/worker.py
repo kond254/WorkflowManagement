@@ -102,10 +102,24 @@ def main():
        
     #receive Candidates from WEPLACM
     @worker.task(task_type="storeAndSortCandidates")
-    async def store_and_sort_candidates(job: Job, first_name: str, last_name: str, gender: str, email:str, linkedin: str, adress: str, city: str, zip_code: str, country: str, age: int, previous_company: str, rating: int):
-        
-        db.insert_candidates_in_db(job.process_instance_key, first_name, last_name, gender, email, linkedin, adress, city, zip_code, country, age, previous_company, rating)
-        print("Candidates inserted in CandidateDB") 
+    async def store_and_sort_candidates(job: Job, candidates):#, first_name: str, last_name: str, gender: str, email:str, linkedin: str, adress: str, city: str, zip_code: str, country: str, age: int, previous_company: str, rating: int):
+        for candidate in candidates:
+            process_id = job.process_instance_key
+            first_name = candidate.get("first_name")
+            last_name = candidate.get("last_name")
+            gender = candidate.get("gender")
+            email = candidate.get("email")
+            linkedin = candidate.get("linkedin")
+            address = candidate.get("adress")  # Note: "adress" is a typo, it should be "address"
+            city = candidate.get("city")
+            zip_code = candidate.get("zip_code")
+            country = candidate.get("country")
+            age = candidate.get("age")
+            previous_company = candidate.get("previous_company")
+            rating = candidate.get("rating")
+            db.insert_candidates_in_db(process_id, first_name, last_name, gender, email, linkedin, address, city, zip_code, country, age, previous_company, rating)
+            print("Candidate added in CandidateDB")
+        print("All Candidates are added in CandidateDB") 
 
     #move the first 19 entrys in the topcandidateDB
     @worker.task(task_type="moveCandidatesToTopDatabase")
