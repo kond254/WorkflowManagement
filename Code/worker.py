@@ -5,6 +5,7 @@ import random
 from clientWeplacm import *
 from db import Databank 
 
+
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
                                       port=26500)
@@ -123,8 +124,8 @@ def main():
 
     #move the first 19 entrys in the topcandidateDB
     @worker.task(task_type="moveCandidatesToTopDatabase")
-    async def move_candidates_to_topDatabase(self):
-        db.move_top10_candidates_into_topCandidateDB()
+    async def move_candidates_to_topDatabase(job: Job):
+        db.move_top10_candidates_into_topCandidateDB(job.process_instance_key)
         print("Candidates moved")
 
 

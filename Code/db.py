@@ -1,4 +1,5 @@
 import sqlite3
+import re
 con = sqlite3.connect("wbig.db")
 
 
@@ -76,14 +77,21 @@ class Databank:
             print("Candidates Sorted descending")
             con.commit()
     
-    def move_top10_candidates_into_topCandidateDB(self):
-        with con:
+    def move_top10_candidates_into_topCandidateDB(self, process_id: int):
+        with open('SQL/fillTopCandidateWIthRemainingCandidates.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
+            #only one script at a time --> split
+            sql_scripts = [s.strip() for s in sql_content.split(';') if s.strip()]
             cur = con.cursor()
-
-            sql_query = "INSERT INTO TopCandidateDB SELECT * FROM Candidate LIMIT 10;"
-            cur.execute(sql_query)
-            sql_query = "DELETE FROM Candidate WHERE process_id = process_id LIMIT 10;"
-            cur.execute(sql_query)
+            x=0
+            for sql_script in sql_scripts:
+                if sql_script.strip():
+                    if x==0:
+                        cur.execute(sql_script, (process_id,))
+                    else:
+                        cur.execute(sql_script)
+                    x+=1
+            print("Candidate insertet into TopCandidate")
             con.commit()
             print("Top 10 Candidates moved")
 
