@@ -122,11 +122,17 @@ def main():
             print("Candidate added in CandidateDB")
         print("All Candidates are added in CandidateDB") 
 
-    #move the first 19 entrys in the topcandidateDB
+    #move the first 10 entrys in the topcandidateDB and Create Array for Multi Instance Process
     @worker.task(task_type="moveCandidatesToTopDatabase")
     async def move_candidates_to_topDatabase(job: Job):
         db.move_top10_candidates_into_topCandidateDB(job.process_instance_key)
         print("Candidates moved")
+        array = db.create_Array_for_MultiInstance()
+        print(array)
+        print("TopCandidate Array created")
+        return{"TopCandidates": array}
+        
+        
 
 
 

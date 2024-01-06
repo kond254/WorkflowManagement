@@ -1,5 +1,6 @@
 import sqlite3
-import re
+import random
+import numpy as np
 con = sqlite3.connect("wbig.db")
 
 
@@ -123,3 +124,18 @@ class Databank:
             cur.execute(sql_query)
             con.commit()
             print(cur.execute(sql_query))
+
+    def create_Array_for_MultiInstance(self):
+        with con:
+            cur = con.cursor()
+
+            sql_query = "SELECT CandidateID FROM TopCandidate"
+            cur.execute(sql_query)
+            result = cur.fetchall()
+            
+            TopCandidates = []
+
+            for row in result:
+                TopCandidates.append(row[0])
+
+            return TopCandidates
