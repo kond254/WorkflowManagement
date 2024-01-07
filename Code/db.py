@@ -98,39 +98,38 @@ class Databank:
 
 
     def remove_candidate_from_topCandidateDB(self, first_name: str, last_name: str):
-        with con:
+        with open('SQL/deleteCandidateFromTopCandidateDB.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
             cur = con.cursor()
 
-            sql_query = f"DELETE FROM TopCandidateDB WHERE first_name = {first_name} AND last_name = {last_name};"
-            cur.execute(sql_query)
+            cur.execute(sql_content)
             con.commit()
             print("Candidate removed from TopCandidateDatabase")
 
 
     def check_amount_of_candidates_in_TopCandidateDB(self, process_id: int):
-        with con:
+        with open('SQL/checkAmountTopCandidateDB.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
             cur = con.cursor()
 
-            sql_query = f"SELECT COUNT(CandidateID) FROM TopCandidateDB WHERE ProcessID={process_id}"
-            cur.execute(sql_query)
+            cur.execute(sql_content)
             con.commit()
-            print(cur.execute(sql_query))
 
     def check_amount_of_candidates_in_CandidateDB(self, process_id: int):
-        with con:
+        with open('SQL/checkAmountCandidateDB.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
             cur = con.cursor()
 
-            sql_query = f"SELECT COUNT(CandidateID) FROM Candidate WHERE ProcessID={process_id}"
-            cur.execute(sql_query)
+            cur.execute(sql_content)
             con.commit()
-            print(cur.execute(sql_query))
+            
 
-    def create_Array_for_MultiInstance(self):
-        with con:
+    def create_Array_for_MultiInstance(self, process_id: int):
+        with open('SQL/createArrayForMultiInstance.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
             cur = con.cursor()
 
-            sql_query = "SELECT CandidateID FROM TopCandidate"
-            cur.execute(sql_query)
+            cur.execute(sql_content)
             result = cur.fetchall()
             
             TopCandidates = []
@@ -139,3 +138,16 @@ class Databank:
                 TopCandidates.append(row[0])
 
             return TopCandidates
+        
+    def Join_TopCandidate_with_CandidateDB(self, Candidate: int):
+        with open('SQL/joinTopCandidateWithCandidateDB.sql', 'r') as sql_file:
+            sql_content = sql_file.read()
+            cur = con.cursor()
+
+            cur.execute(sql_content)
+            data = cur.fetchall()
+            con.commit()
+
+            return data
+
+            

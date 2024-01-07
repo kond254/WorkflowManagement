@@ -127,11 +127,20 @@ def main():
     async def move_candidates_to_topDatabase(job: Job):
         db.move_top10_candidates_into_topCandidateDB(job.process_instance_key)
         print("Candidates moved")
-        array = db.create_Array_for_MultiInstance()
+        array = db.create_Array_for_MultiInstance(job.process_instance_key)
         print(array)
         print("TopCandidate Array created")
-        return{"TopCandidates": array}
-        
+        return{"TopCandidates": array, "ArrayCounter": 0}
+    
+
+    @worker.task(task_type="fetchCandidateData")
+    async def fetch_TopCandidate_Data(job: Job, TopCandidates: list, ArrayCounter: int):
+            Candidate = TopCandidates[ArrayCounter]
+            ArrayCounter+1
+            CandidateDetails = db.Join_TopCandidate_with_CandidateDB(Candidate)
+            print(CandidateDetails)
+            print(db.Join_TopCandidate_with_CandidateDB(Candidate))
+            return{"CandidateData": CandidateDetails, "ArrayCounter": ArrayCounter}
         
 
 
