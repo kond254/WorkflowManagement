@@ -109,7 +109,6 @@ class Databank:
     def check_amount_of_candidates_in_TopCandidateDB(self, process_id: int):
         with con:
             cur = con.cursor()
-
             sql_query = f"SELECT COUNT(CandidateID) FROM TopCandidateDB WHERE ProcessID={process_id}"
             cur.execute(sql_query)
             con.commit()
