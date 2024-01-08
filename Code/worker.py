@@ -3,7 +3,8 @@ import asyncio
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
-from db import * 
+from db import Databank 
+
 
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
@@ -100,8 +101,50 @@ def main():
         print("Inserting into DB")
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language)
        
-        
+    #receive Candidates from WEPLACM
+    @worker.task(task_type="storeAndSortCandidates")
+    async def store_and_sort_candidates(job: Job, candidates):#, first_name: str, last_name: str, gender: str, email:str, linkedin: str, adress: str, city: str, zip_code: str, country: str, age: int, previous_company: str, rating: int):
+        for candidate in candidates:
+            process_id = job.process_instance_key
+            first_name = candidate.get("first_name")
+            last_name = candidate.get("last_name")
+            gender = candidate.get("gender")
+            email = candidate.get("email")
+            linkedin = candidate.get("linkedin")
+            address = candidate.get("adress")  # Note: "adress" is a typo, it should be "address"
+            city = candidate.get("city")
+            zip_code = candidate.get("zip_code")
+            country = candidate.get("country")
+            age = candidate.get("age")
+            previous_company = candidate.get("previous_company")
+            rating = candidate.get("rating")
+            db.insert_candidates_in_db(process_id, first_name, last_name, gender, email, linkedin, address, city, zip_code, country, age, previous_company, rating)
+            print("Candidate added in CandidateDB")
+        print("All Candidates are added in CandidateDB") 
+
+    #move the first 10 entrys in the topcandidateDB and Create Array for Multi Instance Process
+    @worker.task(task_type="moveCandidatesToTopDatabase")
+    async def move_candidates_to_topDatabase(job: Job):
+        db.move_top10_candidates_into_topCandidateDB(job.process_instance_key)
+        print("Candidates moved")
+        array = db.create_Array_for_MultiInstance(job.process_instance_key)
+        print(array)
+        print("TopCandidate Array created")
+        return{"TopCandidates": array, "ArrayCounter": 0}
     
+
+    @worker.task(task_type="fetchCandidateData")
+    async def fetch_TopCandidate_Data(job: Job, TopCandidates: list, ArrayCounter: int):
+            Candidate = TopCandidates[ArrayCounter]
+            ArrayCounter+1
+            CandidateDetails = db.Join_TopCandidate_with_CandidateDB(Candidate)
+            print(CandidateDetails)
+            print(db.Join_TopCandidate_with_CandidateDB(Candidate))
+            return{"CandidateData": CandidateDetails, "ArrayCounter": ArrayCounter}
+        
+
+
+
     ##  else:
     ## Worker runs until it will be canceled manually
     ##
