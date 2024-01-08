@@ -1,2 +1,3 @@
-SELECT COUNT(CandidateID) FROM TopCandidateDB 
-WHERE ProcessID={process_id}
+SELECT COUNT(Candidate.CandidateID) FROM TopCandidate 
+JOIN Candidate ON Candidate.CandidateID=TopCandidate.CandidateID
+WHERE ProcessID=?

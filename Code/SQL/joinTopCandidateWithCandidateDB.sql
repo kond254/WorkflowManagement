@@ -1,3 +1,3 @@
-SELECT * FROM TopCandidate 
+SELECT Candidate.* FROM TopCandidate 
 JOIN Candidate ON TopCandidate.CandidateID=Candidate.CandidateID 
-WHERE TopCandidate.CandidateID={Candidate}
+WHERE TopCandidate.CandidateID=?

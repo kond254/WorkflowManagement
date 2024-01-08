@@ -5,15 +5,13 @@ con = sqlite3.connect("wbig.db")
 
 
 class Databank:
+    
+    def __init__(self):
+        cur = con.cursor()
+        # Aktiviere Fremdschlüssel-Unterstützung
+        cur.execute("PRAGMA foreign_keys = ON")
 
-    #with open('SQL/createTableSystem.sql', 'r') as sql_file:
-    #    sql_script = sql_file.read()
-
-    #    cur = con.cursor()
-
-    #    cur.execute(sql_script)
-    #
-   
+  
     def insert_contract_in_systemdb(self, process_id: int, contract_signed: str, compensation: float):
         with con:
             cur = con.cursor()
@@ -69,8 +67,8 @@ class Databank:
             'age': age,
             'previous_company': previous_company,
             'rating': rating
+            }
             
-    }
             cur.execute(sql_script, tuple(data.values()))
             print("Candidate insertet into CandidateDB")
             sql_query = "SELECT * FROM Candidate ORDER BY rating DESC;"
@@ -97,39 +95,42 @@ class Databank:
             print("Top 10 Candidates moved")
 
 
-    def remove_candidate_from_topCandidateDB(self, first_name: str, last_name: str):
+    def remove_candidate_from_topCandidateDB(self, candidate_id:int):
         with open('SQL/deleteCandidateFromTopCandidateDB.sql', 'r') as sql_file:
             sql_content = sql_file.read()
             cur = con.cursor()
 
-            cur.execute(sql_content)
+            cur.execute(sql_content, (candidate_id,))
             con.commit()
             print("Candidate removed from TopCandidateDatabase")
 
 
     def check_amount_of_candidates_in_TopCandidateDB(self, process_id: int):
         with open('SQL/checkAmountTopCandidateDB.sql', 'r') as sql_file:
-            sql_content = sql_file.read()
+            sql_script = sql_file.read()
             cur = con.cursor()
 
-            cur.execute(sql_content)
-            con.commit()
+            cur.execute(sql_script, (process_id,))
+            result = cur.fetchall()
+            
+            return result
 
     def check_amount_of_candidates_in_CandidateDB(self, process_id: int):
         with open('SQL/checkAmountCandidateDB.sql', 'r') as sql_file:
-            sql_content = sql_file.read()
+            sql_script = sql_file.read()
             cur = con.cursor()
 
-            cur.execute(sql_content)
-            con.commit()
+            cur.execute(sql_script, (process_id,))
+            result = cur.fetchall()
+            return result
             
 
     def create_Array_for_MultiInstance(self, process_id: int):
         with open('SQL/createArrayForMultiInstance.sql', 'r') as sql_file:
-            sql_content = sql_file.read()
+            sql_script = sql_file.read()
             cur = con.cursor()
 
-            cur.execute(sql_content)
+            cur.execute(sql_script, (process_id,))
             result = cur.fetchall()
             
             TopCandidates = []
@@ -139,15 +140,15 @@ class Databank:
 
             return TopCandidates
         
-    def Join_TopCandidate_with_CandidateDB(self, Candidate: int):
+    def Join_TopCandidate_with_CandidateDB(self, CandidateID: int):
         with open('SQL/joinTopCandidateWithCandidateDB.sql', 'r') as sql_file:
             sql_content = sql_file.read()
             cur = con.cursor()
 
-            cur.execute(sql_content)
+            cur.execute(sql_content, (CandidateID,))
             data = cur.fetchall()
+            print(type(data))
             con.commit()
-
             return data
 
             
