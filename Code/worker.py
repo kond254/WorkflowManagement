@@ -4,7 +4,10 @@ from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
 from db import Databank 
-
+import random   
+import datetime
+import time
+from array import array
 
 def main():
     channel = create_insecure_channel(hostname="141.26.157.71",
@@ -162,7 +165,7 @@ def main():
         #
         #delete later
         #
-        data["final_selection_passed"]="False"
+        data["final_selection_passed"]="True"
         #
         #
         #
@@ -185,35 +188,54 @@ def main():
     @worker.task(task_type="checkTopCandidatesAmount")
     async def check_top_candidates_amount(job: Job):
         candidates_in_top_db = db.create_Array_for_MultiInstance(job.process_instance_key)
-        return {"remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0, "countDB": (len(candidates_in_top_db)-1), "countVar": 0}
+        return {"remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0, "countDB": (len(candidates_in_top_db)), "countVar": 0, "RemainingCandidates": candidates_in_top_db, "Beginn": "", "InterviewDate":"", "End":"" }
     
         
     @worker.task(task_type="checkEntrysInCandidateDB")
     async def check_candidates_amount(job: Job):
+        
         return {"remainingCandidatesInDB": db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)[0][0]}
     
     
     
     
     @worker.task(task_type="checkInterviewDate")
-    async def check_interview_date(job: Job, countDB: int):
-        candidates_in_top_db = db.create_Array_for_MultiInstance(job.process_instance_key)
-        target_date = '2024-01-10'
-        target_start_time = '08:00:00'
-        target_end_time = '14:00:00'
+    async def check_interview_date(job: Job, countVar: int, RemainingCandidates: list):
+        target_date = None
+        target_start_time = None
+        target_end_time = None
+        while(True):        
+            start_date =datetime.datetime.now() + datetime.timedelta(days=7)
+            end_date = start_date + datetime.timedelta(days=30)
+            random_date = start_date + datetime.timedelta(days=random.randint(0, (end_date - start_date).days))
+
+            hour = random.randint(8, 16)
+            minute = random.choice(['00', '15', '30', '45'])
+
+            target_date = random_date.strftime("%Y-%m-%d")
+            target_start_time=f'{hour}:{minute}'
+            target_end_time=f'{hour+1}:{minute}'
+            print(f'{target_date} _ {target_start_time} - {target_end_time}')
+            if db.check_interview_dates(target_date, target_start_time, target_end_time):
+                print('Time found')
+                break
+            time.sleep(5)
+            
+        #date found --> make entry in db
+        event_ids = db.make_entry_in_calendar(target_date, target_start_time, target_end_time)
+        time.sleep(5)
+        print(countVar)
+        print(RemainingCandidates)
+        countVar+=1
+        return{"countVar": countVar, "InterviewDate": target_date, "Beginn": target_start_time, "End": target_end_time, "CandidateID": RemainingCandidates[countVar-1], "EventIDs": event_ids}
         
-        
-        
-        
-        return {"countDB": (countDB+1)}
-        
-        
-        
-        
-    
-    
-    
-    
+          
+    @worker.task(task_type="checkInterviewerAnswer")
+    async def check_interviewer_answer(job: Job, hrRepAnswer: str, hrManagerAnswer: str, vpAnswer: str):
+        if hrRepAnswer == "False" or hrManagerAnswer== "Flase" or vpAnswer =="False":
+            return{"onlyConfirmations": False}
+        else:
+            return{"onlyConfirmations": True}
     
     
     

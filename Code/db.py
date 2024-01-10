@@ -2,20 +2,17 @@ import sqlite3
 import random
 import numpy as np
 con = sqlite3.connect("wbig.db")
-
+cur = con.cursor()
 
 class Databank:
-    
+
     def __init__(self):
-        cur = con.cursor()
         # Aktiviere Fremdschlüssel-Unterstützung
         cur.execute("PRAGMA foreign_keys = ON")
 
   
     def insert_contract_in_systemdb(self, process_id: int, contract_signed: str, compensation: float):
         with con:
-            cur = con.cursor()
-      
             cur.execute("INSERT INTO SystemDB (ProcessID, Contract, ContractSigned, Compensation) VALUES (" + str(process_id) +",\"\", "+str(contract_signed)+", "+str(compensation)+");")
             con.commit()
             print("DB INSERT EXECUTED")
@@ -23,9 +20,7 @@ class Databank:
             
     def insert_job_standards_in_db(self, process_id: int, jobType: str, jobTitle:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str):
         with open('SQL/insertIntoJobStandards.sql', 'r') as sql_file:
-            sql_script = sql_file.read()
-            cur = con.cursor()
-            
+            sql_script = sql_file.read()           
             data = {
             'job_process_instance_key': process_id,
             'jobTitle': jobTitle,
@@ -150,5 +145,53 @@ class Databank:
             print(type(data))
             con.commit()
             return data
+        
+    def check_interview_dates(self, target_date:str, target_start_time:str, target_end_time:str):
+        with open('SQL/checkCalendryEntry.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (target_date, target_start_time, target_end_time, target_start_time, target_end_time))
+            result = cur.fetchall()
+            return_var=False
+            if result:
+                return_var=False
+            else:
+                return_var=True
+            return return_var        
+        
+    
+    def make_entry_in_calendar(self, target_date:str, target_start_time:str, target_end_time:str):
+        data = [
+            (1, 'Candidate Interview', target_date, target_start_time, target_end_time),
+            (2, 'Candidate Interview', target_date, target_start_time, target_end_time),
+            (5, 'Candidate Interview', target_date, target_start_time, target_end_time)
+        ]
+        for x in data:
+            cur.execute(
+                """
+                INSERT INTO Kalender (PersonID, EventName, EventDate, EventStartTime, EventEndTime)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                x
+            )
+        print('')
+        con.commit()
+        print('Committed')
+        
+        cur.execute(
+        """
+        SELECT EventID FROM "Kalender"
+        WHERE EventDate=date(?) and EventStartTime=? and EventEndTime=?
+        """,
+        (target_date, target_start_time, target_end_time)
+        )
+        
+        single_tuple = tuple(item[0] for item in cur.fetchall())
+        print(f'EventIDs: {single_tuple}')
+        return single_tuple
+        
+            
+        
+
 
             
