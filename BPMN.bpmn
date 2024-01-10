@@ -470,6 +470,244 @@
   },
   "schemaVersion": 12
 }</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_0nvprf9">{
+  "components": [
+    {
+      "text": "# Interview Date",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0s3p8tv",
+        "columns": 5
+      },
+      "id": "Field_11yf9y7"
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "Date",
+      "label": "Date time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_1nytunn",
+        "columns": null
+      },
+      "id": "Field_0d34pdw",
+      "key": "InterviewDate"
+    },
+    {
+      "label": "Start Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0dv87qk",
+        "columns": null
+      },
+      "id": "Field_0kl4qf5",
+      "key": "Beginn",
+      "readonly": true
+    },
+    {
+      "label": "End Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f28d8z",
+        "columns": null
+      },
+      "id": "Field_10m09ku",
+      "key": "End",
+      "readonly": true
+    },
+    {
+      "values": [
+        {
+          "label": "Accept",
+          "value": "True"
+        },
+        {
+          "label": "Decline",
+          "value": "False"
+        }
+      ],
+      "label": "Answer",
+      "type": "select",
+      "layout": {
+        "row": "Row_0iufavw",
+        "columns": null
+      },
+      "id": "Field_13qkgtu",
+      "key": "hrRepAnswer",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0hyhrfr",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_3l6hpq3">{
+  "components": [
+    {
+      "text": "# Interview Date",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0s3p8tv",
+        "columns": 5
+      },
+      "id": "Field_11yf9y7"
+    },
+    {
+      "label": "Date",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1twkhtr",
+        "columns": null
+      },
+      "id": "Field_0eh9bd8",
+      "key": "InterviewDate",
+      "readonly": true
+    },
+    {
+      "label": "Start Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0dv87qk",
+        "columns": null
+      },
+      "id": "Field_0kl4qf5",
+      "key": "Beginn",
+      "readonly": true
+    },
+    {
+      "label": "End Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f28d8z",
+        "columns": null
+      },
+      "id": "Field_10m09ku",
+      "key": "End",
+      "readonly": true
+    },
+    {
+      "values": [
+        {
+          "label": "Accept",
+          "value": "True"
+        },
+        {
+          "label": "Decline",
+          "value": "False"
+        }
+      ],
+      "label": "Answer",
+      "type": "select",
+      "layout": {
+        "row": "Row_0iufavw",
+        "columns": null
+      },
+      "id": "Field_13qkgtu",
+      "key": "hrManagerAnswer",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0hyhrfr",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
+      <zeebe:userTaskForm id="UserTaskForm_0ulfkgn">{
+  "components": [
+    {
+      "text": "# Interview Date",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0s3p8tv",
+        "columns": 5
+      },
+      "id": "Field_11yf9y7"
+    },
+    {
+      "label": "Date",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1twkhtr",
+        "columns": null
+      },
+      "id": "Field_0eh9bd8",
+      "key": "InterviewDate",
+      "readonly": true
+    },
+    {
+      "label": "Start Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0dv87qk",
+        "columns": null
+      },
+      "id": "Field_0kl4qf5",
+      "key": "Beginn",
+      "readonly": true
+    },
+    {
+      "label": "End Time",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0f28d8z",
+        "columns": null
+      },
+      "id": "Field_10m09ku",
+      "key": "End",
+      "readonly": true
+    },
+    {
+      "values": [
+        {
+          "label": "Accept",
+          "value": "True"
+        },
+        {
+          "label": "Decline",
+          "value": "False"
+        }
+      ],
+      "label": "Answer",
+      "type": "select",
+      "layout": {
+        "row": "Row_0iufavw",
+        "columns": null
+      },
+      "id": "Field_13qkgtu",
+      "key": "vpAnswer",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0hyhrfr",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
     </bpmn:extensionElements>
     <bpmn:laneSet id="LaneSet_0u7uphf">
       <bpmn:lane id="Lane_16iycxx" name="Vice President">
@@ -479,7 +717,6 @@
       <bpmn:lane id="Lane_04526qd" name="HR department">
         <bpmn:flowNodeRef>Event_1h4a5c3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1q0cit7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0crbxow</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0je6110</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0kjqywr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0baw2fv</bpmn:flowNodeRef>
@@ -622,6 +859,7 @@
         <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0xiy9v6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_09h92rm</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_02hnk4e</bpmn:flowNodeRef>
@@ -641,7 +879,6 @@
           <bpmn:lane id="Lane_0ehcb9c" name="Recruiting Department">
             <bpmn:flowNodeRef>Event_1h4a5c3</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_1q0cit7</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0crbxow</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0je6110</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0kjqywr</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0baw2fv</bpmn:flowNodeRef>
@@ -752,6 +989,7 @@
             <bpmn:flowNodeRef>Event_17fi950</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0xiy9v6</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_09h92rm</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_03i0fbq" name="HR Representativ">
             <bpmn:flowNodeRef>Activity_0i1hmnp</bpmn:flowNodeRef>
@@ -819,7 +1057,7 @@
     <bpmn:sequenceFlow id="Flow_0je12mr" sourceRef="Activity_0zl8vmt" targetRef="Activity_04nz0hs" />
     <bpmn:sequenceFlow id="Flow_0lm4mm6" sourceRef="Activity_04tf7ac" targetRef="Activity_1w8696g" />
     <bpmn:sequenceFlow id="Flow_15x3xrj" sourceRef="Activity_1w8696g" targetRef="Gateway_02mucq1" />
-    <bpmn:sequenceFlow id="Flow_1udoqt7" sourceRef="Gateway_0wp1s97" targetRef="Gateway_029z5e7" />
+    <bpmn:sequenceFlow id="Flow_1udoqt7" sourceRef="Gateway_0wp1s97" targetRef="Activity_09h92rm" />
     <bpmn:sequenceFlow id="Flow_1ya07z9" sourceRef="Gateway_029z5e7" targetRef="Activity_0dlsb5s" />
     <bpmn:sequenceFlow id="Flow_0c41xsd" sourceRef="Gateway_029z5e7" targetRef="Activity_0i1hmnp" />
     <bpmn:sequenceFlow id="Flow_19h8nbp" sourceRef="Gateway_029z5e7" targetRef="Activity_0fzhrp9" />
@@ -842,10 +1080,10 @@
     <bpmn:sequenceFlow id="Flow_173pkbq" sourceRef="Event_04htwj0" targetRef="Activity_1n0cwrl" />
     <bpmn:sequenceFlow id="Flow_1xtrkzf" sourceRef="Activity_00f3su0" targetRef="Gateway_1mke17p" />
     <bpmn:sequenceFlow id="Flow_0g636h6" name="yes" sourceRef="Gateway_1mke17p" targetRef="Activity_01dodbz">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=onlyConfirmations="True"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=onlyConfirmations</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_135t7dy" name="no" sourceRef="Gateway_1mke17p" targetRef="Activity_0b89div">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=onlyConfirmations="False"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(onlyConfirmations)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1erf8hb" sourceRef="Activity_1x86wgs" targetRef="Gateway_0887945" />
     <bpmn:sequenceFlow id="Flow_1un2l99" sourceRef="Activity_0dbp754" targetRef="Gateway_0887945" />
@@ -995,8 +1233,6 @@
     <bpmn:sequenceFlow id="Flow_0jjt555" name="no" sourceRef="Gateway_0kjqywr" targetRef="Activity_0je6110">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=countVar &lt; countDB</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1c26k1c" sourceRef="Activity_0je6110" targetRef="Activity_0crbxow" />
-    <bpmn:sequenceFlow id="Flow_07mgfyk" sourceRef="Activity_0crbxow" targetRef="Gateway_1q0cit7" />
     <bpmn:sequenceFlow id="Flow_03kc9nz" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0wp1s97" />
     <bpmn:sequenceFlow id="Flow_0z9g8jy" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0kjqywr" />
     <bpmn:sequenceFlow id="Flow_1fdj5oy" name="yes" sourceRef="Gateway_0kjqywr" targetRef="Event_1h4a5c3">
@@ -1013,35 +1249,16 @@
       <bpmn:incoming>Flow_1fdj5oy</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:parallelGateway id="Gateway_1q0cit7">
-      <bpmn:incoming>Flow_07mgfyk</bpmn:incoming>
+      <bpmn:incoming>Flow_00g0cnm</bpmn:incoming>
       <bpmn:outgoing>Flow_03kc9nz</bpmn:outgoing>
       <bpmn:outgoing>Flow_0z9g8jy</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:serviceTask id="Activity_0crbxow" name="Schedule interview date for candidate">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="scheduleInterview" />
-        <zeebe:ioMapping>
-          <zeebe:input source="=countVar" target="countVar" />
-          <zeebe:input source="=countDB" target="countDB" />
-          <zeebe:output source="=countVar" target="countVar" />
-          <zeebe:output source="=countDB" target="countDB" />
-        </zeebe:ioMapping>
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1c26k1c</bpmn:incoming>
-      <bpmn:outgoing>Flow_07mgfyk</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_0je6110" name="Checking Interview date">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="checkInterviewDate" />
-        <zeebe:ioMapping>
-          <zeebe:input source="=countVar" target="countVar" />
-          <zeebe:input source="=countDB" target="countDB" />
-          <zeebe:output source="=countVar" target="countVar" />
-          <zeebe:output source="=countDB" target="countDB" />
-        </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0jjt555</bpmn:incoming>
-      <bpmn:outgoing>Flow_1c26k1c</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00g0cnm</bpmn:outgoing>
       <bpmn:property id="Property_1krec8r" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_0ada92q">
         <bpmn:sourceRef>DataStoreReference_0ljhcgk</bpmn:sourceRef>
@@ -1083,14 +1300,23 @@
     <bpmn:dataStoreReference id="DataStoreReference_0bp15sw" name="systemDB" />
     <bpmn:dataStoreReference id="DataStoreReference_1oc4imu" name="topCandidateDB" />
     <bpmn:userTask id="Activity_0dlsb5s" name="checking timeslot">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_0ulfkgn" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ya07z9</bpmn:incoming>
       <bpmn:outgoing>Flow_0cxt2bn</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0fzhrp9" name="checking timeslot">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_3l6hpq3" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_19h8nbp</bpmn:incoming>
       <bpmn:outgoing>Flow_18sb1ke</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_0i1hmnp" name="checking timeslot">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_0nvprf9" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0c41xsd</bpmn:incoming>
       <bpmn:outgoing>Flow_0gffu9p</bpmn:outgoing>
     </bpmn:userTask>
@@ -1100,7 +1326,7 @@
       <bpmn:outgoing>Flow_1udoqt7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:parallelGateway id="Gateway_029z5e7">
-      <bpmn:incoming>Flow_1udoqt7</bpmn:incoming>
+      <bpmn:incoming>Flow_1mswtw9</bpmn:incoming>
       <bpmn:outgoing>Flow_19h8nbp</bpmn:outgoing>
       <bpmn:outgoing>Flow_0c41xsd</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ya07z9</bpmn:outgoing>
@@ -2164,9 +2390,12 @@
     <bpmn:startEvent id="Event_0xiy9v6" name="Need for new Job">
       <bpmn:outgoing>Flow_0o9izjp</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:textAnnotation id="TextAnnotation_1yvvd5v">
-      <bpmn:text>Count+1</bpmn:text>
-    </bpmn:textAnnotation>
+    <bpmn:sequenceFlow id="Flow_00g0cnm" sourceRef="Activity_0je6110" targetRef="Gateway_1q0cit7" />
+    <bpmn:sequenceFlow id="Flow_1mswtw9" sourceRef="Activity_09h92rm" targetRef="Gateway_029z5e7" />
+    <bpmn:userTask id="Activity_09h92rm" name="test">
+      <bpmn:incoming>Flow_1udoqt7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mswtw9</bpmn:outgoing>
+    </bpmn:userTask>
     <bpmn:textAnnotation id="TextAnnotation_0vuuhgx">
       <bpmn:text>remainingCandidatesInDB</bpmn:text>
     </bpmn:textAnnotation>
@@ -2188,7 +2417,6 @@
     <bpmn:textAnnotation id="TextAnnotation_17w8og7">
       <bpmn:text>variable: contract_phase</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="Association_0hm6ik3" sourceRef="Activity_0crbxow" targetRef="TextAnnotation_1yvvd5v" />
     <bpmn:association id="Association_0xgegci" sourceRef="Event_19a1iuy" targetRef="TextAnnotation_09n5uop" />
     <bpmn:association id="Association_0fp4g2i" sourceRef="Gateway_1qwzx1e" targetRef="TextAnnotation_0vuuhgx" />
     <bpmn:association id="Association_187ego6" sourceRef="Event_17mmcer" targetRef="TextAnnotation_13or0ij" />
@@ -2410,9 +2638,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1wx55ok_di" bpmnElement="Gateway_1q0cit7">
         <dc:Bounds x="7525" y="2140" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_149scg2_di" bpmnElement="Activity_0crbxow">
-        <dc:Bounds x="7380" y="2125" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1ctpl86_di" bpmnElement="Activity_0je6110">
         <dc:Bounds x="7220" y="2125" width="100" height="80" />
@@ -3206,6 +3431,9 @@
           <dc:Bounds x="3646" y="2220" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z3x3l8_di" bpmnElement="Activity_09h92rm">
+        <dc:Bounds x="7698" y="2000" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
         <dc:Bounds x="6210" y="1248" width="780" height="490" />
         <bpmndi:BPMNLabel />
@@ -3319,10 +3547,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="283" y="2400" width="88" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1yvvd5v_di" bpmnElement="TextAnnotation_1yvvd5v">
-        <dc:Bounds x="7440" y="2065" width="100" height="30" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0vuuhgx_di" bpmnElement="TextAnnotation_0vuuhgx">
         <dc:Bounds x="6890" y="2500" width="100" height="41" />
@@ -3586,8 +3810,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1udoqt7_di" bpmnElement="Flow_1udoqt7">
         <di:waypoint x="7748" y="2140" />
-        <di:waypoint x="7748" y="1373" />
-        <di:waypoint x="7820" y="1373" />
+        <di:waypoint x="7748" y="2080" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ya07z9_di" bpmnElement="Flow_1ya07z9">
         <di:waypoint x="7845" y="1348" />
@@ -4192,14 +4415,6 @@
           <dc:Bounds x="7191" y="2147" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1c26k1c_di" bpmnElement="Flow_1c26k1c">
-        <di:waypoint x="7320" y="2165" />
-        <di:waypoint x="7380" y="2165" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_07mgfyk_di" bpmnElement="Flow_07mgfyk">
-        <di:waypoint x="7480" y="2165" />
-        <di:waypoint x="7525" y="2165" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_03kc9nz_di" bpmnElement="Flow_03kc9nz">
         <di:waypoint x="7575" y="2165" />
         <di:waypoint x="7723" y="2165" />
@@ -4278,10 +4493,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6999" y="2147" width="17" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0hm6ik3_di" bpmnElement="Association_0hm6ik3">
-        <di:waypoint x="7458" y="2125" />
-        <di:waypoint x="7479" y="2095" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_0xgegci_di" bpmnElement="Association_0xgegci">
         <di:waypoint x="3980" y="2562" />
@@ -4379,6 +4590,15 @@
       <bpmndi:BPMNEdge id="Association_1avwgzc_di" bpmnElement="Association_1avwgzc">
         <di:waypoint x="6715" y="1222" />
         <di:waypoint x="6715" y="1248" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00g0cnm_di" bpmnElement="Flow_00g0cnm">
+        <di:waypoint x="7320" y="2165" />
+        <di:waypoint x="7525" y="2165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mswtw9_di" bpmnElement="Flow_1mswtw9">
+        <di:waypoint x="7748" y="2000" />
+        <di:waypoint x="7748" y="1373" />
+        <di:waypoint x="7820" y="1373" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_19f8ut9_di" bpmnElement="Participant_19f8ut9" isHorizontal="true">
         <dc:Bounds x="155" y="80" width="17105" height="60" />
