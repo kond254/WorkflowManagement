@@ -171,20 +171,55 @@ def main():
         return data
         
     # do smth
+    #
+    #
+    #
+    #
+    #
     @worker.task(task_type="rejectionMailToCandidate")
     async def rejection_mail_to_candidate(job: Job, email:str):
         print("Mail send") 
 
 
-    
+    # create also variables as dbcount and countvar for later stages 
     @worker.task(task_type="checkTopCandidatesAmount")
     async def check_top_candidates_amount(job: Job):
-        return {"remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0}
+        candidates_in_top_db = db.create_Array_for_MultiInstance(job.process_instance_key)
+        return {"remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0, "countDB": (len(candidates_in_top_db)-1), "countVar": 0}
     
         
     @worker.task(task_type="checkEntrysInCandidateDB")
     async def check_candidates_amount(job: Job):
         return {"remainingCandidatesInDB": db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)[0][0]}
+    
+    
+    
+    
+    @worker.task(task_type="checkInterviewDate")
+    async def check_interview_date(job: Job, countDB: int):
+        candidates_in_top_db = db.create_Array_for_MultiInstance(job.process_instance_key)
+        target_date = '2024-01-10'
+        target_start_time = '08:00:00'
+        target_end_time = '14:00:00'
+        
+        
+        
+        
+        return {"countDB": (countDB+1)}
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     ##  else:
     ## Worker runs until it will be canceled manually
