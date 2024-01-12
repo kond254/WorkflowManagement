@@ -181,7 +181,11 @@ def main():
     #
     @worker.task(task_type="rejectionMailToCandidate")
     async def rejection_mail_to_candidate(job: Job, email:str):
-        print("Mail send") 
+        print("Rejection Mail send") 
+    
+    @worker.task(task_type="sendCandidateInterviewDate")
+    async def send_candidate_interview_date(job: Job, email:str):
+        print("Interview Date send") 
 
 
     # create also variables as dbcount and countvar for later stages 
@@ -236,6 +240,46 @@ def main():
             return{"onlyConfirmations": False}
         else:
             return{"onlyConfirmations": True}
+        
+    @worker.task(task_type="storeDateAnswer")
+    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: int):
+        db.store_answer(InterviewAccepted, CandidateID)
+
+    @worker.task(task_type="checkingDateAnswers")
+    async def checking_date_answers(job: Job):
+        posAnswers = db.checking_date_answers(job.process_instance_key)
+        entrysInDb = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        percentage = (posAnswers/entrysInDb)*100
+        if percentage > 60:
+            return{"percentage": True}
+        else:
+            return{"percentage": False}
+        
+    @worker.task(task_type="deleteTopCandidatesDeclinedInterview")
+    async def delete_candidates_declined_interview(job: Job):
+        db.delete_TopCandidates(job.process_instance_key)
+    
+    @worker.task(task_type="orderTopCandsidatesByInterview")
+    async def order_TopCandidates_by_interview(job: Job):
+        db.order_by_interview(job.process_instance_key)
+
+    @worker.task(task_type="cancelInterviewDateWithInterviewers")
+    async def cancle_interview_date_with_interviewers(job: Job, CandidateID: int):
+        db.delete_TopCandidate_due_Candidate_rejection(CandidateID)
+
+    @worker.task(task_type="calculateEvaluation")
+    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentative: int, ratingVP: int):
+        finalScore = ratingHrManager + ratingHrRepresentative + ratingVP
+        if finalScore > 20:
+            return{"finalSelectionPassed": True}
+        else:
+            return{"finalSelectionPassed": False}
+        
+    
+        
+        
+            
+           
     
     
     

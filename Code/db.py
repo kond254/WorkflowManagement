@@ -190,8 +190,41 @@ class Databank:
         print(f'EventIDs: {single_tuple}')
         return single_tuple
         
-            
-        
+    def store_answer(self, InterviewAccepted: int, CandidateID: int):
+        with open('SQL/storeInterviewDateAnswer.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            print(InterviewAccepted)
+            print(CandidateID)
+            cur.execute(sql_content, (InterviewAccepted, CandidateID, ))
+            print("DB Updated")
+    
+    def checking_date_answers(self, process_id: int):
+        with open('SQL/checkingDateAnswers.sql') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            result = cur.fetchall()
+            return result
+
+    def delete_TopCandidates(self, process_id: int):
+        with open('SQL/deleteTopCandidatesDeclinedInterview.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            print("Candidates Deleted")
+    
+    def order_by_interview(self, process_id: int):
+        with open('SQL/orderByInterview.sql')as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            print("Candidates Ordered")
 
 
-            
+    def delete_TopCandidate_due_Candidate_rejection(self, CandidateID: int):
+         with open('SQL/deleteCandidateDueRejection.sql')as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (CandidateID))
+            print("Candidate Deleted")
