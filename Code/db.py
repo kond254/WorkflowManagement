@@ -228,3 +228,17 @@ class Databank:
             cur = con.cursor()
             cur.execute(sql_content, (CandidateID))
             print("Candidate Deleted")
+
+    def store_job_answer(self, JobAccepted: int, CandidateID: int):
+        with open('SQL/storeFinalJobAnswer.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (JobAccepted, CandidateID, ))
+            print("DB Updated")
+
+    def delete_TopCandidates_final(self, process_id: int):
+        with open('SQL/deleteTopCandidatesDeclinedJob.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            print("Candidates Deleted")

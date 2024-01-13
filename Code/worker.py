@@ -183,6 +183,10 @@ def main():
     async def rejection_mail_to_candidate(job: Job, email:str):
         print("Rejection Mail send") 
     
+    @worker.task(task_type="sendConfirmationToCandidate")
+    async def send_confirmation_to_candidate(job: Job, email:str):
+        print("Job COnfirmation send")
+    
     @worker.task(task_type="sendCandidateInterviewDate")
     async def send_candidate_interview_date(job: Job, email:str):
         print("Interview Date send") 
@@ -275,11 +279,21 @@ def main():
         else:
             return{"finalSelectionPassed": False}
         
-    
+    @worker.task(task_type="storeFinalAnswer")
+    async def store_final_answer(job: Job, CandidateID: int, JobAccepted: int):
+        db.store_job_answer(JobAccepted, CandidateID)
         
-        
+    @worker.task(task_type="deleteTopCandidatesDeclinedJob")
+    async def delete_topcandidates_declined_job(job: Job):
+        db.delete_TopCandidates_final(job.process_instance_key)    
             
-           
+    @worker.task(task_type="checkingFinalAnswers")
+    async def checking_final_answers(job: Job):
+        amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        if amount >= 0:
+            return{"confirmations": True}
+        else:
+            return{"confirmations": False}
     
     
     
