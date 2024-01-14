@@ -294,13 +294,47 @@ def main():
             return{"confirmations": True}
         else:
             return{"confirmations": False}
+        
+    @worker.task(task_type="moveCandidateToNewEmployee")
+    async def move_candidates_to_new_employee(job: Job):
+        candidates = db.select_new_employees(job.process_instance_key)
+        db.join_new_employee_data(job.process_instance_key, candidates)
+
+    @worker.task(task_type="checkingEmployedCandidates")
+    async def checking_employed_candidates(job: Job):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        numberOfpositions = db.check_number_of_positions(job.process_instance_key)
+        if newEmployeeCount == numberOfpositions:
+            return{"positionsFilled": True}
+        else:
+            return{"positionsFilled": False}
     
+    @worker.task(task_type="sendWeplacmInfoEmployed")
+    async def send_weplacm_info_employed(job: Job):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        await cW.sendEmployeeAmount(newEmployeeCount)
     
+    @worker.task(task_type="checkInvoice")
+    async def check_invoice(job: Job, salarie_sum: int):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        Salary = db.check_annual_salary(job.process_instance_key)
+        CalculatedSalarySum = newEmployeeCount*Salary
+        if CalculatedSalarySum == salarie_sum:
+            return{"invoiceCorrect": True}
+        else:
+            return{"invoiceCorrect": False}
     
-    
-    
-    
-    
+    @worker.task(task_type="sendWeplacmInfoWrongInvoice")
+    async def send_weplacm_info_wrong_invoice(job: Job):
+        await cW.sendFaultyInvoiceInfo()
+        print("Faulty Invoice Info send")
+
+    @worker.task(task_type="sendWeplacmInfoWrongInvoice")
+    async def send_payment(job: Job):
+        await cW.sendPayment()
+        print("Payment send")
+
+
     ##  else:
     ## Worker runs until it will be canceled manually
     ##

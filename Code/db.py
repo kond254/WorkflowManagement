@@ -242,3 +242,43 @@ class Databank:
             cur = con.cursor()
             cur.execute(sql_content, (process_id))
             print("Candidates Deleted")
+
+    def select_new_employees(self, process_id: int):
+        with open('SQL/selectTopCandidates.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            candidateIDs = cur.fetchall()
+            return candidateIDs
+    
+    def join_new_employee_data(self, process_id: int, candidates: list):
+        with open('SQL/insertNewEmployees.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, candidates))
+            print("New Employees saved")
+            #delete Employees von TopCandidateDB und Candidate DB beides erforderlich?
+
+    def check_Count_new_employees(self, process_id: int):
+        with open('SQL/checkAmountnewEmployees.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            result = cur.fetchall()
+            return result    
+    
+    def check_number_of_positions(self, process_id: int):
+        with open('SQL/selectNumberOfPositions.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            result = cur.fetchall()
+            return result
+    
+    def check_annual_salary(self, process_id: int):
+        with open('SQL/checkAnnualSalary.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id))
+            result = cur.fetchall()
+            return result

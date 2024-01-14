@@ -27,7 +27,25 @@ class ClientWeplacm:
                                     "amountOfWorkers": amount_of_workers 
                                 }
                             )
-        
+    
+    async def sendEmployeeAmount(self, client: ZeebeClient, amount: int):
+        await client.publish_message(name="sendWeplacmInfoEmployed", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={
+                                    "amount": amount 
+                                })
+
+    async def sendFaultyInvoiceInfo(self, client: ZeebeClient):
+        await client.publish_message(name="FaultyInvoice", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={ 
+                                })
+    
+    async def sendPayment(self, client: ZeebeClient):
+        await client.publish_message(name="PaymentComplete", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={ 
+                                })
 
     async def sendContract(self, job_type: str, amount_of_workers: int, compensation_per_worker: float):
         print("Start Send Contract to Weplacm")
@@ -35,7 +53,9 @@ class ClientWeplacm:
         print("Channel created to Weplacm") #
         client = ZeebeClient(channel)
         print("Client created to Weplacm") # 
-        await self.send_contract_to_weplacm_2(client, job_type, amount_of_workers, compensation_per_worker)    
+        await self.send_contract_to_weplacm_2(client, job_type, amount_of_workers, compensation_per_worker) 
+
+
 
 
 
