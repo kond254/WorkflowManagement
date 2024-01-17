@@ -181,7 +181,15 @@ def main():
     #
     @worker.task(task_type="rejectionMailToCandidate")
     async def rejection_mail_to_candidate(job: Job, email:str):
-        print("Mail send") 
+        print("Rejection Mail send") 
+    
+    @worker.task(task_type="sendConfirmationToCandidate")
+    async def send_confirmation_to_candidate(job: Job, email:str):
+        print("Job COnfirmation send")
+    
+    @worker.task(task_type="sendCandidateInterviewDate")
+    async def send_candidate_interview_date(job: Job, email:str):
+        print("Interview Date send") 
 
 
     # create also variables as dbcount and countvar for later stages 
@@ -236,13 +244,98 @@ def main():
             return{"onlyConfirmations": False}
         else:
             return{"onlyConfirmations": True}
+        
+    @worker.task(task_type="storeDateAnswer")
+    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: bool):
+        db.store_answer(InterviewAccepted, CandidateID)
+        
+
+    @worker.task(task_type="checkingDateAnswers")
+    async def checking_date_answers(job: Job):
+        posAnswers = db.checking_date_answers(job.process_instance_key)
+        entrysInDb = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        percentage = (posAnswers/entrysInDb)*100
+        if percentage > 60:
+            return{"percentage": True}
+        else:
+            return{"percentage": False}
+        
+    @worker.task(task_type="deleteTopCandidatesDeclinedInterview")
+    async def delete_candidates_declined_interview(job: Job):
+        db.delete_TopCandidates(job.process_instance_key)
     
+    @worker.task(task_type="orderTopCandsidatesByInterview")
+    async def order_TopCandidates_by_interview(job: Job):
+        db.order_by_interview(job.process_instance_key)
+
+    @worker.task(task_type="cancelInterviewDateWithInterviewers")
+    async def cancle_interview_date_with_interviewers(job: Job, CandidateID: int):
+        db.delete_TopCandidate_due_Candidate_rejection(CandidateID)
+
+    @worker.task(task_type="calculateEvaluation")
+    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentative: int, ratingVP: int):
+        finalScore = ratingHrManager + ratingHrRepresentative + ratingVP
+        if finalScore > 20:
+            return{"finalSelectionPassed": True}
+        else:
+            return{"finalSelectionPassed": False}
+        
+    @worker.task(task_type="storeFinalAnswer")
+    async def store_final_answer(job: Job, CandidateID: int, JobAccepted: int):
+        db.store_job_answer(JobAccepted, CandidateID)
+        
+    @worker.task(task_type="deleteTopCandidatesDeclinedJob")
+    async def delete_topcandidates_declined_job(job: Job):
+        db.delete_TopCandidates_final(job.process_instance_key)    
+            
+    @worker.task(task_type="checkingFinalAnswers")
+    async def checking_final_answers(job: Job):
+        amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        if amount > 0:
+            return{"confirmations": True}
+        else:
+            return{"confirmations": False}
+        
+    @worker.task(task_type="moveCandidateToNewEmployee")
+    async def move_candidates_to_new_employee(job: Job):
+        candidates = db.select_new_employees(job.process_instance_key)
+        db.join_new_employee_data(job.process_instance_key, candidates)
+
+    @worker.task(task_type="checkingEmployedCandidates")
+    async def checking_employed_candidates(job: Job):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        numberOfpositions = db.check_number_of_positions(job.process_instance_key)
+        if newEmployeeCount == numberOfpositions:
+            return{"positionsFilled": True}
+        else:
+            return{"positionsFilled": False}
     
+    @worker.task(task_type="sendWeplacmInfoEmployed")
+    async def send_weplacm_info_employed(job: Job):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        await cW.sendEmployeeAmount(newEmployeeCount)
     
+    @worker.task(task_type="checkInvoice")
+    async def check_invoice(job: Job, salarie_sum: int):
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        Salary = db.check_annual_salary(job.process_instance_key)
+        CalculatedSalarySum = newEmployeeCount*Salary
+        if CalculatedSalarySum == salarie_sum:
+            return{"invoiceCorrect": True}
+        else:
+            return{"invoiceCorrect": False}
     
-    
-    
-    
+    @worker.task(task_type="sendWeplacmInfoWrongInvoice")
+    async def send_weplacm_info_wrong_invoice(job: Job):
+        await cW.sendFaultyInvoiceInfo()
+        print("Faulty Invoice Info send")
+
+    @worker.task(task_type="sendWeplacmInfoPayment")
+    async def send_payment(job: Job):
+        await cW.sendPayment()
+        print("Payment send")
+
+
     ##  else:
     ## Worker runs until it will be canceled manually
     ##

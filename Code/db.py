@@ -190,8 +190,92 @@ class Databank:
         print(f'EventIDs: {single_tuple}')
         return single_tuple
         
-            
-        
+    def store_answer(self, InterviewAccepted: bool, CandidateID: int):
+        with open('SQL/storeInterviewDateAnswer.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur.execute(sql_content, (InterviewAccepted, CandidateID))
+            print("DB Updated")
+    
+    def checking_date_answers(self, process_id: int):
+        with open('SQL/checkingDateAnswers.sql') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result
+
+    def delete_TopCandidates(self, process_id: int):
+        with open('SQL/deleteTopCandidatesDeclinedInterview.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            print("Candidates Deleted")
+    
+    def order_by_interview(self, process_id: int):
+        with open('SQL/orderByInterview.sql')as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            print("Candidates Ordered")
 
 
-            
+    def delete_TopCandidate_due_Candidate_rejection(self, CandidateID: int):
+         with open('SQL/deleteCandidateDueRejection.sql')as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (CandidateID, ))
+            print("Candidate Deleted")
+
+    def store_job_answer(self, JobAccepted: int, CandidateID: int):
+        with open('SQL/storeFinalJobAnswer.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (JobAccepted, CandidateID, ))
+            print("DB Updated")
+
+    def delete_TopCandidates_final(self, process_id: int):
+        with open('SQL/deleteTopCandidatesDeclinedJob.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            print("Candidates Deleted")
+
+    def select_new_employees(self, process_id: int):
+        with open('SQL/selectTopCandidates.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            candidateIDs = cur.fetchall()
+            return candidateIDs
+    
+    def join_new_employee_data(self, process_id: int, candidates: list):
+        with open('SQL/insertNewEmployees.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, candidates))
+            print("New Employees saved")
+            #delete Employees von TopCandidateDB und Candidate DB beides erforderlich?
+
+    def check_Count_new_employees(self, process_id: int):
+        with open('SQL/checkAmountnewEmployees.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result    
+    
+    def check_number_of_positions(self, process_id: int):
+        with open('SQL/selectNumberOfPositions.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result
+    
+    def check_annual_salary(self, process_id: int):
+        with open('SQL/checkAnnualSalary.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur = con.cursor()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result
