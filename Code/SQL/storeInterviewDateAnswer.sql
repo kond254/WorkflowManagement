@@ -1,2 +1,2 @@
-UPDATE TopCandidate 
-SET InterviewAccepted= ? WHERE CandidateID= ?;
+UPDATE TopCandidate
+SET InterviewAccepted = ? WHERE CandidateID = ?;

@@ -190,20 +190,17 @@ class Databank:
         print(f'EventIDs: {single_tuple}')
         return single_tuple
         
-    def store_answer(self, InterviewAccepted: int, CandidateID: int):
+    def store_answer(self, InterviewAccepted: bool, CandidateID: int):
         with open('SQL/storeInterviewDateAnswer.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
-            print(InterviewAccepted)
-            print(CandidateID)
-            cur.execute(sql_content, (InterviewAccepted, CandidateID, ))
+            cur.execute(sql_content, (InterviewAccepted, CandidateID))
             print("DB Updated")
     
     def checking_date_answers(self, process_id: int):
         with open('SQL/checkingDateAnswers.sql') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result
 
@@ -211,14 +208,14 @@ class Databank:
         with open('SQL/deleteTopCandidatesDeclinedInterview.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             print("Candidates Deleted")
     
     def order_by_interview(self, process_id: int):
         with open('SQL/orderByInterview.sql')as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             print("Candidates Ordered")
 
 
@@ -226,7 +223,7 @@ class Databank:
          with open('SQL/deleteCandidateDueRejection.sql')as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (CandidateID))
+            cur.execute(sql_content, (CandidateID, ))
             print("Candidate Deleted")
 
     def store_job_answer(self, JobAccepted: int, CandidateID: int):
@@ -240,14 +237,14 @@ class Databank:
         with open('SQL/deleteTopCandidatesDeclinedJob.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             print("Candidates Deleted")
 
     def select_new_employees(self, process_id: int):
         with open('SQL/selectTopCandidates.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             candidateIDs = cur.fetchall()
             return candidateIDs
     
@@ -263,7 +260,7 @@ class Databank:
         with open('SQL/checkAmountnewEmployees.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result    
     
@@ -271,7 +268,7 @@ class Databank:
         with open('SQL/selectNumberOfPositions.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result
     
@@ -279,6 +276,6 @@ class Databank:
         with open('SQL/checkAnnualSalary.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur = con.cursor()
-            cur.execute(sql_content, (process_id))
+            cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result

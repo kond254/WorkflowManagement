@@ -246,8 +246,9 @@ def main():
             return{"onlyConfirmations": True}
         
     @worker.task(task_type="storeDateAnswer")
-    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: int):
+    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: bool):
         db.store_answer(InterviewAccepted, CandidateID)
+        
 
     @worker.task(task_type="checkingDateAnswers")
     async def checking_date_answers(job: Job):
@@ -290,7 +291,7 @@ def main():
     @worker.task(task_type="checkingFinalAnswers")
     async def checking_final_answers(job: Job):
         amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
-        if amount >= 0:
+        if amount > 0:
             return{"confirmations": True}
         else:
             return{"confirmations": False}
@@ -329,7 +330,7 @@ def main():
         await cW.sendFaultyInvoiceInfo()
         print("Faulty Invoice Info send")
 
-    @worker.task(task_type="sendWeplacmInfoWrongInvoice")
+    @worker.task(task_type="sendWeplacmInfoPayment")
     async def send_payment(job: Job):
         await cW.sendPayment()
         print("Payment send")
