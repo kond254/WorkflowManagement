@@ -3,7 +3,6 @@ import asyncio
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
-from db import Databank 
 import random   
 import datetime
 import time
@@ -19,7 +18,7 @@ def main():
     @worker.task(task_type="collectingAnswers")
     async def collecting_answers(job: Job):
             print("waiting")
-            time.sleep(600)
+            time.sleep(60)
     
     @worker.task(task_type="waitForInterviews")
     async def wait_for_interviews(job: Job):

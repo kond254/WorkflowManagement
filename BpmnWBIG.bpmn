@@ -1702,7 +1702,7 @@
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_0dh5ijq" name="remove candidates which declined interview date">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="removeDeclinedCandidates" />
+        <zeebe:taskDefinition type="deleteTopCandidatesDeclinedInterview" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1vduypj</bpmn:incoming>
       <bpmn:outgoing>Flow_0vr1tyw</bpmn:outgoing>

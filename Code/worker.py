@@ -252,8 +252,8 @@ def main():
 
     @worker.task(task_type="checkingDateAnswers")
     async def checking_date_answers(job: Job):
-        posAnswers = db.checking_date_answers(job.process_instance_key)
-        entrysInDb = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        posAnswers = db.checking_date_answers(job.process_instance_key)[0][0]
+        entrysInDb = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]
         percentage = (posAnswers/entrysInDb)*100
         if percentage > 60:
             return{"percentage": True}
@@ -264,7 +264,7 @@ def main():
     async def delete_candidates_declined_interview(job: Job):
         db.delete_TopCandidates(job.process_instance_key)
     
-    @worker.task(task_type="orderTopCandsidatesByInterview")
+    @worker.task(task_type="orderByDate")
     async def order_TopCandidates_by_interview(job: Job):
         db.order_by_interview(job.process_instance_key)
 
@@ -309,6 +309,14 @@ def main():
             return{"positionsFilled": True}
         else:
             return{"positionsFilled": False}
+        
+    @worker.task(task_type="receiveAnswer12")
+    async def test(job: Job):
+        print("Test")
+        x=int(f'{job.process_instance_key}2010')
+        print(x)
+        print(type(x))
+        return{"receiveAnswer": f'{job.process_instance_key}2010'}
     
     @worker.task(task_type="sendWeplacmInfoEmployed")
     async def send_weplacm_info_employed(job: Job):
@@ -335,6 +343,11 @@ def main():
         await cW.sendPayment()
         print("Payment send")
 
+    
+
+
+
+    
 
     ##  else:
     ## Worker runs until it will be canceled manually

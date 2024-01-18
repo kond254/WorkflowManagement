@@ -1,7 +1,7 @@
 import sqlite3
 import random
 import numpy as np
-con = sqlite3.connect("wbig.db")
+con = sqlite3.connect("wbig.db", timeout=10)
 cur = con.cursor()
 
 class Databank:
@@ -194,12 +194,12 @@ class Databank:
         with open('SQL/storeInterviewDateAnswer.sql', 'r') as sql_file:
             sql_content=sql_file.read()
             cur.execute(sql_content, (InterviewAccepted, CandidateID))
+            con.commit()
             print("DB Updated")
     
     def checking_date_answers(self, process_id: int):
         with open('SQL/checkingDateAnswers.sql') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result
@@ -207,52 +207,54 @@ class Databank:
     def delete_TopCandidates(self, process_id: int):
         with open('SQL/deleteTopCandidatesDeclinedInterview.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
+            con.commit()
             print("Candidates Deleted")
     
     def order_by_interview(self, process_id: int):
         with open('SQL/orderByInterview.sql')as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            con.commit()
             print("Candidates Ordered")
+            return result
 
 
     def delete_TopCandidate_due_Candidate_rejection(self, CandidateID: int):
          with open('SQL/deleteCandidateDueRejection.sql')as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (CandidateID, ))
+            con.commit()
             print("Candidate Deleted")
 
     def store_job_answer(self, JobAccepted: int, CandidateID: int):
         with open('SQL/storeFinalJobAnswer.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (JobAccepted, CandidateID, ))
+            con.commit()
             print("DB Updated")
 
     def delete_TopCandidates_final(self, process_id: int):
         with open('SQL/deleteTopCandidatesDeclinedJob.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
+            con.commit()
             print("Candidates Deleted")
 
     def select_new_employees(self, process_id: int):
         with open('SQL/selectTopCandidates.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
+            con.commit()
             candidateIDs = cur.fetchall()
             return candidateIDs
     
     def join_new_employee_data(self, process_id: int, candidates: list):
         with open('SQL/insertNewEmployees.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, candidates))
+            con.commit()
             print("New Employees saved")
             #delete Employees von TopCandidateDB und Candidate DB beides erforderlich?
 
