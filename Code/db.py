@@ -161,23 +161,36 @@ class Databank:
             return return_var        
         
     
-    def make_entry_in_calendar(self, target_date:str, target_start_time:str, target_end_time:str):
+    def make_entry_in_calendar(self, target_date:str, target_start_time:str, target_end_time:str, event_name_candidate_id:int):
         data = [
-            (1, 'Candidate Interview', target_date, target_start_time, target_end_time),
-            (2, 'Candidate Interview', target_date, target_start_time, target_end_time),
-            (5, 'Candidate Interview', target_date, target_start_time, target_end_time)
+            (1, 'Candidate Interview', target_date, target_start_time, target_end_time, event_name_candidate_id),
+            (2, 'Candidate Interview', target_date, target_start_time, target_end_time, event_name_candidate_id),
+            (5, 'Candidate Interview', target_date, target_start_time, target_end_time, event_name_candidate_id)
         ]
+        print(event_name_candidate_id)
+        print(type(event_name_candidate_id))
         for x in data:
             cur.execute(
                 """
-                INSERT INTO Kalender (PersonID, EventName, EventDate, EventStartTime, EventEndTime)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO Kalender (PersonID, EventName, EventDate, EventStartTime, EventEndTime, CandidateID)
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
                 x
             )
         print('')
         con.commit()
         print('Committed')
+        
+        cur.execute(
+        """
+        UPDATE TopCandidate
+        SET InterviewDate = ? WHERE CandidateID = ?;
+        
+        """,
+        (target_start_time, event_name_candidate_id)
+        )
+        con.commit()
+        print("Date in TopCandidate inserted")
         
         cur.execute(
         """
@@ -211,7 +224,32 @@ class Databank:
             cur.execute(sql_content, (process_id, ))
             con.commit()
             print("Candidates Deleted")
-    
+            
+            
+    #delte entrys and enable new entrys in calendaer
+    def delete_calendry_entries(self, process_id: int):
+        with open('SQL/deleteEntriesInCalendry.sql', 'r') as sql_file:
+            print(process_id)
+            sql_content=sql_file.read()
+            cur.execute(sql_content, (process_id, ))
+            con.commit()
+            print("Candidates Deleted")
+            
+        #create new array for multiinstance to ask for different time
+        with open('SQL/createArrayForMultiInstance.sql', 'r') as sql_file:
+            sql_script = sql_file.read()
+
+            cur.execute(sql_script, (process_id,))
+            result = cur.fetchall()
+            
+            TopCandidates = []
+
+            for row in result:
+                TopCandidates.append(row[0])
+
+            return TopCandidates
+            
+        
     def order_by_interview(self, process_id: int):
         with open('SQL/orderByInterview.sql')as sql_file:
             sql_content=sql_file.read()

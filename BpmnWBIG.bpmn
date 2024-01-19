@@ -1998,7 +1998,7 @@
       <bpmn:outgoing>Flow_0ektgs9</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="true">
         <bpmn:extensionElements>
-          <zeebe:loopCharacteristics inputCollection="=TopTenCandidatesIDs" />
+          <zeebe:loopCharacteristics inputCollection="=RemainingCandidates" />
         </bpmn:extensionElements>
       </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:startEvent id="Event_11ewjfz">

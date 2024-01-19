@@ -231,7 +231,7 @@ def main():
             time.sleep(5)
             
         #date found --> make entry in db
-        event_ids = db.make_entry_in_calendar(target_date, target_start_time, target_end_time)
+        event_ids = db.make_entry_in_calendar(target_date, target_start_time, target_end_time, RemainingCandidates[countVar])
         time.sleep(5)
         print(countVar)
         print(RemainingCandidates)
@@ -264,6 +264,16 @@ def main():
     @worker.task(task_type="removeDeclinedCandidates")
     async def delete_candidates_declined_interview(job: Job):
         db.delete_TopCandidates(job.process_instance_key)
+        
+    @worker.task(task_type="deleteConflictingInterviews")
+    async def delete_company_calendry_entries(job: Job):
+        print("Deleting Conflicting Interviews")
+        candidates_in_top_db=db.delete_calendry_entries(job.process_instance_key)
+        time.sleep(60)
+        return {"RemainingCandidates": candidates_in_top_db, "countVar": 0}
+        
+            
+    
     
     @worker.task(task_type="orderByDate")
     async def order_TopCandidates_by_interview(job: Job):
