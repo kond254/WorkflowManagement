@@ -37,6 +37,7 @@ def main():
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
+        corKey=f'{job.process_instance_key}2010'
         return{"contract_cycle": 0, "ReminderExist": False}
 
     #check the answer and print responses
@@ -99,10 +100,10 @@ def main():
         
     #create Job standards in SystemDB
     @worker.task(task_type="sendJobStandards")
-    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str):
+    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
         print("Job standards send")
         print("Inserting into DB")
-        db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language)
+        db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
        
     #receive Candidates from WEPLACM
     @worker.task(task_type="storeAndSortCandidates")
@@ -260,17 +261,18 @@ def main():
         else:
             return{"percentage": False}
         
-    @worker.task(task_type="deleteTopCandidatesDeclinedInterview")
+    @worker.task(task_type="removeDeclinedCandidates")
     async def delete_candidates_declined_interview(job: Job):
         db.delete_TopCandidates(job.process_instance_key)
     
     @worker.task(task_type="orderByDate")
     async def order_TopCandidates_by_interview(job: Job):
-        db.order_by_interview(job.process_instance_key)
+        return {"InterviewOrder": db.order_by_interview(job.process_instance_key)}
 
     @worker.task(task_type="cancelInterviewDateWithInterviewers")
     async def cancle_interview_date_with_interviewers(job: Job, CandidateID: int):
         db.delete_TopCandidate_due_Candidate_rejection(CandidateID)
+        return {"InterviewOrder": db.order_by_interview(job.process_instance_key)}
 
     @worker.task(task_type="calculateEvaluation")
     async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentative: int, ratingVP: int):

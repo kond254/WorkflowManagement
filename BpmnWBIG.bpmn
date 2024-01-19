@@ -37,7 +37,7 @@
     <bpmn:messageFlow id="Flow_0p665au" sourceRef="Activity_14ljmpk" targetRef="Participant_1fzour1" />
     <bpmn:messageFlow id="Flow_017q5um" sourceRef="Participant_1fzour1" targetRef="Event_1l9c5pq" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1rfihb1" isExecutable="true" />
+  <bpmn:process id="Process_1rfihb1" isExecutable="false" />
   <bpmn:process id="Process_0tyj0f6" isExecutable="true">
     <bpmn:extensionElements>
       <zeebe:userTaskForm id="UserTaskForm_152jg6r">{

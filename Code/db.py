@@ -18,7 +18,7 @@ class Databank:
             print("DB INSERT EXECUTED")
             
             
-    def insert_job_standards_in_db(self, process_id: int, jobType: str, jobTitle:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str):
+    def insert_job_standards_in_db(self, process_id: int, jobType: str, jobTitle:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, numberOfPositions: int):
         with open('SQL/insertIntoJobStandards.sql', 'r') as sql_file:
             sql_script = sql_file.read()           
             data = {
@@ -36,8 +36,9 @@ class Databank:
             'benefits': benefits,
             'industry': industry,
             'min_education_level': min_education_level,
-            'language': language
-    }
+            'language': language,
+            'numberOfPosition': numberOfPositions
+        }
 
             cur.execute(sql_script, tuple(data.values()))
             con.commit()
@@ -222,7 +223,7 @@ class Databank:
 
 
     def delete_TopCandidate_due_Candidate_rejection(self, CandidateID: int):
-         with open('SQL/deleteCandidateDueRejection.sql')as sql_file:
+         with open('SQL/deleteTopCandidateDueRejection.sql')as sql_file:
             sql_content=sql_file.read()
             cur.execute(sql_content, (CandidateID, ))
             con.commit()
