@@ -30,9 +30,16 @@
       </span>
 
       <span class="spacer"></span>
-
-      <a routerLink="/">Home</a>
-      <a>HR-Department</a>
+        
+      <mat-form-field class="dropdown">
+        <mat-label class="dropdownlabel">Page selection</mat-label>
+        <mat-select panelClass="dropdownfields" [value]="selectedPage" required>
+          <mat-option class="dropdownfields" [routerLink]="['/']" value="home">Home</mat-option>
+          <mat-option class="dropdownfields" [routerLink]="['/hrdepartment']" value="hrdepartment">HR-Department</mat-option>
+          <mat-option class="dropdownfields" [routerLink]="['/hrmanager']" value="hrmanager">HR-Manager</mat-option>
+          <mat-option class="dropdownfields" [routerLink]="['/accounting']" value="accounting">Accounting</mat-option>
+        </mat-select>
+      </mat-form-field>
       
       <div class="divIcon">
         <button mat-icon-button class="icon">
@@ -40,7 +47,9 @@
         </button>
       </div>
 
-      <button routerLink="/login" id="buttonSignIn" mat-raised-button color="accent">Log In</button>
+      <button *ngIf="!loginService.getloginValue()" routerLink="/login" id="buttonSignIn" mat-raised-button color="accent">Login</button>
+      <button *ngIf="loginService.getloginValue()" routerLink="/" style="cursor:pointer" id="buttonSignIn" mat-raised-button color="accent" (click)="logout()">Logout</button>
     </mat-toolbar>
   </mat-sidenav-content>
+
  </mat-sidenav-container>

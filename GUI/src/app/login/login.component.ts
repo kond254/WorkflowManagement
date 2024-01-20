@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { LoginService } from '../login.service';
 
 
 @Component({
@@ -11,39 +12,46 @@ import { DataService } from '../data.service';
 
 export class LoginComponent {
 
-  username: string="";
-  password: string="";
-  errorType: string="";
+  username: string='';
+  password: string='';
+  errorType: string='';
   unvalidusername:boolean = false;
   unvalidpassword:boolean = false;
+  loginUser: string='';
 
-  constructor(private router: Router, private dataService: DataService) {}
+  constructor(private router: Router, private dataService: DataService, private loginService: LoginService) {}
 
-  logInEmployee() {
+  // Funktion überprüft, ob das Einloggen des Nutzer passt (nutzt den data.service.ts)
+  login() {
     this.dataService.checkCredentials(this.username, this.password).subscribe((result) => {
-      if (result === 'valid') {
-        console.log('Login of username ' + this.username + ' successful!');
+      if (result == 'valid') {
+        this.loginService.setloginValue(true);
         this.unvalidusername = false;
         this.unvalidpassword = false;
         const routerLink = [''];
         this.router.navigate(routerLink);
+        console.log('Login of username ' + this.username + ' successful!');
       } else {
         this.dataService.getUsers().subscribe((users) => {
           const userExists = users.some((u) => u.username === this.username);
 
           if (userExists) {
+            this.loginService.setloginValue(false);
             this.errorType = 'invalidPassword';
-            console.log('Login of username ' + this.username + ' not successful, because false password!');
             this.unvalidusername = false;
             this.unvalidpassword = true;
+            console.log('Login of username ' + this.username + ' not successful, because false password!');
           } else {
+            this.loginService.setloginValue(false);
             this.errorType = 'invalidUsername';
-            console.log('Login of username ' + this.username + ' not successful, because no authorizised user!');
             this.unvalidusername = true;
             this.unvalidpassword = true;
+            console.log('Login of username ' + this.username + ' not successful, because no authorizised user!');
           }
         });
       }
     });
   }
+
+  
 }

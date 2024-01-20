@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
   private usersUrl = 'assets/loginData.json';
-
+  
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any[]> {
@@ -30,4 +30,5 @@ export class DataService {
       })
     );
   }
+
 }
