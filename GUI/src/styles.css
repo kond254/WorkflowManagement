@@ -7,3 +7,9 @@ margin: 0;
 font-family: Roboto, "Helvetica Neue", sans-serif; 
 min-height: 100vh;
 }
+
+.snackbar {
+    margin-top: 80px !important;
+    margin-right: 10px !important;
+}
+

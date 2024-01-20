@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from '../login.service';
-import { LoginComponent } from '../login/login.component';
+import { SnackbarService } from '../snackbar.service';
+import { RoleService } from '../role.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +13,8 @@ import { LoginComponent } from '../login/login.component';
 })
 
 export class NavbarComponent {
-  selectedPage: string = '';
 
-  constructor(public loginService: LoginService) {}
+  constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleService: RoleService) {}
 
   private breakpointObserver = inject(BreakpointObserver);
 
@@ -24,9 +24,31 @@ export class NavbarComponent {
       shareReplay()
     );
    
-    // Funktion wird ausgeführt, wenn logout Button gedrückt wird
+    // Funktion wird ausgeführt, wenn logout Button gedrückt wird und setzt dropdown Seiten auf standard false
     logout(){
       this.loginService.setloginValue(false);
-    
+      this.snackbarService.showSuccess('Logout erfolgreich!');
+      console.log('Logout username!');
+
+      const showRoleHome = false;
+      const showRoleHrdepartment = false;
+      const showRoleHrmanagement = false;
+      const showRoleAccouting = false;
+
+      this.roleService.updateRechte(showRoleHome, showRoleHrdepartment, showRoleHrmanagement, showRoleAccouting);
+    }
+
+    // Funktion ruft die boolean Werte von role.service auf
+    get showRoleHome(): boolean {
+      return this.roleService.showRoleHome;
+    }
+    get showRoleHrdepartment(): boolean {
+      return this.roleService.showRoleHrdepartment;
+    }
+    get showRoleHrmanagement(): boolean {
+      return this.roleService.showRoleHrmanagement;
+    }
+    get showRoleAccouting(): boolean {
+      return this.roleService.showRoleAccouting;
     }
 }

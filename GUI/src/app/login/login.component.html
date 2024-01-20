@@ -5,18 +5,18 @@
     </mat-toolbar>
       <form fxLayoutAlign="strech" fxLayout="column" class="loginform">
           <mat-form-field class="inputfield">
-            <mat-label>Username*</mat-label>
-            <input matInput placeholder="" type="username" class="form-control" name="username" [(ngModel)]="username">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="" type="username" class="form-control" name="username" [(ngModel)]="username" required>
             <mat-hint style="color:red" *ngIf="unvalidusername">Please enter a authorized username!</mat-hint>
           </mat-form-field>
             
           <mat-form-field class="inputfield">
-            <mat-label>Password*</mat-label>
-            <input matInput placeholder="" type="password" class="form-control" name="password" [(ngModel)]="password">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="" type="password" class="form-control" name="password" [(ngModel)]="password" required>
             <mat-hint style="color:red" *ngIf="unvalidpassword">Please enter a authorized password!</mat-hint>
           </mat-form-field>
             
-          <button mat-raised-button color="primary" class="btn btn-primary" (click)="login()" [disabled]="!username || !password">Login</button>
+          <button mat-raised-button color="primary" class="btn btn-primary" (click)="login(); roleAccess()" [disabled]="!username || !password">Login</button>
         </form>
   </mat-card>    
 </div>

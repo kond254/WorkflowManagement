@@ -1,7 +1,7 @@
 [
-	{ "username": "johannes","password": "1234" },
-	{ "username": "florian","password": "1234" },
-	{ "username": "marian","password": "1234" },
-	{ "username": "jan","password": "1234" },
-	{ "username": "konstantin","password": "1234" }
+	{ "username": "johannes","password": "1234", "role": "admin" },
+	{ "username": "florian","password": "1234", "role": "normal" },
+	{ "username": "marian","password": "1234", "role": "normal" },
+	{ "username": "jan","password": "1234", "role": "accounting" },
+	{ "username": "konstantin","password": "1234", "role": "normal" }
 ]

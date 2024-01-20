@@ -1,5 +1,5 @@
 .mat-sidenav-content{
-  height: 65px;
+  height: 80px;
 }
 .sidenav-container {
   height: 60px;
@@ -69,13 +69,14 @@
   cursor:pointer;
 }
 
-#uttonSignIn{
+#buttonSignIn{
   color: #ffff;
 }
 
 .dropdown{
   width: 170px;
-  padding-top: 18px;
+  height: 75px;
+  padding-top: 17px;
   padding-right: 0px;
   font-size: 13px;
 }
