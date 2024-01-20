@@ -1,37 +1,36 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HomeComponent } from './home/home.component';
-
-import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavbarComponent } from './navbar/navbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+
+import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatFormFieldModule } from '@angular/material/form-field'; 
-import { MatCardModule } from '@angular/material/card';
 
-import { Router, RouterModule, Routes } from '@angular/router';
-import {
-  FormControl,
-  FormGroupDirective,
-  NgForm,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+import { NavbarComponent } from './navbar/navbar.component';
+
+import { RouterModule } from '@angular/router';
+
+import { AppComponent } from './app.component';
+import { AccountingComponent } from './accounting/accounting.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { HrdepartmentComponent } from './hrdepartment/hrdepartment.component';
+import { HrmanagerComponent } from './hrmanager/hrmanager.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -40,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    AccountingComponent,
+    HrdepartmentComponent,
+    HrmanagerComponent
   ],
   imports: [
     BrowserModule,
