@@ -1,0 +1,47 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+      #drawer 
+      class="sidenav" 
+      fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list class="sidenavButtons">
+      <a mat-list-item routerLink="/">Home</a>
+      <a mat-list-item href="#">HR-Department</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+      @if (isHandset$ | async) {
+        <button 
+          class="buttonMenu"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>
+        <img routerLink="/" class="logo" src="assets/images/logoWBIG.png">
+      </span>
+
+      <span class="spacer"></span>
+
+      <a routerLink="/">Home</a>
+      <a>HR-Department</a>
+      <a>Link 3</a>
+      
+      <div class="divIcon">
+        <button mat-icon-button class="icon">
+            <mat-icon>mail</mat-icon>
+        </button>
+      </div>
+
+      <button routerLink="/login" id="buttonSignIn" mat-raised-button color="accent">Log In</button>
+    </mat-toolbar>
+  </mat-sidenav-content>
+ </mat-sidenav-container>
