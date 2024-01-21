@@ -1,7 +1,7 @@
 [
 	{ "username": "johannes","password": "1234", "role": "vicepresident" },
-	{ "username": "florian","password": "1234", "role": "hrmanager" },
-	{ "username": "marian","password": "1234", "role": "hrdepartment" },
+	{ "username": "florian","password": "1234", "role": "vicepresident" },
+	{ "username": "marian","password": "1234", "role": "vicepresident" },
 	{ "username": "jan","password": "1234", "role": "accounting" },
 	{ "username": "konstantin","password": "1234", "role": "hrdepartment" }
 ]
