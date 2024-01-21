@@ -1,21 +1,7 @@
 [
-	{ "username": "johannes","password": "1234", "role": "admin" },
-	{ "username": "florian","password": "1234", "role": "admin" },
-	{ "username": "marian","password": "1234", "role": "normal" },
-	{ "username": "jan","password": "1234", "role": "accounting" },
-	{ "username": "konstantin","password": "1234", "role": "normal" },
-
-	
-	{ "username": "admin","password": "1234", "role": "admin" },
-	{ "username": "hrdepartment","password": "1234", "role": "" },
-	{ "username": "hrmanager","password": "1234", "role": "hrmanager" },
-	{ "username": "accouting","password": "1234", "role": "accounting" },
-	{ "username": "normal","password": "1234", "role": "normal" }
-
-	
-
-	
-
-
-
+	{ "username": "johannes","password": "1234" },
+	{ "username": "florian","password": "1234" },
+	{ "username": "marian","password": "1234" },
+	{ "username": "jan","password": "1234" },
+	{ "username": "konstantin","password": "1234" }
 ]

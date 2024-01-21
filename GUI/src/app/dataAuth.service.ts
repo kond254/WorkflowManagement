@@ -7,23 +7,24 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DataService {
-  private usersUrl = 'assets/loginData.json';
+  private usersDataJson = 'assets/userData.json';
   
-  constructor(private http: HttpClient) {}
+   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.usersUrl);
+    return this.http.get<any[]>(this.usersDataJson);
   }
 
   checkCredentials(username: string, password: string): Observable<string> {
     return this.getUsers().pipe(
       map((users) => {
-        const user = users.find((u) => u.username === username && u.password === password);
+        const user = users.find((u) => u.username == username && u.password == password);
+        if (users.some((u) => u.username == username && u.password == password)) {
+          return user.role;
 
-        if (user) {
-          return 'valid'; 
-        } else if (users.some((u) => u.username === username)) {
+        } else if (users.some((u) => u.username == username && u.password != password)) {
           return 'invalidPassword';
+
         } else {
           return 'invalidUsername';
         }

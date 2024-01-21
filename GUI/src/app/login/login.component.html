@@ -16,7 +16,7 @@
             <mat-hint style="color:red" *ngIf="unvalidpassword">Please enter a authorized password!</mat-hint>
           </mat-form-field>
             
-          <button mat-raised-button color="primary" class="btn btn-primary" (click)="login(); roleAccess()" [disabled]="!username || !password">Login</button>
+          <button mat-raised-button color="primary" class="btn btn-primary" (click)="login();" [disabled]="!username || !password">Login</button>
         </form>
   </mat-card>    
 </div>

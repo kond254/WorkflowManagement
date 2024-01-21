@@ -1,0 +1,26 @@
+{
+  "vicepresident": {
+    "home": true,
+    "hrdepartment": true,
+    "hrmanagement": true,
+    "accounting": true
+  },
+  "hrdepartment": {
+    "home": true,
+    "hrdepartment": true,
+    "hrmanagement": false,
+    "accounting": false
+  },
+  "hrmanager": {
+    "home": true,
+    "hrdepartment": true,
+    "hrmanagement": true,
+    "accounting": false
+  },
+  "accounting": {
+    "home": true,
+    "hrdepartment": false,
+    "hrmanagement": false,
+    "accounting": true
+  }
+}
