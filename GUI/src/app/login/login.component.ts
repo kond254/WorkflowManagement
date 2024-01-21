@@ -15,6 +15,7 @@ import { DataRoleService } from '../dataRole.service';
 
 export class LoginComponent {
 
+  hide = true;
   username: string='';
   password: string='';
   errorType: string='';
