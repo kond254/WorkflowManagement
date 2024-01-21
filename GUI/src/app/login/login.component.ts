@@ -94,6 +94,15 @@ export class LoginComponent {
       this.accounting = false;
       console.log(this.home + ' ' +this.hrdepartment + ' ' + this.hrmanagement + ' ' + this.accounting);
       this.roleService.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
+
+
+    }else if(this.role =='hrmanager'){                      /*test*/
+      this.home = true;
+      this.hrdepartment = false;
+      this.hrmanagement = true;
+      this.accounting = false;
+      console.log(this.home + ' ' +this.hrdepartment + ' ' + this.hrmanagement + ' ' + this.accounting);
+      this.roleService.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
   
     }else if(this.role =='accounting'){
       this.home = true;
