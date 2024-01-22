@@ -1,100 +1,97 @@
 <header>
-  <div>
-    <h1>HUMAN RESOURCE DEPARTMENT</h1>
-  <!-- <img id="backImage" src="assets/images/hrdepartment.jpg" alt="backgroundBanner"> -->
-  </div>
-</header>
+    <div>
+      <h1>HUMAN MANAGER</h1>
+    <!-- <img id="backImage" src="assets/images/hrdepartment.jpg" alt="backgroundBanner"> -->
+    </div>
+  </header>
 
+<p>Hier fehlt noch der hrmanager inhalt!</p>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Manager Seite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 <body>
-<h2>Create Jobs</h2>
-<mat-card class = "card">
-    <mat-card-content class = "cardcontent">Creat new Job</mat-card-content>
-    
-    <mat-expansion-panel class ="matpanel">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-          <mat-panel-description class = "paneldiscription">
-            Create a new job offer
-            <mat-icon>account_circle</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
 
-    <div class="divmatfield1">
-        <mat-form-field class = "matfield">
-          <mat-label>Name</mat-label>
-          <input [(ngModel)]="name" matInput>
-        </mat-form-field>
+<section>
 
-        <mat-form-field class = "matfield">
-            <mat-label>Education</mat-label>
-            <input [(ngModel)]="education" matInput>
-        </mat-form-field>
 
-        <mat-form-field class = "matfield">
-            <mat-label>Location</mat-label>
-            <input [(ngModel)]="location" matInput>
-        </mat-form-field>
+      
+
+
+    <h2>HR Manager Seite - Job Openings</h2>
+    <div class="box" id="jobOpenings">
+        <h3>Job Openings</h3>
+        <ul id="jobList">
+            <!-- Hier werden die Job Openings dynamisch eingefügt -->
+        </ul>
     </div>
+</section>
 
-    <div class="divmatfield2">
-        <mat-form-field class = "matfield" floatLabel="always">
-            <mat-label>Professional salary</mat-label>
-            <input [(ngModel)]="salary" matInput type="number" class="example-right-align" placeholder="0">
-            <span matTextPrefix>$&nbsp;</span>
-            <span matTextSuffix>.00</span>
-        </mat-form-field>
-    
-        <mat-form-field class = "matfield">
-          <mat-label>Age</mat-label>
-          <input [(ngModel)]="age" matInput type="number" min="1">
-        </mat-form-field>
-        
-        <mat-form-field class = "matfield">
-            <mat-label>Textarea</mat-label>
-            <textarea [(ngModel)]="info" matInput></textarea>
-          </mat-form-field>
+<section>
+    <h2>HR Manager Seite - Job Standards</h2>
+    <div class="box" id="jobStandards">
+        <h3>Job Standards</h3>
+        <ul id="standardList">
+            <!-- Hier werden die Job Standards dynamisch eingefügt -->
+        </ul>
     </div>
+</section>
 
-          <button class = "button" mat-raised-button color="primary" (click)= "saveData()">Send</button>
-      </mat-expansion-panel>
-    
-</mat-card>
+<script>
+    // Beispiel-Job-Objekte
+    const jobOpenings = [
+        { title: "Software Engineer", link: "software-engineer.html" },
+        { title: "Marketing Specialist", link: "marketing-specialist.html" },
+        // Weitere Job Openings hier hinzufügen
+    ];
 
-<h2>Your Job News</h2>
-<mat-card class = "card">
-    <mat-card-content class = "cardcontent">Job Information</mat-card-content>
+    const jobStandards = [
+        { title: "Project Manager", link: "project-manager.html" },
+        { title: "Sales Representative", link: "sales-representative.html" },
+        // Weitere Job Standards hier hinzufügen
+    ];
 
-    <!-- <div class="example-action-buttons">
-        <button mat-button (click)="openAll()">Expand All</button>
-        <button mat-button (click)="closeAll()">Collapse All</button>
-    </div> -->
+    // Funktion zum Einfügen von Jobs in die Liste
+    function renderJobs(listId, jobs) {
+        const list = document.getElementById(listId);
+        list.innerHTML = ""; // Liste leeren, um Duplikate zu vermeiden
 
-    <mat-accordion class="example-headers-align" #accordion>
-        <mat-expansion-panel *ngFor="let item of candidates; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Personal data
-            </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
-              {{ item.name}}
-              <mat-icon>account_circle</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>  
-          <p>Education: {{ item.education}}</p>
-          <p>Location: {{ item.location }}</p>
-          <p>Salary: {{ item.salary }}</p>
-          <p>Age: {{ item.age }}</p>
-          <p>Info: {{ item.info }}</p>
-          <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-             
-    </mat-accordion>
+        jobs.forEach(job => {
+            const listItem = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = job.link;
+            link.textContent = job.title;
+            listItem.appendChild(link);
+            list.appendChild(listItem);
+        });
+    }
 
-  </mat-card>
-  
+    // Jobs in die entsprechenden Bereiche einfügen
+    renderJobs("jobList", jobOpenings);
+    renderJobs("standardList", jobStandards);
+</script>
+
 </body>
+</html>
+
+

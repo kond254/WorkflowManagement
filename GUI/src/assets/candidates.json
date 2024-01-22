@@ -1,5 +1,0 @@
-[
-	{ "name": "Johannes Kutscheid","education": "Bacherlor of Science", "location": "Koblenz", "salary": 80.000, "age": 40 , "info": "Das hier ist ein Text."},
-	{ "name": "Florian","education": "Bacherlor of Science", "location": "Bonn", "salary": 30.000, "age": 33 , "info": "Ich kann heftig programmieren, gib Kohle."},
-    { "name": "Marian","education": "Bacherlor of Science", "location": "München", "salary": 15.000, "age": 20 , "info": "Ich bin fleißig, gib Kohle."}
-]
