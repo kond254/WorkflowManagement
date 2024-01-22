@@ -58,7 +58,7 @@ def main():
     @worker.task(task_type="checkingFinalAnswers")
     async def checking_final_answers(job: Job):
         amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
-        if amount > 0:
+        if amount[0][0] > 0:
             return{"confirmations": True}
         else:
             return{"confirmations": False}
@@ -66,7 +66,7 @@ def main():
     @worker.task(task_type="moveCandidateToNewEmployee")
     async def move_candidates_to_new_employee(job: Job):
         candidates = db.select_new_employees(job.process_instance_key)
-        db.join_new_employee_data(job.process_instance_key, candidates)
+        db.join_new_employee_data(candidates)
 
     @worker.task(task_type="checkingEmployedCandidates")
     async def checking_employed_candidates(job: Job):
@@ -94,7 +94,7 @@ def main():
     async def check_invoice(job: Job, salarie_sum: int):
         newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
         Salary = db.check_annual_salary(job.process_instance_key)
-        CalculatedSalarySum = newEmployeeCount*Salary
+        CalculatedSalarySum = newEmployeeCount*Salary[0]*Salary[1]
         if CalculatedSalarySum == salarie_sum:
             return{"invoiceCorrect": True}
         else:

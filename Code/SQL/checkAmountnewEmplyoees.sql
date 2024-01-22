@@ -1,2 +1,2 @@
-SELECT COUNT (CandidateID) FROM newEmployees 
-WHERE Process_ID=? 
+SELECT COUNT(EmployeeID) FROM Employees 
+WHERE ProcessID=? 

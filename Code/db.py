@@ -94,8 +94,6 @@ class Databank:
     def remove_candidate_from_topCandidateDB(self, candidate_id:int):
         with open('SQL/deleteCandidateFromTopCandidateDB.sql', 'r') as sql_file:
             sql_content = sql_file.read()
-            cur = con.cursor()
-
             cur.execute(sql_content, (candidate_id,))
             con.commit()
             print("Candidate removed from TopCandidateDatabase")
@@ -104,8 +102,6 @@ class Databank:
     def check_amount_of_candidates_in_TopCandidateDB(self, process_id: int):
         with open('SQL/checkAmountTopCandidateDB.sql', 'r') as sql_file:
             sql_script = sql_file.read()
-            cur = con.cursor()
-
             cur.execute(sql_script, (process_id,))
             result = cur.fetchall()
             
@@ -114,8 +110,6 @@ class Databank:
     def check_amount_of_candidates_in_CandidateDB(self, process_id: int):
         with open('SQL/checkAmountCandidateDB.sql', 'r') as sql_file:
             sql_script = sql_file.read()
-            cur = con.cursor()
-
             cur.execute(sql_script, (process_id,))
             result = cur.fetchall()
             return result
@@ -124,8 +118,6 @@ class Databank:
     def create_Array_for_MultiInstance(self, process_id: int):
         with open('SQL/createArrayForMultiInstance.sql', 'r') as sql_file:
             sql_script = sql_file.read()
-            cur = con.cursor()
-
             cur.execute(sql_script, (process_id,))
             result = cur.fetchall()
             
@@ -139,8 +131,6 @@ class Databank:
     def Join_TopCandidate_with_CandidateDB(self, CandidateID: int):
         with open('SQL/joinTopCandidateWithCandidateDB.sql', 'r') as sql_file:
             sql_content = sql_file.read()
-            cur = con.cursor()
-
             cur.execute(sql_content, (CandidateID,))
             data = cur.fetchall()
             print(type(data))
@@ -289,34 +279,59 @@ class Databank:
             candidateIDs = cur.fetchall()
             return candidateIDs
     
-    def join_new_employee_data(self, process_id: int, candidates: list):
+    
+    #saving all candidates which are remaining in the topcandidatedb (candidates is a list with the processid and first & last name of candidate)
+    def join_new_employee_data(self, candidates: list):
         with open('SQL/insertNewEmployees.sql', 'r') as sql_file:
-            sql_content=sql_file.read()
-            cur.execute(sql_content, (process_id, candidates))
-            con.commit()
-            print("New Employees saved")
-            #delete Employees von TopCandidateDB und Candidate DB beides erforderlich?
-
+            if(candidates):
+                for x in candidates:
+                    cur.execute(
+                        """
+                        INSERT INTO Employees (ProcessID, Name, Surname)
+                        VALUES (?, ?, ?)
+                        """,
+                        x
+                    )
+                con.commit()
+                print("New Employees saved")
+                print(candidates[0][0])
+                
+                
+                #delete new employees from candidate db
+                
+                
+                cur.execute(
+                    """DELETE FROM Candidate
+                    WHERE CandidateID IN (
+                    SELECT Candidate.CandidateID
+                    FROM Candidate
+                    JOIN TopCandidate ON Candidate.CandidateID=TopCandidate.CandidateID
+                    WHERE Candidate.ProcessID=?)""",
+                    (candidates[0][0],)
+                )
+                con.commit()
+                
+                print("Candidates deleted from Candidates/TopCandidate Table")
+            else:
+                print("Candidate List is Empty")
+            
     def check_Count_new_employees(self, process_id: int):
-        with open('SQL/checkAmountnewEmployees.sql', 'r') as sql_file:
+        with open('SQL/checkAmountnewEmplyoees.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
-            return result    
+            return result[0][0]    
     
     def check_number_of_positions(self, process_id: int):
         with open('SQL/selectNumberOfPositions.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
-            return result
+            return result[0][0]
     
     def check_annual_salary(self, process_id: int):
         with open('SQL/checkAnnualSalary.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur = con.cursor()
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
-            return result
+            return result[0]

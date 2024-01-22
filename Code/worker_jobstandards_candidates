@@ -99,6 +99,14 @@ def main():
     @worker.task(task_type="rejectionMailToCandidate")
     async def rejection_mail_to_candidate(job: Job, email:str):
         print("Rejection Mail send") 
+        
+        
+    # create also variables as dbcount and countvar for later stages 
+    @worker.task(task_type="checkTopCandidatesAmount")
+    async def check_top_candidates_amount(job: Job):
+        candidates_in_top_db = db.create_Array_for_MultiInstance(job.process_instance_key)
+        return {"remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0, "countDB": (len(candidates_in_top_db)), "countVar": 0, "RemainingCandidates": candidates_in_top_db, "Beginn": "", "InterviewDate":"", "End":"" }
+    
     
        
     loop = asyncio.get_event_loop()
