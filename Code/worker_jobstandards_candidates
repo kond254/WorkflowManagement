@@ -1,0 +1,112 @@
+import asyncio
+
+from pyzeebe import create_insecure_channel, ZeebeWorker, Job
+import random
+from clientWeplacm import *
+from db import Databank 
+import random   
+import datetime
+import time
+from array import array
+
+def main():
+    channel = create_insecure_channel(hostname="141.26.157.71",
+                                      port=26500)
+    
+    print("Channel created")
+    cW = ClientWeplacm()
+    db = Databank()
+    worker = ZeebeWorker(channel)
+    
+    
+    #create Job standards in SystemDB
+    @worker.task(task_type="sendJobStandards")
+    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
+        print("Job standards send")
+        print("Inserting into DB")
+        db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
+    
+    
+        #receive Candidates from WEPLACM
+    @worker.task(task_type="storeAndSortCandidates")
+    async def store_and_sort_candidates(job: Job, candidates):#, first_name: str, last_name: str, gender: str, email:str, linkedin: str, adress: str, city: str, zip_code: str, country: str, age: int, previous_company: str, rating: int):
+        for candidate in candidates:
+            process_id = job.process_instance_key
+            first_name = candidate.get("first_name")
+            last_name = candidate.get("last_name")
+            gender = candidate.get("gender")
+            email = candidate.get("email")
+            linkedin = candidate.get("linkedin")
+            address = candidate.get("adress")  # Note: "adress" is a typo, it should be "address"
+            city = candidate.get("city")
+            zip_code = candidate.get("zip_code")
+            country = candidate.get("country")
+            age = candidate.get("age")
+            previous_company = candidate.get("previous_company")
+            rating = candidate.get("rating")
+            db.insert_candidates_in_db(process_id, first_name, last_name, gender, email, linkedin, address, city, zip_code, country, age, previous_company, rating)
+            print("Candidate added in CandidateDB")
+        print("All Candidates are added in CandidateDB") 
+
+    #move the first 10 entrys in the topcandidateDB and Create Array for Multi Instance Process
+    @worker.task(task_type="moveCandidatesToTopDatabase")
+    async def move_candidates_to_topDatabase(job: Job):
+        db.move_top10_candidates_into_topCandidateDB(job.process_instance_key)
+        print("Candidates moved")
+        array = db.create_Array_for_MultiInstance(job.process_instance_key)
+        print(array)
+        print("TopCandidate Array created")
+        return{"TopTenCandidatesIDs": array, "ArrayCounter": -1} #-1 that the first element is not supased
+         
+        
+    @worker.task(task_type="removeCandidateFromDatabase")
+    async def remove_candidates_from_database(job: Job, TopTenCandidatesIDs: list, ArrayCounter: int):
+        CandidateID = TopTenCandidatesIDs[ArrayCounter]
+        db.remove_candidate_from_topCandidateDB(CandidateID)
+        print(f"Candidate with ID {TopTenCandidatesIDs[ArrayCounter]} removed")
+        
+    
+    
+    @worker.task(task_type="fetchCandidateData")
+    async def fetch_TopCandidate_Data(job: Job, TopTenCandidatesIDs: list, ArrayCounter: int):
+        ArrayCounter+=1
+        CandidateID = TopTenCandidatesIDs[ArrayCounter]
+        
+        CandidateDetails = db.Join_TopCandidate_with_CandidateDB(CandidateID)
+        print(CandidateDetails[0])
+        print(f"Top Ten Candidate IDs: {TopTenCandidatesIDs}")
+        print(f"Array Counter: {ArrayCounter}")
+        data = { }
+        keys = ['ProcessID', 'CandidateID', 'first_name', 'last_name', 'gender', 'email', 'linkedin', 'adress', 'city', 'zip_code', 'country', 'age', 'previous_company', 'rating']
+        # Use a loop to populate the dictionary
+        for key, value in zip(keys, CandidateDetails[0]):
+            data[key] = value
+        
+        data["ArrayCounter"]=ArrayCounter
+        
+        #
+        #
+        #delete later
+        #
+        data["final_selection_passed"]="True"
+        #
+        #
+        #
+        #
+        #
+        return data
+    
+    @worker.task(task_type="rejectionMailToCandidate")
+    async def rejection_mail_to_candidate(job: Job, email:str):
+        print("Rejection Mail send") 
+    
+       
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(worker.work())
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == '__main__':
+    main()
