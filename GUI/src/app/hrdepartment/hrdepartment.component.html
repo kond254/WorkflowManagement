@@ -1,1 +1,130 @@
-<p>Hier fehlt noch der hrdepartment inhalt!</p>
+<header>
+  <div>
+    <h1>HUMAN RESOURCE DEPARTMENT</h1>
+  <!-- <img id="backImage" src="assets/images/hrdepartment.jpg" alt="backgroundBanner"> -->
+  </div>
+</header>
+
+<body>
+<h2>Create Jobs</h2>
+<mat-card class = "card">
+    <mat-card-content class = "cardcontent">Creat new Job</mat-card-content>
+    
+    <mat-expansion-panel class ="matpanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+          <mat-panel-description class = "paneldiscription">
+            Create a new job offer
+            <mat-icon>account_circle</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+    <div class="divmatfield1">
+        <mat-form-field class = "matfield">
+          <mat-label>Name</mat-label>
+          <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class = "matfield">
+            <mat-label>Education</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field class = "matfield">
+            <mat-label>Location</mat-label>
+            <input matInput>
+        </mat-form-field>
+    </div>
+
+    <div class="divmatfield2">
+        <mat-form-field class = "matfield" floatLabel="always">
+            <mat-label>Professional salary</mat-label>
+            <input matInput type="number" class="example-right-align" placeholder="0">
+            <span matTextPrefix>$&nbsp;</span>
+            <span matTextSuffix>.00</span>
+        </mat-form-field>
+    
+        <mat-form-field class = "matfield">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" min="1">
+        </mat-form-field>
+        
+        <mat-form-field class = "matfield">
+            <mat-label>Textarea</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+    </div>
+
+          <button class = "button" mat-raised-button color="primary">Send</button>
+      </mat-expansion-panel>
+    
+</mat-card>
+
+<h2>Your Job News</h2>
+<mat-card class = "card">
+    <mat-card-content class = "cardcontent">Job Information</mat-card-content>
+
+    <!-- <div class="example-action-buttons">
+        <button mat-button (click)="openAll()">Expand All</button>
+        <button mat-button (click)="closeAll()">Collapse All</button>
+    </div> -->
+
+    <mat-accordion class="example-headers-align" #accordion>
+        <mat-expansion-panel class ="matpanel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              Hans Müller
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Here could be a long text about anything. It is an example, how it looks like. Ok it isnt bad.</p> 
+          <mat-action-row>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        
+        <mat-expansion-panel class ="matpanel" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              Peter Hammel
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Here could be a long text about anything. It is an example, how it looks like. Ok it isnt bad.</p> 
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      
+        <mat-expansion-panel class ="matpanel"[expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+            Personal data
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+               Martin Geier
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Here could be a long text about anything. It is an example, how it looks like. Ok it isnt bad.</p> 
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">End</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      
+    </mat-accordion>
+
+      
+  </mat-card>
+  
+</body>
