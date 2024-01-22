@@ -1,0 +1,17 @@
+header{
+    margin-top: 5px;
+    height: 150px;
+    background-color: #44641a;
+}
+
+header div{
+    padding-top: 60px;
+    margin-left: 18%;
+    margin-right: 18%;
+    color: #fff;
+}
+
+h1{
+    font-size: 28px;
+    font-weight: bold;
+}

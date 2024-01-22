@@ -9,7 +9,6 @@ min-height: 100vh;
 }
 
 .snackbar {
-    margin-top: 80px !important;
-    margin-right: 10px !important;
+    margin-top: 90px !important;
+    margin-right: 20px !important;
 }
-

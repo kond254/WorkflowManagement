@@ -10,10 +10,13 @@
             <mat-hint style="color:red" *ngIf="unvalidusername">Please enter a authorized username!</mat-hint>
           </mat-form-field>
             
-          <mat-form-field class="inputfield">
+          <mat-form-field>
             <mat-label>Password</mat-label>
-            <input matInput placeholder="" type="password" class="form-control" name="password" [(ngModel)]="password" required>
-            <mat-hint style="color:red" *ngIf="unvalidpassword">Please enter a authorized password!</mat-hint>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="" type="password" class="form-control" name="password" [(ngModel)]="password" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-hint style="color:red" *ngIf="unvalidpassword">Please enter a right password!</mat-hint>
+            </button>
           </mat-form-field>
             
           <button mat-raised-button color="primary" class="btn btn-primary" (click)="login();" [disabled]="!username || !password">Login</button>
