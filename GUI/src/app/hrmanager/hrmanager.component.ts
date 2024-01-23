@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import jobinformationData from '../../assets/jobinformation.json';
+import { DataService } from '../message.service';
 
 @Component({
   selector: 'app-hrmanager',
@@ -13,6 +14,11 @@ export class HrmanagerComponent {
   salary:number = 0;
   additionalinformation:string ='';
   step = 0;
+  dataNews: any[] = [];
+
+  constructor(private dataService: DataService) {
+    this.updateData();
+  }
 
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
@@ -65,4 +71,8 @@ export class HrmanagerComponent {
     console.log('Job rejected:', item);
   }
 
+  // Funktion übergibt den Array datahrdepartment news von message.service.ts
+  updateData() {
+    this.dataNews = this.dataService.getDataNews();
+  }
 }

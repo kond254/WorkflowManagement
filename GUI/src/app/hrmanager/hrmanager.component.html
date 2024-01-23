@@ -51,6 +51,20 @@
         </mat-accordion>
     
       </mat-card>
+
+      <!--Hier wird die daten übergeben NEU-->
+      <div>
+        <h2>News from HR Department</h2>
+        <div *ngFor="let item of dataNews">
+          <p>Name: {{ item.name }}</p>
+          <p>Education: {{ item.education }}</p>
+          <p>Location: {{ item.location }}</p>
+          <p>Salary: {{ item.salary }}</p>
+          <p>Age: {{ item.age }}</p>
+          <p>Info: {{ item.info }}</p>
+          <hr>
+        </div>
+      </div>
             
     </body>
 

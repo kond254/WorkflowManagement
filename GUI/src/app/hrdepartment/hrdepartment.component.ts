@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import candidateData from '../../assets/candidates.json';
+import { DataService } from '../message.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class HrdepartmentComponent{
   info:string ='';
   step = 0;
 
+  constructor(private dataService: DataService) {}
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
@@ -48,7 +50,7 @@ export class HrdepartmentComponent{
 
     // hier neuen Daten in Array
     this.candidates.push(newData);
-    console.log('Saved data local.');
+    this.dataService.saveData(newData);
 
     this.name = '';
     this.education = '';

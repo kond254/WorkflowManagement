@@ -16,6 +16,11 @@ h1{
     font-weight: bold;
 }
 
+h2{
+    font-size: 20px;
+    font-weight: 500;
+}
+
 #backImage {
     margin-top: 60px;
     width: 100%;
@@ -99,4 +104,8 @@ body{
     width: 150px;
     height: 50px;
     float:right;
-  }
+}
+
+.createIcon{
+    padding-right: 25px;
+}
