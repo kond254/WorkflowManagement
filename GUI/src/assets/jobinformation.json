@@ -1,0 +1,5 @@
+[
+	{ "jobtitle": "Informatiker","number": "3", "location": "Koblenz", "salary": 80.000, "additionalinformation": "Bruder kuck mal brauchen wir wirklich wenn es sein muss reicht auch 1 ner"},
+	{ "jobtitle": "Projektleiter","number": "1", "location": "Bonn", "salary": 30.000, "additionalinformation": "(Nichts)"},
+    { "jobtitle": "Berater","number": "5", "location": "München", "salary": 15.000, "additionalinformation": "Komm in die Whatsapp Gruppe"}
+]
