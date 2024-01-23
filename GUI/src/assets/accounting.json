@@ -1,0 +1,6 @@
+[
+	{ "jobtitle": "Informatiker","id": "3", "sum": 100.000, "newEmployeeAmount": 10},
+	{ "jobtitle": "CEO","id": "2", "sum": 150.000, "newEmployeeAmount": 8},
+	{ "jobtitle": "Projektleiter","id": "1", "sum": 80.000, "newEmployeeAmount": 13}
+	
+]

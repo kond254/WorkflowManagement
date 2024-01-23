@@ -5,16 +5,80 @@
   </div>
 </header>
 
-<h1>Accounting - Rechnungen</h1>
+<body>
+  <h2>Incoming Invoices</h2>
+  <mat-card class = "card">
+      <mat-card-content class = "cardcontent">Invoices</mat-card-content>
+  
+      <!-- <div class="example-action-buttons">
+          <button mat-button (click)="openAll()">Expand All</button>
+          <button mat-button (click)="closeAll()">Collapse All</button>
+      </div> -->
+  
+      <mat-accordion class="example-headers-align" #accordion>
+          <mat-expansion-panel *ngFor="let item of accounting; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ item.jobtitle}}
+              </mat-panel-title>
+              <mat-panel-description class = "paneldiscription">
+                <br>
+                <mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>  
+            <p>Payment-ID: {{ item.id}}</p>
+            <p>Total Payment: {{ item.sum }}</p>
+            <p>New Employees: {{item.newEmployeeAmount}}</p>
+            
+
+                      <!-- Buttons innerhalb der Kachel -->
+
+            <div style="display: flex; justify-content: space-between;">
+              <mat-action-row>
+                <button mat-button color="primary" (click)="acceptPayment(item)">Pay</button>
+                <button mat-button color="primary" (click)="acceptPayment(item)">Show Invoice</button>
+                <button mat-button color="warn" (click)="rejectPayment(item)">Reject</button>
+              </mat-action-row>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            
+            </div>
+
+          </mat-expansion-panel>
+               
+      </mat-accordion>
+  
+    </mat-card>
+
+    <!--Hier wird die daten übergeben NEU-->
+    <div>
+      <h2>News from HR Department</h2>
+      <div *ngFor="let item of dataNews">
+        <p>Name: {{ item.name }}</p>
+        <p>Education: {{ item.education }}</p>
+        <p>Location: {{ item.location }}</p>
+        <p>Salary: {{ item.salary }}</p>
+        <p>Age: {{ item.age }}</p>
+        <p>Info: {{ item.info }}</p>
+        <hr>
+      </div>
+    </div>
+          
+  </body>
+
+
+<!-- <h1>Accounting - Invoices</h1>
 
 <div id="invoicesContainer">
-  <div *ngFor="let invoice of invoices" class="invoice">
+  <mat-card *ngFor="let invoice of invoices" class="invoice" (click)="showPDF(invoice.pdfUrl)">
     <h2>Rechnung #{{ invoice.id }}</h2>
     <p>Rechnungsbetrag: ${{ invoice.amount.toFixed(2) }}</p>
-    <button (click)="showPDF(invoice.pdfUrl)">PDF anzeigen</button>
-    <button (click)="acceptInvoice(invoice.id)">Akzeptieren</button>
-    <button (click)="claimInvoice(invoice.id)">Reklamieren</button>
-  </div>
+    <button mat-raised-button color="primary" (click)="acceptInvoice(invoice.id)">Akzeptieren</button>
+    <button mat-raised-button color="warn" (click)="claimInvoice(invoice.id)">Reklamieren</button>
+  </mat-card>
 </div>
 
-<button (click)="changeOrder()">Reihenfolge ändern</button>
+<button mat-raised-button (click)="changeOrder()">Reihenfolge ändern</button> -->
