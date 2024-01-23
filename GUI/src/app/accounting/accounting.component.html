@@ -35,9 +35,9 @@
 
             <div style="display: flex; justify-content: space-between;">
               <mat-action-row>
-                <button mat-button color="primary" (click)="acceptPayment(item)">Pay</button>
+                <button mat-button color="primary" (click)="acceptPayment(item); openDialogPay()">Pay</button>
                 <button mat-button color="primary" (click)="acceptPayment(item)">Show Invoice</button>
-                <button mat-button color="warn" (click)="rejectPayment(item)">Reject</button>
+                <button mat-button color="warn" (click)="rejectPayment(item); openDialogReject()">Reject</button>
               </mat-action-row>
 
               <mat-action-row>

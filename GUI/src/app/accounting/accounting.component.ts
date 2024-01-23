@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import accountingData from '../../assets/accounting.json';
 import { DataService } from '../message.service'; //brauch ich das?
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'app-accounting',
@@ -15,6 +16,8 @@ export class AccountingComponent implements OnInit {
   result:number = 0;
   step = 0;
   dataNews: any[] = [];
+
+  constructor(private dialogService: DialogService) {}
 
   // constructor(private dataService: DataService) {
   //   this.updateData();
@@ -82,8 +85,6 @@ export class AccountingComponent implements OnInit {
     // Weitere Rechnungen können hier hinzugefügt werden
   ];
 
-  constructor() { }
-
   ngOnInit(): void {
   }
 
@@ -105,4 +106,16 @@ export class AccountingComponent implements OnInit {
   changeOrder(): void {
     this.invoices.reverse();
   }
+
+ 
+  //Funktion für Dialog Popup Pay
+  openDialogPay(): void {
+    this.dialogService.openDialog('Invoice', 'Are you sure to pay the invoices?');
+  }
+
+  //Funktion für Dialog Popup Reject
+  openDialogReject(): void {
+    this.dialogService.openDialog('Invoice', 'Are you sure to reject the invoices?');
+  }
+
 }

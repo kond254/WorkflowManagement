@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogService } from './dialog.service';
+
 import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,6 +38,7 @@ import { HomeComponent } from './home/home.component';
 import { HrdepartmentComponent } from './hrdepartment/hrdepartment.component';
 import { HrmanagerComponent } from './hrmanager/hrmanager.component';
 import { LoginComponent } from './login/login.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @NgModule({
@@ -47,6 +51,7 @@ import { LoginComponent } from './login/login.component';
     AccountingComponent,
     HrdepartmentComponent,
     HrmanagerComponent,
+    DialogComponent,
     
   ],
   imports: [
@@ -68,9 +73,10 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatExpansionModule,
     MatDatepickerModule,
+    MatDialogModule,
    
   ],
-  providers: [],
+  providers: [DialogService],
   bootstrap: [AppComponent]
   
 })
