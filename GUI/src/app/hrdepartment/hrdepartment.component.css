@@ -37,6 +37,7 @@ body{
     margin-right: 18%;
     margin-top: 50px;
     margin-bottom: 50px;
+    height: auto;
 }
 
 .card {
@@ -46,6 +47,8 @@ body{
     padding-left: 10px;
     padding-right: 10px;
     background-color: #217e74;
+    max-height: 1000px;
+    overflow-y: auto;
 }
 
 .cardcontent{
