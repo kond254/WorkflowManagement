@@ -1,7 +1,7 @@
 header{
     margin-top: 5px;
     height: 150px;
-    background-color: #1a645d;
+    background-color: #217e74;
 }
 
 header div{
@@ -45,7 +45,7 @@ body{
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #0e4177;
+    background-color: #217e74;
 }
 
 .cardcontent{
@@ -63,6 +63,7 @@ body{
     padding-bottom: 0px;
     margin-bottom: 6px;
     background-color: rgb(247, 247, 247);
+    border-radius: 10px;
 }
 
 .matfield{
@@ -107,5 +108,37 @@ body{
 }
 
 .createIcon{
-    padding-right: 25px;
+    margin-right: 25px;
+    color: #ffff;
+    background-color: #555555;
+    border-radius: 10px;
+    padding: 1px;
 }
+
+.personIcon{
+    color: #555555;
+}
+
+.divNoNews{   
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divNoNews p{
+    color: #777777;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.divNoNews p em{
+    margin: 0;
+}
+
+
