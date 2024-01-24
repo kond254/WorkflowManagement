@@ -69,12 +69,17 @@ body{
     border-radius: 10px;
 }
 
-.matfield{
-    width: 300px;
-    height: 80px;
-    padding-top: 5px;
-    padding-right: 10px;
-    padding-left: 10px;
+.createIcon{
+    margin-right: 25px;
+    color: #ffff;
+    background-color: #555555;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+.paneldiscription{
+    justify-content: space-between;
+    align-items: center;
 }
 
 .divmatfield1 {
@@ -85,6 +90,7 @@ body{
     flex-direction: column; 
     flex: 1;
     float:left;
+    height: 350px;
     
 }
 
@@ -96,27 +102,41 @@ body{
     flex-direction: column; 
     flex: 1;
     float:right;
-    
+    height: 350px;
 }
 
-.paneldiscription{
-    justify-content: space-between;
-    align-items: center;
+.matfield{
+    width: 300px;
+    height: 80px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
+
+.divButton {
+    width: 15%;
+    height: 45px;
+    display: flex;
+    padding-right: 10px;
+    float: right;
+  }
   
-.button{
-    width: 150px;
-    height: 50px;
-    float:right;
-}
+.divButton mat-action-row {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button {
+    margin: 10px 0;
+    float:left;
+  }
 
-.createIcon{
-    margin-right: 25px;
-    color: #ffff;
-    background-color: #555555;
-    border-radius: 10px;
-    padding: 1px;
-}
+.disabled-button {
+    color: #8f8f8f;
+  }
 
 .personIcon{
     color: #555555;
@@ -133,15 +153,13 @@ body{
     justify-content: center;
 }
 
+.divNoNews p em{
+    margin: 0;
+}
+
 .divNoNews p{
     color: #777777;
     font-size: 14px;
     font-weight: 500;
     margin: 0;
 }
-
-.divNoNews p em{
-    margin: 0;
-}
-
-
