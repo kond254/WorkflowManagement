@@ -13,15 +13,15 @@
 }
 
 .sidenav .mat-toolbar {
-  background: #0e4177;
+  background: #54595F;
 }
 
 .mat-sidenav{
-  background: #eaf4ff;
+  background: #e2e2e2;
 }
 
 .sidenavButtons a:hover{
-  background: aqua;
+  background: rgb(226, 226, 226);
 }
 
 .mat-toolbar.mat-primary {
@@ -108,6 +108,10 @@
   
   /** Ausblenden von Menu Buttons**/
   .mat-toolbar a{
+    display: none;
+  }
+
+  .dropdown{
     display: none;
   }
 
