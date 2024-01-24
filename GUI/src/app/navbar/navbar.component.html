@@ -34,7 +34,7 @@
         
       <mat-form-field class="dropdown">
         <mat-label class="dropdownlabel">Page selection</mat-label>
-        <mat-select panelClass="dropdownfields" required>
+        <mat-select panelClass="dropdownfields">
           <mat-option *ngIf="showRoleHome" class="dropdownfields" [routerLink]="['/']" value="home">Home</mat-option>
           <mat-option *ngIf="showRoleHrdepartment" class="dropdownfields" [routerLink]="['/hrdepartment']" value="hrdepartment">HR-Department</mat-option>
           <mat-option *ngIf="showRoleHrmanagement" class="dropdownfields" [routerLink]="['/hrmanager']" value="hrmanager">HR-Manager</mat-option>
