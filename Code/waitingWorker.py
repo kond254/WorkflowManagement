@@ -1,5 +1,5 @@
 import asyncio
-
+from db import Databank
 from pyzeebe import create_insecure_channel, ZeebeWorker, Job
 import random
 from clientWeplacm import *
@@ -9,6 +9,7 @@ import time
 from array import array
 
 def main():
+    db = Databank()
     channel = create_insecure_channel(hostname="141.26.157.71",
                                       port=26500)
     
@@ -22,9 +23,13 @@ def main():
     
     @worker.task(task_type="waitForInterviews")
     async def wait_for_interviews(job: Job):
-            print("waiting")
-            time.sleep(60)
-        
+        x = 2251799813730843
+        print("waiting")
+        time.sleep(6)
+        array = db.interview_multi_instance(x)
+        print(array)
+        return {"TopTenCandidatesIDs": array}
+            
 
     loop = asyncio.get_event_loop()
     try:

@@ -31,17 +31,17 @@ def main():
 
     
     @worker.task(task_type="sendConfirmationToCandidate")
-    async def send_confirmation_to_candidate(job: Job, email:str):
+    async def send_confirmation_to_candidate(job: Job):
         print("Job COnfirmation send")
     
     @worker.task(task_type="sendCandidateInterviewDate")
-    async def send_candidate_interview_date(job: Job, email:str):
+    async def send_candidate_interview_date(job: Job):
         print("Interview Date send") 
 
 
-    @worker.task(task_type="calculateEvaluation")
-    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentative: int, ratingVP: int):
-        finalScore = ratingHrManager + ratingHrRepresentative + ratingVP
+    @worker.task(task_type="calculatingEvaluation")
+    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentive: int, ratingVP: int):
+        finalScore = ratingHrManager + ratingHrRepresentive + ratingVP
         if finalScore > 20:
             return{"finalSelectionPassed": True}
         else:

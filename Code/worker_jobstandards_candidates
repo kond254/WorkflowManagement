@@ -60,10 +60,9 @@ def main():
          
         
     @worker.task(task_type="removeCandidateFromDatabase")
-    async def remove_candidates_from_database(job: Job, TopTenCandidatesIDs: list, ArrayCounter: int):
-        CandidateID = TopTenCandidatesIDs[ArrayCounter]
-        db.remove_candidate_from_topCandidateDB(CandidateID)
-        print(f"Candidate with ID {TopTenCandidatesIDs[ArrayCounter]} removed")
+    async def remove_candidates_from_database(job: Job, TopTenCandidatesIDs: list, candidate_id: int):
+        db.remove_candidate_from_topCandidateDB(candidate_id)
+        print(f"Candidate with ID {candidate_id} removed")
         
     
     
@@ -97,7 +96,7 @@ def main():
         return data
     
     @worker.task(task_type="rejectionMailToCandidate")
-    async def rejection_mail_to_candidate(job: Job, email:str):
+    async def rejection_mail_to_candidate(job: Job):
         print("Rejection Mail send") 
         
         
