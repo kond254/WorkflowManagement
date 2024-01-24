@@ -1104,6 +1104,7 @@
         <bpmn:flowNodeRef>Event_1a2xikj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1oocjfq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1kdh2k1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1or41f5</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_0u4k6fr" name="HR Manager">
             <bpmn:flowNodeRef>Event_111143q</bpmn:flowNodeRef>
@@ -1204,6 +1205,7 @@
             <bpmn:flowNodeRef>Event_1a2xikj</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1oocjfq</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1kdh2k1</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_1or41f5</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_0krvld5</bpmn:flowNodeRef>
@@ -1430,10 +1432,11 @@
       <bpmn:outgoing>Flow_0ofsz0y</bpmn:outgoing>
     </bpmn:eventBasedGateway>
     <bpmn:exclusiveGateway id="Gateway_1izu89d">
-      <bpmn:incoming>Flow_1p0io7j</bpmn:incoming>
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_05v0x5m</bpmn:incoming>
       <bpmn:incoming>Flow_0dbt51f</bpmn:incoming>
       <bpmn:incoming>Flow_1o1cci8</bpmn:incoming>
+      <bpmn:incoming>Flow_1e0y0wj</bpmn:incoming>
       <bpmn:outgoing>Flow_01ey6s4</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:intermediateCatchEvent id="Event_0hhhbk8" name="receive potential candidates from WEPLACM">
@@ -1930,7 +1933,7 @@
       <bpmn:outgoing>Flow_0lm4mm6</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="true">
         <bpmn:extensionElements>
-          <zeebe:loopCharacteristics inputCollection="=TopTenCandidatesIDs" />
+          <zeebe:loopCharacteristics inputCollection="=TopTenCandidatesIDs" inputElement="candidate_id" />
         </bpmn:extensionElements>
       </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:exclusiveGateway id="Gateway_0g9qgsu" name="final selection passed?">
@@ -2003,7 +2006,7 @@
       <bpmn:outgoing>Flow_0ektgs9</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="true">
         <bpmn:extensionElements>
-          <zeebe:loopCharacteristics inputCollection="=RemainingCandidates" />
+          <zeebe:loopCharacteristics inputCollection="=RemainingCandidates" inputElement="candidate_id" />
         </bpmn:extensionElements>
       </bpmn:multiInstanceLoopCharacteristics>
       <bpmn:startEvent id="Event_11ewjfz">
@@ -2045,6 +2048,7 @@
       <bpmn:sequenceFlow id="Flow_0tipg07" sourceRef="Activity_0q2t5pt" targetRef="Event_0yfrhhz" />
     </bpmn:subProcess>
     <bpmn:subProcess id="Activity_1venfvo" name="Interview">
+      <bpmn:extensionElements />
       <bpmn:incoming>Flow_0eluhwq</bpmn:incoming>
       <bpmn:outgoing>Flow_0z1ajgt</bpmn:outgoing>
       <bpmn:multiInstanceLoopCharacteristics isSequential="true">
@@ -2141,7 +2145,7 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_12pukmo" messageRef="Message_19kkck8" />
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="Flow_1s8jirl" sourceRef="Gateway_02w8khj" targetRef="Event_19a1iuy" />
-    <bpmn:sequenceFlow id="Flow_1p0io7j" sourceRef="Event_19a1iuy" targetRef="Gateway_1izu89d" />
+    <bpmn:sequenceFlow id="Flow_1p0io7j" sourceRef="Event_19a1iuy" targetRef="Activity_1or41f5" />
     <bpmn:sequenceFlow id="Flow_1aht8y5" name="no" sourceRef="Gateway_0pz2tsx" targetRef="Activity_1lo72ql">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ReminderExist = "False"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
@@ -2421,6 +2425,14 @@
     <bpmn:dataStoreReference id="DataStoreReference_1a5p9b1" name="JobStandards" />
     <bpmn:dataStoreReference id="DataStoreReference_059gjsj" name="Candidate" />
     <bpmn:dataStoreReference id="DataStoreReference_1ybvhqv" name="Candidate" />
+    <bpmn:sequenceFlow id="Flow_1e0y0wj" sourceRef="Activity_1or41f5" targetRef="Gateway_1izu89d" />
+    <bpmn:serviceTask id="Activity_1or41f5" name="Setting cor key">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="setting_key_for_candidates" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1p0io7j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1e0y0wj</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_19cav36">
       <bpmn:text>For each candidate in the List</bpmn:text>
     </bpmn:textAnnotation>
@@ -2452,7 +2464,7 @@
       <bpmn:text>2001</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0yk6kkg">
-      <bpmn:text>2006</bpmn:text>
+      <bpmn:text>2I16</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1dq5u0f">
       <bpmn:text>Interview takes place in a office room with Vice president, HR Representiv and HR Manager and the candidate. To simplify the presentation the candidate interviews will be in squential order (sequential multi instance process. Normally the process is only triggered, when the designated interview time is due.</bpmn:text>
@@ -2493,7 +2505,7 @@
     <bpmn:association id="Association_0hskjn1" sourceRef="TextAnnotation_12xn4iv" targetRef="Event_1qmf7c7" />
     <bpmn:association id="Association_0e8bdi2" sourceRef="TextAnnotation_03esoq7" targetRef="Event_1l9c5pq" />
     <bpmn:textAnnotation id="TextAnnotation_17a4o3q">
-      <bpmn:text>2010</bpmn:text>
+      <bpmn:text>2I10</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_042doeh" sourceRef="Event_1eqnonp" targetRef="TextAnnotation_17a4o3q" />
     <bpmn:textAnnotation id="TextAnnotation_1gvykt4">
@@ -2506,38 +2518,38 @@
     <bpmn:association id="Association_0c9t9s9" sourceRef="Event_07mbhax" targetRef="TextAnnotation_0ucy2uc" />
     <bpmn:association id="Association_06jcbim" sourceRef="Event_1a2xikj" targetRef="TextAnnotation_0yk6kkg" />
     <bpmn:textAnnotation id="TextAnnotation_16q3ifg">
-      <bpmn:text>2015</bpmn:text>
+      <bpmn:text>2I15</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0k4jhrv" sourceRef="Event_0357jvu" targetRef="TextAnnotation_16q3ifg" />
   </bpmn:process>
   <bpmn:message id="Message_1aa91q3" name="recieveJobStandardConfirmation">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2002" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_2ebcck8" name="receiveInvoiceFromWeplacm_1">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2004" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_30nf8hq" name="receivePotentialCandidates">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2003" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_1odape4" name="recieveContract">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2001" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_3d6hmg8" name="receiveAnswerForCandidateSearch">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=receiveAnswerForCandidateSearch_001" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_307845l" name="receiveAnswerFromCandidate">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2015" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_0s1i46u" name="receiveCandidateFinalResponse">
@@ -2547,22 +2559,22 @@
   </bpmn:message>
   <bpmn:message id="Message_0il1acm" name="=receiveInvoiceFromWeplacm_2">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2008" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_2b9k74f" name="candidateCancels">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2006" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_19kkck8" name="receiveReminder">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2009" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_27dgs49" name="candidateInterviewDateAnswer">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=2010" />
+      <zeebe:subscription correlationKey="=process_correlation_key" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -2603,7 +2615,7 @@
           <dc:Bounds x="4130" y="1531" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1t2ym3k" bpmnElement="Activity_1lo72ql">
+      <bpmndi:BPMNShape id="BPMNShape_1t2ym3k" bpmnElement="Activity_1lo72ql" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="4435" y="1386" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2771,8 +2783,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0xa9hd3_di" bpmnElement="Activity_04nz0hs">
         <dc:Bounds x="5110" y="1445" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0zj4wh0" bpmnElement="Activity_0zrk7d8">
+      <bpmndi:BPMNShape id="BPMNShape_0zj4wh0" bpmnElement="Activity_0zrk7d8" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="5620" y="1445" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2804,7 +2817,7 @@
         <dc:Bounds x="1630" y="1515" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1kah50l_di" bpmnElement="Activity_0zl8vmt">
+      <bpmndi:BPMNShape id="Activity_1kah50l_di" bpmnElement="Activity_0zl8vmt" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
         <dc:Bounds x="4960" y="1445" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -3143,6 +3156,10 @@
           <dc:Bounds x="5936" y="2263" width="69" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1no4mue_di" bpmnElement="Activity_1or41f5">
+        <dc:Bounds x="4510" y="1685" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
         <dc:Bounds x="6265" y="360" width="805" height="362" />
         <bpmndi:BPMNLabel />
@@ -3478,7 +3495,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0yk6kkg_di" bpmnElement="TextAnnotation_0yk6kkg">
-        <dc:Bounds x="8895" y="1350" width="100" height="27" />
+        <dc:Bounds x="8895" y="1350" width="99.98292349726775" height="26.98087431693989" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1dq5u0f_di" bpmnElement="TextAnnotation_1dq5u0f">
@@ -3494,7 +3511,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1lwarof_di" bpmnElement="TextAnnotation_1lwarof">
-        <dc:Bounds x="12310" y="1440" width="100" height="30" />
+        <dc:Bounds x="12310" y="1440" width="99.98292349726775" height="29.99772313296903" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0i8brqk_di" bpmnElement="TextAnnotation_0i8brqk">
@@ -3510,7 +3527,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_17a4o3q_di" bpmnElement="TextAnnotation_17a4o3q">
-        <dc:Bounds x="7950" y="1270" width="60" height="30" />
+        <dc:Bounds x="7950" y="1270" width="59.99544626593806" height="29.99772313296903" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1gvykt4_di" bpmnElement="TextAnnotation_1gvykt4">
@@ -3522,7 +3539,7 @@
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_16q3ifg_di" bpmnElement="TextAnnotation_16q3ifg">
-        <dc:Bounds x="10850" y="1400" width="50" height="30" />
+        <dc:Bounds x="10850" y="1400" width="49.97723132969034" height="29.99772313296903" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0kddxpc_di" bpmnElement="Event_1a2xikj">
@@ -3574,7 +3591,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1p0io7j_di" bpmnElement="Flow_1p0io7j">
         <di:waypoint x="4048" y="1725" />
-        <di:waypoint x="4675" y="1725" />
+        <di:waypoint x="4510" y="1725" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_16l3cvo" bpmnElement="Flow_1aht8y5">
         <di:waypoint x="4310" y="1426" />
@@ -4275,6 +4292,10 @@
       <bpmndi:BPMNEdge id="Association_0k4jhrv_di" bpmnElement="Association_0k4jhrv">
         <di:waypoint x="10841" y="1486" />
         <di:waypoint x="10888" y="1430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1e0y0wj_di" bpmnElement="Flow_1e0y0wj">
+        <di:waypoint x="4610" y="1725" />
+        <di:waypoint x="4675" y="1725" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_19f8ut9_di" bpmnElement="Participant_19f8ut9" isHorizontal="true">
         <dc:Bounds x="160" y="80" width="15355" height="60" />

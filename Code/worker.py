@@ -33,6 +33,9 @@ def main():
     @worker.task(task_type="sendConfirmationToCandidate")
     async def send_confirmation_to_candidate(job: Job):
         print("Job COnfirmation send")
+        process_correlation_key=f"{job.process_instance_key}2I15"
+        return {"process_correlation_key": process_correlation_key}
+        
     
     @worker.task(task_type="sendCandidateInterviewDate")
     async def send_candidate_interview_date(job: Job):
@@ -89,6 +92,8 @@ def main():
     async def send_weplacm_info_employed(job: Job):
         newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
         await cW.sendEmployeeAmount(newEmployeeCount)
+        process_correlation_key=f"{job.process_instance_key}28"
+        return {"process_correlation_key": process_correlation_key}
     
     @worker.task(task_type="checkInvoice")
     async def check_invoice(job: Job, salarie_sum: int):
@@ -99,6 +104,7 @@ def main():
             return{"invoiceCorrect": True}
         else:
             return{"invoiceCorrect": False}
+        
     
     @worker.task(task_type="sendWeplacmInfoWrongInvoice")
     async def send_weplacm_info_wrong_invoice(job: Job):

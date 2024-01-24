@@ -37,8 +37,8 @@ def main():
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
-        corKey=f'{job.process_instance_key}2010'
-        return{"contract_cycle": 0, "ReminderExist": False}
+        process_correlation_key=f"{job.process_instance_key}21"
+        return{"contract_cycle": 0, "ReminderExist": False, "process_correlation_key": process_correlation_key}
 
     #check the answer and print responses
     @worker.task(task_type="checkContractAnswer")
@@ -66,14 +66,16 @@ def main():
                     }
     #send the adjusted contract to WEPLACM    
     @worker.task(task_type="sendAdjustedContract")
-    async def send_adjusted_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
+    async def send_adjusted_contract(job: Job, jobType: str, number_of_positions:int, compensation: float, contract_cycle:int):
         print("Adjusted Contract send")
         print("Process Instance Key: " +str(job.process_instance_key))
         await cW.sendContract(jobType, number_of_positions, compensation)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
+        process_correlation_key=f"{job.process_instance_key}21{contract_cycle}"
         print("compensation: "+str(compensation))
+        return {"process_correlation_key": process_correlation_key}
 
     
     #Cancel Contract nagotiation because it cycled too many times

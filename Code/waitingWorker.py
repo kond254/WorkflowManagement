@@ -29,6 +29,13 @@ def main():
         array = db.interview_multi_instance(x)
         print(array)
         return {"TopTenCandidatesIDs": array}
+    
+    
+    @worker.task(task_type="test")
+    async def test(job: Job):
+        proccess_corelation_key=f"{job.process_instance_key}21"
+        print(proccess_corelation_key)
+        return {"proccess_corelation_key": proccess_corelation_key}
             
 
     loop = asyncio.get_event_loop()
