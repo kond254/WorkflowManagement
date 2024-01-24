@@ -335,3 +335,19 @@ class Databank:
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result[0]
+        
+    #Test for Interview multi instance
+    def interview_multi_instance(self, process_id: int):
+        with open('SQL/prepareMultiInstanceforInterview.sql', 'r') as sql_file:
+            sql_script = sql_file.read()
+
+            cur.execute(sql_script, (process_id,))
+            result = cur.fetchall()
+            print(result)
+            TopCandidates = []
+
+            for row in result:
+                TopCandidates.append(row[0])
+                print(row[0])
+            print(TopCandidates)
+            return TopCandidates
