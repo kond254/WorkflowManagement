@@ -210,5 +210,21 @@ export class HrmanagerComponent {
     console.log('Job rejected:', item);
   }
 
+  acceptCandidate(item: any): void {
+    // hier die Logik zum Akzeptieren des Jobs implmentieren
+    console.log('Job accepted:', item);
+  }
+
+  // Funktion, um den Job abzulehnen
+  rejectCandidate(item: any): void {
+    // hier die Logik zum Ablehnen des Jobs des Jobs implmentieren
+    console.log('Job rejected:', item);
+  }
+
+
+
+
+
+
 
 }
