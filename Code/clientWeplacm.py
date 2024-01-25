@@ -27,12 +27,51 @@ class ClientWeplacm:
                                     "amountOfWorkers": amount_of_workers 
                                 }
                             )
-    
-    async def sendEmployeeAmount(self, client: ZeebeClient, amount: int):
+        
+    async def send_job_standards_to_weplacm(self, client: ZeebeClient, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
         await client.publish_message(name="sendWeplacmInfoEmployed", # Process ID from WEPLACM
                                     correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
                                     variables={
-                                    "amount": amount 
+                                    "JobType": jobType,
+                                    "JobName": JobName,
+                                    "RequiredExperience": required_experience,
+                                    "JobDescription": job_description,
+                                    "Responsibilities": responsibilities,
+                                    "Location": location,
+                                    "JobMode": job_mode,
+                                    "WeeklyHours": weekly_hours,
+                                    "Pay": pay,
+                                    "PaidTimeOff": pto,
+                                    "Benefits": benefits,
+                                    "Industry": industry,
+                                    "MinEducationLevel": min_education_level,
+                                    "Language": language,
+                                    "NumberOfPositions": number_of_positions
+                                })
+    
+    async def contract_Reminder(self, client: ZeebeClient):
+        await client.publish_message(name="PaymentComplete", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={ 
+                                })
+    
+    async def cancel_contract(self, client: ZeebeClient):
+        await client.publish_message(name="PaymentComplete", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={ 
+                                })
+    
+    async def inquire_candidate_search_progress(self, client: ZeebeClient):
+        await client.publish_message(name="PaymentComplete", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={ 
+                                })
+        
+    async def send_Employee_Amount(self, client: ZeebeClient, amount: int):
+        await client.publish_message(name="sendWeplacmInfoEmployed", # Process ID from WEPLACM
+                                    correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
+                                    variables={
+                                    "Amount": amount 
                                 })
 
     async def sendFaultyInvoiceInfo(self, client: ZeebeClient):

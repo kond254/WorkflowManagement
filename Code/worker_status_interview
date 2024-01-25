@@ -74,7 +74,7 @@ def main():
         posAnswers = db.checking_date_answers(job.process_instance_key)[0][0]
         entrysInDb = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]
         percentage = (posAnswers/entrysInDb)*100
-        if percentage > 60:
+        if percentage > 30:
             return{"percentage": True}
         else:
             return{"percentage": False}

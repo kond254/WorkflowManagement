@@ -351,3 +351,10 @@ class Databank:
                 print(row[0])
             print(TopCandidates)
             return TopCandidates
+        
+    def employed_candidates(self, process_id: int):
+        with open('SQL/checkCandidatesEmployed.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result[0][0] 

@@ -2,10 +2,10 @@
 { //send contract
     "name": "Contract",
     "variables": {
-            "contract_signed": true, //Boolean
-            "capacity": true, //Boolean
-            "compensation_per_worker": 0.1 //double, 0-10 // 0.1 = 10%
-            'type': [CEO, MANAGER, WORKER, INTERN] // Aufwand je nach Type unterschiedlich
+            "contract_signed": true, 
+            "capacity": true, 
+            "compensation_per_worker": 0.1, 
+            "type": [CEO, MANAGER, WORKER, INTERN], 
             "number_of_positions": 
         }
 

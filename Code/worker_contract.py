@@ -18,6 +18,9 @@ def main():
     db = Databank()
     worker = ZeebeWorker(channel)
 
+    ##################################
+    ## Was macht diese ServiceTask? ##
+    ##################################
     @worker.task(task_type="countIncrease")
     async def count_increase(job: Job, count: int):
         print(count)
@@ -79,8 +82,9 @@ def main():
 
     
     #Cancel Contract nagotiation because it cycled too many times
-    @worker.task(task_type="cancelContractNegotiation")
+    @worker.task(task_type="cancelContract")
     async def cancel_contract_negotiation(job: Job):
+        #cW.cancel_contract()
         print("Contract Negotiation cancelled")
         print("Process Instance Key: " +str(job.process_instance_key))
         
@@ -94,12 +98,16 @@ def main():
         
         
     #checking if reminder was already send
-    @worker.task(task_type="contractReminder")
-    async def contract_reminder(job: Job, ReminderExist: bool):
+    @worker.task(task_type="checkReminder")
+    async def check_reminder(job: Job, ReminderExist: bool):
         print("Contract reminder send")
         if(ReminderExist==False):
             return{"ReminderExist": True}
-       
+
+    @worker.task(task_type="contractReminder")
+    async def contract_reminder(job: Job, ReminderExist: bool):
+        #cW.contract_Reminder()
+        print("Reminder sent")
        
     loop = asyncio.get_event_loop()
     try:
