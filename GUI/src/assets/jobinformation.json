@@ -1,5 +1,13 @@
+
+
 [
-	{ "jobtitle": "Informatiker","number": "3", "location": "Koblenz", "salary": 80.000, "additionalinformation": "Bruder kuck mal brauchen wir wirklich wenn es sein muss reicht auch 1 ner"},
-	{ "jobtitle": "Projektleiter","number": "1", "location": "Bonn", "salary": 30.000, "additionalinformation": "(Nichts)"},
-    { "jobtitle": "Berater","number": "5", "location": "München", "salary": 15.000, "additionalinformation": "Komm in die Whatsapp Gruppe"}
+  { "jobtitle": "Informatiker","number": "3", "location": "Koblenz", "salary": 80.000, "additionalinformation": "Bruder kuck mal brauchen wir wirklich wenn es sein muss reicht auch 1 ner"},
+  { "jobtitle": "Projektleiter","number": "1", "location": "Bonn", "salary": 30.000, "additionalinformation": "(Nichts)"},
+  { "jobtitle": "Berater","number": "5", "location": "München", "salary": 15.000, "additionalinformation": "Komm in die Whatsapp Gruppe"},
+  { "jobtitle": "Softwareentwickler","number": "2", "location": "Berlin", "salary": 65.000, "additionalinformation": "Erfahrung mit Java erforderlich"},
+  { "jobtitle": "Designer","number": "1", "location": "Hamburg", "salary": 40.000, "additionalinformation": "Kreativität ist ein Muss"},
+  { "jobtitle": "Systemadministrator","number": "3", "location": "Frankfurt", "salary": 55.000, "additionalinformation": "Kenntnisse in Netzwerksicherheit sind wichtig"},
+  { "jobtitle": "Vertriebsmitarbeiter","number": "4", "location": "Stuttgart", "salary": 45.000, "additionalinformation": "Erfahrung im B2B-Vertrieb von Vorteil"}
+  
 ]
+
