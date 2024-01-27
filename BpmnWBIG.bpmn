@@ -1084,7 +1084,6 @@
         <bpmn:flowNodeRef>Activity_1v2bpee</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0fpdrt4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0186dg5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1qmf7c7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1l9c5pq</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
@@ -1107,6 +1106,7 @@
         <bpmn:flowNodeRef>Activity_1ysaxuz</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02invbj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0q7ahme</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_0u4k6fr" name="HR Manager">
             <bpmn:flowNodeRef>Event_111143q</bpmn:flowNodeRef>
@@ -1190,7 +1190,6 @@
             <bpmn:flowNodeRef>Gateway_0ilouwf</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1csblor</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0186dg5</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0nx750q</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1k2cimc</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0cvh5ri</bpmn:flowNodeRef>
@@ -1209,6 +1208,7 @@
             <bpmn:flowNodeRef>Activity_1ysaxuz</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_02invbj</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0q7ahme</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event_0fwboa9</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_0krvld5</bpmn:flowNodeRef>
@@ -1288,7 +1288,7 @@
       <bpmn:incoming>Flow_0o99ve4</bpmn:incoming>
       <bpmn:outgoing>Flow_0ngps3f</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0a6yb0l">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P7D</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT20S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:endEvent id="Event_154fzt1" name="terminate the contract negotiation">
@@ -1540,7 +1540,7 @@
       <bpmn:incoming>Flow_1d4fmzl</bpmn:incoming>
       <bpmn:outgoing>Flow_0wqy6ft</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_1mydcij">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P35D</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT60S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:eventBasedGateway id="Gateway_02w8khj">
@@ -2113,12 +2113,6 @@
       </bpmn:textAnnotation>
       <bpmn:association id="Association_02my09c" sourceRef="Gateway_1dy8r6b" targetRef="TextAnnotation_0yzpz0c" />
     </bpmn:subProcess>
-    <bpmn:boundaryEvent id="Event_0fwboa9" name="5 Days" attachedToRef="Activity_0zl8vmt">
-      <bpmn:outgoing>Flow_06uyj67</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_0b4hnrd">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P5D</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:boundaryEvent>
     <bpmn:boundaryEvent id="Event_1qmf7c7" name="receive reminder from WEPLACM" cancelActivity="false" attachedToRef="Activity_0krvld5">
       <bpmn:outgoing>Flow_0i1a4r4</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1m5rjat" messageRef="Message_19kkck8" />
@@ -2130,12 +2124,12 @@
     <bpmn:sequenceFlow id="Flow_1s8jirl" sourceRef="Gateway_02w8khj" targetRef="Event_19a1iuy" />
     <bpmn:sequenceFlow id="Flow_1p0io7j" sourceRef="Event_19a1iuy" targetRef="Activity_1or41f5" />
     <bpmn:sequenceFlow id="Flow_1aht8y5" name="no" sourceRef="Gateway_0pz2tsx" targetRef="Activity_1lo72ql">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ReminderExist = "False"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(ReminderExist)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_115hh8b" sourceRef="Activity_1lo72ql" targetRef="Gateway_0wf49r2" />
     <bpmn:sequenceFlow id="Flow_0pcwlql" sourceRef="Activity_1m6a14h" targetRef="Event_07m1fqo" />
     <bpmn:sequenceFlow id="Flow_17hkdwk" name="yes" sourceRef="Gateway_0pz2tsx" targetRef="Activity_1m6a14h">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ReminderExist = "True"</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=ReminderExist</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1eymdsw" sourceRef="Activity_1qena75" targetRef="Activity_00tdwot" />
     <bpmn:sequenceFlow id="Flow_0ays6ye" sourceRef="Activity_00tdwot" targetRef="Gateway_0wf49r2" />
@@ -2447,6 +2441,12 @@
     <bpmn:sequenceFlow id="Flow_1pvp4sk" sourceRef="Gateway_0q7ahme" targetRef="Activity_1ysaxuz" />
     <bpmn:sequenceFlow id="Flow_0etu4e0" sourceRef="Activity_02invbj" targetRef="Gateway_0q7ahme" />
     <bpmn:dataStoreReference id="DataStoreReference_0hy2rvy" name="TopCandidate" />
+    <bpmn:boundaryEvent id="Event_0fwboa9" name="5 Days" attachedToRef="Activity_04nz0hs">
+      <bpmn:outgoing>Flow_06uyj67</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_0b4hnrd">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT5S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
     <bpmn:textAnnotation id="TextAnnotation_19cav36">
       <bpmn:text>For each candidate in the List</bpmn:text>
     </bpmn:textAnnotation>
@@ -2464,9 +2464,6 @@
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_09n5uop">
       <bpmn:text>2002</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="TextAnnotation_0ocopo0">
-      <bpmn:text>receiveAnswerForCandidateSearch_001</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_17w8og7">
       <bpmn:text>variable: contract_phase</bpmn:text>
@@ -2507,7 +2504,6 @@
     <bpmn:association id="Association_187ego6" sourceRef="Event_17mmcer" targetRef="TextAnnotation_13or0ij" />
     <bpmn:association id="Association_1lj5vi3" sourceRef="Event_0hhhbk8" targetRef="TextAnnotation_0kk01sn" />
     <bpmn:association id="Association_0xgegci" sourceRef="Event_19a1iuy" targetRef="TextAnnotation_09n5uop" />
-    <bpmn:association id="Association_1tkfocb" sourceRef="Activity_04nz0hs" targetRef="TextAnnotation_0ocopo0" />
     <bpmn:association id="Association_10x89cj" sourceRef="Gateway_0fwtvq7" targetRef="TextAnnotation_17w8og7" />
     <bpmn:association id="Association_1h13wuy" sourceRef="Gateway_02mucq1" targetRef="TextAnnotation_197rmgq" />
     <bpmn:association id="Association_05yq8dk" sourceRef="Event_0ldettd" targetRef="TextAnnotation_0ztkyxj" />
@@ -2539,6 +2535,26 @@
       <bpmn:text>1min</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0nvk8rm" sourceRef="Event_0mymrj5" targetRef="TextAnnotation_1n2dycg" />
+    <bpmn:textAnnotation id="TextAnnotation_08o8x5q">
+      <bpmn:text>1min</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1b6d2m5" sourceRef="Event_1wikihh" targetRef="TextAnnotation_08o8x5q" />
+    <bpmn:textAnnotation id="TextAnnotation_0qj64bw">
+      <bpmn:text>1min</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_03b0wd5" sourceRef="Event_1w4g21g" targetRef="TextAnnotation_0qj64bw" />
+    <bpmn:textAnnotation id="TextAnnotation_0ocopo0">
+      <bpmn:text>receiveAnswerForCandidateSearch_001</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1tkfocb" sourceRef="Activity_04nz0hs" targetRef="TextAnnotation_0ocopo0" />
+    <bpmn:textAnnotation id="TextAnnotation_0431vuy">
+      <bpmn:text>5s</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_16hl0gv" sourceRef="Event_0fwboa9" targetRef="TextAnnotation_0431vuy" />
+    <bpmn:textAnnotation id="TextAnnotation_1r6337p">
+      <bpmn:text>muss noch geschrieben werden!!!</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1y08r11" sourceRef="Activity_0h8frjz" targetRef="TextAnnotation_1r6337p" />
   </bpmn:process>
   <bpmn:message id="Message_1aa91q3" name="recieveJobStandardConfirmation">
     <bpmn:extensionElements>
@@ -2625,7 +2641,27 @@
         <dc:Bounds x="2220" y="1360" width="99.99274099883856" height="29.991774608864603" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_19a1iuy_di" bpmnElement="Event_19a1iuy">
+      <bpmndi:BPMNShape id="TextAnnotation_08o8x5q_di" bpmnElement="TextAnnotation_08o8x5q">
+        <dc:Bounds x="4885" y="1411" width="50" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0qj64bw_di" bpmnElement="TextAnnotation_0qj64bw">
+        <dc:Bounds x="4010" y="1485" width="99.98694034205708" height="29.992818085003794" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0ocopo0_di" bpmnElement="TextAnnotation_0ocopo0">
+        <dc:Bounds x="5110" y="1383" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0431vuy_di" bpmnElement="TextAnnotation_0431vuy">
+        <dc:Bounds x="5070" y="1595" width="50" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1r6337p_di" bpmnElement="TextAnnotation_1r6337p">
+        <dc:Bounds x="6990" y="1923" width="99.99241507552793" height="54.64480874316939" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_19a1iuy_di" bpmnElement="Event_19a1iuy" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4012" y="1707" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3990" y="1657" width="81" height="40" />
@@ -2637,34 +2673,34 @@
           <dc:Bounds x="4130" y="1531" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1t2ym3k" bpmnElement="Activity_1lo72ql">
+      <bpmndi:BPMNShape id="BPMNShape_1t2ym3k" bpmnElement="Activity_1lo72ql" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4435" y="1386" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_00bxmnl_di" bpmnElement="Event_07m1fqo">
+      <bpmndi:BPMNShape id="Event_00bxmnl_di" bpmnElement="Event_07m1fqo" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4367" y="1562" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4342" y="1605" width="87" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1vxacw5_di" bpmnElement="Activity_1m6a14h">
+      <bpmndi:BPMNShape id="Activity_1vxacw5_di" bpmnElement="Activity_1m6a14h" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="4235" y="1540" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0gcicvh_di" bpmnElement="Activity_00tdwot">
+      <bpmndi:BPMNShape id="Activity_0gcicvh_di" bpmnElement="Activity_00tdwot" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="3665" y="1515" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0wf49r2_di" bpmnElement="Gateway_0wf49r2" isMarkerVisible="true">
         <dc:Bounds x="3850" y="1530" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1feb9ie" bpmnElement="Gateway_0pz2tsx" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="BPMNShape_1feb9ie" bpmnElement="Gateway_0pz2tsx" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="4260" y="1401" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4241" y="1364" width="88" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0dmuuoj" bpmnElement="Activity_1qvy6zv">
+      <bpmndi:BPMNShape id="BPMNShape_0dmuuoj" bpmnElement="Activity_1qvy6zv" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4115" y="1386" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2694,7 +2730,7 @@
         <dc:Bounds x="2565" y="1405" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0ozqra4_di" bpmnElement="Activity_0h8frjz">
+      <bpmndi:BPMNShape id="Activity_0ozqra4_di" bpmnElement="Activity_0h8frjz" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
         <dc:Bounds x="6860" y="1910" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2704,7 +2740,7 @@
           <dc:Bounds x="6943" y="1778" width="32" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1lypiho_di" bpmnElement="Activity_0mp0xq0">
+      <bpmndi:BPMNShape id="Activity_1lypiho_di" bpmnElement="Activity_0mp0xq0" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="6860" y="1445" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0wm9gj8_di" bpmnElement="DataStoreReference_0wm9gj8">
@@ -2713,13 +2749,13 @@
           <dc:Bounds x="6757" y="1517" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_02mucq1_di" bpmnElement="Gateway_02mucq1" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_02mucq1_di" bpmnElement="Gateway_02mucq1" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6885" y="1320" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6807" y="1332" width="70" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1p5abqk_di" bpmnElement="Activity_1w8696g">
+      <bpmndi:BPMNShape id="Activity_1p5abqk_di" bpmnElement="Activity_1w8696g" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6860" y="1170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_0h73rek_di" bpmnElement="DataStoreReference_0h73rek">
@@ -2728,10 +2764,10 @@
           <dc:Bounds x="6727" y="1242" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_15fyiyt_di" bpmnElement="DataStoreReference_15fyiyt">
+      <bpmndi:BPMNShape id="DataStoreReference_15fyiyt_di" bpmnElement="DataStoreReference_15fyiyt" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6000" y="1715" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5991" y="1697" width="67" height="14" />
+          <dc:Bounds x="5990" y="1697" width="69" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_10tktfn_di" bpmnElement="DataStoreReference_10tktfn">
@@ -2747,7 +2783,7 @@
       <bpmndi:BPMNShape id="Gateway_0a6arms_di" bpmnElement="Gateway_0a6arms" isMarkerVisible="true">
         <dc:Bounds x="5755" y="1460" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0qlfczg_di" bpmnElement="Activity_0jmkcth">
+      <bpmndi:BPMNShape id="Activity_0qlfczg_di" bpmnElement="Activity_0jmkcth" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5710" y="1305" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2757,44 +2793,44 @@
           <dc:Bounds x="6032" y="1437" width="81" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1cop5b5_di" bpmnElement="Activity_0tmz4vb">
+      <bpmndi:BPMNShape id="Activity_1cop5b5_di" bpmnElement="Activity_0tmz4vb" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5940" y="1795" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xwss26_di" bpmnElement="Activity_0iek6bh">
+      <bpmndi:BPMNShape id="Activity_1xwss26_di" bpmnElement="Activity_0iek6bh" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5200" y="1795" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0ppd9iw_di" bpmnElement="Gateway_0ppd9iw" isMarkerVisible="true">
         <dc:Bounds x="5845" y="1810" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1s3g2r4_di" bpmnElement="DataStoreReference_1s3g2r4">
+      <bpmndi:BPMNShape id="DataStoreReference_1s3g2r4_di" bpmnElement="DataStoreReference_1s3g2r4" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5395" y="1700" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="5400" y="1678" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0c744ab_di" bpmnElement="Gateway_0fhjte3">
+      <bpmndi:BPMNShape id="Gateway_0c744ab_di" bpmnElement="Gateway_0fhjte3" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4805" y="1700" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_1izu89d_di" bpmnElement="Gateway_1izu89d" isMarkerVisible="true">
         <dc:Bounds x="4675" y="1700" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0hhhbk8_di" bpmnElement="Event_0hhhbk8">
+      <bpmndi:BPMNShape id="Event_0hhhbk8_di" bpmnElement="Event_0hhhbk8" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4892" y="1817" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4872" y="1755" width="79" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_06jyk7p_di" bpmnElement="Event_0ldettd">
+      <bpmndi:BPMNShape id="Event_06jyk7p_di" bpmnElement="Event_0ldettd" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2252" y="1767" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2232" y="1741" width="81" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_182ws1n_di" bpmnElement="Activity_1d5jmrh">
+      <bpmndi:BPMNShape id="Activity_182ws1n_di" bpmnElement="Activity_1d5jmrh" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5410" y="1445" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_01l35bw_di" bpmnElement="Gateway_01l35bw" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_01l35bw_di" bpmnElement="Gateway_01l35bw" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5335" y="1460" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0a1p3it_di" bpmnElement="Gateway_0a1p3it" isMarkerVisible="true">
@@ -2811,7 +2847,7 @@
         <dc:Bounds x="5620" y="1445" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_122oyru_di" bpmnElement="Event_0k0q5hi">
+      <bpmndi:BPMNShape id="Event_122oyru_di" bpmnElement="Event_0k0q5hi" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="5932" y="1327" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="5907" y="1370" width="87" height="14" />
@@ -2823,10 +2859,10 @@
           <dc:Bounds x="5533" y="1517" width="54" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_14tux0o_di" bpmnElement="Activity_0y6exwu">
+      <bpmndi:BPMNShape id="Activity_14tux0o_di" bpmnElement="Activity_0y6exwu" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="3180" y="1515" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1ejqp0c_di" bpmnElement="Activity_050qlb5">
+      <bpmndi:BPMNShape id="Activity_1ejqp0c_di" bpmnElement="Activity_050qlb5" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2750" y="1515" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1g7l283_di" bpmnElement="Event_111143q" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
@@ -2835,11 +2871,11 @@
           <dc:Bounds x="900" y="695" width="60" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1iiglcc_di" bpmnElement="Activity_1bud1nu" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+      <bpmndi:BPMNShape id="Activity_1iiglcc_di" bpmnElement="Activity_1bud1nu" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="1630" y="1515" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1kah50l_di" bpmnElement="Activity_0zl8vmt">
+      <bpmndi:BPMNShape id="Activity_1kah50l_di" bpmnElement="Activity_0zl8vmt" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4960" y="1445" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2870,17 +2906,17 @@
           <dc:Bounds x="2253" y="1470" width="35" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0s7a89q" bpmnElement="Activity_1jobk0j">
+      <bpmndi:BPMNShape id="BPMNShape_0s7a89q" bpmnElement="Activity_1jobk0j" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="1820" y="1405" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0y7aibe_di" bpmnElement="Gateway_0y7aibe" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="Gateway_0y7aibe_di" bpmnElement="Gateway_0y7aibe" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2905" y="1530" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2905" y="1581" width="51" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_1utdawz_di" bpmnElement="Gateway_07w8oqs">
+      <bpmndi:BPMNShape id="Gateway_1utdawz_di" bpmnElement="Gateway_07w8oqs" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2145" y="1530" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2166" y="2365" width="83" height="14" />
@@ -2889,7 +2925,7 @@
       <bpmndi:BPMNShape id="Gateway_1ow7yy4_di" bpmnElement="Gateway_1ow7yy4" isMarkerVisible="true">
         <dc:Bounds x="1955" y="1530" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1f0uw4z_di" bpmnElement="Activity_0ecanps">
+      <bpmndi:BPMNShape id="Activity_1f0uw4z_di" bpmnElement="Activity_0ecanps" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2880" y="1245" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -2945,7 +2981,7 @@
       <bpmndi:BPMNShape id="Activity_05xqwb1_di" bpmnElement="Activity_0qdlhuo" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="500" y="1515" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0zfsf9k_di" bpmnElement="Activity_1qena75">
+      <bpmndi:BPMNShape id="Activity_0zfsf9k_di" bpmnElement="Activity_1qena75" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="3415" y="610" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0z8cupr_di" bpmnElement="DataObjectReference_0z8cupr">
@@ -2978,7 +3014,7 @@
           <dc:Bounds x="3164" y="1728" width="51" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="DataStoreReference_1s6rxar_di" bpmnElement="DataStoreReference_1s6rxar">
+      <bpmndi:BPMNShape id="DataStoreReference_1s6rxar_di" bpmnElement="DataStoreReference_1s6rxar" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="3245" y="1676" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3245" y="1734" width="51" height="14" />
@@ -3186,7 +3222,7 @@
         <dc:Bounds x="6265" y="360" width="805" height="362" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1hbcnjr" bpmnElement="Gateway_0g9qgsu" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="BPMNShape_1hbcnjr" bpmnElement="Gateway_0g9qgsu" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6720" y="607" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6712" y="663" width="66" height="27" />
@@ -3198,7 +3234,7 @@
           <dc:Bounds x="6589" y="399" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1lq655a" bpmnElement="Activity_0ndeici">
+      <bpmndi:BPMNShape id="BPMNShape_1lq655a" bpmnElement="Activity_0ndeici" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6565" y="592" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -3208,25 +3244,25 @@
           <dc:Bounds x="6271" y="657" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1aofluf_di" bpmnElement="Event_1aofluf">
+      <bpmndi:BPMNShape id="Event_1aofluf_di" bpmnElement="Event_1aofluf" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6902" y="614" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6877" y="657" width="87" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1f90k1f_di" bpmnElement="Event_1f90k1f">
+      <bpmndi:BPMNShape id="Event_1f90k1f_di" bpmnElement="Event_1f90k1f" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6987" y="489" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6964" y="532" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_19eklvy_di" bpmnElement="Activity_08648xi">
+      <bpmndi:BPMNShape id="Activity_19eklvy_di" bpmnElement="Activity_08648xi" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6695" y="467" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1im230f_di" bpmnElement="Activity_0nrnnz6">
+      <bpmndi:BPMNShape id="Activity_1im230f_di" bpmnElement="Activity_0nrnnz6" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6845" y="467" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1xivw9o_di" bpmnElement="Activity_08rut70">
+      <bpmndi:BPMNShape id="Activity_1xivw9o_di" bpmnElement="Activity_08rut70" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6385" y="592" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_0eph2b3" bpmnElement="Flow_0bmt7nh">
@@ -3476,7 +3512,7 @@
           <dc:Bounds x="11025" y="1733" width="51" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1no4mue_di" bpmnElement="Activity_1or41f5">
+      <bpmndi:BPMNShape id="Activity_1no4mue_di" bpmnElement="Activity_1or41f5" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="4510" y="1685" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -3502,10 +3538,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_09n5uop_di" bpmnElement="TextAnnotation_09n5uop">
         <dc:Bounds x="3955" y="1826" width="100" height="27" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0ocopo0_di" bpmnElement="TextAnnotation_0ocopo0">
-        <dc:Bounds x="5200" y="1610" width="100" height="55" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_17w8og7_di" bpmnElement="TextAnnotation_17w8og7">
@@ -3572,6 +3604,26 @@
         <di:waypoint x="2270" y="1427" />
         <di:waypoint x="2270" y="1390" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1b6d2m5_di" bpmnElement="Association_1b6d2m5">
+        <di:waypoint x="4917" y="1469" />
+        <di:waypoint x="4929" y="1441" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_03b0wd5_di" bpmnElement="Association_03b0wd5">
+        <di:waypoint x="4052" y="1444" />
+        <di:waypoint x="4058" y="1485" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1tkfocb_di" bpmnElement="Association_1tkfocb">
+        <di:waypoint x="5164" y="1445" />
+        <di:waypoint x="5165" y="1438" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_16hl0gv_di" bpmnElement="Association_16hl0gv">
+        <di:waypoint x="5197" y="1537" />
+        <di:waypoint x="5120" y="1610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1y08r11_di" bpmnElement="Association_1y08r11">
+        <di:waypoint x="6960" y="1945" />
+        <di:waypoint x="6990" y="1943" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0kddxpc_di" bpmnElement="Event_1a2xikj">
         <dc:Bounds x="8857" y="1412" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -3608,10 +3660,10 @@
           <dc:Bounds x="12635" y="2455" width="69" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0t6cvwp_di" bpmnElement="Event_0fwboa9">
-        <dc:Bounds x="5042" y="1507" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_0t6cvwp_di" bpmnElement="Event_0fwboa9" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="5192" y="1507" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="5072" y="1543" width="35" height="14" />
+          <dc:Bounds x="5172" y="1553" width="35" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1s8jirl_di" bpmnElement="Flow_1s8jirl">
@@ -3877,8 +3929,8 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_06uyj67_di" bpmnElement="Flow_06uyj67">
-        <di:waypoint x="5060" y="1543" />
-        <di:waypoint x="5060" y="1580" />
+        <di:waypoint x="5210" y="1543" />
+        <di:waypoint x="5210" y="1580" />
         <di:waypoint x="5360" y="1580" />
         <di:waypoint x="5360" y="1510" />
       </bpmndi:BPMNEdge>
@@ -4251,10 +4303,6 @@
       <bpmndi:BPMNEdge id="Association_0xgegci_di" bpmnElement="Association_0xgegci">
         <di:waypoint x="4025" y="1742" />
         <di:waypoint x="3998" y="1826" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1tkfocb_di" bpmnElement="Association_1tkfocb">
-        <di:waypoint x="5186" y="1525" />
-        <di:waypoint x="5240" y="1610" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_10x89cj_di" bpmnElement="Association_10x89cj">
         <di:waypoint x="2914" y="1376" />
