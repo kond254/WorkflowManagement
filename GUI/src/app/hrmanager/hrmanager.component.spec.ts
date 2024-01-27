@@ -20,4 +20,4 @@ describe('HrmanagerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); // TEST
