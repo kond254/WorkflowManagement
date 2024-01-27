@@ -62,20 +62,19 @@ export class HrdepartmentComponent implements OnInit {
   constructor(private dataService: DataService, private snackbarService: SnackbarService,private dataServiceTest: DataServiceTest) {}
 
   async ngOnInit(): Promise<any> {
-    this.getCandidate();
-    console.log(this.getCandidate());
+    await this.getCandidate();
   }
 
   async getCandidate() {
-    return new Promise((resolve, reject) => {
-      this.dataServiceTest.getTopCandidate().subscribe(data => {
-        console.log("Test");
-        console.log(data)
-        resolve(data);
-      }, error => {
-        reject(error);
-      });
-    });
+    this.dataServiceTest.getTopCandidate().subscribe(
+      data => {
+        this.data = data as Candidate[]; // Assign the data to this.data
+        console.log(this.data)
+      },
+      error => {
+        console.error("Error fetching candidate data:", error);
+      }
+    );
   }
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
@@ -92,14 +91,7 @@ export class HrdepartmentComponent implements OnInit {
   }
 
   // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei
-  async fetchData() {
-    try {
-      const data = await this.getCandidate(); // Wait for the data to be fetched
-      this.data = data as Candidate[]; // Assign the data to this.data, casting it to Candidate[]
-    } catch (error) {
-      console.error("Error fetching candidate data:", error);
-    }
-  }
+
   //Funktion prüft, ob candiates leer
   //hasData(): boolean {
   //  return this.data.some(data =>
