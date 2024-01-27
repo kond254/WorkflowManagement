@@ -1,7 +1,7 @@
 import sqlite3
 import random
 import numpy as np
-con = sqlite3.connect("wbig.db", timeout=10)
+con = sqlite3.connect("../wbig.db", timeout=10)
 cur = con.cursor()
 
 
