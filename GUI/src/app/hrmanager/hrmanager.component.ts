@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import jobinformationData from '../../assets/jobinformation.json';
 import { DataService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import candidateData from '../../assets/candidates.json';
 import jobinformationacceptedData from '../../assets/jobinformationaccepted.json';
+import topcanidatesData from '../../assets/TopCandidates.json';
+
 
 
 @Component({
@@ -11,7 +13,35 @@ import jobinformationacceptedData from '../../assets/jobinformationaccepted.json
   templateUrl: './hrmanager.component.html',
   styleUrl: './hrmanager.component.css'
 })
-export class HrmanagerComponent {
+export class HrmanagerComponent implements OnInit {
+  acceptedJobsWithCandidates: { job: any; candidates: any[] }[] = [];
+  selectedJob: { job: any; candidates: any[] } | null = null;
+
+  // ... deine anderen Deklarationen hier ...
+
+ 
+
+  ngOnInit() {
+    this.listAcceptedJobsWithCandidates();
+  }
+
+  listAcceptedJobsWithCandidates(): void {
+    this.acceptedJobsWithCandidates = [];
+
+    for (const job of this.dataJobInformationAccepted) {
+      const candidatesForJob = this.newtopcanidates.filter(candidate => candidate.cID === job.id);
+      this.acceptedJobsWithCandidates.push({ job, candidates: candidatesForJob });
+    }
+  }
+
+  showCandidatesForJob(job: any): void {
+    const candidatesForJob = this.newtopcanidates.filter(candidate => candidate.cID === job.id);
+    this.selectedJob = { job, candidates: candidatesForJob };
+  }
+  
+  
+  
+  
   professionTitel:string ='';
   professionType:string ='';
   graduactionLevel:string ='';
@@ -25,7 +55,14 @@ export class HrmanagerComponent {
   additionalinformation:string ='';
 
   id: string ='';
-  
+ 
+
+  cname: string = '';
+  ceducation: string = '';
+  clocation: string = '';
+  csalary: string = '';
+  cinfo: string= '';
+  cid: string = '';
 
   dataNews: any[] = [];
 
@@ -49,14 +86,20 @@ export class HrmanagerComponent {
     additionalinformation: string;
   }[] = jobinformationData;
 
-  newjobinformationaccepted: {
-    jobtitle: string;
-    number: string;
-    location: string;
-    salary: number;
-    additionalinformation: string;
-    id: string;
-  }[] = jobinformationacceptedData;
+
+
+  newtopcanidates: {
+    cname : string;
+    ceducation : string;
+    clocation : string;
+    csalary : number;
+    cage : number;
+    cinfo : string;
+    cID : string;
+  } [] = topcanidatesData;
+
+  
+
 
 
   step = 0;
@@ -80,7 +123,9 @@ export class HrmanagerComponent {
   dataCandidate: { name: string; education: string; location: string; salary: number; age: number; info: string }[] = candidateData;
   dataJobInformation: { jobtitle: string; number: string; location: string; salary: number; additionalinformation: string }[] = jobinformationData;
   dataJobInformationAccepted: { jobtitle: string; number: string; location: string; salary: number; additionalinformation: string; id: string }[] = jobinformationacceptedData;
- 
+  datatopcanidatesData: { cname: string; ceducation: string; clocation: string; csalary: number; cage: number; cinfo: string; cID: string }[] = topcanidatesData;
+
+
 
 
 
@@ -120,6 +165,12 @@ export class HrmanagerComponent {
       data.salary !== 0
     );
   }
+  
+ 
+
+
+
+
   isValidForm(): boolean {
     return !(!this.professionTitel || !this.professionType || !this.graduactionLevel || !this.location || !this.salary || !this.numberEmployees);
   }
@@ -198,6 +249,20 @@ export class HrmanagerComponent {
     this.id = ''; 
   }
 
+  resettopcandidatesInputFields(): void {
+    this.cname = '';
+    this.ceducation = '';
+    this.clocation = '';
+    this.csalary = '';
+    this.cinfo = '';
+    this.cid = ''; 
+    
+    
+ 
+  }
+
+  
+
   // Funktion, um den Job zu akzeptieren
   acceptJob(item: any): void {
     // hier die Logik zum Akzeptieren des Jobs implmentieren
@@ -210,12 +275,18 @@ export class HrmanagerComponent {
     console.log('Job rejected:', item);
   }
 
+  acceptCandidate(item: any): void {
+    // hier die Logik zum Akzeptieren des Jobs implmentieren
+    console.log('Job accepted:', item);
+  }
+
+  // Funktion, um den Job abzulehnen
+  rejectCandidate(item: any): void {
+    // hier die Logik zum Ablehnen des Jobs des Jobs implmentieren
+    console.log('Job rejected:', item);
+  }
+
+  
+
  
-
-
-
-
-
-
-
 }
