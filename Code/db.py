@@ -335,7 +335,15 @@ class Databank:
                 print("Candidates deleted from Candidates/TopCandidate Table")
             else:
                 print("Candidate List is Empty")
-            
+
+    #check how many new employees are currently in this process
+    def rejected_candidates(self, process_id: int):
+        with open('SQL/selectCandidatesToReject.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result[0][0]    #return only the CandidateID
+
     #check how many new employees are currently in this process
     def check_Count_new_employees(self, process_id: int):
         with open('SQL/checkAmountnewEmplyoees.sql', 'r') as sql_file:

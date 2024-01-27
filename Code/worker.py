@@ -72,13 +72,39 @@ def main():
     async def checking_final_answers(job: Job):
         print("-----Check all final Answers-----")
         print("Process Instance Key: " +str(job.process_instance_key))
+        #get the amount of the total open positions and subtract with the amount of newly employeed candidates
+        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
+        numberOfpositions = db.check_number_of_positions(job.process_instance_key)
+        openPositions = numberOfpositions - newEmployeeCount
         #get the amount of candidates in top candidate db. When one Candidate is in the table. We have atleast one new employee 
         amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
-        if amount[0][0] > 0:
+        if amount[0][0] <= openPositions:
             return{"confirmations": True}
         else:
-            return{"confirmations": False}
+            return{"confirmations": False, "OpenPositions": openPositions}
         
+    #Select Candidates which will be rejected
+    @worker.task(task_type="selectCandidatesToReject")
+    async def select_candidates_to_reject(job: Job, OpenPositions: int):
+        print("-----Candidates to reject-----")
+        print("Process Instance Key: " +str(job.process_instance_key))
+        i = 0
+        while i <= OpenPositions:
+            #Select ID from candidate to reject
+            rejectedCandidate = db.rejected_candidates(job.process_instance_key)
+            ######################
+            ###do smth Mail#######
+            ######################
+            print("Informed Candidate about rejection")
+            #Remove candidate from TopCandidateDB
+            db.remove_candidate_from_topCandidateDB(rejectedCandidate)
+            i+=1
+        
+
+
+        
+
+
     #Create new Employee
     @worker.task(task_type="moveCandidateToNewEmployee")
     async def move_candidates_to_new_employee(job: Job):
