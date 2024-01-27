@@ -85,6 +85,50 @@
           <text>0.4</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_1vbm5ap">
+        <inputEntry id="UnaryTests_092mr6k">
+          <text>[2..3]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06izuwh">
+          <text>"CEO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g9xwpu">
+          <text>0.38</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mqi4q6">
+        <inputEntry id="UnaryTests_09qctmm">
+          <text>[4..5]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bm6sos">
+          <text>"CEO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1leosem">
+          <text>0.35</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fx8p37">
+        <inputEntry id="UnaryTests_1wtrt6v">
+          <text>[6..10]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fo0s41">
+          <text>"CEO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06efdkh">
+          <text>0.3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g8gkri">
+        <inputEntry id="UnaryTests_08blzlx">
+          <text>&gt;10</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16m6h3d">
+          <text>"CEO"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0foy95i">
+          <text>0.28</text>
+        </outputEntry>
+      </rule>
       <rule id="DecisionRule_0aw07bi">
         <inputEntry id="UnaryTests_1fesd4f">
           <text>1</text>
