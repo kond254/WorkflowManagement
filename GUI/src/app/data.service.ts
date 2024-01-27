@@ -13,7 +13,7 @@ export class DataServiceInterface {
 
   getData(): Observable<any[]> {
     console.log("TestAufruf")
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(this.apiUrl+"/get_jcandidate");
   }
 
   getTopCandidate(): Observable<any[]> {
@@ -21,4 +21,18 @@ export class DataServiceInterface {
     return this.http.get<any[]>(this.apiUrl+"/get_job_information")
   }
 
+  // Hier ist die neue Funktion 
+  // getJobOffer(): Observable<any[]> {
+  //   console.log("JobOffer")
+  //   return this.http.get<any[]>(this.apiUrl+"/get_job_offer")
+  // }
+
+  // Hier ist die neue send funktion
+//   sendJobOffer(caData: any): Observable<any> {
+//     console.log("Sending Job Offer:", candidateData);
+//     return this.http.post<any>(`${this.apiUrl}/send_candidndidateate`, candidateData);
+// }
+
 }
+
+ 

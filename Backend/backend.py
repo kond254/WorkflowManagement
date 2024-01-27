@@ -44,6 +44,19 @@ def get_job_standards():
     print(result)
     return jsonify(result)
 
+@app.route('/api/data/get_job_offer', methods=['GET'])
+def get_job_offer():
+    cur.execute(
+        """
+        SELECT * FROM JobOffer
+                """)
+    data= cur.fetchall()
+
+    columns = [desc[0] for desc in cur.description]
+    result = [dict(zip(columns, row)) for row in data]
+    print(result)
+    return jsonify(result)
+
 #
 #@app.route('/api/data/post_job_information', methods=['POST'])
 #def receive_data():

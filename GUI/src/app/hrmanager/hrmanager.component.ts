@@ -4,7 +4,19 @@ import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import candidateData from '../../assets/candidates.json';
 import jobinformationacceptedData from '../../assets/jobinformationaccepted.json';
+/*
+*
+*
+*/
+import { DataServiceInterface } from '../data.service';
 
+interface JobOffer {
+  processID: number;
+  professionTitel:string;
+  professionType:string;
+  numberProfessions: string;
+  discription:string; 
+}
 
 @Component({
   selector: 'app-hrmanager',
@@ -28,6 +40,7 @@ export class HrmanagerComponent {
   
 
   dataNews: any[] = [];
+  data: JobOffer[]=[];
 
   // newjobOffer: JobOffer[] = [];
 
@@ -61,7 +74,26 @@ export class HrmanagerComponent {
 
   step = 0;
 
-  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,) {}
+  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService, private dataServiceInterface: DataServiceInterface) {}
+
+  // Hier ist die Funktion getJobOffer die in Zeile 85 aufgerufen wird!
+  async ngOnInit(): Promise<any> {
+    // await this.getJobOffer();
+  }
+
+  // Hier ist die Funktion um die Job Offer zu bekommen
+  // async getJobOffer() {
+  //   this.dataServiceInterface.getJobOffer().subscribe(
+  //     data => {
+  //       this.data = data as JobOffer[]; // Assign the data to this.data
+  //       console.log(this.data)
+  //     },
+  //     error => {
+  //       console.error("Error fetching job offer data:", error);
+  //     }
+  //   );
+  // }
+
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {

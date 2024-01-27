@@ -60,6 +60,7 @@ export class HrdepartmentComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     await this.getCandidate();
+    // await this.sendJobOffer();
   }
 
   async getCandidate() {
@@ -73,6 +74,15 @@ export class HrdepartmentComponent implements OnInit {
       }
     );
   }
+
+  // Hier ist die neue send funktion
+  // sendData(){
+  //   dataServiceInterface.sendJobOffer(candidateData).subscribe(response => {
+  //     console.log('Response from sendCandidate:', response);
+  //   });
+  // }
+  
+
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
