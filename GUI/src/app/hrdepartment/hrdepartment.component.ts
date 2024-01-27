@@ -41,7 +41,7 @@ export class HrdepartmentComponent implements OnInit {
   data: Candidate[]=[];
   
 
-  // newjobOffer: JobOffer[] = [];
+  /// newjobOffer: JobOffer[] = [];
 
   newjobOffer: {
     professionTitel: string;
