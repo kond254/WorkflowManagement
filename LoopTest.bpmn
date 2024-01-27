@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0kd72fq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <bpmn:process id="Process_12hykx7" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_091enjn">{
+  "components": [
+    {
+      "label": "Counter",
+      "type": "number",
+      "layout": {
+        "row": "Row_0k5jq7i",
+        "columns": null
+      },
+      "id": "Field_1baovdt",
+      "key": "DBcount",
+      "readonly": false
+    }
+  ],
+  "type": "default",
+  "id": "Form_0j2au0h",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1l3e7y3</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_0kjqywr" name="Count =&#10;DBcount">
+      <bpmn:incoming>Flow_17umfrg</bpmn:incoming>
+      <bpmn:incoming>Flow_0z9g8jy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jjt555</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1fdj5oy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0crbxow" name="count +1">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="countIncrease" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=count" target="count" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jjt555</bpmn:incoming>
+      <bpmn:outgoing>Flow_07mgfyk</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="Gateway_1q0cit7">
+      <bpmn:incoming>Flow_1jgsjwk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z9g8jy</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1jhnwbd</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_1h4a5c3">
+      <bpmn:incoming>Flow_1fdj5oy</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_17umfrg" sourceRef="Activity_0pp90en" targetRef="Gateway_0kjqywr" />
+    <bpmn:sequenceFlow id="Flow_0z9g8jy" sourceRef="Gateway_1q0cit7" targetRef="Gateway_0kjqywr" />
+    <bpmn:sequenceFlow id="Flow_0jjt555" name="no" sourceRef="Gateway_0kjqywr" targetRef="Activity_0crbxow">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count &lt; DBcount</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1fdj5oy" name="yes" sourceRef="Gateway_0kjqywr" targetRef="Event_1h4a5c3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=count = DBcount</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_07mgfyk" sourceRef="Activity_0crbxow" targetRef="Activity_0lcyfoo" />
+    <bpmn:sequenceFlow id="Flow_1l3e7y3" sourceRef="StartEvent_1" targetRef="Activity_0pp90en" />
+    <bpmn:userTask id="Activity_0pp90en" name="DBcount">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_091enjn" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=0" target="count" />
+          <zeebe:output source="=DBcount" target="DBcount" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1l3e7y3</bpmn:incoming>
+      <bpmn:outgoing>Flow_17umfrg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1jhnwbd" sourceRef="Gateway_1q0cit7" targetRef="Event_0t6y89i" />
+    <bpmn:endEvent id="Event_0t6y89i">
+      <bpmn:incoming>Flow_1jhnwbd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Activity_0lcyfoo" name="do nothing">
+      <bpmn:incoming>Flow_07mgfyk</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jgsjwk</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1jgsjwk" sourceRef="Activity_0lcyfoo" targetRef="Gateway_1q0cit7" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_12hykx7">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0kjqywr_di" bpmnElement="Gateway_0kjqywr" isMarkerVisible="true">
+        <dc:Bounds x="435" y="235" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="278" width="43" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_149scg2_di" bpmnElement="Activity_0crbxow">
+        <dc:Bounds x="600" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1wx55ok_di" bpmnElement="Gateway_1q0cit7">
+        <dc:Bounds x="835" y="235" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1h4a5c3_di" bpmnElement="Event_1h4a5c3">
+        <dc:Bounds x="442" y="342" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1egopxp_di" bpmnElement="Activity_0pp90en">
+        <dc:Bounds x="300" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0t6y89i_di" bpmnElement="Event_0t6y89i">
+        <dc:Bounds x="1082" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lcyfoo_di" bpmnElement="Activity_0lcyfoo">
+        <dc:Bounds x="720" y="220" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_17umfrg_di" bpmnElement="Flow_17umfrg">
+        <di:waypoint x="400" y="260" />
+        <di:waypoint x="435" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z9g8jy_di" bpmnElement="Flow_0z9g8jy">
+        <di:waypoint x="860" y="235" />
+        <di:waypoint x="860" y="95" />
+        <di:waypoint x="460" y="95" />
+        <di:waypoint x="460" y="235" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jjt555_di" bpmnElement="Flow_0jjt555">
+        <di:waypoint x="485" y="260" />
+        <di:waypoint x="600" y="260" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="491" y="242" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fdj5oy_di" bpmnElement="Flow_1fdj5oy">
+        <di:waypoint x="460" y="285" />
+        <di:waypoint x="460" y="342" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="466" y="311" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07mgfyk_di" bpmnElement="Flow_07mgfyk">
+        <di:waypoint x="700" y="260" />
+        <di:waypoint x="720" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l3e7y3_di" bpmnElement="Flow_1l3e7y3">
+        <di:waypoint x="215" y="260" />
+        <di:waypoint x="300" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jhnwbd_di" bpmnElement="Flow_1jhnwbd">
+        <di:waypoint x="885" y="260" />
+        <di:waypoint x="1082" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jgsjwk_di" bpmnElement="Flow_1jgsjwk">
+        <di:waypoint x="820" y="260" />
+        <di:waypoint x="835" y="260" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

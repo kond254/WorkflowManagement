@@ -1,8 +1,28 @@
-import streamlit as st
-import pandas as pd
+from db import Databank
 
-st.write("Here's our first attempt at using data to create a table:")
-st.write(pd.DataFrame({
-    'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40]
-}))
+db= Databank()
+
+x=2251799813788528
+candidates = db.select_new_employees(x)
+db.join_new_employee_data(candidates)
+
+
+newEmployeeCount = db.check_Count_new_employees(x)
+numberOfpositions = db.check_number_of_positions(x)
+print(newEmployeeCount)
+print(numberOfpositions)
+if newEmployeeCount == numberOfpositions:
+    print("a")
+else:
+    print("b")
+    
+newEmployeeCount = db.check_Count_new_employees(x)
+Salary = db.check_annual_salary(x)
+print(newEmployeeCount)
+print(Salary)
+CalculatedSalarySum = newEmployeeCount*Salary[0]*Salary[1]
+print(CalculatedSalarySum)
+if CalculatedSalarySum == 107.68:
+    print("True")
+else:
+    print("False")
