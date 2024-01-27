@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import candidateData from '../../assets/candidates.json';
-import { DataService } from '../message.service';
+import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 /*
 *
 *
 */
-import { DataServiceTest } from '../data.service';
+import { DataServiceInterface } from '../data.service';
 
 interface Candidate {
   CandidateID: number;
@@ -59,14 +59,14 @@ export class HrdepartmentComponent implements OnInit {
 
   step = 0;
 
-  constructor(private dataService: DataService, private snackbarService: SnackbarService,private dataServiceTest: DataServiceTest) {}
+  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
 
   async ngOnInit(): Promise<any> {
     await this.getCandidate();
   }
 
   async getCandidate() {
-    this.dataServiceTest.getTopCandidate().subscribe(
+    this.dataServiceInterface.getTopCandidate().subscribe(
       data => {
         this.data = data as Candidate[]; // Assign the data to this.data
         console.log(this.data)

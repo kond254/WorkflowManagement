@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class DataAuthService {
   private usersDataJson = 'assets/userData.json';
   
    constructor(private http: HttpClient) {}

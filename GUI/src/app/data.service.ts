@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DataServiceTest {
+export class DataServiceInterface {
 
   private apiUrl = 'http://127.0.0.1:5000/api/data';
 

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 
 // Bekommt Daten vom HR Departemnt und wird hier gespeichert. 
-export class DataService {
+export class DataMessageService {
   private candidates: any[] = [];
 
   saveData(newData: any): void {

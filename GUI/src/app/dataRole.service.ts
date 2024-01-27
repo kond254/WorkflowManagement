@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
-interface RoleData {
+interface DataRoleServiceService {
 
   [key: string]: {
     home: boolean;
@@ -27,8 +27,8 @@ export class DataRoleService {
 
   constructor(private http: HttpClient) {}
 
-  getRoleData(role: string): Observable<RoleData> {
-    return this.http.get<RoleData>(this.apiUrl);
+  getRoleData(role: string): Observable<DataRoleServiceService> {
+    return this.http.get<DataRoleServiceService>(this.apiUrl);
   }
 
   get showRoleHome(): boolean {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../dataAuth.service';
+import { DataAuthService } from '../dataAuth.service';
 import { LoginService } from '../login.service';
 import { RoleService } from '../role.service';
 import { SnackbarService } from '../snackbar.service';
@@ -28,11 +28,11 @@ export class LoginComponent {
   hrmanagement: boolean = false;
   accounting: boolean = false;
 
-  constructor(private router: Router, private dataService: DataService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService) {}
+  constructor(private router: Router, private dataAuthService: DataAuthService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService) {}
 
   // Funktion überprüft, ob das Einloggen des Nutzer passt (nutzt den data.service.ts)
   login() {
-    this.dataService.checkCredentials(this.username, this.password).subscribe((result) => {
+    this.dataAuthService.checkCredentials(this.username, this.password).subscribe((result) => {
       if (result == 'invalidPassword') {
         this.loginService.setloginValue(true);
         this.errorType = 'invalidPassword';

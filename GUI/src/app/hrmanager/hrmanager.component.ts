@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import jobinformationData from '../../assets/jobinformation.json';
-import { DataService } from '../message.service';
+import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import candidateData from '../../assets/candidates.json';
 import jobinformationacceptedData from '../../assets/jobinformationaccepted.json';
@@ -61,7 +61,7 @@ export class HrmanagerComponent {
 
   step = 0;
 
-  constructor(private dataService: DataService, private snackbarService: SnackbarService,) {}
+  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,) {}
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {

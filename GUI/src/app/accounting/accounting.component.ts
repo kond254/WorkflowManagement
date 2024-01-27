@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import accountingData from '../../assets/accounting.json';
-import { DataService } from '../message.service'; //brauch ich das?
+import { DataMessageService } from '../message.service'; //brauch ich das?
 import { DialogService } from '../dialog.service';
 
 @Component({
