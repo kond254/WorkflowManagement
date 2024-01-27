@@ -44,7 +44,7 @@ def main():
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
         process_correlation_key=f"{job.process_instance_key}21" #generating correlation key for the following recieve message task
-        return{"contract_cycle": 0, "ReminderExist": False, "process_correlation_key": process_correlation_key} 
+        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key} 
 
     #check the answer and log responses
     @worker.task(task_type="checkContractAnswer")
@@ -107,10 +107,12 @@ def main():
         
     #checking if reminder was already send
     @worker.task(task_type="checkReminder")
-    async def check_reminder(job: Job, ReminderExist: bool):
+    async def check_reminder(job: Job, Reminder: bool):
         print("-----Check if contract reminder is already sent-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        if(ReminderExist==False):
+        if(Reminder==False):
+            return{"ReminderExist": False, "Reminder": True}
+        else: 
             return{"ReminderExist": True}
 
     #Send a reminder for contract nagotiation 

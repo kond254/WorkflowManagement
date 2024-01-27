@@ -34,7 +34,7 @@ def main():
         #Insert job standards into the db using the db class (backend)
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
         #cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
-        return {"process_correlation_key": process_correlation_key}
+        return {"process_correlation_key": process_correlation_key, "Reminder": False}
     
     # Insquire the status of the candidate search by the other group 
     @worker.task(task_type="inquireCandidateSearchProgress")
