@@ -7,15 +7,15 @@
 
 <body>
 
-<mat-card class = "card">
+  <mat-card class = "card">
     <mat-card-content class = "cardcontent"><h2>Creat new Job offer</h2></mat-card-content>
       
-    <mat-expansion-panel class ="matpanel">
+      <mat-expansion-panel class ="matpanel">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-icon class = "createIcon">create</mat-icon>
-            Fill in the Fields
-          </mat-panel-title>
+              Fill in the Fields
+            </mat-panel-title>
           <mat-panel-description class = "paneldiscription">
             send to HR Manager
           </mat-panel-description>
@@ -27,48 +27,31 @@
         <input [(ngModel)]="professionTitel" matInput>
       </mat-form-field>
 
-        <mat-form-field class = "matfield">
-          <mat-label>Profession Type</mat-label>
-          <input [(ngModel)]="professionType" matInput>
-        </mat-form-field>
+      <mat-form-field class = "matfield">
+        <mat-label>Profession Type</mat-label>
+        <input [(ngModel)]="professionType" matInput>
+      </mat-form-field>
 
         <mat-form-field class = "matfield">
-            <mat-label>Graduation Level</mat-label>
-            <input [(ngModel)]="graduactionLevel" matInput>
-        </mat-form-field>
-
-        <mat-form-field class = "matfield">
-            <mat-label>Location</mat-label>
-            <input [(ngModel)]="location" matInput>
+          <mat-label>Number of Professions</mat-label>
+          <input [(ngModel)]="numberProfessions" matInput type="number" min="1">
         </mat-form-field>
     </div>
 
     <div class="divmatfield2">
-        <mat-form-field class = "matfield" floatLabel="always">
-            <mat-label>Salary</mat-label>
-            <input [(ngModel)]="salary" matInput type="number" placeholder="0">
-            <span matTextPrefix>$&nbsp;</span>
-            <span matTextSuffix>.00</span>
-        </mat-form-field>
-    
-        <mat-form-field class = "matfield">
-          <mat-label>Number of Employees</mat-label>
-          <input [(ngModel)]="numberEmployees" matInput type="number" min="1">
-        </mat-form-field>
-        
-        <mat-form-field class = "matfield">
-            <mat-label>Discription</mat-label>
-            <textarea [(ngModel)]="info" matInput></textarea>
+        <mat-form-field class = "matfieldDiscription">
+          <mat-label>Discription</mat-label>
+          <textarea class = "textareaDiscription" [(ngModel)]="discription" matInput></textarea>
           </mat-form-field>
     </div>
 
     <div class="divButton">
       <mat-action-row>
-      <button class = "button" mat-button color="primary" (click)= "saveData()" [disabled]="!professionTitel|| !professionType || !graduactionLevel || !location || !salary || !numberEmployees">Send</button>
+      <button class = "button" mat-button color="primary" (click)= "saveData()" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button>
       </mat-action-row>
     </div>
-    
-      </mat-expansion-panel>
+   
+  </mat-expansion-panel>
     
 </mat-card>
 

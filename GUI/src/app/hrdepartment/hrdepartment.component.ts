@@ -36,11 +36,8 @@ interface Candidate {
 export class HrdepartmentComponent implements OnInit {
   professionTitel:string ='';
   professionType:string ='';
-  graduactionLevel:string ='';
-  location:string ='';
-  salary: string ='';
-  numberEmployees: string ='';
-  info:string ='';
+  numberProfessions: string ='';
+  discription:string ='';
   data: Candidate[]=[];
   
 
@@ -110,20 +107,17 @@ export class HrdepartmentComponent implements OnInit {
 
   //Funktion speichert die Benutzer eingaben
   saveData(): void {
-    const newData = {
-      professionTitel: this.professionTitel,
-      professionType: this.professionType,
-      graduactionLevel: this.graduactionLevel,
-      location: this.location,
-      salary: this.salary,
-      numberEmployees: this.numberEmployees,
-      info: this.info,
-    };
-    console.log(newData)
+  //   const newData = {
+  //     professionTitel: this.professionTitel,
+  //     professionType: this.professionType,
+  //     numberEmployees: this.numberProfessions,
+  //     info: this.discription,
+  //   };
+  //   console.log(newData)
   
-  // hier neuen Daten in Array
-  this.newjobOffer.push(newData);
-  // this.dataService.saveData(newData);
+  // // hier neuen Daten in Array
+  // this.newjobOffer.push(newData);
+  // // this.dataService.saveData(newData);
 
   this.snackbarService.showSuccess('New job offer sent');
   this.resetInputFields();
@@ -133,11 +127,8 @@ export class HrdepartmentComponent implements OnInit {
   resetInputFields():void{
     this.professionTitel = '';
     this.professionType = '';
-    this.graduactionLevel = '';
-    this.location = '';
-    this.salary = '';
-    this.numberEmployees = '';
-    this.info = '';
+    this.numberProfessions = '';
+    this.discription = '';
   }
 
 }
