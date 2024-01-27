@@ -78,21 +78,21 @@ export class HrmanagerComponent {
 
   // Hier ist die Funktion getJobOffer die in Zeile 85 aufgerufen wird!
   async ngOnInit(): Promise<any> {
-    // await this.getJobOffer();
+    await this.getJobOffer();
   }
 
-  // Hier ist die Funktion um die Job Offer zu bekommen
-  // async getJobOffer() {
-  //   this.dataServiceInterface.getJobOffer().subscribe(
-  //     data => {
-  //       this.data = data as JobOffer[]; // Assign the data to this.data
-  //       console.log(this.data)
-  //     },
-  //     error => {
-  //       console.error("Error fetching job offer data:", error);
-  //     }
-  //   );
-  // }
+  //Hier ist die Funktion um die Job Offer zu bekommen
+  async getJobOffer() {
+    this.dataServiceInterface.getJobOffer().subscribe(
+      data => {
+        this.data = data as JobOffer[]; // Assign the data to this.data
+        console.log(this.data)
+      },
+      error => {
+        console.error("Error fetching job offer data:", error);
+      }
+    );
+  }
 
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor

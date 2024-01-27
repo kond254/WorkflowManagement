@@ -21,11 +21,11 @@ export class DataServiceInterface {
     return this.http.get<any[]>(this.apiUrl+"/get_job_information")
   }
 
-  // Hier ist die neue Funktion 
-  // getJobOffer(): Observable<any[]> {
-  //   console.log("JobOffer")
-  //   return this.http.get<any[]>(this.apiUrl+"/get_job_offer")
-  // }
+  //Hier ist die neue Funktion 
+  getJobOffer(): Observable<any[]> {
+    console.log("JobOffers")
+    return this.http.get<any[]>(this.apiUrl+"/get_job_offer")
+  }
 
   // Hier ist die neue send funktion
 //   sendJobOffer(caData: any): Observable<any> {

@@ -36,7 +36,7 @@ interface Candidate {
 export class HrdepartmentComponent implements OnInit {
   professionTitel:string ='';
   professionType:string ='';
-  numberProfessions: string ='';
+  numberProfessions: number = 0;
   discription:string ='';
   data: Candidate[]=[];
   
@@ -137,7 +137,7 @@ export class HrdepartmentComponent implements OnInit {
   resetInputFields():void{
     this.professionTitel = '';
     this.professionType = '';
-    this.numberProfessions = '';
+    this.numberProfessions = 0;
     this.discription = '';
   }
 

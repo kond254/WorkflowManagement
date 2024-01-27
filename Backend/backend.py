@@ -48,7 +48,7 @@ def get_job_standards():
 def get_job_offer():
     cur.execute(
         """
-        SELECT * FROM JobOffer
+        SELECT * FROM JobOffers
                 """)
     data= cur.fetchall()
 
@@ -56,6 +56,7 @@ def get_job_offer():
     result = [dict(zip(columns, row)) for row in data]
     print(result)
     return jsonify(result)
+
 
 #
 #@app.route('/api/data/post_job_information', methods=['POST'])
