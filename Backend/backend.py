@@ -21,7 +21,7 @@ def get_data():
 def get_top_candidates():
     cur.execute(
         """
-        SELECT * FROM Candidate LIMIT 5
+        SELECT * FROM Candidate LIMIT 4
                 """)
     data= cur.fetchall()
 
@@ -36,7 +36,7 @@ def get_job_standards():
     cur.execute(
         """
         SELECT * FROM JobStandards
-        LIMIT 1
+        LIMIT 3
         """)
     data= cur.fetchall()
 

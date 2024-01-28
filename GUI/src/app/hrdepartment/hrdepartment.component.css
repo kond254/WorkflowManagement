@@ -73,6 +73,13 @@ body{
     border-radius: 10px;
 }
 
+.matheader{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .matpanelJobStandards{
     padding-top: 0px;
     padding-bottom: 0px;
@@ -111,47 +118,46 @@ body{
 }
 
 .divmatfield1 {
-    margin-top: 30px;
+    margin-top: 40px;
     width: 50%;
+    height: 100%;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column; 
     flex: 1;
-    float:left;
-    height: 350px;
-    
+    float:left; 
 }
 
 .divmatfield2 {
-    margin-top: 30px;
+    margin-top: 40px;
     width: 50%;
+    height: 100%;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column; 
     flex: 1;
     float:right;
-    height: 350px;
 }
 
 .matfield{
-    width: 300px;
+    width: 80%;
     height: 80px;
-    padding-top: 20px;
+    padding-bottom: 20px;
     padding-right: 20px;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
 .matfieldDiscription{
-    width: 600px;
-    height: 255px;
-    padding-top: 20px;
+    width: 95%;
+    min-height: 280px;
+    padding-top: 0px;
     padding-right: 10px;
     padding-left: 10px;
 }
 
 .textareaDiscription{
-    width: 575px;
-    height: 200px;
+    width: 100%;
+    min-height: 230px;
     padding-top: 0px;
     padding-right: 5px;
     padding-left: 5px;

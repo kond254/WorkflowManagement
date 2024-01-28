@@ -11,7 +11,7 @@
     <mat-card-content class = "cardcontent"><h2>Creat new Job offer</h2></mat-card-content>
   
       <mat-expansion-panel class ="matpanel">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class = "matheader">
           <mat-panel-title>
             <mat-icon class = "createIcon">create</mat-icon>
               Fill in the Fields
@@ -20,7 +20,8 @@
             send to HR Manager
           </mat-panel-description>
         </mat-expansion-panel-header>
-
+        
+    <div class="mat-expansion-panel-body.ng-tns-c330948415-3">
     <div class="divmatfield1">
       <mat-form-field class = "matfield">
         <mat-label>Profession Titel</mat-label>
@@ -52,6 +53,7 @@
       <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions">Send</button>
       </mat-action-row>
     </div>
+  </div>
    
   </mat-expansion-panel>
     
@@ -71,7 +73,7 @@
       <!--Hier kommt die JobOffer zurück-->
       <div class ="panel">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Job Offer
             </mat-panel-title>
@@ -95,27 +97,27 @@
       <!--Hier kommen JobStandards zurück-->
       <div class ="panel"*ngIf="dataJobStandards">
         <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Job Standard
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{item.JobTitel}}
+              {{item.JobTitle}}
               <mat-icon class ="personIcon">description</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>  
-          <p>Job Title: {{item.JobTitel}}</p>
+          <p>Job Title: {{item.JobTitle}}</p>
           <p>Job Type: {{item.JobType}}</p>
-          <p>Job Mode: {{item.jobMode}}</p>
+          <p>Job Mode: {{item.JobMode}}</p>
           <p>Annual Salary: {{item.AnnualSalary}}</p>
           <p>Benefits: {{item.Benefits}}</p>
           <p>Graduation Level: {{item.GraduationLevel}}</p>
           <p>Industry: {{item.Industry}}</p>
-          <p>Language: {{item.language}}</p>
+          <p>Language: {{item.Language}}</p>
           <p>Location: {{item.Location}}</p>
-          <p>Paid Time Off: {{item.Paidtimeoff}}</p>
+          <p>Paid Time Off: {{item.PaidTimeOff}}</p>
           <p>Process ID: {{item.ProcessID}}</p>
-          <p>Required Experience: {{item.ReguiredExperience}}</p>
+          <p>Required Experience: {{item.RequiredExperience}}</p>
           <p>Responsibilities: {{item.Responsibilities}}</p>
           <p>Weekly Hours: {{item.WeeklyHours}}</p>
           <p>Number of Positions: {{item.numberOfPositions}}</p>
@@ -131,7 +133,7 @@
       <!--Hier kommen Candidates zurück-->
       <div class ="panel">
         <mat-expansion-panel *ngFor="let item of datacandidate; let i = index" class="matpanelCandidate" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-          <mat-expansion-panel-header>
+          <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Personal data
             </mat-panel-title>

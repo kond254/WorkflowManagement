@@ -10,20 +10,20 @@ import { DataServiceInterface } from '../data.service';
 
 interface JobStandards{
   ProcessID: number;
-  JobTitel: string;
+  JobTitle: string;
   JobType: string;
-  ReguiredExperience: number;
+  RequiredExperience: number;
   JobDescription: string;
   Responsibilities: string;
   Location: string;
-  jobMode: string;
+  JobMode: string;
   WeeklyHours: number;
   AnnualSalary: number;
-  Paidtimeoff: number;
+  PaidTimeOff: number;
   Benefits: string;
   Industry: string;
   GraduationLevel: string; 
-  language: string;
+  Language: string;
   numberOfPositions: number;
 }
 
