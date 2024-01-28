@@ -67,6 +67,68 @@
 
     
     <mat-accordion #accordion>
+
+      <!--Hier kommt die JobOffer zurück-->
+      <div class ="panel">
+        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Job Offer
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              {{ item.professionTitel}}
+              <mat-icon class ="personIcon">find_in_page</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Profession Titel: {{ item.professionTitel}}</p>
+          <p>Profession Type: {{ item.professionType}}</p>
+          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
+          <p>Description: {{ item.description}}</p>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>     
+
+      
+      <!--Hier kommen JobStandards zurück-->
+      <div class ="panel">
+        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Job Standard
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              {{item.jobTitel}}
+              <mat-icon class ="personIcon">description</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Job Title: {{item.jobTitel}}</p>
+          <p>Job Type: {{item.JobType}}</p>
+          <p>Job Mode: {{item.jobMode}}</p>
+          <p>Annual Salary: {{item.annualSalary}}</p>
+          <p>Benefits: {{item.benefits}}</p>
+          <p>Graduation Level: {{item.graduationLevel}}</p>
+          <p>Industry: {{item.industry}}</p>
+          <p>Language: {{item.language}}</p>
+          <p>Location: {{item.location}}</p>
+          <p>Paid Time Off: {{item.paidtimeoff}}</p>
+          <p>Process ID: {{item.processID}}</p>
+          <p>Required Experience: {{item.reguiredExperience}}</p>
+          <p>Responsibilities: {{item.responsibilities}}</p>
+          <p>Weekly Hours: {{item.weeklyHours}}</p>
+          <p>Number of Positions: {{item.numberOfPositions}}</p>
+          <p>Job Description: {{item.jobDescription}}</p>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+      </mat-expansion-panel>
+    </div>
+
+
+      <!--Hier kommen Candidates zurück-->
       <div class ="panel">
         <mat-expansion-panel *ngFor="let item of datacandidate; let i = index" class="matpanelCandidate" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header>
@@ -91,62 +153,6 @@
         </mat-expansion-panel>
       </div>
 
-      <div class ="panel">
-          <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Job Standard
-              </mat-panel-title>
-              <mat-panel-description class = "paneldiscription">
-                {{item.jobTitel}}
-                <mat-icon class ="personIcon">description</mat-icon>
-              </mat-panel-description>
-            </mat-expansion-panel-header>  
-            <p>Job Title: {{item.jobTitel}}</p>
-            <p>Job Type: {{item.JobType}}</p>
-            <p>Job Mode: {{item.jobMode}}</p>
-            <p>Annual Salary: {{item.annualSalary}}</p>
-            <p>Benefits: {{item.benefits}}</p>
-            <p>Graduation Level: {{item.graduationLevel}}</p>
-            <p>Industry: {{item.industry}}</p>
-            <p>Language: {{item.language}}</p>
-            <p>Location: {{item.location}}</p>
-            <p>Paid Time Off: {{item.paidtimeoff}}</p>
-            <p>Process ID: {{item.processID}}</p>
-            <p>Required Experience: {{item.reguiredExperience}}</p>
-            <p>Responsibilities: {{item.responsibilities}}</p>
-            <p>Weekly Hours: {{item.weeklyHours}}</p>
-            <p>Number of Positions: {{item.numberOfPositions}}</p>
-            <p>Job Description: {{item.jobDescription}}</p>
-            <mat-action-row>
-              <button mat-button color="warn" (click)="prevStep()">Previous</button>
-              <button mat-button color="primary" (click)="nextStep()">Next</button>
-            </mat-action-row>
-        </mat-expansion-panel>
-      </div>
-
-      <div class ="panel">
-        <!--Hier kommt die JobOffer zurück-->
-        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Job Offer
-            </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
-              {{ item.professionTitel}}
-              <mat-icon class ="personIcon">find_in_page</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>  
-          <p>Profession Titel: {{ item.professionTitel}}</p>
-          <p>Profession Type: {{ item.professionType}}</p>
-          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
-          <p>Description: {{ item.description}}</p>
-          <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </div>     
     </mat-accordion>
   
 
