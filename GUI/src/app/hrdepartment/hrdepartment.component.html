@@ -93,33 +93,33 @@
 
       
       <!--Hier kommen JobStandards zurück-->
-      <div class ="panel">
+      <div class ="panel"*ngIf="dataJobStandards">
         <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               Job Standard
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{item.jobTitel}}
+              {{item.JobTitel}}
               <mat-icon class ="personIcon">description</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>  
-          <p>Job Title: {{item.jobTitel}}</p>
+          <p>Job Title: {{item.JobTitel}}</p>
           <p>Job Type: {{item.JobType}}</p>
           <p>Job Mode: {{item.jobMode}}</p>
-          <p>Annual Salary: {{item.annualSalary}}</p>
-          <p>Benefits: {{item.benefits}}</p>
-          <p>Graduation Level: {{item.graduationLevel}}</p>
-          <p>Industry: {{item.industry}}</p>
+          <p>Annual Salary: {{item.AnnualSalary}}</p>
+          <p>Benefits: {{item.Benefits}}</p>
+          <p>Graduation Level: {{item.GraduationLevel}}</p>
+          <p>Industry: {{item.Industry}}</p>
           <p>Language: {{item.language}}</p>
-          <p>Location: {{item.location}}</p>
-          <p>Paid Time Off: {{item.paidtimeoff}}</p>
-          <p>Process ID: {{item.processID}}</p>
-          <p>Required Experience: {{item.reguiredExperience}}</p>
-          <p>Responsibilities: {{item.responsibilities}}</p>
-          <p>Weekly Hours: {{item.weeklyHours}}</p>
+          <p>Location: {{item.Location}}</p>
+          <p>Paid Time Off: {{item.Paidtimeoff}}</p>
+          <p>Process ID: {{item.ProcessID}}</p>
+          <p>Required Experience: {{item.ReguiredExperience}}</p>
+          <p>Responsibilities: {{item.Responsibilities}}</p>
+          <p>Weekly Hours: {{item.WeeklyHours}}</p>
           <p>Number of Positions: {{item.numberOfPositions}}</p>
-          <p>Job Description: {{item.jobDescription}}</p>
+          <p>Job Description: {{item.JobDescription}}</p>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>

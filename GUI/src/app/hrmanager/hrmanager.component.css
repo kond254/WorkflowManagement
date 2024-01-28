@@ -82,33 +82,18 @@ body{
     align-items: center;
 }
 
-.divmatfield1 {
-    margin-top: 30px;
-    width: 50%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column; 
-    flex: 1;
-    float:left;
-    height: 350px;
-    
-}
 
-.divmatfield2 {
-    margin-top: 30px;
-    width: 50%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column; 
-    flex: 1;
-    float:right;
-    height: 350px;
-}
 
 .matfield{
  
-    height: 300px;
+    flex: 1;
+    width: 50%;
  
+} 
+
+.matfieldfulltext{
+    flex-basis: 100%;
+    display: flex; justify-content: space-between;
 }
 
 .divButton {
@@ -160,4 +145,46 @@ body{
     font-size: 14px;
     font-weight: 500;
     margin: 0;
+}
+
+.divmatfield1 {
+    margin-top: 30px;
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+    flex: 1;
+    float:left;
+    height: 350px;
+    
+}
+
+.divmatfield2 {
+    margin-top: 30px;
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+    flex: 1;
+    float:right;
+    height: 350px;
+}
+
+
+.divmatfieldneu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+ 
+
+
+}
+.divmatfieldrow{
+    display: flex;
+
+}
+
+.StepButton{
+    display: flex;
+    float: right;
 }

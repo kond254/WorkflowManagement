@@ -19,9 +19,25 @@ interface JobOffer {
   numberProfessions: string;
   discription:string; 
 }
-
-
-
+// Importiert aus hrdepartmenmt
+interface JobStandards{
+  processID: number;
+  jobTitel: string;
+  jobType: string;
+  reguiredExperience: number;
+  jobDescription: string;
+  responsibilities: string;
+  location: string;
+  jobMode: string;
+  weeklyHours: number;
+  annualSalary: number;
+  paidtimeoff: number;
+  benefits: string;
+  industry: string;
+  graduationLevel: string; 
+  language: string;
+  numberOfPositions: number;
+}
 
 
 @Component({
@@ -35,8 +51,25 @@ export class HrmanagerComponent implements OnInit {
 
   // ... deine anderen Deklarationen hier ...
 
- 
-
+ // nach dem vorbild des HR Department angelegt wo auch jobOffer so angelegt wurde
+  jobStandards: JobStandards = {
+    processID: 0,
+    jobTitel: '',
+    jobType: '',
+    reguiredExperience: 0,
+    jobDescription: '',
+    responsibilities: '',
+    location: '',
+    jobMode: '',
+    weeklyHours: 0,
+    annualSalary: 0,
+    paidtimeoff: 0,
+    benefits: '',
+    industry: '',
+    graduationLevel: '',
+    language: '',
+    numberOfPositions: 0
+  };
 
 
 
@@ -127,6 +160,41 @@ export class HrmanagerComponent implements OnInit {
     additionalinformation: string;
     id: string;
   }[] = jobinformationacceptedData;
+
+
+
+  /*
+      #insert job standards in the table
+    def insert_job_standards_in_db(self, process_id: int, jobType: str, jobTitle:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, numberOfPositions: int):
+        #finding file in the sql folder
+        with open('SQL/insertIntoJobStandards.sql', 'r') as sql_file:
+            sql_script = sql_file.read()           
+            #generating json format
+            data = {
+            'job_process_instance_key': process_id,
+            'jobTitle': jobTitle,
+            'jobType': jobType,
+            'required_experience': required_experience,
+            'job_description': job_description,
+            'responsibilities': responsibilities,
+            'location': location,
+            'job_mode': job_mode,
+            'weekly_hours': weekly_hours,
+            'AnnualSalary': pay,
+            'pto': pto,
+            'benefits': benefits,
+            'industry': industry,
+            'min_education_level': min_education_level,
+            'language': language,
+            'numberOfPosition': numberOfPositions
+        }
+            #create a tuple for json format that the sql file can read the data
+            cur.execute(sql_script, tuple(data.values()))
+            con.commit()
+            print("DB INSERT EXECUTED")
+
+  */
+
 
 
   step = 0;
@@ -313,6 +381,21 @@ export class HrmanagerComponent implements OnInit {
   }
 
   
+ //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
+ sendData() {}
+/*   this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
+    response => {
+      console.log('Data sent successfully', response);
+      this.snackbarService.showSuccess('New job standard sented');
+      // Hier kannst du weitere Aktionen nach dem Senden durchführen, z.B., eine Erfolgsmeldung anzeigen
+    },
+    error => {
+      console.error('Error sending data', error);
+      // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+    }
+  );
+} */
+
 
   // Funktion, um den Job zu akzeptieren
   acceptJob(item: any): void {

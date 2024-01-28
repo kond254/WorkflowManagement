@@ -5,10 +5,9 @@
     </div>
   </header>
 
+
   <body>
     
-    
-    <!--<h2>Job Openings For Review</h2>-->
     <mat-card class = "card">
         <mat-card-content class = "cardcontent"><h2>Job Openings For Review</h2></mat-card-content>
         <div class="divNoNews" *ngIf="!hasData()">
@@ -51,6 +50,9 @@
       </mat-card>
 
 
+
+
+
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Fill in Job Standards</h2></mat-card-content>
       <div class="divNoNews" *ngIf="!hasData()">
@@ -65,32 +67,116 @@
               <mat-panel-description class = "paneldiscription">
                 ID: {{ item.id }}
                 <mat-icon class ="createIcon">create</mat-icon>
-                
               </mat-panel-description>
-            </mat-expansion-panel-header>  
-            <mat-form-field class="matfield" style="width: 100%;">
-              <mat-label>Add Job Standards here</mat-label>
-              <textarea [(ngModel)]="info" matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+            </mat-expansion-panel-header>
+
+        <div class="divmatfieldneu">
+
+            <div class="divmatfieldrow"> 
+             <mat-form-field class = "matfield">
+              <mat-label>Required Experience</mat-label>
+               <input [(ngModel)]="jobStandards.reguiredExperience" matInput type="number">
             </mat-form-field>
-            <div style="display: flex; justify-content: space-between;">
+             <mat-form-field class = "matfield">
+               <mat-label>Responsibilities</mat-label>
+               <input [(ngModel)]="jobStandards.responsibilities" matInput>
+             </mat-form-field>
+             </div>
+
+             <div class="divmatfieldrow"> 
+             <mat-form-field class = "matfield">
+              <mat-label>Location</mat-label>
+              <input [(ngModel)]="jobStandards.location" matInput>
+            </mat-form-field>
+            <mat-form-field class = "matfield">
+              <mat-label>Job Mode</mat-label>
+              <input [(ngModel)]="jobStandards.jobMode" matInput>
+            </mat-form-field>
+          </div>
+
+          <div class="divmatfieldrow"> 
+            <mat-form-field class = "matfield">
+              <mat-label>  Weekly Hours</mat-label>
+              <input [(ngModel)]="jobStandards.weeklyHours" matInput type="number" min="1">
+            </mat-form-field>
+            <mat-form-field class = "matfield">
+              <mat-label>  Annual Salary:</mat-label>
+              <input [(ngModel)]="jobStandards.annualSalary" matInput type="number" min="1">
+            </mat-form-field>
+          </div>
+       
+          <div class="divmatfieldrow"> 
+             <mat-form-field class = "matfield">
+              <mat-label>Paid Time Off</mat-label>
+               <input [(ngModel)]="jobStandards.paidtimeoff" matInput type="number">
+            </mat-form-field>
+             <mat-form-field class = "matfield">
+               <mat-label>Benefits</mat-label>
+               <input [(ngModel)]="jobStandards.benefits" matInput>
+             </mat-form-field>
+            </div>
+       
+            <div class="divmatfieldrow"> 
+             <mat-form-field class = "matfield">
+              <mat-label>Industry</mat-label>
+              <input [(ngModel)]="jobStandards.industry" matInput>
+            </mat-form-field>
+             <mat-form-field class = "matfield">
+              <mat-label>Graduation Level</mat-label>
+              <input [(ngModel)]="jobStandards.graduationLevel" matInput>
+            </mat-form-field>
+          </div>
+
+          <div class="divmatfieldrow"> 
+            <mat-form-field class = "matfield">
+              <mat-label>Language</mat-label>
+              <input [(ngModel)]="jobStandards.jobMode" matInput>
+            </mat-form-field>
+            <mat-form-field class = "matfield">
+              <mat-label>  Number Of Positions</mat-label>
+              <input [(ngModel)]="jobStandards.numberOfPositions" matInput type="number" min="1">
+            </mat-form-field>
+          </div>
+        
+
+     
+            <div class="divmatfieldrow"> 
+            <mat-form-field class="matfield">
+              <mat-label>Add Job Standards here</mat-label>
+              <textarea class = "textareaDiscription" [(ngModel)]="jobStandards.jobDescription" matInput></textarea>
+            </mat-form-field>
+          </div>
+       
+       
+   
+
+          <div class="divmatfieldrow"> 
+            <div class="matfieldfulltext"> 
+
+          
+           
               <div class="divButton">
                 <mat-action-row>
-                  <button class = "button" mat-button color="primary" (click)= "saveData()" [disabled]="!professionTitel|| !professionType || !graduactionLevel || !location || !salary || !numberEmployees">Send</button>
+                  <button class="button" mat-button color="primary" (click)="sendData()" [disabled]="!jobStandards.processID || !jobStandards.jobTitel || !jobStandards.jobType || !jobStandards.reguiredExperience || !jobStandards.jobDescription || !jobStandards.responsibilities || !jobStandards.location || !jobStandards.jobMode || !jobStandards.weeklyHours || !jobStandards.annualSalary || !jobStandards.paidtimeoff || !jobStandards.benefits || !jobStandards.industry || !jobStandards.graduationLevel || !jobStandards.language || !jobStandards.numberOfPositions">Send</button>
                 </mat-action-row>
               </div>
-              <mat-action-row>
+              <mat-action-row class="StepButton">
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
                 <button mat-button color="primary" (click)="nextStep()">Next</button>
               </mat-action-row>
             </div>
+            </div>
+            </div>
+      
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
-
-
-
     <mat-card class="card">
       <mat-card-content class="cardcontent">
+
+
+
+
         <h2>Candidates for Review</h2>
       </mat-card-content>
       <mat-accordion #accordion>
@@ -142,4 +228,4 @@
         </mat-expansion-panel>
       </mat-accordion>
     </mat-card>
-    </body> <!-- test-->
+    </body> 

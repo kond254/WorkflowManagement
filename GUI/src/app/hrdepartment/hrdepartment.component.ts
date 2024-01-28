@@ -9,20 +9,20 @@ import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 
 interface JobStandards{
-  processID: number;
-  jobTitel: string;
+  ProcessID: number;
+  JobTitel: string;
   JobType: string;
-  reguiredExperience: number;
-  jobDescription: string;
-  responsibilities: string;
-  location: string;
+  ReguiredExperience: number;
+  JobDescription: string;
+  Responsibilities: string;
+  Location: string;
   jobMode: string;
-  weeklyHours: number;
-  annualSalary: number;
-  paidtimeoff: number;
-  benefits: string;
-  industry: string;
-  graduationLevel: string; 
+  WeeklyHours: number;
+  AnnualSalary: number;
+  Paidtimeoff: number;
+  Benefits: string;
+  Industry: string;
+  GraduationLevel: string; 
   language: string;
   numberOfPositions: number;
 }
