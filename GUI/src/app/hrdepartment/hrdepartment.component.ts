@@ -8,6 +8,25 @@ import { SnackbarService } from '../snackbar.service';
 */
 import { DataServiceInterface } from '../data.service';
 
+interface JobStandards{
+  processID: number;
+  jobTitel: string;
+  JobType: string;
+  reguiredExperience: number;
+  jobDescription: string;
+  responsibilities: string;
+  location: string;
+  jobMode: string;
+  weeklyHours: number;
+  annualSalary: number;
+  paidtimeoff: number;
+  benefits: string;
+  industry: string;
+  graduationLevel: string; 
+  language: string;
+  numberOfPositions: number;
+}
+
 interface Candidate {
   CandidateID: number;
   ProcessID: number;
@@ -25,6 +44,14 @@ interface Candidate {
   zip_code: string;
 }
 
+interface JobOffer {
+  description: string;
+  numberProfessions: number;
+  processID: number;
+  professionTitel: string;
+  professionType: string;
+}
+
 
 @Component({
   selector: 'app-hrdepartment',
@@ -34,14 +61,19 @@ interface Candidate {
 })
 
 export class HrdepartmentComponent implements OnInit {
-  professionTitel:string ='';
-  professionType:string ='';
-  numberProfessions: number = 0;
-  discription:string ='';
-  data: Candidate[]=[];
-  
 
-  /// newjobOffer: JobOffer[] = [];
+  jobOffer: JobOffer = {
+    processID: 0,
+    professionTitel: '',
+    professionType: '',
+    numberProfessions: 0,
+    description: ''
+  };
+
+  dataJobStandards: JobStandards[]=[];
+  dataJobOffer: JobOffer[]=[];
+  datacandidate: Candidate[]=[];
+  // newjobOffer: JobOffer[] = [];
 
   newjobOffer: {
     professionTitel: string;
@@ -51,7 +83,6 @@ export class HrdepartmentComponent implements OnInit {
     salary: string;
     numberEmployees: string;
     info: string
-    
   }[] = [];
 
   step = 0;
@@ -60,14 +91,17 @@ export class HrdepartmentComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     await this.getCandidate();
-    // await this.sendJobOffer();
+    // await this.getnewEmployees();
+    await this.getJobOffer();
+    await this.getjobStandards();
   }
+
 
   async getCandidate() {
     this.dataServiceInterface.getTopCandidate().subscribe(
       data => {
-        this.data = data as Candidate[]; // Assign the data to this.data
-        console.log(this.data)
+        this.datacandidate = data as Candidate[];
+        console.log(this.datacandidate)
       },
       error => {
         console.error("Error fetching candidate data:", error);
@@ -75,15 +109,63 @@ export class HrdepartmentComponent implements OnInit {
     );
   }
 
-  // Hier ist die neue send funktion
-  // sendData(){
-  //   dataServiceInterface.sendJobOffer(candidateData).subscribe(response => {
-  //     console.log('Response from sendCandidate:', response);
-  //   });
+  //Hier werden die neuen Job Standards abgefragt vom DataServiceInterface
+  getjobStandards(){
+    this.dataServiceInterface.getJobStandards().subscribe(
+      data => {
+        this.dataJobStandards = data as JobStandards[];
+        console.log(this.dataJobStandards)
+      },
+      error => {
+        console.error("Error fetching job standards data:", error);
+      }
+    );
+  }
+
+
+  //Hier werden die neuen eingestellten Employees abgefragt vom DataServiceInterface
+  // async getnewEmployees(){
+  //   this.dataServiceInterface.getTopCandidate().subscribe(
+  //     data => {
+  //       this.data = data as Candidate[]; 
+  //       console.log(this.data)
+  //     },
+  //     error => {
+  //       console.error("Error fetching candidate data:", error);
+  //     }
+  //   );
   // }
+
+
+   //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
+   async getJobOffer() {
+    this.dataServiceInterface.getJobOffer().subscribe(
+      data => {
+        this.dataJobOffer = data as JobOffer[]; // Assign the data to this.data
+        console.log(this.dataJobOffer)
+      },
+      error => {
+        console.error("Error fetching job offer data:", error);
+      }
+    );
+  }
+
+  //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
+  sendData() {
+    this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
+      response => {
+        console.log('Data sent successfully', response);
+        this.snackbarService.showSuccess('New job offer sented');
+        // Hier kannst du weitere Aktionen nach dem Senden durchführen, z.B., eine Erfolgsmeldung anzeigen
+      },
+      error => {
+        console.error('Error sending data', error);
+        // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+      }
+    );
+  }
+
   
-
-
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
     this.step = index;
@@ -116,7 +198,7 @@ export class HrdepartmentComponent implements OnInit {
   // }
 
   //Funktion speichert die Benutzer eingaben
-  saveData(): void {
+  // saveData(): void {
   //   const newData = {
   //     professionTitel: this.professionTitel,
   //     professionType: this.professionType,
@@ -129,16 +211,16 @@ export class HrdepartmentComponent implements OnInit {
   // this.newjobOffer.push(newData);
   // // this.dataService.saveData(newData);
 
-  this.snackbarService.showSuccess('New job offer sent');
-  this.resetInputFields();
+  
+  // this.resetInputFields();
     
-  }
+  // }
 
-  resetInputFields():void{
-    this.professionTitel = '';
-    this.professionType = '';
-    this.numberProfessions = 0;
-    this.discription = '';
-  }
+  // resetInputFields():void{
+  //   this.professionTitel = '';
+  //   this.professionType = '';
+  //   this.numberProfessions = 0;
+  //   this.discription = '';
+  // }
 
 }

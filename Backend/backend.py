@@ -17,11 +17,11 @@ def get_data():
     return jsonify([{'message': 'Hello from Flask!'},{'message': 'Hello from Flask!'}])
 
 
-@app.route('/api/data/get_job_information', methods=['GET'])
-def get_job_information():
+@app.route('/api/data/get_top_candidates', methods=['GET'])
+def get_top_candidates():
     cur.execute(
         """
-        SELECT * FROM Candidate
+        SELECT * FROM Candidate LIMIT 5
                 """)
     data= cur.fetchall()
 
@@ -36,13 +36,15 @@ def get_job_standards():
     cur.execute(
         """
         SELECT * FROM JobStandards
-                """)
+        LIMIT 1
+        """)
     data= cur.fetchall()
 
     columns = [desc[0] for desc in cur.description]
     result = [dict(zip(columns, row)) for row in data]
     print(result)
     return jsonify(result)
+
 
 @app.route('/api/data/get_job_offer', methods=['GET'])
 def get_job_offer():
@@ -57,6 +59,37 @@ def get_job_offer():
     print(result)
     return jsonify(result)
 
+# @app.route('/api/data/get_new_employees', methods=['GET'])
+# def get_job_offer():
+#     cur.execute(
+#         """
+#         SELECT * FROM newEmployees
+#                 """)
+#     data= cur.fetchall()
+
+#     columns = [desc[0] for desc in cur.description]
+#     result = [dict(zip(columns, row)) for row in data]
+#     print(result)
+#     return jsonify(result)
+
+@app.route('/api/data/add_job_offer', methods=['POST'])
+def add_job_offer():
+    try:
+        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
+        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
+
+        cur.execute(
+            """
+            INSERT INTO JobOffers (processID, professionTitel, professionType, numberProfessions, description) 
+            VALUES (?, ?, ?, ?, ?)
+            """, (data['processID'], data['professionTitel'], data['professionType'], data['numberProfessions'], data['description'])
+        )
+
+        con.commit()
+
+        return jsonify({'success': True, 'message': 'Job Offer added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
 
 #
 #@app.route('/api/data/post_job_information', methods=['POST'])

@@ -9,7 +9,7 @@
 
   <mat-card class = "card">
     <mat-card-content class = "cardcontent"><h2>Creat new Job offer</h2></mat-card-content>
-      
+  
       <mat-expansion-panel class ="matpanel">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -24,31 +24,32 @@
     <div class="divmatfield1">
       <mat-form-field class = "matfield">
         <mat-label>Profession Titel</mat-label>
-        <input [(ngModel)]="professionTitel" matInput>
+        <input [(ngModel)]="jobOffer.professionTitel" matInput>
       </mat-form-field>
 
       <mat-form-field class = "matfield">
         <mat-label>Profession Type</mat-label>
-        <input [(ngModel)]="professionType" matInput>
+        <input [(ngModel)]="jobOffer.professionType" matInput>
       </mat-form-field>
 
         <mat-form-field class = "matfield">
           <mat-label>Number of Professions</mat-label>
-          <input [(ngModel)]="numberProfessions" matInput type="number" min="1">
+          <!-- <input [(ngModel)]="jobOffer.numberProfessions" matInput> -->
+          <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1">
         </mat-form-field>
     </div>
 
     <div class="divmatfield2">
         <mat-form-field class = "matfieldDiscription">
           <mat-label>Discription</mat-label>
-          <textarea class = "textareaDiscription" [(ngModel)]="discription" matInput></textarea>
+          <textarea class = "textareaDiscription" [(ngModel)]="jobOffer.description" matInput></textarea>
           </mat-form-field>
     </div>
 
     <div class="divButton">
       <mat-action-row>
-      <button class = "button" mat-button color="primary" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button>
-      <!-- <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button> -->
+      <!-- <button class = "button" mat-button color="primary" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button> -->
+      <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions">Send</button>
       </mat-action-row>
     </div>
    
@@ -59,12 +60,15 @@
 
 <mat-card class = "card">
     <mat-card-content class = "cardcontent"><h2>Current News</h2></mat-card-content>
-    <div class="divNoNews" *ngIf="!data">   <!--*ngIf="!hasData()">-->
-      <p><em>No current news are available!</em></p>
-    </div>
-    <div *ngIf="data">
+    <!-- <div class="divNoNews">   
+      *ngIf="!hasData()">
+       <p *ngIf="datacandidate"><em>No current news are available!</em></p> 
+    </div> -->
+
+    
     <mat-accordion #accordion>
-        <mat-expansion-panel *ngFor="let item of data; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+      <div class ="panel">
+        <mat-expansion-panel *ngFor="let item of datacandidate; let i = index" class="matpanelCandidate" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               Personal data
@@ -74,45 +78,76 @@
               <mat-icon class ="personIcon">account_circle</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>  
-          
           <p>CandidateID: {{ item.CandidateID}}</p>
           <p>Location: {{ item.first_name}}</p>
           <p>Salary: {{ item.linkedin }}</p>
           <p>Age: {{ item.age }}</p>
           <p>Info: {{ item.rating }}</p>
-          
+          <!--Hier kommt die JobStandards zurück-->
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
-          <mat-expansion-panel *ngFor="let items of newjobOffer; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+      </div>
+
+      <div class ="panel">
+          <mat-expansion-panel *ngFor="let item1 of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Personal data
+                Job Standard
               </mat-panel-title>
               <mat-panel-description class = "paneldiscription">
-                {{'New Job Offer'}}
-                <mat-icon class ="personIcon">account_circle</mat-icon>
+                {{item1.jobTitel}}
+                <mat-icon class ="personIcon">description</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>  
-            <!--
-            <p>Profession Titel: {{ items.professionTitel}}</p>
-            <p>Profession Type: {{ items.professionType}}</p>
-            <p>Graduation Level: {{ items.graduactionLevel }}</p>
-            <p>Location: {{ items.location }}</p>
-            <p>Salary: {{ items.salary}}</p>
-            <p>Number: of Employees: {{ items.numberEmployees }}</p>
-            <p>Discrption: {{ items.info }}</p>
-            -->
+            <p>Job Title: {{item1.jobTitel}}</p>
+            <p>Job Type: {{item1.JobType}}</p>
+            <p>Job Mode: {{item1.jobMode}}</p>
+            <p>Annual Salary: {{item1.annualSalary}}</p>
+            <p>Benefits: {{item1.benefits}}</p>
+            <p>Graduation Level: {{item1.graduationLevel}}</p>
+            <p>Industry: {{item1.industry}}</p>
+            <p>Language: {{item1.language}}</p>
+            <p>Location: {{item1.location}}</p>
+            <p>Paid Time Off: {{item1.paidtimeoff}}</p>
+            <p>Process ID: {{item1.processID}}</p>
+            <p>Required Experience: {{item1.reguiredExperience}}</p>
+            <p>Responsibilities: {{item1.responsibilities}}</p>
+            <p>Weekly Hours: {{item1.weeklyHours}}</p>
+            <p>Number of Positions: {{item1.numberOfPositions}}</p>
+            <p>Job Description: {{item1.jobDescription}}</p>
             <mat-action-row>
               <button mat-button color="warn" (click)="prevStep()">Previous</button>
               <button mat-button color="primary" (click)="nextStep()">Next</button>
             </mat-action-row>
         </mat-expansion-panel>
-             
+      </div>
+
+      <div class ="panel">
+        <!--Hier kommt die JobOffer zurück-->
+        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Job Offer
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              {{ item.professionTitel}}
+              <mat-icon class ="personIcon">find_in_page</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Profession Titel: {{ item.professionTitel}}</p>
+          <p>Profession Type: {{ item.professionType}}</p>
+          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>     
     </mat-accordion>
-  </div>
+  
 
   </mat-card>
   

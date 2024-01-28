@@ -61,11 +61,39 @@ body{
     align-items: stretch; 
 }
 
+.panel{
+    padding-top: 20px;
+}
+
 .matpanel{
     padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 6px;
     background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+}
+
+.matpanelJobStandards{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(238, 255, 200);
+    border-radius: 10px;
+}
+
+.matpanelCandidate{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(253, 233, 224);
+    border-radius: 10px;
+}
+
+.matpanelJobOffer{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(216, 232, 255);
     border-radius: 10px;
 }
 
