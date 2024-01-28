@@ -92,32 +92,32 @@
       </div>
 
       <div class ="panel">
-          <mat-expansion-panel *ngFor="let item1 of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Job Standard
               </mat-panel-title>
               <mat-panel-description class = "paneldiscription">
-                {{item1.jobTitel}}
+                {{item.jobTitel}}
                 <mat-icon class ="personIcon">description</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>  
-            <p>Job Title: {{item1.jobTitel}}</p>
-            <p>Job Type: {{item1.JobType}}</p>
-            <p>Job Mode: {{item1.jobMode}}</p>
-            <p>Annual Salary: {{item1.annualSalary}}</p>
-            <p>Benefits: {{item1.benefits}}</p>
-            <p>Graduation Level: {{item1.graduationLevel}}</p>
-            <p>Industry: {{item1.industry}}</p>
-            <p>Language: {{item1.language}}</p>
-            <p>Location: {{item1.location}}</p>
-            <p>Paid Time Off: {{item1.paidtimeoff}}</p>
-            <p>Process ID: {{item1.processID}}</p>
-            <p>Required Experience: {{item1.reguiredExperience}}</p>
-            <p>Responsibilities: {{item1.responsibilities}}</p>
-            <p>Weekly Hours: {{item1.weeklyHours}}</p>
-            <p>Number of Positions: {{item1.numberOfPositions}}</p>
-            <p>Job Description: {{item1.jobDescription}}</p>
+            <p>Job Title: {{item.jobTitel}}</p>
+            <p>Job Type: {{item.JobType}}</p>
+            <p>Job Mode: {{item.jobMode}}</p>
+            <p>Annual Salary: {{item.annualSalary}}</p>
+            <p>Benefits: {{item.benefits}}</p>
+            <p>Graduation Level: {{item.graduationLevel}}</p>
+            <p>Industry: {{item.industry}}</p>
+            <p>Language: {{item.language}}</p>
+            <p>Location: {{item.location}}</p>
+            <p>Paid Time Off: {{item.paidtimeoff}}</p>
+            <p>Process ID: {{item.processID}}</p>
+            <p>Required Experience: {{item.reguiredExperience}}</p>
+            <p>Responsibilities: {{item.responsibilities}}</p>
+            <p>Weekly Hours: {{item.weeklyHours}}</p>
+            <p>Number of Positions: {{item.numberOfPositions}}</p>
+            <p>Job Description: {{item.jobDescription}}</p>
             <mat-action-row>
               <button mat-button color="warn" (click)="prevStep()">Previous</button>
               <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -140,6 +140,7 @@
           <p>Profession Titel: {{ item.professionTitel}}</p>
           <p>Profession Type: {{ item.professionType}}</p>
           <p>Number of needed Professions: {{ item.numberProfessions}}</p>
+          <p>Description: {{ item.description}}</p>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>

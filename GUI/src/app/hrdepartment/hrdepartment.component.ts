@@ -150,6 +150,7 @@ export class HrdepartmentComponent implements OnInit {
     );
   }
 
+  
   //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
   sendData() {
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
