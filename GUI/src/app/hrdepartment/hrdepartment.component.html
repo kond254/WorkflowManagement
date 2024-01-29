@@ -130,12 +130,12 @@
     </div>
 
 
-      <!--Hier kommen Candidates zurück-->
+      <!--Hier kommen TopCandidates zurück-->
       <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of datacandidate; let i = index" class="matpanelCandidate" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataTopCandidate; let i = index" class="matpanelTopCandidates" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
-              Personal data
+              Top Candidate
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
               {{ item.last_name}}
@@ -143,11 +143,53 @@
             </mat-panel-description>
           </mat-expansion-panel-header>  
           <p>CandidateID: {{ item.CandidateID}}</p>
-          <p>Location: {{ item.first_name}}</p>
-          <p>Salary: {{ item.linkedin }}</p>
+          <p>Last Name: {{ item.last_name }}</p>
+          <p>First Name: {{ item.first_name}}</p>
           <p>Age: {{ item.age }}</p>
-          <p>Info: {{ item.rating }}</p>
-          <!--Hier kommt die JobStandards zurück-->
+          <p>Gender: {{ item.gender}}</p>
+          <p>Zip Code: {{ item.zip_code}}</p>
+          <p>City: {{ item.city}}</p>
+          <p>Adress: {{ item.adress}}</p>
+          <p>Country: {{ item.country}}</p>
+          <p>Previous Company: {{ item.previous_company}}</p>
+          <p>E-Mail: {{ item.email}}</p>
+          <p>Rating: {{ item.rating }}</p>
+          <p>Linkedin: {{ item.linkedin }}</p>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+
+
+      <!--Hier kommen new Employees zurück-->
+      <div class ="panel">
+        <mat-expansion-panel *ngFor="let item of dataNewEmployess; let i = index" class="matpanelNewEmployees" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel-header class = "matheader">
+            <mat-panel-title>
+              New Employee
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              {{ item.last_name}}
+              <mat-icon class ="personIcon">perm_identity</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>  
+          <p>Job Title: {{ item.JobTitle}}</p>
+          <p>Job Type: {{ item.JopType}}</p>
+          <p>CandidateID: {{ item.CandidateID}}</p>
+          <p>Last Name: {{ item.last_name }}</p>
+          <p>First Name: {{ item.first_name}}</p>
+          <p>Age: {{ item.age }}</p>
+          <p>Gender: {{ item.gender}}</p>
+          <p>Zip Code: {{ item.zip_code}}</p>
+          <p>City: {{ item.city}}</p>
+          <p>Adress: {{ item.adress}}</p>
+          <p>Country: {{ item.country}}</p>
+          <p>Previous Company: {{ item.previous_company}}</p>
+          <p>E-Mail: {{ item.email}}</p>
+          <p>Rating: {{ item.rating }}</p>
+          <p>Linkedin: {{ item.linkedin }}</p>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>

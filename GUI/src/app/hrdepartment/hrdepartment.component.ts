@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import candidateData from '../../assets/candidates.json';
+// import candidateData from '../../assets/candidates.json';
 import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
-/*
-*
-*
-*/
 import { DataServiceInterface } from '../data.service';
 
 interface JobStandards{
@@ -27,10 +23,9 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
-interface Candidate {
+interface TopCandidate {
   CandidateID: number;
-  ProcessID: number;
-  address: string;
+  adress: string;
   age: number;
   city: string;
   country: string;
@@ -41,7 +36,7 @@ interface Candidate {
   linkedin: string;
   previous_company: string;
   rating: number;
-  zip_code: string;
+  zip_code: string; 
 }
 
 interface JobOffer {
@@ -52,6 +47,23 @@ interface JobOffer {
   professionType: string;
 }
 
+interface NewEmployees{
+  CandidateID: number;
+  JopType: string;
+  JobTitle: string;
+  first_name: string;
+  last_name: string;
+  gender: string;
+  email: string;
+  linkedin: string;
+  adress: string;
+  city: string;
+  zip_code: string;
+  country: string;
+  age: number;
+  previous_company: string;
+  rating: number;
+}
 
 @Component({
   selector: 'app-hrdepartment',
@@ -72,101 +84,20 @@ export class HrdepartmentComponent implements OnInit {
 
   dataJobStandards: JobStandards[]=[];
   dataJobOffer: JobOffer[]=[];
-  datacandidate: Candidate[]=[];
-  // newjobOffer: JobOffer[] = [];
-
-  newjobOffer: {
-    professionTitel: string;
-    professionType: string;
-    graduactionLevel: string;
-    location: string;
-    salary: string;
-    numberEmployees: string;
-    info: string
-  }[] = [];
+  dataTopCandidate: TopCandidate[]=[];
+  dataNewEmployess: NewEmployees[]=[];
 
   step = 0;
 
   constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
 
   async ngOnInit(): Promise<any> {
-    await this.getCandidate();
-    // await this.getnewEmployees();
+    await this.getTopCandidate();
+    await this.getnewEmployees();
     await this.getJobOffer();
     await this.getjobStandards();
   }
 
-
-  async getCandidate() {
-    this.dataServiceInterface.getTopCandidate().subscribe(
-      data => {
-        this.datacandidate = data as Candidate[];
-        console.log(this.datacandidate)
-      },
-      error => {
-        console.error("Error fetching candidate data:", error);
-      }
-    );
-  }
-
-  //Hier werden die neuen Job Standards abgefragt vom DataServiceInterface
-  getjobStandards(){
-    this.dataServiceInterface.getJobStandards().subscribe(
-      data => {
-        this.dataJobStandards = data as JobStandards[];
-        console.log(this.dataJobStandards)
-      },
-      error => {
-        console.error("Error fetching job standards data:", error);
-      }
-    );
-  }
-
-
-  //Hier werden die neuen eingestellten Employees abgefragt vom DataServiceInterface
-  // async getnewEmployees(){
-  //   this.dataServiceInterface.getTopCandidate().subscribe(
-  //     data => {
-  //       this.data = data as Candidate[]; 
-  //       console.log(this.data)
-  //     },
-  //     error => {
-  //       console.error("Error fetching candidate data:", error);
-  //     }
-  //   );
-  // }
-
-
-   //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
-   async getJobOffer() {
-    this.dataServiceInterface.getJobOffer().subscribe(
-      data => {
-        this.dataJobOffer = data as JobOffer[]; // Assign the data to this.data
-        console.log(this.dataJobOffer)
-      },
-      error => {
-        console.error("Error fetching job offer data:", error);
-      }
-    );
-  }
-
-  
-  //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
-  sendData() {
-    this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
-      response => {
-        console.log('Data sent successfully', response);
-        this.snackbarService.showSuccess('New job offer sented');
-        // Hier kannst du weitere Aktionen nach dem Senden durchführen, z.B., eine Erfolgsmeldung anzeigen
-      },
-      error => {
-        console.error('Error sending data', error);
-        // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-      }
-    );
-  }
-
-  
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
     this.step = index;
@@ -178,6 +109,78 @@ export class HrdepartmentComponent implements OnInit {
 
   prevStep() {
     this.step--;
+  }
+
+  //Hier werden die neuen top candidates abgefragt vom DataServiceInterface
+  getTopCandidate() {
+    this.dataServiceInterface.getTopCandidate().subscribe(
+      data => {
+        this.dataTopCandidate = data as TopCandidate[];
+        console.log(this.dataTopCandidate);
+        console.error("Data top candidates retrieved");
+      },
+      error => {
+        console.error("Error fetching candidate data:", error);
+      }
+    );
+  }
+
+  //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
+  getJobOffer() {
+    this.dataServiceInterface.getJobOffer().subscribe(
+      data => {
+        this.dataJobOffer = data as JobOffer[];
+        console.log(this.dataJobOffer);
+        console.error("Data job offer retrieved");
+      },
+      error => {
+        console.error("Error fetching job offer data:", error);
+      }
+    );
+  }
+
+
+  //Hier werden die neuen Job Standards abgefragt vom DataServiceInterface
+  getjobStandards(){
+    this.dataServiceInterface.getJobStandards().subscribe(
+      data => {
+        this.dataJobStandards = data as JobStandards[];
+        console.log(this.dataJobStandards)
+        console.error("Data job standards retrieved");
+      },
+      error => {
+        console.error("Error fetching job standards data:", error);
+      }
+    );
+  }
+
+
+    //Hier werden die neuen eingestellten Employees abgefragt vom DataServiceInterface
+    async getnewEmployees(){
+      this.dataServiceInterface.getNewEmployees().subscribe(
+        data => {
+          this.dataNewEmployess = data as NewEmployees[]; 
+          console.log(this.dataNewEmployess)
+          console.error("Data new employees retrieved");
+        },
+        error => {
+          console.error("Error fetching new employee data:", error);
+        }
+      );
+    }
+  
+  
+  //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
+  sendData() {
+    this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
+      response => {
+        console.log('Data job offer sent successfully', response);
+        this.snackbarService.showSuccess('New job offer sented');
+      },
+      error => {
+        console.error('Error sending job offer data', error);
+      }
+    );
   }
 
   // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei

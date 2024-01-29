@@ -61,7 +61,7 @@ export class DataServiceInterface {
   }
 
   //Hier ist die eingestellten Employees abgefragt
-  getnewEmployees(): Observable<any[]> {
+  getNewEmployees(): Observable<any[]> {
     console.log("NewEmployees")
     return this.http.get<any[]>(this.apiUrl+"/get_new_employees")
   }

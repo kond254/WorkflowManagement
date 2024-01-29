@@ -63,22 +63,18 @@ def get_job_offer():
     print(result)
     return jsonify(result)
 
+@app.route('/api/data/get_new_employees', methods=['GET'])
+def get_new_employees():
+    cur.execute(
+        """
+        SELECT * FROM newEmployees
+                """)
+    data= cur.fetchall()
+    columns = [desc[0] for desc in cur.description]
+    result = [dict(zip(columns, row)) for row in data]
+    print(result)
+    return jsonify(result)
 
-
-
-
-# @app.route('/api/data/get_new_employees', methods=['GET'])
-# def get_job_offer():
-#     cur.execute(
-#         """
-#         SELECT * FROM newEmployees
-#                 """)
-#     data= cur.fetchall()
-
-#     columns = [desc[0] for desc in cur.description]
-#     result = [dict(zip(columns, row)) for row in data]
-#     print(result)
-#     return jsonify(result)
 
 @app.route('/api/data/add_job_offer', methods=['POST'])
 def add_job_offer():
@@ -98,19 +94,12 @@ def add_job_offer():
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-
-#
-#@app.route('/api/data/post_job_information', methods=['POST'])
-#def receive_data():
-#    data = request.get_json()
-#    reut
+    
 
 @app.route('/api/data/add_job_standards', methods=['POST'])
 def add_job_standards():
     try:
-        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
-        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
-
+        data = request.json
         cur.execute(
             """
             INSERT INTO JobStandards (processID, professionTitel, professionType, numberProfessions, description) 
@@ -119,7 +108,6 @@ def add_job_standards():
         )
 
         con.commit()
-
         return jsonify({'success': True, 'message': 'Job Standards added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
@@ -129,9 +117,7 @@ def add_job_standards():
 @app.route('/api/data/update_job_offer', methods=['POST'])
 def update_job_offer():
     try:
-        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
-        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
-
+        data = request.json
         cur.execute(
             """
             Update JobOffers
@@ -142,19 +128,17 @@ def update_job_offer():
 
         con.commit()
         print(data['processID'])
-
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
     
+
 @app.route('/api/data/delete_job_offer', methods=['POST'])
 def delete_job_offer():
 
     print("test")
     try:
-        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
-        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
-
+        data = request.json
         cur.execute(
             """
             Delete from JobOffers
@@ -168,12 +152,6 @@ def delete_job_offer():
         return jsonify({'success': True, 'message': 'Job Offer delete successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-
-
-
-
-
-
 
 
 
