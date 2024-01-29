@@ -72,7 +72,7 @@
 
       <!--Hier kommt die JobOffer zurück-->
       <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Job Offer
@@ -87,8 +87,8 @@
           <p>Number of needed Professions: {{ item.numberProfessions}}</p>
           <p>Description: {{ item.description}}</p>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
+            <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJO()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
       </div>     
@@ -96,7 +96,7 @@
       
       <!--Hier kommen JobStandards zurück-->
       <div class ="panel"*ngIf="dataJobStandards">
-        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Job Standard
@@ -123,8 +123,8 @@
           <p>Number of Positions: {{item.numberOfPositions}}</p>
           <p>Job Description: {{item.JobDescription}}</p>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
+            <button mat-button color="warn" (click)="prevStepJS()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJS()">Next</button>
           </mat-action-row>
       </mat-expansion-panel>
     </div>
@@ -132,7 +132,7 @@
 
       <!--Hier kommen TopCandidates zurück-->
       <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of dataTopCandidate; let i = index" class="matpanelTopCandidates" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataTopCandidate; let i = index" class="matpanelTopCandidates" [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Top Candidate
@@ -156,8 +156,8 @@
           <p>Rating: {{ item.rating }}</p>
           <p>Linkedin: {{ item.linkedin }}</p>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
+            <button mat-button color="warn" (click)="prevStepTC()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepTC()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
       </div>
@@ -165,7 +165,7 @@
 
       <!--Hier kommen new Employees zurück-->
       <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of dataNewEmployess; let i = index" class="matpanelNewEmployees" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataNewEmployess; let i = index" class="matpanelNewEmployees" [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               New Employee
@@ -191,8 +191,8 @@
           <p>Rating: {{ item.rating }}</p>
           <p>Linkedin: {{ item.linkedin }}</p>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
+            <button mat-button color="warn" (click)="prevStepNE()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepNE()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
       </div>

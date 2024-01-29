@@ -87,7 +87,10 @@ export class HrdepartmentComponent implements OnInit {
   dataTopCandidate: TopCandidate[]=[];
   dataNewEmployess: NewEmployees[]=[];
 
-  step = 0;
+  stepJO = 0;
+  stepJS = 0;
+  stepTC= 0;
+  stepNE = 0;
 
   constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
 
@@ -96,19 +99,6 @@ export class HrdepartmentComponent implements OnInit {
     await this.getnewEmployees();
     await this.getJobOffer();
     await this.getjobStandards();
-  }
-
-  // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
   }
 
   //Hier werden die neuen top candidates abgefragt vom DataServiceInterface
@@ -182,6 +172,51 @@ export class HrdepartmentComponent implements OnInit {
       }
     );
   }
+
+   // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+   setStepJO(index: number) {
+    this.stepJO = index;
+  }
+  nextStepJO() {
+    this.stepJO++;
+  }
+  prevStepJO() {
+    this.stepJO--;
+  }
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepJS(index: number) {
+    this.stepJS = index;
+  }
+  nextStepJS() {
+    this.stepJS++;
+  }
+  prevStepJS() {
+    this.stepJS--;
+  }
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepTC(index: number) {
+    this.stepTC = index;
+  }
+  nextStepTC() {
+    this.stepTC++;
+  }
+  prevStepTC() {
+    this.stepTC--;
+  }
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepNE(index: number) {
+    this.stepNE = index;
+  }
+  nextStepNE() {
+    this.stepNE++;
+  }
+  prevStepNE() {
+    this.stepNE--;
+  }
+
 
   // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei
 
