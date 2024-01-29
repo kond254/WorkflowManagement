@@ -73,8 +73,31 @@ export class DataServiceInterface {
     console.log(jobOffer.professionType);
     console.log(jobOffer.numberProfessions);
     console.log(jobOffer.description);
-    return this.http.post<any>(this.apiUrl + "/add_job_offer", jobOffer);
+    return this.http.post<any>(this.apiUrl + "/add_job_offer", jobOffer); 
+
+    // backend wird hier aufgerufen 
+
   }
+
+  //update hier schreiben
+  updateJobOffer(jobOffer: JobOffer): Observable<any> {
+    console.log(jobOffer.professionTitel);
+    console.log(jobOffer.professionType);
+    console.log(jobOffer.numberProfessions);
+    console.log(jobOffer.description);
+    console.log(jobOffer.processID)
+    return this.http.post<any>(this.apiUrl + "/update_job_offer", jobOffer); 
+  }
+
+  deleteJobOffer(jobOffer: JobOffer): Observable<any> {
+    console.log(jobOffer.professionTitel);
+    console.log(jobOffer.professionType);
+    console.log(jobOffer.numberProfessions);
+    console.log(jobOffer.description);
+    console.log(jobOffer.processID)
+    return this.http.post<any>(this.apiUrl + "/delete_job_offer", jobOffer); 
+  }
+
 
 
    // Hier werden die neuen Job Standards ans Backend gesendet

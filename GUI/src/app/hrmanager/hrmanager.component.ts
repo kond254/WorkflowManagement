@@ -55,6 +55,8 @@ interface JobOffer {
   processID: number;
   professionTitel: string;
   professionType: string;
+  hrmanagerAccepted: boolean;
+  
 }
 
 
@@ -349,17 +351,62 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   prevStep() {
     this.step--;
   }
-  //   // Funktion, um den Job zu akzeptieren
-  acceptJob(item: any): void {
-    // hier die Logik zum Akzeptieren des Jobs implmentieren
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+  acceptJob(item: JobOffer): void {
+    // Annahme-Logik hier implementieren
     console.log('Job accepted:', item);
+  
+    // Die Variable hrmanagerAccepted auf true setzen
+    item.hrmanagerAccepted = true;
+  
+    // Die aktualisierten Daten an die Datenbank senden
+    this.updateJobOffer(item);
   }
 
-//   // Funktion, um den Job abzulehnen
-  rejectJob(item: any): void {
-    // hier die Logik zum Ablehnen des Jobs des Jobs implmentieren
+  rejectJob(item: JobOffer): void {
+    // Ablehnungs-Logik hier implementieren
     console.log('Job rejected:', item);
+  
+    // Das Job-Angebot aus der Datenbank löschen
+    this.deleteJobOffer(item);
   }
+
+
+  // Methode zum Aktualisieren eines Job-Angebots in der Datenbank
+updateJobOffer(item: JobOffer): void {
+  this.dataServiceInterface.updateJobOffer(item).subscribe(
+    response => {
+      console.log('Job offer updated successfully', response);
+      this.snackbarService.showSuccess('Job offer accepted');
+      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+    },
+    error => {
+      console.error('Error updating job offer', error);
+      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+    }
+  );
+}
+
+// Methode zum Löschen eines Job-Angebots aus der Datenbank
+deleteJobOffer(item: JobOffer): void {
+  this.dataServiceInterface.deleteJobOffer(item).subscribe(
+    response => {
+      console.log('Job offer delete successfully', response);
+      this.snackbarService.showSuccess('Job offer rejected');
+      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+    },
+    error => {
+      console.error('Error delete job offer', error);
+      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+    }
+  );
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 

@@ -54,6 +54,7 @@ def get_job_offer():
     cur.execute(
         """
         SELECT * FROM JobOffers
+         where hrmanagerAccepted = 0
                 """)
     data= cur.fetchall()
 
@@ -61,6 +62,10 @@ def get_job_offer():
     result = [dict(zip(columns, row)) for row in data]
     print(result)
     return jsonify(result)
+
+
+
+
 
 # @app.route('/api/data/get_new_employees', methods=['GET'])
 # def get_job_offer():
@@ -83,9 +88,9 @@ def add_job_offer():
 
         cur.execute(
             """
-            INSERT INTO JobOffers (processID, professionTitel, professionType, numberProfessions, description) 
-            VALUES (?, ?, ?, ?, ?)
-            """, (data['processID'], data['professionTitel'], data['professionType'], data['numberProfessions'], data['description'])
+            INSERT INTO JobOffers (processID, professionTitel, professionType, numberProfessions, description, hrmanagerAccepted) 
+            VALUES (?, ?, ?, ?, ?, ?)
+            """, (data['processID'], data['professionTitel'], data['professionType'], data['numberProfessions'], data['description'], 0)
         )
 
         con.commit()
@@ -121,7 +126,48 @@ def add_job_standards():
 
 
 
+@app.route('/api/data/update_job_offer', methods=['POST'])
+def update_job_offer():
+    try:
+        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
+        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
 
+        cur.execute(
+            """
+            Update JobOffers
+             set hrmanagerAccepted = 1
+             where processID = ?
+            """, (data['processID'],)
+        )
+
+        con.commit()
+        print(data['processID'])
+
+        return jsonify({'success': True, 'message': 'Job Offer added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+    
+@app.route('/api/data/delete_job_offer', methods=['POST'])
+def delete_job_offer():
+
+    print("test")
+    try:
+        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
+        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
+
+        cur.execute(
+            """
+            Delete from JobOffers
+            where processID = ?
+            """, (data['processID'],)
+        )
+
+        con.commit()
+        print(data['processID'])
+
+        return jsonify({'success': True, 'message': 'Job Offer delete successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
 
 
 
