@@ -25,18 +25,18 @@
     <div class="divmatfield1">
       <mat-form-field class = "matfield">
         <mat-label>Profession Titel</mat-label>
-        <input [(ngModel)]="jobOffer.professionTitel" matInput>
+        <input [(ngModel)]="jobOffer.professionTitel" matInput required>
       </mat-form-field>
 
       <mat-form-field class = "matfield">
         <mat-label>Profession Type</mat-label>
-        <input [(ngModel)]="jobOffer.professionType" matInput>
+        <input [(ngModel)]="jobOffer.professionType" matInput required>
       </mat-form-field>
 
         <mat-form-field class = "matfield">
           <mat-label>Number of Professions</mat-label>
           <!-- <input [(ngModel)]="jobOffer.numberProfessions" matInput> -->
-          <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1">
+          <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1" required>
         </mat-form-field>
     </div>
 
@@ -50,7 +50,7 @@
     <div class="divButton">
       <mat-action-row>
       <!-- <button class = "button" mat-button color="primary" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button> -->
-      <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions">Send</button>
+      <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions || jobOffer.numberProfessions < 1">Send</button>
       </mat-action-row>
     </div>
   </div>

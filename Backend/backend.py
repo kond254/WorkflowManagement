@@ -21,8 +21,11 @@ def get_data():
 def get_top_candidates():
     cur.execute(
         """
-        SELECT * FROM Candidate LIMIT 4
-                """)
+        SELECT Candidate.*, TopCandidate.*
+        FROM Candidate
+        JOIN TopCandidate ON Candidate.CandidateID = TopCandidate.CandidateID
+        LIMIT 4
+        """)
     data= cur.fetchall()
 
     columns = [desc[0] for desc in cur.description]
