@@ -1,10 +1,7 @@
 from pyzeebe import ZeebeClient, create_insecure_channel
 
 class ClientWeplacm:
-
-          
-        
-        
+  
     async def send_contract_to_weplacm(self, client: ZeebeClient,job_type: str, amount_of_workers: int, compensation_per_worker: float):
         await client.run_process(bpmn_process_id="StartingProcess",  # Process ID from WEPLACM
                                 variables={
@@ -93,9 +90,3 @@ class ClientWeplacm:
         client = ZeebeClient(channel)
         print("Client created to Weplacm") # 
         await self.send_contract_to_weplacm_2(client, job_type, amount_of_workers, compensation_per_worker) 
-
-
-
-
-
-

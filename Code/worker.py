@@ -68,7 +68,7 @@ def main():
             
             
     #check all final answers
-    @worker.task(task_type="checkingFinalAnswers")
+    @worker.task(task_type="checkingFinalAnswer")
     async def checking_final_answers(job: Job):
         print("-----Check all final Answers-----")
         print("Process Instance Key: " +str(job.process_instance_key))
@@ -88,8 +88,8 @@ def main():
     async def select_candidates_to_reject(job: Job, OpenPositions: int):
         print("-----Candidates to reject-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        i = 0
-        while i <= OpenPositions:
+        amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        while amount > OpenPositions:
             #Select ID from candidate to reject
             rejectedCandidate = db.rejected_candidates(job.process_instance_key)
             ######################
@@ -98,15 +98,11 @@ def main():
             print("Informed Candidate about rejection")
             #Remove candidate from TopCandidateDB
             db.remove_candidate_from_topCandidateDB(rejectedCandidate)
-            i+=1
+            amount=-1
         
-
-
-        
-
 
     #Create new Employee
-    @worker.task(task_type="moveCandidateToNewEmployee")
+    @worker.task(task_type="moveCandidateTonewEmployee")
     async def move_candidates_to_new_employee(job: Job):
         print("-----From Candidate to Employee-----")
         print("Process Instance Key: " +str(job.process_instance_key))

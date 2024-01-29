@@ -19,23 +19,15 @@ def main():
     @worker.task(task_type="collectingAnswers")
     async def collecting_answers(job: Job):
             print("waiting")
-            time.sleep(60)
+            time.sleep(600)
     
     @worker.task(task_type="waitForInterviews")
     async def wait_for_interviews(job: Job):
-        x = 2251799813730843
         print("waiting")
-        time.sleep(6)
-        array = db.interview_multi_instance(x)
+        time.sleep(60)
+        array = db.interview_multi_instance(job.process_instance_key)
         print(array)
         return {"TopTenCandidatesIDs": array}
-    
-    
-    @worker.task(task_type="test")
-    async def test(job: Job):
-        proccess_corelation_key=f"{job.process_instance_key}21"
-        print(proccess_corelation_key)
-        return {"proccess_corelation_key": proccess_corelation_key}
             
 
     loop = asyncio.get_event_loop()

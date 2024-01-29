@@ -1,2 +1,2 @@
-INSERT INTO TopCandidate (JobAccepted)
+UPDATE TopCandidate
 SET JobAccepted= ? WHERE CandidateID= ?;

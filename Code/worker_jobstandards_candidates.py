@@ -124,6 +124,8 @@ def main():
     async def fetch_TopCandidate_Data(job: Job, candidate_id: int):
         print("-----Fetch Candidate Data from Database-----")
         print("Process Instance Key: " +str(job.process_instance_key))
+        print(candidate_id)
+        print(type(candidate_id))
         #get the data from the databank
         candidate_details = db.Join_TopCandidate_with_CandidateDB(candidate_id)
         print(candidate_details[0])

@@ -84,6 +84,7 @@ def main():
     async def store_date_answer(job: Job, candidate_id: int, InterviewAccepted: bool):
         print("-----Answer of Candidate recieved an stored-----")
         print("Process Instance Key: " +str(job.process_instance_key))
+        print(candidate_id)
         db.store_answer(InterviewAccepted, candidate_id)
         
     #Check Candidates answer and calculate percentage of acceptance 
@@ -125,9 +126,9 @@ def main():
         print("-----Order Interviews by Date-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         #creating new corelation key for next recieving message 
-        proccess_corelation_key=f"{job.process_instance_key}2I16"
-        print(proccess_corelation_key)
-        return {"proccess_corelation_key": proccess_corelation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key)}
+        process_correlation_key=f"{job.process_instance_key}2I16"
+        print(process_correlation_key)
+        return {"process_correlation_key": process_correlation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key)}
 
 
     #Delete candidate once we get a cancelation from this candidate
