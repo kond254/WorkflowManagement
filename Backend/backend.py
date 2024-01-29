@@ -100,6 +100,34 @@ def add_job_offer():
 #    data = request.get_json()
 #    reut
 
+@app.route('/api/data/add_job_standards', methods=['POST'])
+def add_job_standards():
+    try:
+        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
+        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
+
+        cur.execute(
+            """
+            INSERT INTO JobStandards (processID, professionTitel, professionType, numberProfessions, description) 
+            VALUES (?, ?, ?, ?, ?)
+            """, (data['processID'], data['JobTitle'], data['JobType'], data['RequiredExperience'], data['JobDescription'], data['Responsibilities'], data['Location'], data['JobMode'], data['WeeklyHours'], data['AnnualSalary'], data['PaidTimeOff'], data['Benefits'], data['Industry'], data['GraduationLevel'], data['Language'], data['numberOfPositions'])
+        )
+
+        con.commit()
+
+        return jsonify({'success': True, 'message': 'Job Standards added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+
+
+
+
+
+
+
+
+
 
 
 

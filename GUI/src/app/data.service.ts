@@ -10,6 +10,25 @@ interface JobOffer {
   description: string;
 }
 
+interface JobStandards{
+  ProcessID: number;
+  JobTitle: string;
+  JobType: string;
+  RequiredExperience: number;
+  JobDescription: string;
+  Responsibilities: string;
+  Location: string;
+  JobMode: string;
+  WeeklyHours: number;
+  AnnualSalary: number;
+  PaidTimeOff: number;
+  Benefits: string;
+  Industry: string;
+  GraduationLevel: string; 
+  Language: string;
+  numberOfPositions: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +75,28 @@ export class DataServiceInterface {
     console.log(jobOffer.description);
     return this.http.post<any>(this.apiUrl + "/add_job_offer", jobOffer);
   }
+
+
+   // Hier werden die neuen Job Standards ans Backend gesendet
+   sendJobStandards(jobStandards: JobStandards): Observable<any> {
+    console.log(jobStandards.JobTitle);
+    console.log(jobStandards.JobType);
+    console.log(jobStandards.RequiredExperience);
+    console.log(jobStandards.JobDescription);
+    console.log(jobStandards.Responsibilities);
+    console.log(jobStandards.Location);
+    console.log(jobStandards.JobMode);
+    console.log(jobStandards.WeeklyHours);
+    console.log(jobStandards.AnnualSalary);
+    console.log(jobStandards.PaidTimeOff);
+    console.log(jobStandards.Benefits);
+    console.log(jobStandards.Industry);
+    console.log(jobStandards.GraduationLevel);
+    console.log(jobStandards.Language);
+    console.log(jobStandards.numberOfPositions);
+    return this.http.post<any>(this.apiUrl + "/add_job_standards", jobStandards);
+  }
+
 
 }
 
