@@ -509,44 +509,6 @@ deleteJobOffer(item: JobOffer): void {
 //   }
           
 
-//   resetInputFields():void{
-//     this.professionTitel = '';
-//     this.professionType = '';
-//     this.graduactionLevel = '';
-//     this.location = '';
-//     this.salary = '';
-//     this.numberEmployees = '';
-//     this.info = '';
-//   }
-
-//   resetJobInfoInputFields(): void {
-//     this.professionTitel = '';
-//     this.numberEmployees = '';
-//     this.location = '';
-//     this.salary = '';
-//     this.info = '';
-//   }
-
-//   resetJobInfoAcceptedInputFields(): void {
-//     this.professionTitel = '';
-//     this.numberEmployees = '';
-//     this.location = '';
-//     this.salary = '';
-//     this.info = '';
-//     this.id = ''; 
-//   }
-
-//   resettopcandidatesInputFields(): void {
-//     this.cname = '';
-//     this.ceducation = '';
-//     this.clocation = '';
-//     this.csalary = '';
-//     this.cinfo = '';
-//     this.cid = ''; 
-    
-    
- 
-//   }
 
   
 //  //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
@@ -578,7 +540,6 @@ deleteJobOffer(item: JobOffer): void {
 //     console.log('Job rejected:', item);
 //   }
 
-  
 
  
 }

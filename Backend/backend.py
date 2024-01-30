@@ -39,7 +39,7 @@ def get_job_standards():
     cur.execute(
         """
         SELECT * FROM JobStandards
-        LIMIT 3
+        
         """)
     data= cur.fetchall()
 

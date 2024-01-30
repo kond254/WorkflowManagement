@@ -54,46 +54,9 @@
 
             </mat-expansion-panel>
           </div>
-       
-    
       </mat-card>
 
-        <!-- <mat-accordion #accordion>
-            <mat-expansion-panel *ngFor="let item of dataJobInformation; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                 {{ item.jobtitle }} 
-                </mat-panel-title>
-                <mat-panel-description class = "paneldiscription">
-                  Positions to fill: {{ item.number }}
-                  <mat-icon class ="personIcon">business_center</mat-icon>
-                </mat-panel-description>
-              </mat-expansion-panel-header>  
-              <p>Titel: {{ item.jobtitle}}</p>
-              <p>Number of people wanted: {{ item.number}}</p>
-              <p>Location: {{ item.location }}</p>
-              <p>Salary: {{ item.salary }}</p>
-              <p>Info: {{ item.additionalinformation }}</p>
-              <div style="display: flex; justify-content: space-between;">
-                <mat-action-row>
-                  <button mat-button color="primary" (click)="acceptJob(item)">Accept</button>
-                  <button mat-button color="primary" (click)="rejectJob(item)">Reject</button>
-                </mat-action-row>
-  
-                <mat-action-row>
-                  <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                  <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row> -->
-              
-              <!-- </div>
-
-            </mat-expansion-panel>
-                 
-        </mat-accordion>
-    
-      </mat-card> -->
-
-
+       
 
 
 
@@ -128,15 +91,15 @@
              </div>
 
              <div class="divmatfieldrow"> 
-             <mat-form-field class = "matfield">
-              <mat-label>Location</mat-label>
-              <input [(ngModel)]="jobStandards.Location" matInput>
-            </mat-form-field>
-            <mat-form-field class = "matfield">
-              <mat-label>Job Mode</mat-label>
-              <input [(ngModel)]="jobStandards.JobMode" matInput>
-            </mat-form-field>
-          </div>
+              <mat-form-field class = "matfield">
+               <mat-label>Location</mat-label>
+                <input [(ngModel)]="jobStandards.Location" matInput>
+             </mat-form-field>
+              <mat-form-field class = "matfield">
+                <mat-label>Job Mode</mat-label>
+                <input [(ngModel)]="jobStandards.JobMode" matInput>
+              </mat-form-field>
+              </div>
 
           <div class="divmatfieldrow"> 
             <mat-form-field class = "matfield">
@@ -174,7 +137,7 @@
           <div class="divmatfieldrow"> 
             <mat-form-field class = "matfield">
               <mat-label>Language</mat-label>
-              <input [(ngModel)]="jobStandards.JobMode" matInput>
+              <input [(ngModel)]="jobStandards.Language" matInput>
             </mat-form-field>
             <mat-form-field class = "matfield">
               <mat-label>  Number Of Positions</mat-label>
@@ -191,8 +154,8 @@
             <div class="matfieldfulltext"> 
               <div class="divButton">
                 <mat-action-row>
-                  <button class="button" mat-button color="primary" (click)= "sendData()" >Send</button>
-                  <!-- <button class="button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobStandards.ProcessID || !jobStandards.JobTitle || !jobStandards.JobType || !jobStandards.RequiredExperience || !jobStandards.JobDescription || !jobStandards.Responsibilities || !jobStandards.Location || !jobStandards.JobMode || !jobStandards.WeeklyHours || !jobStandards.AnnualSalary || !jobStandards.PaidTimeOff || !jobStandards.Benefits || !jobStandards.Industry || !jobStandards.GraduationLevel || !jobStandards.Language || !jobStandards.numberOfPositions">Send</button> -->
+                 
+                  <button class="button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobStandards.RequiredExperience || jobStandards.RequiredExperience < 0 || !jobStandards.JobDescription || !jobStandards.Responsibilities || !jobStandards.Location || !jobStandards.JobMode || !jobStandards.WeeklyHours || jobStandards.WeeklyHours < 1 || !jobStandards.AnnualSalary || jobStandards.AnnualSalary <= 0 ||  !jobStandards.PaidTimeOff || jobStandards.PaidTimeOff < 0 || !jobStandards.Benefits || !jobStandards.Industry || !jobStandards.GraduationLevel || !jobStandards.Language || !jobStandards.numberOfPositions || jobStandards.numberOfPositions < 0">Send</button>
                   
                 </mat-action-row>
               </div>
