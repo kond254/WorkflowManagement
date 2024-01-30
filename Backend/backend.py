@@ -1,3 +1,4 @@
+import threading
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -5,92 +6,105 @@ import sqlite3
 
 con = sqlite3.connect("../wbig.db", timeout=10,check_same_thread=False)
 cur = con.cursor()
-
+lock =threading.Lock()
 
 app = Flask(__name__)
 CORS(app)  # Dies aktiviert CORS für alle Routen
 
-@app.route('/api/data', methods=['GET'])
-def get_data():
-    print("Test")
-    print(type([{'message': 'Hello from Flask!'},{'message': 'Hello from Flask!'}]))
-    return jsonify([{'message': 'Hello from Flask!'},{'message': 'Hello from Flask!'}])
-
 
 @app.route('/api/data/get_top_candidates', methods=['GET'])
 def get_top_candidates():
-    cur.execute(
-        """
-        SELECT Candidate.*, TopCandidate.*
-        FROM Candidate
-        JOIN TopCandidate ON Candidate.CandidateID = TopCandidate.CandidateID
-        LIMIT 4
-        """)
-    data= cur.fetchall()
+    try:
+        lock.acquire(True)
+        cur.execute(
+            """
+            SELECT Candidate.*, TopCandidate.*
+            FROM Candidate
+            JOIN TopCandidate ON Candidate.CandidateID = TopCandidate.CandidateID
+            LIMIT 4
+            """)
+        data= cur.fetchall()
 
-    columns = [desc[0] for desc in cur.description]
-    result = [dict(zip(columns, row)) for row in data]
-    print(result)
-    return jsonify(result)
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 
 @app.route('/api/data/get_job_standards', methods=['GET'])
 def get_job_standards():
-    cur.execute(
-        """
-        SELECT * FROM JobStandards
-        LIMIT 3
-        """)
-    data= cur.fetchall()
+    try:
+        lock.acquire(True)
+        cur.execute(
+            """
+            SELECT * FROM JobStandards
+            LIMIT 3
+            """)
+        data= cur.fetchall()
 
-    columns = [desc[0] for desc in cur.description]
-    result = [dict(zip(columns, row)) for row in data]
-    print(result)
-    return jsonify(result)
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 
 @app.route('/api/data/get_job_offer', methods=['GET'])
 def get_job_offer():
-    cur.execute(
-        """
-        SELECT * FROM JobOffers
-         where hrmanagerAccepted = 0
-                """)
-    data= cur.fetchall()
+    try:
+        lock.acquire(True)
+        cur.execute(
+            """
+            SELECT * FROM JobOffers
+            where hrmanagerAccepted = 0
+                    """)
+        data= cur.fetchall()
 
-    columns = [desc[0] for desc in cur.description]
-    result = [dict(zip(columns, row)) for row in data]
-    print(result)
-    return jsonify(result)
-
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 @app.route('/api/data/get_job_offer_accepted', methods=['GET'])
 def get_job_offer_accepted():
-    cur.execute(
-        """
-        SELECT * FROM JobOffers
-         where hrmanagerAccepted = 1
-                """)
-    data= cur.fetchall()
+    try:
+        lock.acquire(True)
+            
+        cur.execute(
+            """
+            SELECT * FROM JobOffers
+            where hrmanagerAccepted = 1
+                    """)
+        data= cur.fetchall()
 
-    columns = [desc[0] for desc in cur.description]
-    result = [dict(zip(columns, row)) for row in data]
-    print(result)
-    return jsonify(result)
-
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 @app.route('/api/data/get_new_employees', methods=['GET'])
 def get_new_employees():
-    cur.execute(
-        """
-        SELECT * FROM newEmployees
-                """)
-    data= cur.fetchall()
-    columns = [desc[0] for desc in cur.description]
-    result = [dict(zip(columns, row)) for row in data]
-    print(result)
-    return jsonify(result)
-
+    try:
+        lock.acquire(True)
+            
+        cur.execute(
+            """
+            SELECT * FROM newEmployees
+                    """)
+        data= cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 @app.route('/api/data/add_job_offer', methods=['POST'])
 def add_job_offer():
