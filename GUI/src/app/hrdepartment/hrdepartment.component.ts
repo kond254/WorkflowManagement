@@ -3,7 +3,6 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
-import { AfterViewInit } from '@angular/core';
 import { AfterContentChecked } from '@angular/core';
 
 interface JobStandards{
@@ -115,7 +114,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.dataServiceInterface.getTopCandidate().subscribe(
       data => {
         this.dataTopCandidate = data as TopCandidate[];
-        console.log(this.dataTopCandidate);
         console.log("Data top candidates retrieved");
       },
       error => {
@@ -129,7 +127,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.dataServiceInterface.getJobOffer().subscribe(
       data => {
         this.dataJobOffer = data as JobOffer[];
-        console.log(this.dataJobOffer);
         console.log("Data job offer retrieved");
       },
       error => {
@@ -143,7 +140,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.dataServiceInterface.getJobOfferAccepted().subscribe(
       data => {
         this.dataJobOfferAccepted = data as JobOffer[];
-        console.log(this.dataJobOffer);
         console.log("Data accepted job offer retrieved");
       },
       error => {
@@ -158,7 +154,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.dataServiceInterface.getJobStandards().subscribe(
       data => {
         this.dataJobStandards = data as JobStandards[];
-        console.log(this.dataJobStandards)
         console.log("Data job standards retrieved");
       },
       error => {
@@ -173,7 +168,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       this.dataServiceInterface.getNewEmployees().subscribe(
         data => {
           this.dataNewEmployess = data as NewEmployees[]; 
-          console.log(this.dataNewEmployess)
           console.log("Data new employees retrieved");
         },
         error => {

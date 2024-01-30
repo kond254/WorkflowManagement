@@ -44,69 +44,70 @@ export class DataServiceInterface {
   //   return this.http.get<any[]>(this.apiUrl+"/get_job_candidate");
   // }
 
+  // Funktion die top candidates vom backend abruft
   getTopCandidate(): Observable<any[]> {
-    console.log("TopCandidates")
+    console.log("Data top candidates from backend retrieved")
     return this.http.get<any[]>(this.apiUrl+"/get_top_candidates")
   }
 
+  // Funktion die job standards vom backend abruft
   getJobStandards(): Observable<any[]> {
-    console.log("JobStandards")
+    console.log("Data job standards from backend retrieved")
     return this.http.get<any[]>(this.apiUrl+"/get_job_standards")
   }
 
-  //Hier werden die neuen Job Angebote abgefragt
+  // Funktion die job offer vom backend abruft
   getJobOffer(): Observable<any[]> {
-    console.log("JobOffers")
+    console.log("Data job offers from backend retrieved")
     return this.http.get<any[]>(this.apiUrl+"/get_job_offer")
   }
 
-   //Hier werden die neuen Job Angebote abgefragt
+   // Funktion die akzeptierte job offer vom backend abruft
    getJobOfferAccepted(): Observable<any[]> {
-    console.log("JobOffersAccepted")
+    console.log("Data accepted job offers from backend retrieved")
     return this.http.get<any[]>(this.apiUrl+"/get_job_offer_accepted")
   }
 
-  //Hier ist die eingestellten Employees abgefragt
+  // Funktion die new employees vom backend abruft
   getNewEmployees(): Observable<any[]> {
-    console.log("NewEmployees")
+    console.log("Data new employees from backend retrieved")
     return this.http.get<any[]>(this.apiUrl+"/get_new_employees")
   }
   
 
-  // Hier werden die neuen Job Offer ans Backend gesendet
+  // Funktion die neuen job offer ans backend sendet
   sendJobOffer(jobOffer: JobOffer): Observable<any> {
     console.log(jobOffer.professionTitel);
     console.log(jobOffer.professionType);
     console.log(jobOffer.numberProfessions);
     console.log(jobOffer.description);
+    console.log("Data new job offer sent to backend");
     return this.http.post<any>(this.apiUrl + "/add_job_offer", jobOffer); 
-
-    // backend wird hier aufgerufen 
-
   }
 
-  //update hier schreiben
+  // Funktion die neuen job offer update ans backend sendet
   updateJobOffer(jobOffer: JobOffer): Observable<any> {
     console.log(jobOffer.professionTitel);
     console.log(jobOffer.professionType);
     console.log(jobOffer.numberProfessions);
     console.log(jobOffer.description);
     console.log(jobOffer.processID)
+    console.log("Data update job offer sent to backend");
     return this.http.post<any>(this.apiUrl + "/update_job_offer", jobOffer); 
   }
 
+  // Funktion die job offer delete ans backend sendet
   deleteJobOffer(jobOffer: JobOffer): Observable<any> {
     console.log(jobOffer.professionTitel);
     console.log(jobOffer.professionType);
     console.log(jobOffer.numberProfessions);
     console.log(jobOffer.description);
     console.log(jobOffer.processID)
+    console.log("Data delete job offer sent to backend");
     return this.http.post<any>(this.apiUrl + "/delete_job_offer", jobOffer); 
   }
 
-
-
-   // Hier werden die neuen Job Standards ans Backend gesendet
+   // Funktion die neuen job standards ans backend gesendet
    sendJobStandards(jobStandards: JobStandards): Observable<any> {
     console.log(jobStandards.JobTitle);
     console.log(jobStandards.JobType);
@@ -123,9 +124,9 @@ export class DataServiceInterface {
     console.log(jobStandards.GraduationLevel);
     console.log(jobStandards.Language);
     console.log(jobStandards.numberOfPositions);
+    console.log("Data job standards sent to backend");
     return this.http.post<any>(this.apiUrl + "/add_job_standards", jobStandards);
   }
-
 
 }
 
