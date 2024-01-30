@@ -63,6 +63,22 @@ def get_job_offer():
     print(result)
     return jsonify(result)
 
+
+@app.route('/api/data/get_job_offer_accepted', methods=['GET'])
+def get_job_offer_accepted():
+    cur.execute(
+        """
+        SELECT * FROM JobOffers
+         where hrmanagerAccepted = 1
+                """)
+    data= cur.fetchall()
+
+    columns = [desc[0] for desc in cur.description]
+    result = [dict(zip(columns, row)) for row in data]
+    print(result)
+    return jsonify(result)
+
+
 @app.route('/api/data/get_new_employees', methods=['GET'])
 def get_new_employees():
     cur.execute(
@@ -79,8 +95,7 @@ def get_new_employees():
 @app.route('/api/data/add_job_offer', methods=['POST'])
 def add_job_offer():
     try:
-        data = request.json  # Annahme, dass die Daten als JSON gesendet werden
-        # Annahme: Die JSON-Struktur entspricht den Spalten der JobOffers-Tabelle
+        data = request.json
 
         cur.execute(
             """

@@ -60,6 +60,12 @@ export class DataServiceInterface {
     return this.http.get<any[]>(this.apiUrl+"/get_job_offer")
   }
 
+   //Hier werden die neuen Job Angebote abgefragt
+   getJobOfferAccepted(): Observable<any[]> {
+    console.log("JobOffersAccepted")
+    return this.http.get<any[]>(this.apiUrl+"/get_job_offer_accepted")
+  }
+
   //Hier ist die eingestellten Employees abgefragt
   getNewEmployees(): Observable<any[]> {
     console.log("NewEmployees")

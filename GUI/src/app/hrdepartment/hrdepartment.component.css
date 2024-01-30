@@ -201,6 +201,10 @@ body{
     color: #555555;
 }
 
+.doneIcon{
+    color: #16bd24;
+}
+
 .divNoNews{   
     background-color: rgb(247, 247, 247);
     border-radius: 10px;

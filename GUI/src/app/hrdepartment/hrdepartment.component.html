@@ -78,9 +78,9 @@
               Job Offer
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{ item.professionTitel}}
-              <mat-icon class ="personIcon">find_in_page</mat-icon>
+              wait for answer from HR Department
             </mat-panel-description>
+            <mat-icon class ="personIcon">find_in_page</mat-icon>
           </mat-expansion-panel-header>  
           <p>Profession Titel: {{ item.professionTitel}}</p>
           <p>Profession Type: {{ item.professionType}}</p>
@@ -93,6 +93,31 @@
         </mat-expansion-panel>
       </div>     
 
+
+      <!--Hier kommt die akzeptierten JobOffer zurück-->
+      <div class ="panel">
+        <mat-expansion-panel *ngFor="let item of dataJobOfferAccepted let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
+          <mat-expansion-panel-header class = "matheader">
+            <mat-panel-title>
+              Job Offer
+            </mat-panel-title>
+            <mat-panel-description class = "paneldiscription">
+              accepted
+              <mat-icon class ="doneIcon">done_all</mat-icon>
+            </mat-panel-description>
+            <mat-icon class ="personIcon">find_in_page</mat-icon>
+          </mat-expansion-panel-header>  
+          <p>Profession Titel: {{ item.professionTitel}}</p>
+          <p>Profession Type: {{ item.professionType}}</p>
+          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
+          <p>Description: {{ item.description}}</p>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJO()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>  
+
       
       <!--Hier kommen JobStandards zurück-->
       <div class ="panel"*ngIf="dataJobStandards">
@@ -103,8 +128,8 @@
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
               {{item.JobTitle}}
-              <mat-icon class ="personIcon">description</mat-icon>
             </mat-panel-description>
+            <mat-icon class ="personIcon">description</mat-icon>
           </mat-expansion-panel-header>  
           <p>Job Title: {{item.JobTitle}}</p>
           <p>Job Type: {{item.JobType}}</p>
@@ -139,8 +164,8 @@
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
               {{ item.last_name}}
-              <mat-icon class ="personIcon">account_circle</mat-icon>
             </mat-panel-description>
+            <mat-icon class ="personIcon">account_circle</mat-icon>
           </mat-expansion-panel-header>  
           <p>CandidateID: {{ item.CandidateID}}</p>
           <p>Last Name: {{ item.last_name }}</p>
@@ -172,8 +197,8 @@
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
               {{ item.last_name}}
-              <mat-icon class ="personIcon">perm_identity</mat-icon>
             </mat-panel-description>
+            <mat-icon class ="personIcon">perm_identity</mat-icon>
           </mat-expansion-panel-header>  
           <p>Job Title: {{ item.JobTitle}}</p>
           <p>Job Type: {{ item.JopType}}</p>

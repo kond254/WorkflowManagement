@@ -84,6 +84,7 @@ export class HrdepartmentComponent implements OnInit {
 
   dataJobStandards: JobStandards[]=[];
   dataJobOffer: JobOffer[]=[];
+  dataJobOfferAccepted: JobOffer[]=[];
   dataTopCandidate: TopCandidate[]=[];
   dataNewEmployess: NewEmployees[]=[];
 
@@ -95,10 +96,11 @@ export class HrdepartmentComponent implements OnInit {
   constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
 
   async ngOnInit(): Promise<any> {
-    await this.getTopCandidate();
-    await this.getnewEmployees();
     await this.getJobOffer();
+    await this.getJobOfferAccepted();
     await this.getjobStandards();
+    await this.getTopCandidate();
+    await this.getnewEmployees();   
   }
 
   //Hier werden die neuen top candidates abgefragt vom DataServiceInterface
@@ -125,6 +127,20 @@ export class HrdepartmentComponent implements OnInit {
       },
       error => {
         console.error("Error fetching job offer data:", error);
+      }
+    );
+  }
+
+  //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
+  getJobOfferAccepted() {
+    this.dataServiceInterface.getJobOfferAccepted().subscribe(
+      data => {
+        this.dataJobOfferAccepted = data as JobOffer[];
+        console.log(this.dataJobOffer);
+        console.error("Data accepted job offer retrieved");
+      },
+      error => {
+        console.error("Error fetching accepted job offer data:", error);
       }
     );
   }
