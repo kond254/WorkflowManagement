@@ -71,7 +71,7 @@
     <mat-accordion #accordion>
 
       <!--Hier kommt die JobOffer zurück-->
-      <div class ="panel">
+      <div class ="panel" *ngIf="dataJobOffer.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
@@ -95,7 +95,7 @@
 
 
       <!--Hier kommt die akzeptierten JobOffer zurück-->
-      <div class ="panel">
+      <div class ="panel" *ngIf="dataJobOfferAccepted.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobOfferAccepted let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
@@ -120,7 +120,7 @@
 
       
       <!--Hier kommen JobStandards zurück-->
-      <div class ="panel"*ngIf="dataJobStandards">
+      <div class ="panel" *ngIf="dataJobStandards.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
@@ -156,7 +156,7 @@
 
 
       <!--Hier kommen TopCandidates zurück-->
-      <div class ="panel">
+      <div class ="panel" *ngIf="dataTopCandidate.length > 0">
         <mat-expansion-panel *ngFor="let item of dataTopCandidate; let i = index" class="matpanelTopCandidates" [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
@@ -189,8 +189,8 @@
 
 
       <!--Hier kommen new Employees zurück-->
-      <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of dataNewEmployess; let i = index" class="matpanelNewEmployees" [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
+      <div class ="panel" *ngIf="dataNewEmployees.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataNewEmployees; let i = index" class="matpanelNewEmployees" [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               New Employee

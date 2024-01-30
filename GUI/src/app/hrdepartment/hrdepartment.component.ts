@@ -88,7 +88,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   dataJobOffer: JobOffer[]=[];
   dataJobOfferAccepted: JobOffer[]=[];
   dataTopCandidate: TopCandidate[]=[];
-  dataNewEmployess: NewEmployees[]=[];
+  dataNewEmployees: NewEmployees[]=[];
 
   stepJO = 0;
   stepJS = 0;
@@ -167,7 +167,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     async getnewEmployees(){
       this.dataServiceInterface.getNewEmployees().subscribe(
         data => {
-          this.dataNewEmployess = data as NewEmployees[]; 
+          this.dataNewEmployees = data as NewEmployees[]; 
           console.log("Data new employees retrieved");
         },
         error => {
