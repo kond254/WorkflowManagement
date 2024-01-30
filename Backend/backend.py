@@ -50,7 +50,7 @@ def get_job_standards():
         return jsonify(result)
     finally:
         lock.release()
-
+        
 
 @app.route('/api/data/get_job_offer', methods=['GET'])
 def get_job_offer():
@@ -167,6 +167,7 @@ def delete_job_offer():
 
     print("test")
     try:
+        lock.acquire(True)
         data = request.json
         cur.execute(
             """
@@ -181,6 +182,8 @@ def delete_job_offer():
         return jsonify({'success': True, 'message': 'Job Offer delete successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+    finally:
+        lock.release()
 
 
 

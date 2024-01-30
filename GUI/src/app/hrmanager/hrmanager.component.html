@@ -103,7 +103,7 @@
         <p><em>No current news are available!</em></p>
       </div> -->
       <mat-accordion #accordion>
-            <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+            <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                {{ item.professionTitel}} 

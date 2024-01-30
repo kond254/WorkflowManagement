@@ -96,6 +96,7 @@ export class HrmanagerComponent implements OnInit {
 
 dataJobStandards: JobStandards[]=[];
 dataJobOffer: JobOffer[]=[];
+dataJobOfferAccapted: JobOffer[]=[];
 datacandidate: Candidate[]=[];
 
 newjobStandards: {
@@ -131,6 +132,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     // await this.getnewEmployees();
     await this.getJobOffer();
     await this.getjobStandards();
+    await this.getJobOfferAccapted();
   }
 
 
@@ -146,8 +148,20 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     );
   }
 
+  async getJobOfferAccapted() {
+    this.dataServiceInterface.getJobOfferAccepted().subscribe(
+      data => {
+        this.dataJobOfferAccapted = data as JobOffer[];
+        console.log(this.datacandidate)
+      },
+      error => {
+        console.error("Error fetching candidate data:", error);
+      }
+    );
+  }
+
   //Hier werden die neuen Job Standards abgefragt vom DataServiceInterface
-  getjobStandards(){
+  async getjobStandards(){
     this.dataServiceInterface.getJobStandards().subscribe(
       data => {
         this.dataJobStandards = data as JobStandards[];
@@ -384,12 +398,15 @@ updateJobOffer(item: JobOffer): void {
       console.log('Job offer updated successfully', response);
       this.snackbarService.showSuccess('Job offer accepted');
       // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+      this.getJobOffer();
+      this.getJobOfferAccapted();
     },
     error => {
       console.error('Error updating job offer', error);
       // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
     }
   );
+
 }
 
 // Methode zum Löschen eines Job-Angebots aus der Datenbank
@@ -399,6 +416,8 @@ deleteJobOffer(item: JobOffer): void {
       console.log('Job offer delete successfully', response);
       this.snackbarService.showSuccess('Job offer rejected');
       // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+      this.getJobOffer();
+      this.getJobOfferAccapted();
     },
     error => {
       console.error('Error delete job offer', error);
