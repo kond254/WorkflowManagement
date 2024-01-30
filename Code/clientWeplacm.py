@@ -24,7 +24,7 @@ class ClientWeplacm:
                                     "amountOfWorkers": amount_of_workers 
                                 }
                             )
-        
+        #Naming snakeCasen und in Array
     async def send_job_standards_to_weplacm(self, client: ZeebeClient, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
         await client.publish_message(name="sendWeplacmInfoEmployed", # Process ID from WEPLACM
                                     correlation_key="99", #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!

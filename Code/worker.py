@@ -40,11 +40,13 @@ def main():
     
     #Calculate the Evaluation of the 3 interviewer
     @worker.task(task_type="calculatingEvaluation")
-    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentive: int, ratingVP: int):
+    async def calculate_evaluation(job: Job, ratingHrManager: int, ratingHrRepresentive: int, ratingVP: int, candidate_id:int):
         print("-----Calculate Interviewers Answers-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         #calculate the final score
         finalScore = ratingHrManager + ratingHrRepresentive + ratingVP
+        print("Candidate ", candidate_id)
+        print("FinalScore: ", finalScore)
         # is the final score greater 20 let candidate pass
         if finalScore > 20:
             return{"finalSelectionPassed": True}
@@ -75,9 +77,12 @@ def main():
         #get the amount of the total open positions and subtract with the amount of newly employeed candidates
         newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
         numberOfpositions = db.check_number_of_positions(job.process_instance_key)
+        print("NewEmpCOunt ", newEmployeeCount)
+        print("NumOfPos ", numberOfpositions)
         openPositions = numberOfpositions - newEmployeeCount
         #get the amount of candidates in top candidate db. When one Candidate is in the table. We have atleast one new employee 
         amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        print("Amount ", amount)
         if amount[0][0] <= openPositions:
             return{"confirmations": True}
         else:
@@ -88,7 +93,9 @@ def main():
     async def select_candidates_to_reject(job: Job, OpenPositions: int):
         print("-----Candidates to reject-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)
+        amount = db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]
+        print("Amount ", amount)
+        print("OpenPositions ", OpenPositions)
         while amount > OpenPositions:
             #Select ID from candidate to reject
             rejectedCandidate = db.rejected_candidates(job.process_instance_key)
@@ -96,9 +103,11 @@ def main():
             ###do smth Mail#######
             ######################
             print("Informed Candidate about rejection")
+            print(rejectedCandidate)
             #Remove candidate from TopCandidateDB
             db.remove_candidate_from_topCandidateDB(rejectedCandidate)
-            amount=-1
+            amount-1
+            print("newAmount: ", amount)
         
 
     #Create new Employee

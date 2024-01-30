@@ -81,11 +81,11 @@ def main():
     
     #Store the answer of the candidate
     @worker.task(task_type="storeDateAnswer")
-    async def store_date_answer(job: Job, candidate_id: int, InterviewAccepted: bool):
+    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: bool):
         print("-----Answer of Candidate recieved an stored-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        print(candidate_id)
-        db.store_answer(InterviewAccepted, candidate_id)
+        print(CandidateID)
+        db.store_answer(InterviewAccepted, CandidateID)
         
     #Check Candidates answer and calculate percentage of acceptance 
     @worker.task(task_type="checkingDateAnswers")

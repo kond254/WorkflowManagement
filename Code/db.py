@@ -121,7 +121,7 @@ class Databank:
             sql_script = sql_file.read()
             cur.execute(sql_script, (process_id,))
             result = cur.fetchall()
-            return result
+            return result[0][0]
             
     #create an array for each entry for a unique process with candidates in top candidate table 
     def create_Array_for_MultiInstance(self, process_id: int):
@@ -210,10 +210,10 @@ class Databank:
         return single_tuple
         
     #store the answer for the candidate
-    def store_answer(self, InterviewAccepted: bool, candidate_id: int):
+    def store_answer(self, InterviewAccepted: bool, CandidateID: int):
         with open('SQL/storeInterviewDateAnswer.sql', 'r') as sql_file:
             sql_content=sql_file.read()
-            cur.execute(sql_content, (InterviewAccepted, candidate_id))
+            cur.execute(sql_content, (InterviewAccepted, CandidateID))
             con.commit()
             print("DB Updated")
     

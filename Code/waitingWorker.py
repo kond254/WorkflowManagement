@@ -24,7 +24,7 @@ def main():
     @worker.task(task_type="waitForInterviews")
     async def wait_for_interviews(job: Job):
         print("waiting")
-        time.sleep(60)
+        time.sleep(6)
         array = db.interview_multi_instance(job.process_instance_key)
         print(array)
         return {"TopTenCandidatesIDs": array}

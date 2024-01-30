@@ -2247,7 +2247,6 @@
     <bpmn:sequenceFlow id="Flow_0eluhwq" sourceRef="Activity_0lg9nkp" targetRef="Activity_1venfvo" />
     <bpmn:sequenceFlow id="Flow_07buru7" sourceRef="Event_1a2xikj" targetRef="Activity_1d7z1df" />
     <bpmn:sequenceFlow id="Flow_1t3o9d6" sourceRef="Activity_1d7z1df" targetRef="Event_086ny2r" />
-    <bpmn:sequenceFlow id="Flow_0z1ajgt" sourceRef="Activity_1venfvo" targetRef="Activity_0rzbn3u" />
     <bpmn:sequenceFlow id="Flow_0xqgf58" sourceRef="Activity_0xev26l" targetRef="Gateway_0dx4kiy" />
     <bpmn:sequenceFlow id="Flow_12oerpc" name="yes" sourceRef="Gateway_0dx4kiy" targetRef="Activity_15trxka">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=positionsFilled</bpmn:conditionExpression>
@@ -2332,7 +2331,7 @@
     <bpmn:boundaryEvent id="Event_0p0bop7" name="3 Days" attachedToRef="Activity_09a22tq">
       <bpmn:outgoing>Flow_196jcrf</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_01ro303">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT300S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT120S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:serviceTask id="Activity_0rzbn3u" name="waiting for answers">
@@ -2348,7 +2347,7 @@
     <bpmn:boundaryEvent id="Event_07mbhax" name="7 Days" attachedToRef="Activity_0rzbn3u">
       <bpmn:outgoing>Flow_10c3h8a</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_17u3dg4">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT300S</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT120S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:serviceTask id="Activity_0lg9nkp" name="Waiting for first Interview to take place">
@@ -2447,6 +2446,7 @@
     <bpmn:startEvent id="Event_0xiy9v6" name="Need for new Job">
       <bpmn:outgoing>Flow_0o9izjp</bpmn:outgoing>
     </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0z1ajgt" sourceRef="Activity_1venfvo" targetRef="Activity_0rzbn3u" />
     <bpmn:textAnnotation id="TextAnnotation_19cav36">
       <bpmn:text>For each candidate in the List</bpmn:text>
     </bpmn:textAnnotation>
