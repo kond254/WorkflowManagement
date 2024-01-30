@@ -106,50 +106,40 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     await this.getJobOfferAccepted();
     await this.getjobStandards();
     await this.getTopCandidate();
-    await this.getnewEmployees();   
+    await this.getnewEmployees();  
   }
 
-  //Hier werden die neuen top candidates abgefragt vom DataServiceInterface
-  getTopCandidate() {
-    this.dataServiceInterface.getTopCandidate().subscribe(
-      data => {
-        this.dataTopCandidate = data as TopCandidate[];
-        console.log("Data top candidates retrieved");
-      },
-      error => {
-        console.error("Error fetching candidate data:", error);
-      }
-    );
-  }
 
-  //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
+  //Funktion ruft alle neuen job offer vom DataServiceInterface ab
   getJobOffer() {
     this.dataServiceInterface.getJobOffer().subscribe(
       data => {
         this.dataJobOffer = data as JobOffer[];
         console.log("Data job offer retrieved");
+        console.log(this.dataJobOffer);
       },
       error => {
-        console.error("Error fetching job offer data:", error);
+        console.log("Error fetching job offer data");
+        console.log(this.dataJobOffer);
       }
     );
   }
 
-  //Hier werden die neuen Job Offer abgefragt vom DataServiceInterface
+  //Funktion ruft alle akzeptierten job offer vom DataServiceInterface ab
   getJobOfferAccepted() {
+    
     this.dataServiceInterface.getJobOfferAccepted().subscribe(
       data => {
         this.dataJobOfferAccepted = data as JobOffer[];
         console.log("Data accepted job offer retrieved");
       },
       error => {
-        console.log("Error fetching accepted job offer data:", error);
+        console.log("Error fetching accepted job offer data");
       }
     );
   }
 
-
-  //Hier werden die neuen Job Standards abgefragt vom DataServiceInterface
+  //Funktion ruft alle job standards vom DataServiceInterface ab
   getjobStandards(){
     this.dataServiceInterface.getJobStandards().subscribe(
       data => {
@@ -157,27 +147,38 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data job standards retrieved");
       },
       error => {
-        console.error("Error fetching job standards data:", error);
+        console.log("Error fetching job standards data");
       }
     );
   }
 
-
-    //Hier werden die neuen eingestellten Employees abgefragt vom DataServiceInterface
-    async getnewEmployees(){
-      this.dataServiceInterface.getNewEmployees().subscribe(
-        data => {
-          this.dataNewEmployees = data as NewEmployees[]; 
-          console.log("Data new employees retrieved");
-        },
-        error => {
-          console.error("Error fetching new employee data:", error);
-        }
-      );
-    }
+  //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
+  getTopCandidate() {
+    this.dataServiceInterface.getTopCandidate().subscribe(
+      data => {
+        this.dataTopCandidate = data as TopCandidate[];
+        console.log("Data top candidates retrieved");
+      },
+      error => {
+        console.log("Error fetching top candidate data");
+      }
+    );
+  }
+  //Funktion ruft alle new employees vom DataServiceInterface ab
+  getnewEmployees(){
+    this.dataServiceInterface.getNewEmployees().subscribe(
+      data => {
+        this.dataNewEmployees = data as NewEmployees[]; 
+        console.log("Data new employees retrieved");
+      },
+      error => {
+        console.log("Error fetching new employee data");
+      }
+    );
+  }
   
   
-  //Hier werden die neuen Job Offer ans DataServiceInterface gesendet
+  //Funktion sendet neuen Job Offer ans DataServiceInterface
   sendData() {
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
       response => {
@@ -186,13 +187,14 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         this.getJobOffer();
       },
       error => {
-        console.error('Error sending job offer data', error);
+        console.log('Error sending job offer data');
       }
     );
   }
 
-   // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
-   setStepJO(index: number) {
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepJO(index: number) {
     this.stepJO = index;
   }
   nextStepJO() {
@@ -234,50 +236,5 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   prevStepNE() {
     this.stepNE--;
   }
-
-
-  // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei
-
-  //Funktion prüft, ob candiates leer
-  //hasData(): boolean {
-  //  return this.data.some(data =>
-  //    data.name.trim() !== '' &&
-   //   data.education.trim() !== '' &&
-    //  data.location.trim() !== '' &&
-     // data.info.trim() !== '' &&
-      //data.salary  !== 0 &&
-      //data.age  !== 0 &&
-      //data.info.trim()
-    //);
-  //}
-  // hasData(): boolean {
-  //   return this.data.length == 0 || this.newjobOffer.length == 0;
-  // }
-
-  //Funktion speichert die Benutzer eingaben
-  // saveData(): void {
-  //   const newData = {
-  //     professionTitel: this.professionTitel,
-  //     professionType: this.professionType,
-  //     numberEmployees: this.numberProfessions,
-  //     info: this.discription,
-  //   };
-  //   console.log(newData)
-  
-  // // hier neuen Daten in Array
-  // this.newjobOffer.push(newData);
-  // // this.dataService.saveData(newData);
-
-  
-  // this.resetInputFields();
-    
-  // }
-
-  // resetInputFields():void{
-  //   this.professionTitel = '';
-  //   this.professionType = '';
-  //   this.numberProfessions = 0;
-  //   this.discription = '';
-  // }
 
 }

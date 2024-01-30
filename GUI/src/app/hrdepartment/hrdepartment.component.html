@@ -35,7 +35,6 @@
 
         <mat-form-field class = "matfield">
           <mat-label>Number of Professions</mat-label>
-          <!-- <input [(ngModel)]="jobOffer.numberProfessions" matInput> -->
           <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1" required>
         </mat-form-field>
     </div>
@@ -49,7 +48,6 @@
 
     <div class="divButton">
       <mat-action-row>
-      <!-- <button class = "button" mat-button color="primary" [disabled]="!professionTitel|| !professionType || !numberProfessions">Send</button> -->
       <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions || jobOffer.numberProfessions < 1">Send</button>
       </mat-action-row>
     </div>
@@ -62,9 +60,8 @@
 
 <mat-card class = "card">
     <mat-card-content class = "cardcontent"><h2>Current News</h2></mat-card-content>
-    <!-- <div class="divNoNews">   
-      *ngIf="!hasData()">
-       <p *ngIf="datacandidate"><em>No current news are available!</em></p> 
+    <!-- <div class="divNoNews" *ngIf="emptyData">   
+       <p><em>No current news are available!</em></p> 
     </div> -->
 
     
