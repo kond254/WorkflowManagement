@@ -110,42 +110,23 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     await this.getTopCandidate();
     await this.getnewEmployees();  
 
-    // Höre auf aktualisierte Nachrichten vom SocketService
     this.socketService.onJobOfferUpdated().subscribe(() => {
-      // Aktualisiere die JobOffer-Daten, wenn eine Aktualisierungsnachricht empfangen wird
-      this.getJobOfferData();
+      this.getJobOffer();
+      this.getJobOfferAccepted();
     });
 
-     // Höre auf aktualisierte Nachrichten vom SocketService
-     this.socketService.onJobOfferAcceptedUpdated().subscribe(() => {
-      // Aktualisiere die JobOffer-Daten, wenn eine Aktualisierungsnachricht empfangen wird
-      this.getJobOfferAcceptedData();
+    this.socketService.onJobOfferAcceptedUpdated().subscribe(() => {
+      this.getJobOffer();
+      this.getJobOfferAccepted();
     });
-  }
 
-  // Funktion, um JobOffer-Daten abzurufen
-  getJobOfferData() {
-    this.dataServiceInterface.getJobOffer().subscribe(
-      (data: any) => {
-        this.dataJobOffer = data;
-        console.log("Tabelle JobOffer wurde geändert!");
-      },
-      (error) => {
-        console.error('Error fetching job offers:', error);
-      }
-    );
-  }
+    this.socketService.onJobStandardsUpdated().subscribe(() => {
+      this.getjobStandards();
+    });
 
-  getJobOfferAcceptedData(){
-    this.dataServiceInterface.getJobOfferAccepted().subscribe(
-      (data: any) => {
-        this.dataJobOfferAccepted = data;
-        console.log("Tabelle JobOffer wurde geändert!");
-      },
-      (error) => {
-        console.error('Error fetching job offers:', error);
-      }
-    );
+    this.socketService.onTopCandidatesUpdated().subscribe(() => {
+      this.getTopCandidate();
+    });
 
   }
 

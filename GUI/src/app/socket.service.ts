@@ -16,4 +16,12 @@ export class SocketService {
     return this.socket.fromEvent('job_offer__accepted_updated');
   }
 
+  onJobStandardsUpdated(): Observable<any> {
+    return this.socket.fromEvent('job_standards_updated');
+  }
+
+  onTopCandidatesUpdated(): Observable<any> {
+    return this.socket.fromEvent('top_candidates_updated');
+  }
+
 }

@@ -145,8 +145,6 @@ def add_job_offer():
         )
 
         con.commit()
-
-        # Sende eine Nachricht an alle verbundenen Clients
         socketio.emit('job_offer_updated', {'message': 'Job Offer added or updated successfully'})
 
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
@@ -167,6 +165,8 @@ def add_job_standards():
         )
 
         con.commit()
+        socketio.emit('job_standards_updated', {'message': 'Job Standards added successfully'})
+
         return jsonify({'success': True, 'message': 'Job Standards added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
@@ -186,9 +186,7 @@ def update_job_offer():
         )
 
         con.commit()
-
-        # Sende eine Nachricht an alle verbundenen Clients
-        socketio.emit('job_offer__accepted_updated', {'message': 'Job Offer added or updated successfully'})
+        socketio.emit('job_offer__accepted_updated', {'message': 'Job Offer updated successfully'})
 
         print(data['processID'])
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
@@ -211,6 +209,7 @@ def delete_job_offer():
         )
 
         con.commit()
+        socketio.emit('job_offer_updated', {'message': 'Job Offer added or updated successfully'})
         print(data['processID'])
 
         return jsonify({'success': True, 'message': 'Job Offer delete successfully'})
@@ -235,6 +234,7 @@ def update_top_candidates():
         )
 
         con.commit()
+        socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
         print(data['processID'])
         return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
     except Exception as e:
@@ -256,6 +256,7 @@ def delete_top_candidates():
         )
 
         con.commit()
+        socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
         print(data['processID'])
 
         return jsonify({'success': True, 'message': 'Top candidate delete successfully'})
