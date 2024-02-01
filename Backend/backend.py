@@ -1,6 +1,7 @@
 import threading
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_socketio import SocketIO
 
 import sqlite3
 
@@ -9,7 +10,8 @@ cur = con.cursor()
 lock =threading.Lock()
 
 app = Flask(__name__)
-CORS(app)  # Dies aktiviert CORS für alle Routen
+CORS(app) 
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 @app.route('/api/data/get_top_candidates', methods=['GET'])
@@ -144,6 +146,9 @@ def add_job_offer():
 
         con.commit()
 
+        # Sende eine Nachricht an alle verbundenen Clients
+        socketio.emit('job_offer_updated', {'message': 'Job Offer added or updated successfully'})
+
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
@@ -181,6 +186,10 @@ def update_job_offer():
         )
 
         con.commit()
+
+        # Sende eine Nachricht an alle verbundenen Clients
+        socketio.emit('job_offer__accepted_updated', {'message': 'Job Offer added or updated successfully'})
+
         print(data['processID'])
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
     except Exception as e:

@@ -40,6 +40,10 @@ import { HrmanagerComponent } from './hrmanager/hrmanager.component';
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://127.0.0.1:5000', options: {} };
+
 
 @NgModule({
   declarations: [
@@ -74,6 +78,7 @@ import { DialogComponent } from './dialog/dialog.component';
     MatExpansionModule,
     MatDatepickerModule,
     MatDialogModule,
+    SocketIoModule.forRoot(config)
    
   ],
   providers: [DialogService],

@@ -4,6 +4,7 @@ import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { AfterContentChecked } from '@angular/core';
+import { SocketService } from '../socket.service';
 
 interface JobStandards{
   ProcessID: number;
@@ -96,7 +97,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepTC= 0;
   stepNE = 0;
 
-  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef) {}
+  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService) {}
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
@@ -108,8 +109,45 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     await this.getjobStandards();
     await this.getTopCandidate();
     await this.getnewEmployees();  
+
+    // Höre auf aktualisierte Nachrichten vom SocketService
+    this.socketService.onJobOfferUpdated().subscribe(() => {
+      // Aktualisiere die JobOffer-Daten, wenn eine Aktualisierungsnachricht empfangen wird
+      this.getJobOfferData();
+    });
+
+     // Höre auf aktualisierte Nachrichten vom SocketService
+     this.socketService.onJobOfferAcceptedUpdated().subscribe(() => {
+      // Aktualisiere die JobOffer-Daten, wenn eine Aktualisierungsnachricht empfangen wird
+      this.getJobOfferAcceptedData();
+    });
   }
 
+  // Funktion, um JobOffer-Daten abzurufen
+  getJobOfferData() {
+    this.dataServiceInterface.getJobOffer().subscribe(
+      (data: any) => {
+        this.dataJobOffer = data;
+        console.log("Tabelle JobOffer wurde geändert!");
+      },
+      (error) => {
+        console.error('Error fetching job offers:', error);
+      }
+    );
+  }
+
+  getJobOfferAcceptedData(){
+    this.dataServiceInterface.getJobOfferAccepted().subscribe(
+      (data: any) => {
+        this.dataJobOfferAccepted = data;
+        console.log("Tabelle JobOffer wurde geändert!");
+      },
+      (error) => {
+        console.error('Error fetching job offers:', error);
+      }
+    );
+
+  }
 
   //Funktion ruft alle neuen job offer vom DataServiceInterface ab
   getJobOffer() {
@@ -186,7 +224,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       response => {
         console.log('Data job offer sent successfully', response);
         this.snackbarService.showSuccess('New job offer sented');
-        this.getJobOffer();
+        // this.getJobOffer();
       },
       error => {
         console.log('Error sending job offer data');
