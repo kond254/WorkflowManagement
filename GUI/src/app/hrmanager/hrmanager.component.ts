@@ -209,8 +209,8 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   } 
   
 
-  sendData() {
-    this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
+  sendData(item: JobStandards) {
+    this.dataServiceInterface.sendJobStandards(item).subscribe(
       response => {
         console.log('Data sent successfully', response);
         this.snackbarService.showSuccess('New job standards sented');

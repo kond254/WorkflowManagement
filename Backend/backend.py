@@ -153,11 +153,12 @@ def add_job_offer():
 def add_job_standards():
     try:
         data = request.json
+        print(data)
         cur.execute(
             """
-            INSERT INTO JobStandards (processID, professionTitel, professionType, numberProfessions, description) 
-            VALUES (?, ?, ?, ?, ?)
-            """, (data['processID'], data['JobTitle'], data['JobType'], data['RequiredExperience'], data['JobDescription'], data['Responsibilities'], data['Location'], data['JobMode'], data['WeeklyHours'], data['AnnualSalary'], data['PaidTimeOff'], data['Benefits'], data['Industry'], data['GraduationLevel'], data['Language'], data['numberOfPositions'])
+            INSERT INTO JobStandards (ProcessID, JobTitle, JobType) 
+            VALUES (?, ?, ?)
+            """, (data['processID'], data['professionType'], data['professionTitel'])
         )
 
         con.commit()
