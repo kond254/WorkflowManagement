@@ -181,6 +181,11 @@ export class DataServiceInterface {
       return this.http.post<any>(this.apiUrl + "/delete_top_candidate", topCandidate); 
     }
 
+//Funktion die top Candidates zu den passenden JobStandards ausgibt
+    getJobStandardsWithCandidates(): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/api/data/get_jobstandards_with_top_candidates`);
+    }
+
 
 }
 
