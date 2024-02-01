@@ -37,7 +37,8 @@ interface TopCandidate {
   linkedin: string;
   previous_company: string;
   rating: number;
-  zip_code: string; 
+  zip_code: string;
+  hrmanagerAccepted: boolean; 
 }
 
 interface JobOffer {
@@ -164,6 +165,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       }
     );
   }
+
   //Funktion ruft alle new employees vom DataServiceInterface ab
   getnewEmployees(){
     this.dataServiceInterface.getNewEmployees().subscribe(

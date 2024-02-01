@@ -210,7 +210,7 @@ def delete_job_offer():
         lock.release()
 
 
-# //////////////////////////////////////////////// 01.02
+# //////////////////////////////////////////////// 01.02 ///////////////////////////////////////////////////////////////////////////////
 
 @app.route('/api/data/update_top_candidates', methods=['POST'])
 def update_top_candidates():
@@ -254,6 +254,28 @@ def delete_top_candidates():
     finally:
         lock.release()
 
+
+# NEU: Soll Jobstandarts und die passenden topcandidaten ausgeben.
+
+# @app.route('/api/data/get_jobstandards_with_top_candidates', methods=['GET'])
+# def get_jobstandards_with_top_candidates():
+#     try:
+#         lock.acquire(True)
+#         cur.execute(
+#             """
+#             SELECT JobStandards.*, TopCandidate.*
+#             FROM JobStandards
+#             LEFT JOIN TopCandidate ON JobStandards.processID = TopCandidate.processID
+#             LIMIT 3
+#             """)
+#         data = cur.fetchall()
+
+#         columns = [desc[0] for desc in cur.description]
+#         result = [dict(zip(columns, row)) for row in data]
+#         print(result)
+#         return jsonify(result)
+#     finally:
+#         lock.release()
 
 
 
