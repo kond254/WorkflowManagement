@@ -29,6 +29,22 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
+interface TopCandidate {
+  CandidateID: number;
+  adress: string;
+  age: number;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  linkedin: string;
+  previous_company: string;
+  rating: number;
+  zip_code: string; 
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -127,6 +143,44 @@ export class DataServiceInterface {
     console.log("Data job standards sent to backend");
     return this.http.post<any>(this.apiUrl + "/add_job_standards", jobStandards);
   }
+
+  ////////////////////////////////////////////////////////
+    // Funktion die neuen top candidate update ans backend sendet
+    updateTopCandidate(topCandidate: TopCandidate): Observable<any> {
+      console.log(topCandidate.CandidateID);
+      console.log(topCandidate.adress);
+      console.log(topCandidate.age);
+      console.log(topCandidate.country);
+      console.log(topCandidate.email);
+      console.log(topCandidate.first_name);
+      console.log(topCandidate.gender);
+      console.log(topCandidate.last_name);
+      console.log(topCandidate.linkedin);
+      console.log(topCandidate.previous_company);
+      console.log(topCandidate.rating);
+      console.log(topCandidate.zip_code)
+      console.log("Data update top candidate sent to backend");
+      return this.http.post<any>(this.apiUrl + "/update_top_candidate", topCandidate); 
+    }
+  
+    // Funktion die top Candidate delete ans backend sendet
+    deleteTopCandidate(topCandidate: TopCandidate): Observable<any> {
+      console.log(topCandidate.CandidateID);
+      console.log(topCandidate.adress);
+      console.log(topCandidate.age);
+      console.log(topCandidate.country);
+      console.log(topCandidate.email);
+      console.log(topCandidate.first_name);
+      console.log(topCandidate.gender);
+      console.log(topCandidate.last_name);
+      console.log(topCandidate.linkedin);
+      console.log(topCandidate.previous_company);
+      console.log(topCandidate.rating);
+      console.log(topCandidate.zip_code)
+      console.log("Data delete job offer sent to backend");
+      return this.http.post<any>(this.apiUrl + "/delete_top_candidate", topCandidate); 
+    }
+
 
 }
 

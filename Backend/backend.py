@@ -89,6 +89,30 @@ def get_job_offer_accepted():
     finally:
         lock.release()
 
+
+
+# Das könnte ja für Johannes HR DEPARTMENT relevant sein?
+# @app.route('/api/data/get_top_candidates_accepted', methods=['GET'])
+# def get_top_candidates_accepted():
+#     try:
+#         lock.acquire(True)
+            
+#         cur.execute(
+#             """
+#             SELECT * FROM TopCandidate
+#             where hrmanagerAccepted = 1
+#                     """)
+#         data= cur.fetchall()
+
+#         columns = [desc[0] for desc in cur.description]
+#         result = [dict(zip(columns, row)) for row in data]
+#         print(result)
+#         return jsonify(result)
+#     finally:
+#         lock.release()
+
+
+
 @app.route('/api/data/get_new_employees', methods=['GET'])
 def get_new_employees():
     try:
@@ -184,6 +208,52 @@ def delete_job_offer():
         return jsonify({'success': False, 'error': str(e)})
     finally:
         lock.release()
+
+
+# //////////////////////////////////////////////// 01.02
+
+@app.route('/api/data/update_top_candidates', methods=['POST'])
+def update_top_candidates():
+    try:
+        data = request.json
+        cur.execute(
+            """
+            Update TopCandidates
+             set hrmanagerAccepted = 1
+             where processID = ?
+            """, (data['processID'],)
+        )
+
+        con.commit()
+        print(data['processID'])
+        return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+    
+
+@app.route('/api/data/delete_top_candidates', methods=['POST'])
+def delete_top_candidates():
+
+    print("test")
+    try:
+        lock.acquire(True)
+        data = request.json
+        cur.execute(
+            """
+            Delete from TopCandidates
+            where processID = ?
+            """, (data['processID'],)
+        )
+
+        con.commit()
+        print(data['processID'])
+
+        return jsonify({'success': True, 'message': 'Top candidate delete successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+    finally:
+        lock.release()
+
 
 
 

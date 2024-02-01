@@ -2,15 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
-
-// import candidateData from '../../assets/candidates.json';
-// import jobinformationacceptedData from '../../assets/jobinformationaccepted.json';
-// import topcanidatesData from '../../assets/TopCandidates.json';
-// import jobinformationData from '../../assets/jobinformation.json';
-// /*
-// *
-// *
-// */
 import { DataServiceInterface } from '../data.service';
 
 interface JobStandards{
@@ -56,7 +47,23 @@ interface JobOffer {
   professionTitel: string;
   professionType: string;
   hrmanagerAccepted: boolean;
-  
+}
+
+interface TopCandidate {
+  CandidateID: number;
+  adress: string;
+  age: number;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  linkedin: string;
+  previous_company: string;
+  rating: number;
+  zip_code: string;
+  hrmanagerAccepted: boolean; 
 }
 
 
@@ -97,7 +104,8 @@ export class HrmanagerComponent implements OnInit {
 dataJobStandards: JobStandards[]=[];
 dataJobOffer: JobOffer[]=[];
 dataJobOfferAccapted: JobOffer[]=[];
-datacandidate: Candidate[]=[];
+datacandidate: Candidate[]=[];   // ???????????????????????????
+dataTopCandidate: TopCandidate[]=[];
 
 newjobStandards: {
   //ProcessID: number;
@@ -133,10 +141,12 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     await this.getJobOffer();
     await this.getjobStandards();
     await this.getJobOfferAccapted();
+    await this.getTopCandidate();
+    
   }
 
 
-  async getCandidate() {
+  async getCandidate() {  //warum ist das hier??????????????????????????????brauchen das doch eigentlich nicht
     this.dataServiceInterface.getTopCandidate().subscribe(
       data => {
         this.datacandidate = data as Candidate[];
@@ -184,6 +194,20 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
+
+   //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
+   async getTopCandidate() {
+    this.dataServiceInterface.getTopCandidate().subscribe(
+      data => {
+        this.dataTopCandidate = data as TopCandidate[]; // Assign the data to this.data
+        console.log(this.dataTopCandidate)
+      },
+      error => {
+        console.error("Error fetching top candidate data:", error);
+      }
+    );
+  } 
+  
 
   sendData() {
     this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
@@ -427,7 +451,63 @@ deleteJobOffer(item: JobOffer): void {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+acceptTopCandidate(item: TopCandidate): void {
+  // Annahme-Logik hier implementieren
+  console.log('Top candidate accepted:', item);
 
+  // Die Variable hrmanagerAccepted auf true setzen
+
+ item.hrmanagerAccepted = true; 
+
+  // Die aktualisierten Daten an die Datenbank senden
+  this.updateTopCandidate(item);
+}
+
+rejectTopCandidate(item: TopCandidate): void {
+  // Ablehnungs-Logik hier implementieren
+  console.log('Top candidate rejected:', item);
+
+  // Das Job-Angebot aus der Datenbank löschen
+  this.deleteTopCandidate(item);
+}
+
+
+// Methode zum Aktualisieren eines Job-Angebots in der Datenbank
+updateTopCandidate(item: TopCandidate): void {
+this.dataServiceInterface.updateTopCandidate(item).subscribe(
+  response => {
+    console.log('Top candidate updated successfully', response);
+    this.snackbarService.showSuccess('Top candidate accepted');
+    // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+    this.getTopCandidate();
+    //this.getTopCandidateAccapted();
+  },
+  error => {
+    console.error('Error updating top candidate', error);
+    // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+  }
+);
+
+}
+
+// Methode zum Löschen eines Job-Angebots aus der Datenbank
+deleteTopCandidate(item: TopCandidate): void {
+this.dataServiceInterface.deleteTopCandidate(item).subscribe(
+  response => {
+    console.log('Top candidate delete successfully', response);
+    this.snackbarService.showSuccess('Top candidate rejected');
+    // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+    this.getTopCandidate();
+    //this.getTopCandidateAccapted();
+  },
+  error => {
+    console.error('Error delete job offer', error);
+    // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+  }
+);
+}
+
+/////////////////////////////////////////////////////////////
 
 
   // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei
