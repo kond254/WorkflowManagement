@@ -25,7 +25,7 @@ def main():
     
     #create Job standards and insert them into SystemDB
     @worker.task(task_type="sendJobStandards")
-    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
+    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int, correlation_key_weplacm: int):
         print("-----Job standards send-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         print("Inserting into DB")
@@ -33,15 +33,16 @@ def main():
         process_correlation_key=f"{job.process_instance_key}22"
         #Insert job standards into the db using the db class (backend)
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
-        #cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
+        await cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions, correlation_key_weplacm, process_correlation_key)
         return {"process_correlation_key": process_correlation_key, "Reminder": False}
     
     # Insquire the status of the candidate search by the other group 
     @worker.task(task_type="inquireCandidateSearchProgress")
-    async def inquire_search(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
+    async def inquire_search(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int, correlation_key_weplacm: int):
         print("-----Inquire Status for Candidate Search-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        #cW.inquire_candidate_search_progress()
+        process_correlation_key=f"{job.process_instance_key}30"
+        await cW.inquire_candidate_search_progress(correlation_key_weplacm, process_correlation_key)
         print("Inquery sent")
     
     #checks if atleast one candidate filled in a position and got employed
@@ -63,7 +64,7 @@ def main():
         print("Process Instance Key: " +str(job.process_instance_key))
         amount = db.employed_candidates(job.process_instance_key)
         print(f"Amount {amount}")
-        #cW.send_Employee_Amount(amount)
+        #await cW.send_Employee_Amount(amount)
 
     #receive Candidates from WEPLACM
     @worker.task(task_type="storeAndSortCandidates")

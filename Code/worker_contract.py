@@ -20,31 +20,19 @@ def main():
     cW = ClientWeplacm()
     db = Databank()
     worker = ZeebeWorker(channel)
-    
-
-    ##################################
-    ## Was macht diese ServiceTask? ##
-    ##################################
-    @worker.task(task_type="countIncrease")
-    async def count_increase(job: Job, count: int):
-        print(count)
-        count = count+1
-        print(count)
-        job.variables.update({"count": count})
-        print("Finish")
 
 
     #starting Process in WEPLACM to send inital contract information
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
         print("-----Starting contract nagotiation-----")
-        await cW.sendContract(jobType, number_of_positions, compensation)
+        process_correlation_key=f"{job.process_instance_key}21" #generating correlation key for the following recieve message task
+        response = await cW.sendContract(jobType, number_of_positions, compensation, process_correlation_key)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
-        process_correlation_key=f"{job.process_instance_key}21" #generating correlation key for the following recieve message task
-        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key} 
+        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response} 
 
     #check the answer and log responses
     @worker.task(task_type="checkContractAnswer")
@@ -75,24 +63,24 @@ def main():
             
     #send the adjusted contract to WEPLACM    
     @worker.task(task_type="sendAdjustedContract")
-    async def send_adjusted_contract(job: Job, jobType: str, number_of_positions:int, compensation: float, contract_cycle:int):
+    async def send_adjusted_contract(job: Job, jobType: str, number_of_positions:int, compensation: float, contract_cycle:int, correlation_key_weplacm: int):
         print("-----Send Adjusted Contract-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        await cW.sendContract(jobType, number_of_positions, compensation)
+        process_correlation_key=f"{job.process_instance_key}21{contract_cycle}"
+        await cW.send_adjusted_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key, correlation_key_weplacm)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
-        process_correlation_key=f"{job.process_instance_key}21{contract_cycle}"
         print("compensation: "+str(compensation))
         return {"process_correlation_key": process_correlation_key}
 
     
     #Cancel Contract nagotiation because it cycled too many times
     @worker.task(task_type="cancelContract")
-    async def cancel_contract_negotiation(job: Job):
+    async def cancel_contract_negotiation(job: Job, correlation_key_weplacm: int):
         print("-----Cancel Contract nagotiation with WEPLACM-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        #cW.cancel_contract()
+        cW.cancel_contract(correlation_key_weplacm)
         print("Contract Negotiation cancelled")
 
         
@@ -117,10 +105,10 @@ def main():
 
     #Send a reminder for contract nagotiation 
     @worker.task(task_type="contractReminder")
-    async def contract_reminder(job: Job, ReminderExist: bool):
+    async def contract_reminder(job: Job, ReminderExist: bool, correlation_key_weplacm: int):
         print("-----Send a contract Reminder----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        #cW.contract_Reminder()
+        cW.contract_Reminder(correlation_key_weplacm)
         print("Reminder sent")
        
     loop = asyncio.get_event_loop()

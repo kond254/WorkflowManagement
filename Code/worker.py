@@ -18,17 +18,6 @@ def main():
     db = Databank()
     worker = ZeebeWorker(channel)
 
-
-        
-
-
-    # do smth
-    #
-    #
-    #
-    #
-    #
-
     #send confirmation to Candidate about new job
     @worker.task(task_type="sendConfirmationToCandidate")
     async def send_confirmation_to_candidate(job: Job):
@@ -133,12 +122,12 @@ def main():
 
     #sending WEPLACM info about new employment 
     @worker.task(task_type="sendWeplacmInfoEmployed")
-    async def send_weplacm_info_employed(job: Job):
+    async def send_weplacm_info_employed(job: Job, correlation_key_weplacm):
         print("-----Sending information about new employees to WEPLACM-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
-        await cW.sendEmployeeAmount(newEmployeeCount)
         process_correlation_key=f"{job.process_instance_key}28"
+        await cW.sendEmployeeAmount(newEmployeeCount, correlation_key_weplacm, process_correlation_key)
         return {"process_correlation_key": process_correlation_key}
     
     #Check invoice
@@ -158,18 +147,18 @@ def main():
         
     #send weplacm info about wrong invoice 
     @worker.task(task_type="sendWeplacmInfoWrongInvoice")
-    async def send_weplacm_info_wrong_invoice(job: Job):
+    async def send_weplacm_info_wrong_invoice(job: Job, correlation_key_weplacm: int):
         print("-----Sending WEPLACM Information about wrong Invoice-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        await cW.sendFaultyInvoiceInfo()
+        await cW.sendFaultyInvoiceInfo(correlation_key_weplacm)
         print("Faulty Invoice Info send")
 
     #sending WEPLACM info about payment
     @worker.task(task_type="sendWeplacmInfoPayment")
-    async def send_payment(job: Job):
+    async def send_payment(job: Job, correlation_key_weplacm: int):
         print("-----Sending WEPLACM information that payment in on the way-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        await cW.sendPayment()
+        await cW.sendPayment(correlation_key_weplacm)
         print("Payment send")
 
     
