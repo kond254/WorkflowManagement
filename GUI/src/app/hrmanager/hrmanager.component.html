@@ -30,11 +30,6 @@
           <p>Profession Type: {{ item.professionType}}</p>
           <p>Number of needed Professions: {{ item.numberProfessions}}</p>
           <p>Description: {{ item.description}}</p>
-          <!-- <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-          </mat-action-row>
-        </mat-expansion-panel> -->
 
         <div style="display: flex; justify-content: space-between;">
           <mat-action-row>
@@ -184,14 +179,15 @@
               <div class="divButton">
                 
                 <mat-action-row>
-                  <!-- <button class="button" mat-button color="primary" (click)= "sendData(item)" >Send</button>  -->
+                  <!-- <button class="button" mat-button color="primary" (click)= "sendData(item)" >Send</button> -->
+
                   <!-- <button class="button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobStandards.ProcessID || !jobStandards.JobTitle || !jobStandards.JobType || !jobStandards.RequiredExperience || !jobStandards.JobDescription || !jobStandards.Responsibilities || !jobStandards.Location || !jobStandards.JobMode || !jobStandards.WeeklyHours || !jobStandards.AnnualSalary || !jobStandards.PaidTimeOff || !jobStandards.Benefits || !jobStandards.Industry || !jobStandards.GraduationLevel || !jobStandards.Language || !jobStandards.numberOfPositions">Send</button> -->
                   
                 </mat-action-row>
               </div>
               <mat-action-row class="StepButton">
-                <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                <button mat-button color="warn" (click)="prevStepJobStandard()">Previous</button>
+                <button mat-button color="primary" (click)="nextStepJobStandard()">Next</button>
               </mat-action-row>
             </div>
             </div>
@@ -284,113 +280,5 @@
              
             </mat-expansion-panel>
           </div>
-            
-
-              
-       
-
+          
     </mat-card>
-
-
-
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--     
-    <mat-card class="card">
-      <mat-card-content class="cardcontent">
-
-        <h2>Candidates for Review</h2>
-      </mat-card-content>
-      <mat-accordion #accordion>
-        
-        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" (click)="showCandidatesForJob(item)">
-          
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{item.JobTitle}} 
-            </mat-panel-title>
-            <mat-panel-description class="paneldiscription">
-              ID: {{ item.ProcessID }}
-              <mat-icon class ="personIcon">account_circle</mat-icon>
-            
-            
-            </mat-panel-description>
-          
-          </mat-expansion-panel-header>
-          <p>Job Title: {{item.JobTitle}}</p>
-          <p>Job Type: {{item.JobType}}</p>
-          <p>Job Mode: {{item.JobMode}}</p>
-          <p>Annual Salary: {{item.AnnualSalary}}</p>
-          <p>Benefits: {{item.Benefits}}</p>
-          <p>Graduation Level: {{item.GraduationLevel}}</p>
-          <p>Industry: {{item.Industry}}</p>
-          <p>Language: {{item.Language}}</p>
-          <p>Location: {{item.Location}}</p>
-          <p>Paid Time Off: {{item.PaidTimeOff}}</p>
-          <p>Process ID: {{item.ProcessID}}</p>
-          <p>Required Experience: {{item.RequiredExperience}}</p>
-          <p>Responsibilities: {{item.Responsibilities}}</p>
-          <p>Weekly Hours: {{item.WeeklyHours}}</p>
-          <p>Number of Positions: {{item.numberOfPositions}}</p>
-          <p>Job Description: {{item.JobDescription}}</p>
-          <mat-accordion #candidateAccordion> -->
-          
-            <!-- <mat-expansion-panel *ngFor="let candidate of item.candidates" class="matpanel">
-              <mat-expansion-panel-header>
-                <mat-panel-title>{{ candidate.cname }}</mat-panel-title>
-                <mat-panel-description class="paneldiscription">ID: {{ candidate.cID }}</mat-panel-description>
-              </mat-expansion-panel-header>
-              
-              <p>CandidateID: {{ item.CandidateID}}</p>
-              <p>Last Name: {{ item.last_name }}</p>
-              <p>First Name: {{ item.first_name}}</p>
-              <p>Age: {{ item.age }}</p>
-              <p>Gender: {{ item.gender}}</p>
-              <p>Zip Code: {{ item.zip_code}}</p>
-              <p>City: {{ item.city}}</p>
-              <p>Adress: {{ item.adress}}</p>
-              <p>Country: {{ item.country}}</p>
-              <p>Previous Company: {{ item.previous_company}}</p>
-              <p>E-Mail: {{ item.email}}</p>
-              <p>Rating: {{ item.rating }}</p>
-              <p>Linkedin: {{ item.linkedin }}</p>
-              
-    
-          
-
-              <div style="display: flex; justify-content: space-between;">
-                <mat-action-row>
-                  <button mat-button color="primary" (click)="acceptTopCandidate(candidate)">Accept</button>
-                  <button mat-button color="warn" (click)="rejectTopCandidate(candidate)">Reject</button>
-                </mat-action-row>
-  
-                <mat-action-row>
-                  <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                  <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
-              
-              </div>
-
-            </mat-expansion-panel>
-          </mat-accordion>
-        </mat-expansion-panel> -->
-      <!-- </mat-accordion>
-    </mat-card>
-    </body>  -->

@@ -128,7 +128,7 @@ def get_job_offer_accepted():
 
 
 
-# Das könnte ja für Johannes HR DEPARTMENT relevant sein?
+
 @app.route('/api/data/get_top_candidates_accepted', methods=['GET'])
 def get_top_candidates_accepted():
     try:

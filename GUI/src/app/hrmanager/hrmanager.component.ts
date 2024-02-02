@@ -265,7 +265,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       response => {
         console.log('Data sent successfully', response);
         this.snackbarService.showSuccess('New job standards sented');
-        // Hier kannst du weitere Aktionen nach dem Senden durchführen, z.B., eine Erfolgsmeldung anzeigen
+        this.jobStandards = {} as JobStandards;
       },
       error => {
         console.error('Error sending data', error);
@@ -273,6 +273,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
+  
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
@@ -287,11 +288,20 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.step++;
   }
 
+  nextStepJobStandard() {
+    this.step++;
+  }
+
   nextStepCandidates() {
     this.candidateSteps++;
   }
 
+
   prevStep() {
+    this.step--;
+  }
+
+  prevStepJobStandard() {
     this.step--;
   }
 
@@ -299,6 +309,9 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.candidateSteps--;
   }
 
+
+
+  
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
