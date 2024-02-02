@@ -135,13 +135,13 @@ def main():
     async def check_invoice(job: Job, salarie_sum: int):
         print("-----Check Invoice for correctness-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
-        Salary = db.check_annual_salary(job.process_instance_key)
+        new_employee_count = db.check_Count_new_employees(job.process_instance_key)
+        salary = db.check_annual_salary(job.process_instance_key)
         compensation = db.select_contract_compensation(job.process_instance_key)
         #WEPLACM gets payed for each candidate we employed 
-        CalculatedSalarySum = newEmployeeCount*Salary*compensation
+        calculated_salary_sum = new_employee_count*salary*compensation
         #does the invoice add up to our callculations
-        if CalculatedSalarySum == salarie_sum:
+        if calculated_salary_sum == salarie_sum:
             return{"invoiceCorrect": True}
         else:
             return{"invoiceCorrect": False}

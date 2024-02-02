@@ -2,16 +2,16 @@ from pyzeebe import ZeebeClient, create_insecure_channel
 
 class ClientWeplacm:
 
-    async def send_contract_to_weplacm(self, client: ZeebeClient,job_type: str, amount_of_workers: int, compensation_per_worker: float, process_correlation_key: int):
+    async def send_contract_to_weplacm(self, client: ZeebeClient,job_type: str, amount_of_workers: int, compensation_per_worker: float, process_correlation_key: str):
         try:
-            response = await client.run_process(bpmn_process_id="ReceiveContract",  # Process ID from WEPLACM
+            response = await client.run_process(bpmn_process_id="ReceiveContract",  
                                 variables={
                                     "process_correlation_key": process_correlation_key,
                                     "contract":{
-                                        "contract_signed": "False",  # Boolean
-                                        "capacity": "False",  # Boolean
-                                        "compensation_per_worker": compensation_per_worker,  # double, 0-10 // 0.1 = 10%
-                                        "type": job_type,# Aufwand je nach Typ unterschiedlich
+                                        "contract_signed": "False",
+                                        "capacity": "False",  
+                                        "compensation_per_worker": compensation_per_worker,  
+                                        "type": job_type,
                                         "amount_of_workers": amount_of_workers 
                                     }   
                                 }
@@ -28,7 +28,7 @@ class ClientWeplacm:
                                     "contract":{
                                         "contract_signed": "False",  # Boolean
                                         "capacity": "False",  # Boolean
-                                        "compensation_per_worker": compensation_per_worker,  # double, 0-10 // 0.1 = 10%
+                                        "compensation_per_worker": compensation_per_worker, 
                                         "type": job_type,# Aufwand je nach Typ unterschiedlich
                                         "amount_of_workers": amount_of_workers 
                                     }   
@@ -76,7 +76,7 @@ class ClientWeplacm:
                                         
                                 })
     
-    async def inquire_candidate_search_progress(self, client: ZeebeClient, correlation_key_weplacm: int, process_correlation_key: int):
+    async def inquire_candidate_search_progress(self, client: ZeebeClient, correlation_key_weplacm: int, process_correlation_key: str):
         await client.publish_message(name="TBA", # Process ID from WEPLACM
                                     correlation_key= correlation_key_weplacm, 
                                     variables={
@@ -84,7 +84,7 @@ class ClientWeplacm:
                                         "job_type": "inquiry_candidate_search"
                                 })
         
-    async def send_Employee_Amount(self, client: ZeebeClient, amount: int, correlation_key_weplacm: int, process_correlation_key: int):
+    async def send_Employee_Amount(self, client: ZeebeClient, amount: int, correlation_key_weplacm: int, process_correlation_key: str):
         await client.publish_message(name="Enough", # Process ID from WEPLACM
                                     correlation_key=correlation_key_weplacm, #Correlation Key from WEPLACM TBA MUSS NOCH KORRIGIERT WERDEN!!!!!!!!!!!!!!!!!!!!!
                                     variables={
