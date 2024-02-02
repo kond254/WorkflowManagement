@@ -30,11 +30,16 @@
 
       <mat-form-field class = "matfield">
         <mat-label>Profession Type</mat-label>
-        <input [(ngModel)]="jobOffer.professionType" matInput required>
+            <mat-select [(ngModel)]="jobOffer.professionType" placeholder="">
+              <mat-option value="CEO">CEO</mat-option>
+              <mat-option value="Worker">Worker</mat-option>
+              <mat-option value="Manager">Manager</mat-option>
+              <mat-option value="Intern">Intern</mat-option>
+            </mat-select>
       </mat-form-field>
 
         <mat-form-field class = "matfield">
-          <mat-label>Number of Professions</mat-label>
+          <mat-label>Number of Positions</mat-label>
           <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1" required>
         </mat-form-field>
     </div>
