@@ -18,7 +18,7 @@ async def startProcess(data):
     client = ZeebeClient(channel)
     try:
         response = await client.run_process(
-            bpmn_process_id="Process_0tyj0f6",  # Process ID from WEPLACM
+            bpmn_process_id="WBIG_Process",  # Process ID from WEPLACM
             variables=data
         )
         print(response)
