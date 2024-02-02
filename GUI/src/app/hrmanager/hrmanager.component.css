@@ -76,6 +76,9 @@ body{
     border-radius: 10px;
     
 }
+.panel{
+    padding-top: 20px;
+}
 
 .paneldiscription{
     justify-content: space-between;
@@ -94,6 +97,14 @@ body{
 .matfieldfulltext{
     flex-basis: 100%;
     display: flex; justify-content: space-between;
+}
+
+.matpanel{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
 }
 
 .divButton {

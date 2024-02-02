@@ -14,10 +14,7 @@
         </div> -->
 
               <!--Hier kommt die JobOffer zurück-->
-      
-
     
-     
       <div class ="panel">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
@@ -62,9 +59,9 @@
    
       
     <mat-card class = "card">
-      <!--
+     
       <mat-card-content class = "cardcontent"><h2>Fill in Job Standards</h2></mat-card-content>
-       <div class="divNoNews" *ngIf="!hasData()">
+        <!--<div class="divNoNews" *ngIf="!hasData()">
         <p><em>No current news are available!</em></p>
       </div> -->
       <mat-accordion #accordion>
@@ -81,7 +78,51 @@
 
         <div class="divmatfieldneu">
 
-            <div class="divmatfieldrow"> 
+          <div class="divmatfieldrow"> 
+            <mat-form-field class="matfield">
+              <mat-label>Location</mat-label>
+              <mat-select [(ngModel)]="jobStandards.Location" placeholder="Select Location">
+                <mat-option value="Germany">Germany</mat-option>
+                <mat-option value="USA">USA</mat-option>
+                <mat-option value="China">China</mat-option>
+              </mat-select>
+            </mat-form-field>
+          <mat-form-field class = "matfield">
+            <mat-label>Job Mode</mat-label>
+            <mat-select [(ngModel)]="jobStandards.JobMode" placeholder="Select Job Mode">
+              <mat-option value="Homeoffice">Homeoffice</mat-option>
+              <mat-option value="Inoffice">Inoffice</mat-option>
+              <mat-option value="Remote">Remote</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+        <div class="divmatfieldrow"> 
+          <mat-form-field class = "matfield">
+            <mat-label>Language</mat-label>
+            <mat-select [(ngModel)]="jobStandards.Language" placeholder="Select Language">
+              <mat-option value="German">German</mat-option>
+              <mat-option value="English">English</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class = "matfield">
+            <mat-label>Graduation Level</mat-label>
+            <mat-select [(ngModel)]="jobStandards.GraduationLevel" placeholder="Select Graduation Level">
+              <mat-option value="A-Levels">A-Levels</mat-option>
+              <mat-option value="Bachelors">Bachelors</mat-option>
+              <mat-option value="Masters">Masters</mat-option>
+              <mat-option value="Doctorate">Doctorate</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+          
+          
+          
+          
+          <div class="divmatfieldrow"> 
              <mat-form-field class = "matfield">
               <mat-label>Required Experience</mat-label>
                <input [(ngModel)]="jobStandards.RequiredExperience" matInput type="number">
@@ -92,32 +133,27 @@
              </mat-form-field>
              </div>
 
-             <div class="divmatfieldrow"> 
-             <mat-form-field class = "matfield">
-              <mat-label>Location</mat-label>
-              <input [(ngModel)]="jobStandards.Location" matInput>
-            </mat-form-field>
-            <mat-form-field class = "matfield">
-              <mat-label>Job Mode</mat-label>
-              <input [(ngModel)]="jobStandards.JobMode" matInput>
-            </mat-form-field>
-          </div>
+          
 
           <div class="divmatfieldrow"> 
             <mat-form-field class = "matfield">
               <mat-label>  Weekly Hours</mat-label>
               <input [(ngModel)]="jobStandards.WeeklyHours" matInput type="number" min="1">
             </mat-form-field>
+
             <mat-form-field class = "matfield">
-              <mat-label>  Annual Salary:</mat-label>
-              <input [(ngModel)]="jobStandards.AnnualSalary" matInput type="number" min="1">
+              <mat-label>Paid Time Off</mat-label>
+               <input [(ngModel)]="jobStandards.PaidTimeOff" matInput type="number" min="0">
             </mat-form-field>
+
+
+
           </div>
        
           <div class="divmatfieldrow"> 
-             <mat-form-field class = "matfield">
-              <mat-label>Paid Time Off</mat-label>
-               <input [(ngModel)]="jobStandards.PaidTimeOff" matInput type="number">
+            <mat-form-field class = "matfield">
+              <mat-label>  Annual Salary:</mat-label>
+              <input [(ngModel)]="jobStandards.AnnualSalary" matInput type="number" min="0">
             </mat-form-field>
              <mat-form-field class = "matfield">
                <mat-label>Benefits</mat-label>
@@ -130,21 +166,12 @@
               <mat-label>Industry</mat-label>
               <input [(ngModel)]="jobStandards.Industry" matInput>
             </mat-form-field>
-             <mat-form-field class = "matfield">
-              <mat-label>Graduation Level</mat-label>
-              <input [(ngModel)]="jobStandards.GraduationLevel" matInput>
-            </mat-form-field>
-          </div>
-
-          <div class="divmatfieldrow"> 
-            <mat-form-field class = "matfield">
-              <mat-label>Language</mat-label>
-              <input [(ngModel)]="jobStandards.Language" matInput>
-            </mat-form-field>
             <mat-form-field class = "matfield">
               <mat-label>  Number Of Positions</mat-label>
               <input [(ngModel)]="jobStandards.numberOfPositions" matInput type="number" min="1">
             </mat-form-field>
+            
+
           </div>
             <div class="divmatfieldrow"> 
             <mat-form-field class="matfield">
