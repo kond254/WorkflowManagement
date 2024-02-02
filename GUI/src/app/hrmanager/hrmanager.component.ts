@@ -96,6 +96,7 @@ interface JobStandardsWithTopCandidates {
   previous_company: string;
   rating: number;
   zip_code: string;
+  hrmanagerAccepted: boolean;
 }
 
 
@@ -164,6 +165,7 @@ newjobStandards: {
 
 
 step = 0;
+candidateSteps=0
 
 
 constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
@@ -241,8 +243,11 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     );
   } 
 
-  async getJobStandardsWithTopCandidates(jobStandards: JobStandards) { 
-    this.dataServiceInterface.getJobStandardsWithCandidates(jobStandards).subscribe(
+  async getJobStandardsWithTopCandidates(jobStandards: JobStandards) {
+    console.log(typeof(jobStandards["ProcessID"])) 
+    console.log((jobStandards["ProcessID"])) 
+    this.dataJobStandardsWithTopCandidates=[];
+    this.dataServiceInterface.getJobStandardsWithCandidates(jobStandards["ProcessID"]).subscribe(
       data => {
         this.dataJobStandardsWithTopCandidates = data as JobStandardsWithTopCandidates [];
         console.log(this.dataJobStandardsWithTopCandidates)
@@ -253,6 +258,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     );
   }
   
+
 
   sendData(item: JobStandards) {
     this.dataServiceInterface.sendJobStandards(item).subscribe(
@@ -273,12 +279,24 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.step = index;
   }
 
+  setStepCandidates(index: number) {
+    this.candidateSteps = index;
+  }
+
   nextStep() {
     this.step++;
   }
 
+  nextStepCandidates() {
+    this.candidateSteps++;
+  }
+
   prevStep() {
     this.step--;
+  }
+
+  prevStepCandidates() {
+    this.candidateSteps--;
   }
 
 
@@ -342,61 +360,50 @@ deleteJobOffer(item: JobOffer): void {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-acceptTopCandidate(item: TopCandidate): void {
+acceptTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
   // Annahme-Logik hier implementieren
   console.log('Top candidate accepted:', item);
-
-  // Die Variable hrmanagerAccepted auf true setzen
-
- item.hrmanagerAccepted = true; 
-
-  // Die aktualisierten Daten an die Datenbank senden
-  this.updateTopCandidate(item);
+  item.hrmanagerAccepted = true; 
+  this.dataServiceInterface.updateTopCandidate(item).subscribe(
+    response => {
+      console.log('Top candidate updated successfully', response);
+      this.snackbarService.showSuccess('Top candidate accepted');
+      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+      this.getJobStandardsWithTopCandidates(jobStandards);
+      //this.getTopCandidateAccapted();
+    },
+    error => {
+      console.error('Error updating top candidate', error);
+      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+    }
+  );
+ 
 }
 
-rejectTopCandidate(item: TopCandidate): void {
+rejectTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
   // Ablehnungs-Logik hier implementieren
   console.log('Top candidate rejected:', item);
+  this.dataServiceInterface.deleteTopCandidate(item).subscribe(
+    response => {
+      console.log('Top candidate delete successfully', response);
+      this.snackbarService.showSuccess('Top candidate rejected');
+      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
+      this.getJobStandardsWithTopCandidates(jobStandards);
+      //this.getTopCandidateAccapted();
+    },
+    error => {
+      console.error('Error delete Top Candidate', error);
+      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+    }
+    
+  );
+
 
   // Das Job-Angebot aus der Datenbank löschen
-  this.deleteTopCandidate(item);
-}
-
-
-// Methode zum Aktualisieren eines Job-Angebots in der Datenbank
-updateTopCandidate(item: TopCandidate): void {
-this.dataServiceInterface.updateTopCandidate(item).subscribe(
-  response => {
-    console.log('Top candidate updated successfully', response);
-    this.snackbarService.showSuccess('Top candidate accepted');
-    // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
-    this.getTopCandidate();
-    //this.getTopCandidateAccapted();
-  },
-  error => {
-    console.error('Error updating top candidate', error);
-    // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-  }
-);
 
 }
 
-// Methode zum Löschen eines Job-Angebots aus der Datenbank
-deleteTopCandidate(item: TopCandidate): void {
-this.dataServiceInterface.deleteTopCandidate(item).subscribe(
-  response => {
-    console.log('Top candidate delete successfully', response);
-    this.snackbarService.showSuccess('Top candidate rejected');
-    // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
-    this.getTopCandidate();
-    //this.getTopCandidateAccapted();
-  },
-  error => {
-    console.error('Error delete job offer', error);
-    // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-  }
-);
-}
+
 
 /////////////////////////////////////////////////////////////
 

@@ -38,7 +38,7 @@ def main():
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
         print("-----Starting contract nagotiation-----")
-        await cW.sendContract(jobType, number_of_positions, compensation)
+        response = await cW.sendContract(jobType, number_of_positions, compensation)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))

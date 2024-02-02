@@ -18,7 +18,7 @@
 
     
      
-        <div class ="panel">
+      <div class ="panel">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
@@ -45,24 +45,26 @@
             <button mat-button color="primary" (click)="rejectJob(item)">Reject</button>
           </mat-action-row>
 
+
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>
           </mat-action-row> 
         
-           </div>
+        </div>
 
-            </mat-expansion-panel>
-          </div>
+       </mat-expansion-panel>
+     </div>
        
     
-      </mat-card>
+  </mat-card>
 
-    
-
+   
+      
     <mat-card class = "card">
+      <!--
       <mat-card-content class = "cardcontent"><h2>Fill in Job Standards</h2></mat-card-content>
-      <!-- <div class="divNoNews" *ngIf="!hasData()">
+       <div class="divNoNews" *ngIf="!hasData()">
         <p><em>No current news are available!</em></p>
       </div> -->
       <mat-accordion #accordion>
@@ -167,10 +169,11 @@
             </div>
             </div>
             </div>
-      
+          
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
+    
 
 
     <mat-card class = "card">
@@ -179,10 +182,10 @@
         <p><em>No current news are available!</em></p>
       </div> -->
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
-              <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+              <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i);getJobStandardsWithTopCandidates(item)" hideToggle>
 
 
-                <mat-expansion-panel-header class = "matheader" (click)="getJobStandardsWithTopCandidates(item)">
+                <mat-expansion-panel-header class = "matheader">
                 
 
                   <mat-panel-title>
@@ -215,14 +218,11 @@
                   <button mat-button color="primary" (click)="nextStep()">Next</button>
                 </mat-action-row>
 
-
-                <mat-expansion-panel>
+                <div class ="panel" *ngIf="dataJobStandardsWithTopCandidates.length > 0">
+                  <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidates; let x = index" class="matpanelJobStandards2" [expanded]="step === x" (opened)="setStepCandidates(x)" hideToggle>
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
-                
-                  <div *ngFor="let candidate for dataJobStandardsWithTopCandidates">
-                   
                     <p>Candidate ID: {{candidate.CandidateID}}</p>
                     <p>Process ID: {{candidate.ProcessID}}</p>
                     <p>Address: {{candidate.address}}</p>
@@ -237,16 +237,31 @@
                     <p>Previous Company: {{candidate.previous_company}}</p>
                     <p>Rating: {{candidate.rating}}</p>
                     <p>Zip Code: {{candidate.zip_code}}</p>
-                   
-                  </div>
+
+                    <div style="display: flex; justify-content: space-between;">
+                      <mat-action-row>
+                        <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>
+                        <button mat-button color="primary" (click)="rejectTopCandidate(candidate, item)">Reject</button>
+                      </mat-action-row>
+
+                      <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStepCandidates()">Previous</button>
+                        <button mat-button color="primary" (click)="nextStepCandidates()">Next</button>
+                      </mat-action-row>
+                    </div>
+
+
+             
                 </mat-expansion-panel>
-
+              </div>
+             
             </mat-expansion-panel>
-
-                      
+          </div>
+            
 
               
-          </div>
+       
+
     </mat-card>
 
 

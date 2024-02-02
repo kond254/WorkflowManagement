@@ -196,8 +196,6 @@ def update_job_offer():
 
 @app.route('/api/data/delete_job_offer', methods=['POST'])
 def delete_job_offer():
-
-    print("test")
     try:
         lock.acquire(True)
         data = request.json
@@ -224,10 +222,11 @@ def delete_job_offer():
 @app.route('/api/data/update_top_candidates', methods=['POST'])
 def update_top_candidates():
     try:
+        lock.acquire(True)
         data = request.json
         cur.execute(
             """
-            Update TopCandidates
+            Update TopCandidate
              set hrmanagerAccepted = 1
              where CandidateID = ?
             """, (data['CandidateID'],)
@@ -239,24 +238,30 @@ def update_top_candidates():
         return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+    finally:
+        lock.release()
     
 # Noch ändern!!!
-@app.route('/api/data/delete_top_candidates', methods=['POST'])
+@app.route('/api/data/delete_top_candidate', methods=['POST'])
 def delete_top_candidates():
-
-    print("test")
     try:
         lock.acquire(True)
         data = request.json
+        print(data['CandidateID'])
         cur.execute(
             """
-            Delete from Candidates
-            where CandidateID = ?
+           DELETE FROM Candidate
+           WHERE CandidateID = ?
             """, (data['CandidateID'],)  
         )
-
+        cur.execute(
+            """
+           DELETE FROM TopCandidate
+           WHERE CandidateID = ?
+            """, (data['CandidateID'],)  
+        )
         con.commit()
-        socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
+        #socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
         print(data['processID'])
 
         return jsonify({'success': True, 'message': 'Top candidate delete successfully'})
@@ -271,15 +276,17 @@ def delete_top_candidates():
 def get_jobstandards_with_top_candidates():
     try:
         lock.acquire(True)
-        data = request.json
+        data = request.args.get('ProcessID')
+        print(data)
+        
         cur.execute(
             """
             SELECT JobStandards.*, Candidate.*
             FROM JobStandards
             LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
             JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
-            WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?                # hrmanagerAccepted = 0 erst einmal nicht benutzen, da wir sonnst zu wenige haben
-            """, (data['ProcessID'],)  )
+            WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?                
+            """, (data,)  )
     
         data = cur.fetchall()
 

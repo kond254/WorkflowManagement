@@ -1,5 +1,5 @@
 import { Injectable, Type } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface JobOffer {
@@ -29,9 +29,24 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
-interface TopCandidate {
+interface JobStandardsWithTopCandidates {
+  AnnualSalary: number;
+  Benefits: string;
   CandidateID: number;
-  adress: string;
+  GraduationLevel: string;
+  Industry: string;
+  JobDescription: string;
+  JobMode: string;
+  JobTitle: string;
+  JobType: string;
+  Language: string;
+  Location: string;
+  PaidTimeOff: number;
+  ProcessID: number;
+  RequiredExperience: number;
+  Responsibilities: string;
+  WeeklyHours: number;
+  address: string;
   age: number;
   city: string;
   country: string;
@@ -40,10 +55,14 @@ interface TopCandidate {
   gender: string;
   last_name: string;
   linkedin: string;
+  numberOfPositions: number | null;
   previous_company: string;
   rating: number;
-  zip_code: string; 
+  zip_code: string;
+  hrmanagerAccepted: boolean;
 }
+
+
 
 
 @Injectable({
@@ -146,9 +165,9 @@ export class DataServiceInterface {
 
   ////////////////////////////////////////////////////////
     // Funktion die neuen top candidate update ans backend sendet
-    updateTopCandidate(topCandidate: TopCandidate): Observable<any> {
+    updateTopCandidate(topCandidate: JobStandardsWithTopCandidates): Observable<any> {
       console.log(topCandidate.CandidateID);
-      console.log(topCandidate.adress);
+      console.log(topCandidate.address);
       console.log(topCandidate.age);
       console.log(topCandidate.country);
       console.log(topCandidate.email);
@@ -160,13 +179,13 @@ export class DataServiceInterface {
       console.log(topCandidate.rating);
       console.log(topCandidate.zip_code)
       console.log("Data update top candidate sent to backend");
-      return this.http.post<any>(this.apiUrl + "/update_top_candidate", topCandidate); 
+      return this.http.post<any>(this.apiUrl + "/update_top_candidates", topCandidate); 
     }
   
     // Funktion die top Candidate delete ans backend sendet
-    deleteTopCandidate(topCandidate: TopCandidate): Observable<any> {
+    deleteTopCandidate(topCandidate: JobStandardsWithTopCandidates): Observable<any> {
       console.log(topCandidate.CandidateID);
-      console.log(topCandidate.adress);
+      console.log(topCandidate.address);
       console.log(topCandidate.age);
       console.log(topCandidate.country);
       console.log(topCandidate.email);
@@ -182,11 +201,10 @@ export class DataServiceInterface {
     }
 
 //Funktion die top Candidates zu den passenden JobStandards ausgibt
-    getJobStandardsWithCandidates(jobStandards: JobStandards): Observable<any[]> {
-      return this.http.get<any[]>(`${this.apiUrl}/api/data/get_jobstandards_with_top_candidates`, {jobStandards} );
+    getJobStandardsWithCandidates(jobStandards: number): Observable<any[]> {
+      const params = new HttpParams().set('ProcessID', jobStandards.toString());
+      return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates`, {params} );
     }
-
-
 }
 
  
