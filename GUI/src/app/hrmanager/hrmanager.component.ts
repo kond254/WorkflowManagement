@@ -142,7 +142,7 @@ dataTopCandidate: TopCandidate[]=[];
 dataJobStandardsWithTopCandidates: JobStandardsWithTopCandidates []=[];
 
 newjobStandards: {
-  //ProcessID: number;
+  ProcessID: number;
   JobTitle: string;
   JobType: string;
   RequiredExperience: number;
@@ -260,24 +260,8 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   
 
 // alte Verwsion von Konstantin
-  sendData(item: JobStandards) {
-    this.dataServiceInterface.sendJobStandards(item).subscribe(
-      response => {
-        console.log('Data sent successfully', response);
-        this.snackbarService.showSuccess('New job standards sented');
-        this.jobStandards = {} as JobStandards;
-      },
-      error => {
-        console.error('Error sending data', error);
-        // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-      }
-    );
-  }
-
-
-  //Alternative 1
-  // sendData() {
-  //   this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
+  // sendData(item: JobStandards) {
+  //   this.dataServiceInterface.sendJobStandards(item).subscribe(
   //     response => {
   //       console.log('Data sent successfully', response);
   //       this.snackbarService.showSuccess('New job standards sented');
@@ -285,10 +269,31 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   //     },
   //     error => {
   //       console.error('Error sending data', error);
-        
+  //       // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
   //     }
   //   );
   // }
+
+
+  //Alternative 1
+  sendData(jobOffer: JobOffer) {
+    this.jobStandards.ProcessID = (jobOffer.processID); 
+    this.jobStandards.JobTitle = (jobOffer.professionTitel); 
+    this.jobStandards.JobType = (jobOffer.professionType); 
+    this.jobStandards.numberOfPositions = (jobOffer.numberProfessions);
+    console.log(this.jobStandards) 
+    this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
+      response => {
+        console.log('Data sent successfully', response);
+        this.snackbarService.showSuccess('New job standards sented');
+        this.jobStandards = {} as JobStandards;
+      },
+      error => {
+        console.error('Error sending data', error);
+        
+      }
+    );
+  }
 
   //Alternative 2
 
