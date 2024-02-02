@@ -182,8 +182,8 @@ export class DataServiceInterface {
     }
 
 //Funktion die top Candidates zu den passenden JobStandards ausgibt
-    getJobStandardsWithCandidates(): Observable<any[]> {
-      return this.http.get<any[]>(`${this.apiUrl}/api/data/get_jobstandards_with_top_candidates`);
+    getJobStandardsWithCandidates(jobStandards: JobStandards): Observable<any[]> {
+      return this.http.get<any[]>(`${this.apiUrl}/api/data/get_jobstandards_with_top_candidates`, {jobStandards} );
     }
 
 

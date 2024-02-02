@@ -66,6 +66,38 @@ interface TopCandidate {
   hrmanagerAccepted: boolean; 
 }
 
+interface JobStandardsWithTopCandidates {
+  AnnualSalary: number;
+  Benefits: string;
+  CandidateID: number;
+  GraduationLevel: string;
+  Industry: string;
+  JobDescription: string;
+  JobMode: string;
+  JobTitle: string;
+  JobType: string;
+  Language: string;
+  Location: string;
+  PaidTimeOff: number;
+  ProcessID: number;
+  RequiredExperience: number;
+  Responsibilities: string;
+  WeeklyHours: number;
+  address: string;
+  age: number;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  linkedin: string;
+  numberOfPositions: number | null;
+  previous_company: string;
+  rating: number;
+  zip_code: string;
+}
+
 
 @Component({
   selector: 'app-hrmanager',
@@ -106,6 +138,7 @@ dataJobOffer: JobOffer[]=[];
 dataJobOfferAccapted: JobOffer[]=[];
 datacandidate: Candidate[]=[];   // ???????????????????????????
 dataTopCandidate: TopCandidate[]=[];
+dataJobStandardsWithTopCandidates: JobStandardsWithTopCandidates []=[];
 
 newjobStandards: {
   //ProcessID: number;
@@ -207,6 +240,18 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   } 
+
+  async getJobStandardsWithTopCandidates(jobStandards: JobStandards) { 
+    this.dataServiceInterface.getJobStandardsWithCandidates(jobStandards).subscribe(
+      data => {
+        this.dataJobStandardsWithTopCandidates = data as JobStandardsWithTopCandidates [];
+        console.log(this.dataJobStandardsWithTopCandidates)
+      },
+      error => {
+        console.error("Error fetching JobStandardsWithTopCandidates data:", error);
+      }
+    );
+  }
   
 
   sendData(item: JobStandards) {
@@ -222,15 +267,6 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
-
- 
-  
-  
-  
-  
- 
-
-
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {

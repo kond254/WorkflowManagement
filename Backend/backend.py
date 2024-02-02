@@ -42,7 +42,7 @@ def get_job_standards():
         cur.execute(
             """
             SELECT * FROM JobStandards
-            LIMIT 3
+            LIMIT 20
             """)
         data= cur.fetchall()
 
@@ -94,24 +94,24 @@ def get_job_offer_accepted():
 
 
 # Das könnte ja für Johannes HR DEPARTMENT relevant sein?
-# @app.route('/api/data/get_top_candidates_accepted', methods=['GET'])
-# def get_top_candidates_accepted():
-#     try:
-#         lock.acquire(True)
+@app.route('/api/data/get_top_candidates_accepted', methods=['GET'])
+def get_top_candidates_accepted():
+    try:
+        lock.acquire(True)
             
-#         cur.execute(
-#             """
-#             SELECT * FROM TopCandidate
-#             where hrmanagerAccepted = 1
-#                     """)
-#         data= cur.fetchall()
+        cur.execute(
+            """
+            SELECT * FROM TopCandidate
+            where hrmanagerAccepted = 1
+                    """)
+        data= cur.fetchall()
 
-#         columns = [desc[0] for desc in cur.description]
-#         result = [dict(zip(columns, row)) for row in data]
-#         print(result)
-#         return jsonify(result)
-#     finally:
-#         lock.release()
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 
 
@@ -229,18 +229,18 @@ def update_top_candidates():
             """
             Update TopCandidates
              set hrmanagerAccepted = 1
-             where processID = ?
-            """, (data['processID'],)
+             where CandidateID = ?
+            """, (data['CandidateID'],)
         )
 
         con.commit()
         socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
-        print(data['processID'])
+        print(data['CandidateID'])
         return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
     
-
+# Noch ändern!!!
 @app.route('/api/data/delete_top_candidates', methods=['POST'])
 def delete_top_candidates():
 
@@ -250,9 +250,9 @@ def delete_top_candidates():
         data = request.json
         cur.execute(
             """
-            Delete from TopCandidates
-            where processID = ?
-            """, (data['processID'],)
+            Delete from Candidates
+            where CandidateID = ?
+            """, (data['CandidateID'],)  
         )
 
         con.commit()
@@ -267,26 +267,43 @@ def delete_top_candidates():
 
 
 # NEU: Soll Jobstandarts und die passenden topcandidaten ausgeben.
+@app.route('/api/data/get_jobstandards_with_top_candidates', methods=['GET'])
+def get_jobstandards_with_top_candidates():
+    try:
+        lock.acquire(True)
+        data = request.json
+        cur.execute(
+            """
+            SELECT JobStandards.*, Candidate.*
+            FROM JobStandards
+            LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
+            JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
+            WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?                # hrmanagerAccepted = 0 erst einmal nicht benutzen, da wir sonnst zu wenige haben
+            """, (data['ProcessID'],)  )
+    
+        data = cur.fetchall()
 
-# @app.route('/api/data/get_jobstandards_with_top_candidates', methods=['GET'])
-# def get_jobstandards_with_top_candidates():
-#     try:
-#         lock.acquire(True)
-#         cur.execute(
-#             """
-#             SELECT JobStandards.*, TopCandidate.*
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
+
+
+
+      
+# cur.execute("""
+#     SELECT COUNT(*) as count FROM (
+#         SELECT * FROM (
+#             SELECT JobStandards.*, Candidate.*, TopCandidate.*
 #             FROM JobStandards
-#             LEFT JOIN TopCandidate ON JobStandards.processID = TopCandidate.processID
-#             LIMIT 3
-#             """)
-#         data = cur.fetchall()
-
-#         columns = [desc[0] for desc in cur.description]
-#         result = [dict(zip(columns, row)) for row in data]
-#         print(result)
-#         return jsonify(result)
-#     finally:
-#         lock.release()
+#             LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
+#             LEFT JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
+#             WHERE JobStandards.ProcessID = ? AND TopCandidate.hrmanagerAccepted = 0
+#         ) LIMIT ?
+#     )
+# """, (process_id, limit_value))
 
 
 

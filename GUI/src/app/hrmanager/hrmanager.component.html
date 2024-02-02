@@ -137,7 +137,7 @@
           <div class="divmatfieldrow"> 
             <mat-form-field class = "matfield">
               <mat-label>Language</mat-label>
-              <input [(ngModel)]="jobStandards.JobMode" matInput>
+              <input [(ngModel)]="jobStandards.Language" matInput>
             </mat-form-field>
             <mat-form-field class = "matfield">
               <mat-label>  Number Of Positions</mat-label>
@@ -155,7 +155,7 @@
               <div class="divButton">
                 
                 <mat-action-row>
-                  <!-- <button class="button" mat-button color="primary" (click)= "sendData(item)" >Send</button> -->
+                  <!-- <button class="button" mat-button color="primary" (click)= "sendData(item)" >Send</button>  -->
                   <!-- <button class="button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobStandards.ProcessID || !jobStandards.JobTitle || !jobStandards.JobType || !jobStandards.RequiredExperience || !jobStandards.JobDescription || !jobStandards.Responsibilities || !jobStandards.Location || !jobStandards.JobMode || !jobStandards.WeeklyHours || !jobStandards.AnnualSalary || !jobStandards.PaidTimeOff || !jobStandards.Benefits || !jobStandards.Industry || !jobStandards.GraduationLevel || !jobStandards.Language || !jobStandards.numberOfPositions">Send</button> -->
                   
                 </mat-action-row>
@@ -173,16 +173,6 @@
     </mat-card>
 
 
-    
-
-
-
-
-
-
-
-
-
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
       <!-- <div class="divNoNews" *ngIf="!hasData()">
@@ -190,7 +180,11 @@
       </div> -->
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
               <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
-                <mat-expansion-panel-header class = "matheader">
+
+
+                <mat-expansion-panel-header class = "matheader" (click)="getJobStandardsWithTopCandidates(item)">
+                
+
                   <mat-panel-title>
                     {{item.JobTitle}}
                   </mat-panel-title>
@@ -198,6 +192,7 @@
                     {{item.ProcessID}}
                   </mat-panel-description>
                   <mat-icon class ="personIcon">description</mat-icon>
+                  
                 </mat-expansion-panel-header>  
                 <p>Job Title: {{item.JobTitle}}</p>
                 <p>Job Type: {{item.JobType}}</p>
@@ -219,11 +214,44 @@
                   <button mat-button color="warn" (click)="prevStep()">Previous</button>
                   <button mat-button color="primary" (click)="nextStep()">Next</button>
                 </mat-action-row>
+
+
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>Top Candidates</mat-panel-title>
+                  </mat-expansion-panel-header>
+                
+                  <div *ngFor="let candidate for dataJobStandardsWithTopCandidates">
+                   
+                    <p>Candidate ID: {{candidate.CandidateID}}</p>
+                    <p>Process ID: {{candidate.ProcessID}}</p>
+                    <p>Address: {{candidate.address}}</p>
+                    <p>Age: {{candidate.age}}</p>
+                    <p>City: {{candidate.city}}</p>
+                    <p>Country: {{candidate.country}}</p>
+                    <p>Email: {{candidate.email}}</p>
+                    <p>First Name: {{candidate.first_name}}</p>
+                    <p>Gender: {{candidate.gender}}</p>
+                    <p>Last Name: {{candidate.last_name}}</p>
+                    <p>LinkedIn: {{candidate.linkedin}}</p>
+                    <p>Previous Company: {{candidate.previous_company}}</p>
+                    <p>Rating: {{candidate.rating}}</p>
+                    <p>Zip Code: {{candidate.zip_code}}</p>
+                   
+                  </div>
+                </mat-expansion-panel>
+
             </mat-expansion-panel>
+
+                      
+
+              
           </div>
-     
-  
     </mat-card>
+
+
+
+    
 
 
     
