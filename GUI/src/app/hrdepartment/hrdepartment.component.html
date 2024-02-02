@@ -64,6 +64,37 @@
 
 
 <mat-card class = "card">
+  <mat-card-content class = "cardcontent"><h2>Adjust Contract</h2></mat-card-content>
+
+    <mat-expansion-panel class ="matpanel">
+      <mat-expansion-panel-header class = "matheader">
+        <mat-panel-title>
+          <mat-icon class = "createIcon">create</mat-icon>
+            Fill in the Fields
+          </mat-panel-title>
+        <mat-panel-description class = "paneldiscription">
+          send to WEPLACM
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        <p>Contract from WEPLACM: {{'Hier kommt die Nachricht rein'}}</p>
+      <mat-form-field class = "matfieldContract">
+        <mat-label class = "field">Percentage for Contract</mat-label>
+        <input class = "field" [(ngModel)]="percentage" matInput type="number" min="0.00" step="0.01" required>
+      </mat-form-field>
+
+    <div class="divButtonBoth">
+      <mat-action-row>
+        <button mat-button color="primary" >Accept</button>
+        <button mat-button color="warn" [disabled]="percentage <= 0 ">Reject</button>
+     </mat-action-row>
+    </div>
+ 
+  </mat-expansion-panel>
+
+</mat-card>
+
+
+<mat-card class = "card">
     <mat-card-content class = "cardcontent"><h2>Current News</h2></mat-card-content>
     <!-- <div class="divNoNews" *ngIf="emptyData">   
        <p><em>No current news are available!</em></p> 
@@ -105,8 +136,8 @@
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
               accepted
-              <mat-icon class ="doneIcon">done_all</mat-icon>
             </mat-panel-description>
+            <mat-icon class ="doneIcon">done_all</mat-icon>
             <mat-icon class ="personIcon">find_in_page</mat-icon>
           </mat-expansion-panel-header>  
           <p>Profession Titel: {{ item.professionTitel}}</p>
@@ -158,15 +189,16 @@
 
 
       <!--Hier kommen TopCandidates zurück-->
-      <div class ="panel" *ngIf="dataTopCandidate.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataTopCandidate; let i = index" class="matpanelTopCandidates" [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
+      <div class ="panel" *ngIf="dataTopCandidateAccepted.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataTopCandidateAccepted; let i = index" class="matpanelTopCandidates" [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Top Candidate
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{ item.last_name}}
+                accepted
             </mat-panel-description>
+            <mat-icon class ="doneIcon">done_all</mat-icon>
             <mat-icon class ="personIcon">account_circle</mat-icon>
           </mat-expansion-panel-header>  
           <p>CandidateID: {{ item.CandidateID}}</p>
@@ -182,6 +214,7 @@
           <p>E-Mail: {{ item.email}}</p>
           <p>Rating: {{ item.rating }}</p>
           <p>Linkedin: {{ item.linkedin }}</p>
+          <p>Interview Date: {{ item.InterviewDate}}</p>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepTC()">Previous</button>
             <button mat-button color="primary" (click)="nextStepTC()">Next</button>

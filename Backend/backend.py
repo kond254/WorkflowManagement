@@ -59,7 +59,6 @@ def get_top_candidates():
             SELECT Candidate.*, TopCandidate.*
             FROM Candidate
             JOIN TopCandidate ON Candidate.CandidateID = TopCandidate.CandidateID
-            LIMIT 4
             """)
         data= cur.fetchall()
 
@@ -135,11 +134,13 @@ def get_top_candidates_accepted():
     try:
         lock.acquire(True)
             
-        cur.execute(
-            """
-            SELECT * FROM TopCandidate
-            where hrmanagerAccepted = 1
-                    """)
+        cur.execute(       
+          """
+            SELECT Candidate.*, TopCandidate.*
+            FROM Candidate
+            JOIN TopCandidate ON Candidate.CandidateID = TopCandidate.CandidateID
+            WHERE hrmanagerAccepted = 1
+            """)
         data= cur.fetchall()
 
         columns = [desc[0] for desc in cur.description]

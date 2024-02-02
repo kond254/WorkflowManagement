@@ -85,6 +85,12 @@ export class DataServiceInterface {
     return this.http.get<any[]>(this.apiUrl+"/get_top_candidates")
   }
 
+  // Funktion die accepted top candidates vom backend abruft
+  getTopCandidateAccepted(): Observable<any[]> {
+    console.log("Data accepted top candidates from backend retrieved")
+    return this.http.get<any[]>(this.apiUrl+"/get_top_candidates_accepted")
+  }
+
   // Funktion die job standards vom backend abruft
   getJobStandards(): Observable<any[]> {
     console.log("Data job standards from backend retrieved")

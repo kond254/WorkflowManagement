@@ -25,7 +25,7 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
-interface TopCandidate {
+interface TopCandidateAccepted {
   CandidateID: number;
   adress: string;
   age: number;
@@ -40,6 +40,7 @@ interface TopCandidate {
   rating: number;
   zip_code: string;
   hrmanagerAccepted: boolean; 
+  InterviewDate: Date;
 }
 
 interface JobOffer {
@@ -86,10 +87,12 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     description: ''
   };
 
+  percentage: number = 0;
+
   dataJobStandards: JobStandards[]=[];
   dataJobOffer: JobOffer[]=[];
   dataJobOfferAccepted: JobOffer[]=[];
-  dataTopCandidate: TopCandidate[]=[];
+  dataTopCandidateAccepted: TopCandidateAccepted[]=[];
   dataNewEmployees: NewEmployees[]=[];
 
   stepJO = 0;
@@ -124,7 +127,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       this.getjobStandards();
     });
 
-    this.socketService.onTopCandidatesUpdated().subscribe(() => {
+    this.socketService.onTopCandidatesAcceptedUpdated().subscribe(() => {
       this.getTopCandidate();
     });
 
@@ -174,13 +177,13 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
 
   //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
   getTopCandidate() {
-    this.dataServiceInterface.getTopCandidate().subscribe(
+    this.dataServiceInterface.getTopCandidateAccepted().subscribe(
       data => {
-        this.dataTopCandidate = data as TopCandidate[];
-        console.log("Data top candidates retrieved");
+        this.dataTopCandidateAccepted = data as TopCandidateAccepted[];
+        console.log("Data accepted top candidates retrieved");
       },
       error => {
-        console.log("Error fetching top candidate data");
+        console.log("Error fetching accepted top candidate data");
       }
     );
   }
@@ -204,7 +207,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
       response => {
         console.log('Data job offer sent successfully', response);
-        this.snackbarService.showSuccess('New job offer sented');
+        this.snackbarService.showSuccess('New job offer sent');
         // this.getJobOffer();
       },
       error => {

@@ -163,6 +163,16 @@ body{
     padding-left: 10px;
 }
 
+.matfieldContract{
+    width: 20%;
+    height: 80px;
+    margin-right: 80%;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 0px;
+    padding-top: 20px
+}
+
 .textareaDiscription{
     width: 100%;
     min-height: 230px;
@@ -173,6 +183,14 @@ body{
 }
 
 .divButton {
+    width: 15%;
+    height: 45px;
+    display: flex;
+    padding-right: 10px;
+    float: right;
+  }
+
+.divButtonBoth {
     width: 15%;
     height: 45px;
     display: flex;
