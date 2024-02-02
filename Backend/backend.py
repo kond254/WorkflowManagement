@@ -173,9 +173,9 @@ def add_job_offer():
     try:
         data = request.json
         dataChanges={
-            "JobTitle":data["professionTitel"],
-            "JobType":data["professionType"],
-            "numberOfPoistions": data["numberProfessions"]
+            "jobTitle":data["professionTitel"],
+            "jobType":data["professionType"],
+            "number_of_positions": data["numberProfessions"]
         }
         processID=asyncio.run(startProcess(dataChanges))
         
@@ -248,8 +248,8 @@ def update_job_offer():
 def delete_job_offer():
     try:
         lock.acquire(True)
-        asyncio.run(reviewJobOpening(data, False))
         data = request.json
+        asyncio.run(reviewJobOpening(data, False))
         cur.execute(
             """
             Delete from JobOffers
