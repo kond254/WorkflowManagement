@@ -6,6 +6,7 @@ import { LoginService } from '../login.service';
 import { RoleService } from '../role.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataRoleService } from '../dataRole.service';
+import { DataServiceInterface } from '../data.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class NavbarComponent{
   hrmanagement: boolean = false;
   accounting: boolean = false;
 
-  constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService, private dataroleservice: DataRoleService, private loginservice: LoginService) {
+  constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService, private dataroleservice: DataRoleService, private loginservice: LoginService,  private dataServiceInterface: DataServiceInterface) {
   }
 
   private breakpointObserver = inject(BreakpointObserver);
@@ -55,6 +56,13 @@ export class NavbarComponent{
     this.roleservice.setRoleVariable('');
     console.log('Logout successful!');
     this.dataroleservice.updateRechte(this.showHome , this.hrdepartment, this.hrmanagement, this.accounting);
-  }  
+
+    const usernameDelete = this.loginService.getloginUser();
+    this.dataServiceInterface.deleteLoginUser(usernameDelete).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.error(error);
+      });
+    }  
 
 }
