@@ -27,12 +27,13 @@ def main():
     async def send_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
         print("-----Starting contract nagotiation-----")
         process_correlation_key=f"{job.process_instance_key}21" #generating correlation key for the following recieve message task
-        response = await cW.sendContract(jobType, number_of_positions, compensation, process_correlation_key)
+        #response = await cW.sendContract(jobType, number_of_positions, compensation, process_correlation_key)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
-        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response} 
+        #return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response}
+        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key}
 
     #check the answer and log responses
     @worker.task(task_type="checkContractAnswer")
@@ -67,7 +68,7 @@ def main():
         print("-----Send Adjusted Contract-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         process_correlation_key=f"{job.process_instance_key}21{contract_cycle}"
-        await cW.send_adjusted_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key, correlation_key_weplacm)
+        #await cW.send_adjusted_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key, correlation_key_weplacm)
         print("Contract send")
         print("Job Type: "+jobType)
         print("Number of Positions: "+ str(number_of_positions))
@@ -80,7 +81,7 @@ def main():
     async def cancel_contract_negotiation(job: Job, correlation_key_weplacm: int):
         print("-----Cancel Contract nagotiation with WEPLACM-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        cW.cancel_contract(correlation_key_weplacm)
+        #await cW.cancel_contract(correlation_key_weplacm)
         print("Contract Negotiation cancelled")
 
         
@@ -108,7 +109,7 @@ def main():
     async def contract_reminder(job: Job, ReminderExist: bool, correlation_key_weplacm: int):
         print("-----Send a contract Reminder----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        cW.contract_Reminder(correlation_key_weplacm)
+        #await cW.contract_Reminder(correlation_key_weplacm)
         print("Reminder sent")
        
     loop = asyncio.get_event_loop()

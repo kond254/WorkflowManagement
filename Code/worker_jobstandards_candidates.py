@@ -33,7 +33,7 @@ def main():
         process_correlation_key=f"{job.process_instance_key}22"
         #Insert job standards into the db using the db class (backend)
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
-        await cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions, correlation_key_weplacm, process_correlation_key)
+        #await cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions, correlation_key_weplacm, process_correlation_key)
         return {"process_correlation_key": process_correlation_key, "Reminder": False}
     
     # Insquire the status of the candidate search by the other group 
@@ -42,7 +42,7 @@ def main():
         print("-----Inquire Status for Candidate Search-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         process_correlation_key=f"{job.process_instance_key}30"
-        await cW.inquire_candidate_search_progress(correlation_key_weplacm, process_correlation_key)
+        #await cW.inquire_candidate_search_progress(correlation_key_weplacm, process_correlation_key)
         print("Inquery sent")
     
     #checks if atleast one candidate filled in a position and got employed
