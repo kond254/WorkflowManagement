@@ -84,8 +84,8 @@
 
     <div class="divButtonBoth">
       <mat-action-row>
-        <button mat-button color="primary" >Accept</button>
-        <button mat-button color="warn" [disabled]="percentage <= 0 ">Reject</button>
+        <button mat-button color="primary" (click)="openDialogPay()">Accept</button>
+        <button mat-button color="warn" (click)="openDialogReject()" [disabled]="percentage <= 0 ">Reject</button>
      </mat-action-row>
     </div>
  

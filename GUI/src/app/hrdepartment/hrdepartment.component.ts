@@ -5,6 +5,7 @@ import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { AfterContentChecked } from '@angular/core';
 import { SocketService } from '../socket.service';
+import { DialogService } from '../dialog.service';
 
 interface JobStandards{
   ProcessID: number;
@@ -100,7 +101,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepTC= 0;
   stepNE = 0;
 
-  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService) {}
+  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
@@ -208,7 +209,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       response => {
         console.log('Data job offer sent successfully', response);
         this.snackbarService.showSuccess('New job offer sent');
-        // this.getJobOffer();
+        this.jobOffer = {} as JobOffer;
       },
       error => {
         console.log('Error sending job offer data');
@@ -216,6 +217,16 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
+
+   //Funktion für Dialog Popup Pay
+   openDialogPay(): void {
+    this.dialogService.openDialog('Adjust Contract', 'Are you sure to accept the defined contract?');
+  }
+
+  //Funktion für Dialog Popup Reject
+  openDialogReject(): void {
+    this.dialogService.openDialog('Adjust Contract', 'Are you sure to reject the contract and change the payment?');
+  }
 
   // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
   setStepJO(index: number) {
