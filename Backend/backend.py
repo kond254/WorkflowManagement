@@ -2,8 +2,44 @@ import threading
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_socketio import SocketIO
-
+import asyncio
 import sqlite3
+from pyzeebe import ZeebeClient, create_insecure_channel
+
+
+
+#Functions to call BPMN
+#
+#
+#
+#
+async def startProcess(data):
+    channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+    client = ZeebeClient(channel)
+    try:
+        response = await client.run_process(
+            bpmn_process_id="Process_0tyj0f6",  # Process ID from WEPLACM
+            variables=data
+        )
+        print(response)
+        return response
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+async def reviewJobOpening(data, decision:bool):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["processID"]}")
+        try:
+            await client.publish_message(name="reviewJobOpening", # Process ID from WEPLACM
+                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            "decision": decision
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
 
 con = sqlite3.connect("../wbig.db", timeout=10,check_same_thread=False)
 cur = con.cursor()
@@ -136,17 +172,26 @@ def get_new_employees():
 def add_job_offer():
     try:
         data = request.json
-
+        dataChanges={
+            "JobTitle":data["professionTitel"],
+            "JobType":data["professionType"],
+            "numberOfPoistions": data["numberProfessions"]
+        }
+        processID=asyncio.run(startProcess(dataChanges))
+        
         cur.execute(
             """
             INSERT INTO JobOffers (processID, professionTitel, professionType, numberProfessions, description, hrmanagerAccepted) 
             VALUES (?, ?, ?, ?, ?, ?)
-            """, (data['processID'], data['professionTitel'], data['professionType'], data['numberProfessions'], data['description'], 0)
+            """, (processID, data['professionTitel'], data['professionType'], data['numberProfessions'], data['description'], 0)
         )
 
         con.commit()
         socketio.emit('job_offer_updated', {'message': 'Job Offer added or updated successfully'})
-
+        
+        #starting process in camunda:
+        
+        
         return jsonify({'success': True, 'message': 'Job Offer added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
@@ -156,6 +201,7 @@ def add_job_offer():
 def add_job_standards():
     try:
         data = request.json
+        
         print(data)
         cur.execute(
             """
@@ -175,8 +221,12 @@ def add_job_standards():
 
 @app.route('/api/data/update_job_offer', methods=['POST'])
 def update_job_offer():
+    #decision
     try:
         data = request.json
+        data['decision']=True
+        print(data["processID"])
+        asyncio.run(reviewJobOpening(data, True))
         cur.execute(
             """
             Update JobOffers
@@ -198,6 +248,7 @@ def update_job_offer():
 def delete_job_offer():
     try:
         lock.acquire(True)
+        asyncio.run(reviewJobOpening(data, False))
         data = request.json
         cur.execute(
             """
@@ -311,6 +362,7 @@ def get_jobstandards_with_top_candidates():
 #         ) LIMIT ?
 #     )
 # """, (process_id, limit_value))
+
 
 
 

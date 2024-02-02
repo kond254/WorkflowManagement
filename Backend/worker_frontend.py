@@ -1,27 +1,15 @@
-import asyncio
-from pyzeebe import create_insecure_channel, ZeebeWorker, Job
-
-def main():
-    channel = create_insecure_channel(hostname="141.26.157.71",
-                                      port=26500)
+async def send_contract_to_weplacm():
     
-    
-    worker = ZeebeWorker(channel)
-    
-    
-    @worker.task(task_type="gather_information")
-    async def gather_information_frontend(job: Job):
-        print(job.process_definition_key)
-        return {"jobName": "asas"}
-    
-    
-    
-    loop = asyncio.get_event_loop()
+    print("Client created to Weplacm")
     try:
-        loop.run_until_complete(worker.work())
-    except KeyboardInterrupt:
-        pass
+        response = await client.run_process(
+            bpmn_process_id="Process_0tyj0f6",  # Process ID from WEPLACM
+            variables={
+                "contract_signed": False,  # Boolean
+                "capacity": False,  # Boolean
+            }
+        )
+        print(response)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
-
-if __name__ == '__main__':
-    main()
