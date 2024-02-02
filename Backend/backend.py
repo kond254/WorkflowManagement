@@ -77,7 +77,7 @@ def get_job_standards():
         cur.execute(
             """
             SELECT * FROM JobStandards
-            LIMIT 20
+          
             """)
         data= cur.fetchall()
 
@@ -172,7 +172,9 @@ def get_new_employees():
 @app.route('/api/data/add_job_offer', methods=['POST'])
 def add_job_offer():
     try:
+        
         data = request.json
+        print(data)
         dataChanges={
             "jobTitle":data["professionTitel"],
             "jobType":data["professionType"],
@@ -201,14 +203,18 @@ def add_job_offer():
 @app.route('/api/data/add_job_standards', methods=['POST'])
 def add_job_standards():
     try:
+        lock.acquire(True)
         data = request.json
         
         print(data)
         cur.execute(
             """
-            INSERT INTO JobStandards (ProcessID, JobTitle, JobType) 
-            VALUES (?, ?, ?)
-            """, (data['processID'], data['professionType'], data['professionTitel'])
+            INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
+           
+                
+ 
         )
 
         con.commit()
@@ -217,6 +223,8 @@ def add_job_standards():
         return jsonify({'success': True, 'message': 'Job Standards added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+    finally: 
+        lock.release()
 
 
 
