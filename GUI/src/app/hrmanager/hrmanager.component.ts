@@ -259,7 +259,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   }
   
 
-
+// alte Verwsion von Konstantin
   sendData(item: JobStandards) {
     this.dataServiceInterface.sendJobStandards(item).subscribe(
       response => {
@@ -273,6 +273,40 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
+
+
+  //Alternative 1
+  // sendData() {
+  //   this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
+  //     response => {
+  //       console.log('Data sent successfully', response);
+  //       this.snackbarService.showSuccess('New job standards sented');
+  //       this.jobStandards = {} as JobStandards;
+  //     },
+  //     error => {
+  //       console.error('Error sending data', error);
+        
+  //     }
+  //   );
+  // }
+
+  //Alternative 2
+
+  // sendData(item: JobStandards) {
+  //   this.dataServiceInterface.sendJobStandards(item).subscribe(
+  //     response => {
+  //       console.log('Data sent successfully', response);
+  //       this.snackbarService.showSuccess('New job standards sented');
+  //       this.jobStandards = {} as JobStandards;
+  //     },
+  //     error => {
+  //       console.error('Error sending data', error);
+  //       // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
+  //     }
+  //   );
+  // }
+  
+  
   
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
