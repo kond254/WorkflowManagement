@@ -211,6 +211,23 @@ export class DataServiceInterface {
       const params = new HttpParams().set('ProcessID', jobStandards.toString());
       return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates`, {params} );
     }
+  
+  // Funktion die den Login-Benutzer zum Backend hinzuzufügt
+  setLoginUser(username: string, isLoggedIn: boolean): Observable<any> {
+    const data = { username: username, isLoggedIn: isLoggedIn };
+    return this.http.post<any>(`${this.apiUrl}/add_login_user`, data);
+  }
+
+  // Funktion die den eingeloggten Benutzer vom Backend abruft
+  getLoginUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/get_login_users`);
+  }
+
+  // Funktion die den eingeloggten Benutzer wieder löscht
+  deleteLoginUser(username: string): Observable<any> {
+    const data = { username: username };
+    return this.http.post<any>(`${this.apiUrl}/delete_login_user`, data);
+  }
 }
 
  

@@ -5,6 +5,7 @@ import { LoginService } from '../login.service';
 import { RoleService } from '../role.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataRoleService } from '../dataRole.service';
+import { DataServiceInterface } from '../data.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class LoginComponent {
   hrmanagement: boolean = false;
   accounting: boolean = false;
 
-  constructor(private router: Router, private dataAuthService: DataAuthService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService) {}
+  constructor(private router: Router, private dataAuthService: DataAuthService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService, private dataServiceInterface: DataServiceInterface) {}
 
   // Funktion überprüft, ob das Einloggen des Nutzer passt (nutzt den data.service.ts)
   login() {
@@ -46,11 +47,25 @@ export class LoginComponent {
         this.unvalidpassword = true;
         console.log('Login of username ' + this.username + ' not successful, because unauthorized user!');
       } else {
-        this.loginService.setloginValue(true);
-        this.role = result;
-        console.log('Login of username ' + this.username + ' successful!');      
-        this.handleSuccessfulLogin(result); 
-        this.handle();
+        this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
+          console.log(loginUsers);
+          const userIsLoggedIn = loginUsers.some(user => user.username == this.username && user.isLoggedIn);
+          if (userIsLoggedIn) {
+            console.log('User is logged in: ' + this.username);
+            this.errorType = 'invalidUsername';
+            this.unvalidusername = true;
+            this.unvalidpassword = true;
+          } else {
+              this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
+              console.log("User login is saved");});
+              this.loginService.setloginUser(this.username);
+              this.loginService.setloginValue(true);
+              this.role = result;
+              console.log('Login of username ' + this.username + ' successful!');      
+              this.handleSuccessfulLogin(result); 
+              this.handle();
+            }
+        });
       }
     });
   }

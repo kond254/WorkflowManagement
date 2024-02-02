@@ -13,6 +13,9 @@ from pyzeebe import ZeebeClient, create_insecure_channel
 #
 #
 #
+
+login_users = []
+
 async def startProcess(data):
     channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
     client = ZeebeClient(channel)
@@ -357,8 +360,46 @@ def get_jobstandards_with_top_candidates():
     finally:
         lock.release()
 
+@app.route('/api/data/add_login_user', methods=['POST'])
+def add_login_user():
+    try:
+        data = request.json
+        
+        # Prüfe, ob der Benutzer bereits in der temporären Liste ist
+        existing_user = next((user for user in login_users if user['username'] == data['username']), None)
 
+        if existing_user:
+            existing_user['isLoggedIn'] = data['isLoggedIn']
+        else:
+            login_users.append(data)
 
+        socketio.emit('temp_login_users_updated', {'message': 'Temporary Login User added or updated successfully'})
+
+        return jsonify({'success': True, 'message': 'Temporary Login User added or updated successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/data/get_login_users', methods=['GET'])
+def get_login_users():
+    try:
+        return jsonify(login_users)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+@app.route('/api/data/delete_login_user', methods=['POST'])
+def delete_login_user():
+    try:
+        data = request.json
+        username_to_delete = data.get('username')
+
+        # Entferne den Benutzer aus der Liste der eingeloggten Benutzer
+        login_users[:] = [user for user in login_users if user.get('username') != username_to_delete]
+
+        socketio.emit('temp_login_users_updated', {'message': 'Temporary Login User deleted successfully'})
+
+        return jsonify({'success': True, 'message': f'Temporary Login User {username_to_delete} deleted successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
       
 # cur.execute("""
 #     SELECT COUNT(*) as count FROM (
