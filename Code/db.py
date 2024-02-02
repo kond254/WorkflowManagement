@@ -366,7 +366,15 @@ class Databank:
             sql_content=sql_file.read()
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
-            return result[0]
+            return result[0][0]
+        
+    #select the compensation
+    def select_contract_compensation(self, process_id: int):
+        with open('SQL/selectCompensation.sql', 'r') as sql_file:
+            sql_content=sql_file.read()
+            cur.execute(sql_content, (process_id, ))
+            result = cur.fetchall()
+            return result[0][0]
         
     #Test for Interview multi instance
     def interview_multi_instance(self, process_id: int):

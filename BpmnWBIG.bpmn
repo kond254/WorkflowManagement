@@ -1753,7 +1753,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Activity_0xev26l" name="checking if all open positions are filled">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="checkingEmployedCandidates" />
+        <zeebe:taskDefinition type="checkingEmployedCandidatesFinal" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1021td4</bpmn:incoming>
       <bpmn:outgoing>Flow_0xqgf58</bpmn:outgoing>

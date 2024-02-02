@@ -95,7 +95,7 @@ def main():
             print(rejectedCandidate)
             #Remove candidate from TopCandidateDB
             db.remove_candidate_from_topCandidateDB(rejectedCandidate)
-            amount-1
+            amount-=1
             print("newAmount: ", amount)
         
 
@@ -109,7 +109,7 @@ def main():
 
 
     # Check how many Candidates where employed
-    @worker.task(task_type="checkingEmployedCandidates")
+    @worker.task(task_type="checkingEmployedCandidatesFinal")
     async def checking_employed_candidates(job: Job):
         print("-----Employmend status of current process-----")
         print("Process Instance Key: " +str(job.process_instance_key))
@@ -137,8 +137,9 @@ def main():
         print("Process Instance Key: " +str(job.process_instance_key))
         newEmployeeCount = db.check_Count_new_employees(job.process_instance_key)
         Salary = db.check_annual_salary(job.process_instance_key)
+        compensation = db.select_contract_compensation(job.process_instance_key)
         #WEPLACM gets payed for each candidate we employed 
-        CalculatedSalarySum = newEmployeeCount*Salary[0]*Salary[1]
+        CalculatedSalarySum = newEmployeeCount*Salary*compensation
         #does the invoice add up to our callculations
         if CalculatedSalarySum == salarie_sum:
             return{"invoiceCorrect": True}

@@ -33,7 +33,7 @@ def main():
         print("Number of Positions: "+ str(number_of_positions))
         print("compensation: "+str(compensation))
         #return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response}
-        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key}
+        return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": 1}
 
     #check the answer and log responses
     @worker.task(task_type="checkContractAnswer")
