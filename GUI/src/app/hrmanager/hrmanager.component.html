@@ -175,9 +175,6 @@
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
-    
-
-
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
@@ -272,7 +269,7 @@
                     <div class="box-item full-width">
                       <div class="item-box">
                         <p>Required Experience:</p> 
-                        <p>{{item.RequiredExperience}}</p>
+                        <p>{{item.RequiredExperience}} Years</p>
                       </div>
                     </div>
                   </div>
@@ -286,7 +283,7 @@
                     <div class="box-item full-width">
                       <div class="item-box">
                         <p>Weekly Hours:</p> 
-                        <p>{{item.WeeklyHours}}</p>
+                        <p>{{item.WeeklyHours}} Hours</p>
                       </div>
                     </div>
                   </div>
@@ -314,20 +311,108 @@
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
-                    <p>Candidate ID: {{candidate.CandidateID}}</p>
-                    <p>Process ID: {{candidate.ProcessID}}</p>
-                    <p>Address: {{candidate.address}}</p>
-                    <p>Age: {{candidate.age}}</p>
-                    <p>City: {{candidate.city}}</p>
-                    <p>Country: {{candidate.country}}</p>
-                    <p>Email: {{candidate.email}}</p>
-                    <p>First Name: {{candidate.first_name}}</p>
-                    <p>Gender: {{candidate.gender}}</p>
-                    <p>Last Name: {{candidate.last_name}}</p>
-                    <p>LinkedIn: {{candidate.linkedin}}</p>
-                    <p>Previous Company: {{candidate.previous_company}}</p>
-                    <p>Rating: {{candidate.rating}}</p>
-                    <p>Zip Code: {{candidate.zip_code}}</p>
+
+                  <div class="box-content">
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Candidate ID: </p>
+                           <p>{{candidate.CandidateID}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Process ID:</p> 
+                          <p>{{candidate.ProcessID}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Address: </p>
+                           <p>{{candidate.address}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Age: </p> 
+                          <p>{{candidate.age}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>City: </p>
+                           <p>{{candidate.city}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Country: </p> 
+                          <p>{{candidate.country}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Email: </p>
+                           <p>{{candidate.email}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>First Name: </p> 
+                          <p>{{candidate.first_name}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Gender: </p>
+                           <p>{{candidate.gender}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Last Name: </p> 
+                          <p>{{candidate.last_name}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>LinkedIn: </p>
+                           <p>{{candidate.linkedin}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Previous Company: </p> 
+                          <p>{{candidate.previous_company}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-row">
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Rating: </p>
+                           <p>{{candidate.rating}}</p>
+                        </div>
+                      </div>
+                      <div class="box-item full-width">
+                        <div class="item-box">
+                          <p>Zip Code: </p> 
+                          <p>{{candidate.zip_code}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                     <div style="display: flex; justify-content: space-between;">
                       <mat-action-row>
                         <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>

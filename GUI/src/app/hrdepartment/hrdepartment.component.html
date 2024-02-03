@@ -114,11 +114,37 @@
               wait for answer from HR Department
             </mat-panel-description>
             <mat-icon class ="personIcon">find_in_page</mat-icon>
-          </mat-expansion-panel-header>  
-          <p>Profession Titel: {{ item.professionTitel}}</p>
-          <p>Profession Type: {{ item.professionType}}</p>
-          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
-          <p>Description: {{ item.description}}</p>
+          </mat-expansion-panel-header>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Titel: </p>
+                   <p>{{ item.professionTitel}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Type:</p> 
+                  <p>{{ item.professionType}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Number of needed Professions:</p> 
+                  <p>{{ item.numberProfessions}}</p> 
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Description:</p> 
+                  <p>{{ item.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>  
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
             <button mat-button color="primary" (click)="nextStepJO()">Next</button>
@@ -140,10 +166,36 @@
             <mat-icon class ="doneIcon">done_all</mat-icon>
             <mat-icon class ="personIcon">find_in_page</mat-icon>
           </mat-expansion-panel-header>  
-          <p>Profession Titel: {{ item.professionTitel}}</p>
-          <p>Profession Type: {{ item.professionType}}</p>
-          <p>Number of needed Professions: {{ item.numberProfessions}}</p>
-          <p>Description: {{ item.description}}</p>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Titel: </p>
+                   <p>{{ item.professionTitel}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Type:</p> 
+                  <p>{{ item.professionType}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Number of needed Professions:</p> 
+                  <p>{{ item.numberProfessions}}</p> 
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Description:</p> 
+                  <p>{{ item.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
             <button mat-button color="primary" (click)="nextStepJO()">Next</button>
@@ -164,22 +216,120 @@
             </mat-panel-description>
             <mat-icon class ="personIcon">description</mat-icon>
           </mat-expansion-panel-header>  
-          <p>Job Title: {{item.JobTitle}}</p>
-          <p>Job Type: {{item.JobType}}</p>
-          <p>Job Mode: {{item.JobMode}}</p>
-          <p>Annual Salary: {{item.AnnualSalary}}</p>
-          <p>Benefits: {{item.Benefits}}</p>
-          <p>Graduation Level: {{item.GraduationLevel}}</p>
-          <p>Industry: {{item.Industry}}</p>
-          <p>Language: {{item.Language}}</p>
-          <p>Location: {{item.Location}}</p>
-          <p>Paid Time Off: {{item.PaidTimeOff}}</p>
-          <p>Process ID: {{item.ProcessID}}</p>
-          <p>Required Experience: {{item.RequiredExperience}}</p>
-          <p>Responsibilities: {{item.Responsibilities}}</p>
-          <p>Weekly Hours: {{item.WeeklyHours}}</p>
-          <p>Number of Positions: {{item.numberOfPositions}}</p>
-          <p>Job Description: {{item.JobDescription}}</p>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Title: </p>
+                   <p>{{item.JobTitle}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Type:</p> 
+                  <p>{{item.JobType}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Mode: </p>
+                   <p>{{item.JobMode}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Annual Salary:</p> 
+                  <p>{{item.AnnualSalary}}€</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Benefits: </p>
+                   <p>{{item.Benefits}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Graduation Level:</p> 
+                  <p>{{item.GraduationLevel}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Industry: </p>
+                   <p>{{item.Industry}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Language:</p> 
+                  <p>{{item.Language}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Location: </p>
+                   <p>{{item.Location}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Paid Time Off:</p> 
+                  <p>{{item.PaidTimeOff}} Days</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Process ID: </p>
+                   <p>{{item.ProcessID}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Required Experience:</p> 
+                  <p>{{item.RequiredExperience}} Years</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Responsibilities: </p>
+                   <p>{{item.Responsibilities}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Weekly Hours:</p> 
+                  <p>{{item.WeeklyHours}} Hours</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Number of Positions: </p>
+                   <p>{{item.numberOfPositions}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Description:</p> 
+                  <p>{{item.JobDescription}}</p>
+                </div>
+              </div>
+            </div>
+            </div>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepJS()">Previous</button>
             <button mat-button color="primary" (click)="nextStepJS()">Next</button>
@@ -200,21 +350,115 @@
             </mat-panel-description>
             <mat-icon class ="doneIcon">done_all</mat-icon>
             <mat-icon class ="personIcon">account_circle</mat-icon>
-          </mat-expansion-panel-header>  
-          <p>CandidateID: {{ item.CandidateID}}</p>
-          <p>Last Name: {{ item.last_name }}</p>
-          <p>First Name: {{ item.first_name}}</p>
-          <p>Age: {{ item.age }}</p>
-          <p>Gender: {{ item.gender}}</p>
-          <p>Zip Code: {{ item.zip_code}}</p>
-          <p>City: {{ item.city}}</p>
-          <p>Adress: {{ item.adress}}</p>
-          <p>Country: {{ item.country}}</p>
-          <p>Previous Company: {{ item.previous_company}}</p>
-          <p>E-Mail: {{ item.email}}</p>
-          <p>Rating: {{ item.rating }}</p>
-          <p>Linkedin: {{ item.linkedin }}</p>
-          <p>Interview Date: {{ item.InterviewDate}}</p>
+          </mat-expansion-panel-header>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>CandidateID: </p>
+                   <p>{{item.CandidateID}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Last Name: </p> 
+                  <p>{{item.last_name}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>First Name: </p>
+                   <p>{{item.first_name}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Age: </p> 
+                  <p>{{item.age}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Gender: </p>
+                   <p>{{item.gender}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Zip Code: </p> 
+                  <p>{{item.zip_code}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>City: </p>
+                   <p>{{item.city}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Adress: </p> 
+                  <p>{{item.adress}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Country: </p>
+                   <p>{{item.country}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Previous Company: </p> 
+                  <p>{{item.previous_company}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>E-Mail: </p>
+                   <p>{{item.email}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Rating: </p> 
+                  <p>{{item.rating}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Linkedin: </p>
+                   <p>{{item.linkedin}}</p>
+                      </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Interview Date: </p> 
+                  <p>{{item.InterviewDate}}</p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepTC()">Previous</button>
             <button mat-button color="primary" (click)="nextStepTC()">Next</button>
@@ -234,22 +478,127 @@
               {{ item.last_name}}
             </mat-panel-description>
             <mat-icon class ="personIcon">perm_identity</mat-icon>
-          </mat-expansion-panel-header>  
-          <p>Job Title: {{ item.JobTitle}}</p>
-          <p>Job Type: {{ item.JopType}}</p>
-          <p>CandidateID: {{ item.CandidateID}}</p>
-          <p>Last Name: {{ item.last_name }}</p>
-          <p>First Name: {{ item.first_name}}</p>
-          <p>Age: {{ item.age }}</p>
-          <p>Gender: {{ item.gender}}</p>
-          <p>Zip Code: {{ item.zip_code}}</p>
-          <p>City: {{ item.city}}</p>
-          <p>Adress: {{ item.adress}}</p>
-          <p>Country: {{ item.country}}</p>
-          <p>Previous Company: {{ item.previous_company}}</p>
-          <p>E-Mail: {{ item.email}}</p>
-          <p>Rating: {{ item.rating }}</p>
-          <p>Linkedin: {{ item.linkedin }}</p>
+          </mat-expansion-panel-header>
+          
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Title: </p>
+                   <p>{{item.JobTitle}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Type: </p> 
+                  <p>{{item.JopType}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>CandidateID: </p>
+                   <p>{{item.CandidateID}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Last Name: </p> 
+                  <p>{{item.last_name }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>First Name: </p>
+                   <p>{{item.first_name}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Age: </p> 
+                  <p>{{item.age}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Gender: </p>
+                   <p>{{item.gender}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Zip Code: </p> 
+                  <p>{{item.zip_code}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>City: </p>
+                   <p>{{item.city}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Adress: </p> 
+                  <p>{{item.adress}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Country: </p>
+                   <p>{{item.country}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Previous Company: </p> 
+                  <p>{{item.previous_company}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>E-Mail: </p>
+                   <p>{{item.email}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Rating: </p> 
+                  <p>{{item.rating}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Linkedin: </p>
+                   <p>{{item.linkedin}}</p>
+                </div>
+              </div>
+              
+            </div>
+
+
+          </div>
+
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepNE()">Previous</button>
             <button mat-button color="primary" (click)="nextStepNE()">Next</button>
