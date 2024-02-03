@@ -44,6 +44,86 @@ async def reviewJobOpening(data, decision:bool):
         except Exception as e:
             print(f"An error occurred: {e}")
 
+
+#Neue Funktion 03.02, fehlt noch datenbank und rest
+async def analyzeContract(data, decision:bool):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["processID"]}")
+        try:
+            await client.publish_message(name="analyzeContract", # Process ID from WEPLACM
+                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            "decision": decision
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+#Neue Funktion 03.02 finished
+async def createJobStandards(data):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["processID"]}")
+        try:
+            await client.publish_message(name="createJobStandards", # Process ID from WEPLACM
+                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            "JobName":data["JobTitle"], 
+                                            "jobType":data["JobType"], 
+                                            "number_of_positions":data["numberOfPositions"], 
+                                            "required_experience":data["RequiredExperience"], 
+                                            "job_description":data["JobDescription"], 
+                                            "responsibilities":data["Responsibilities"], 
+                                            "location":data["Location"],
+                                            "job_mode":data["JobMode"],
+                                            "weekly_hours":data["WeeklyHours"],
+                                            "pay":data["AnnualSalary"],
+                                            "pto":data["PaidTimeOff"],
+                                            "benefits":data["Benefits"],
+                                            "industry":data["Industry"], 
+                                            "min_education_level":data["GraduationLevel"], 
+                                            "language":data["Language"]           
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+#Neue Funktion 03.02, schwierige SubProcess
+async def checkCandidates(data):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["processID"]}")
+        try:
+            await client.publish_message(name="checkCandidates", # Process ID from WEPLACM
+                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+#Neue Funktion 03.02, hier fehlt noch die invoice?
+async def checkStatusInvoice(data):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["processID"]}")
+        try:
+            await client.publish_message(name="checkStatusInvoice", # Process ID from WEPLACM
+                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+
 con = sqlite3.connect("../wbig.db", timeout=10,check_same_thread=False)
 cur = con.cursor()
 lock =threading.Lock()
@@ -76,6 +156,7 @@ def get_top_candidates():
 @app.route('/api/data/get_job_standards', methods=['GET'])
 def get_job_standards():
     try:
+
         lock.acquire(True)
         cur.execute(
             """
@@ -208,19 +289,21 @@ def add_job_standards():
     try:
         lock.acquire(True)
         data = request.json
-        
         print(data)
-        cur.execute(
-            """
-            INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
+        print(data["processID"])
+        asyncio.run(createJobStandards(data))
+        
+        # cur.execute(
+        #     """
+        #     INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
+        #     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        #     """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
            
                 
  
-        )
+        # )
 
-        con.commit()
+        # con.commit()
         socketio.emit('job_standards_updated', {'message': 'Job Standards added successfully'})
 
         return jsonify({'success': True, 'message': 'Job Standards added successfully'})

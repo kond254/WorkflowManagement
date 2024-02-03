@@ -1041,7 +1041,6 @@
         <bpmn:flowNodeRef>Gateway_0y7aibe</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_07w8oqs</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1ow7yy4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0ecanps</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0fwtvq7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1hrx44c</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0xpwdbg</bpmn:flowNodeRef>
@@ -1050,7 +1049,6 @@
         <bpmn:flowNodeRef>Gateway_0kvi3i3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_01s3wdu</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0qdlhuo</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0gkk9h8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0fobttv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_09sql8s</bpmn:flowNodeRef>
@@ -1071,7 +1069,6 @@
         <bpmn:flowNodeRef>Activity_0krvld5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_17cx4yv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1ey6bvn</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_1nn88fy</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0f8d7of</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0d3hmbl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0yjh27d</bpmn:flowNodeRef>
@@ -1109,12 +1106,14 @@
         <bpmn:flowNodeRef>Event_1qmf7c7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0i1e5ir</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0zlve7c</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0ecanps</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1nn88fy</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_1krndwg">
           <bpmn:lane id="Lane_1pwveq3" name="Accounting">
             <bpmn:flowNodeRef>Activity_0krvld5</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_17cx4yv</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1ey6bvn</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_1nn88fy</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0f8d7of</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0d3hmbl</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_0yjh27d</bpmn:flowNodeRef>
@@ -1127,6 +1126,7 @@
             <bpmn:flowNodeRef>Event_0fpdrt4</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1l9c5pq</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1qmf7c7</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_1nn88fy</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_0ehcb9c" name="Recruiting Department">
             <bpmn:flowNodeRef>Event_19a1iuy</bpmn:flowNodeRef>
@@ -1176,7 +1176,6 @@
             <bpmn:flowNodeRef>Gateway_0y7aibe</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_07w8oqs</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_1ow7yy4</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_0ecanps</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0fwtvq7</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1hrx44c</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0xpwdbg</bpmn:flowNodeRef>
@@ -1223,14 +1222,15 @@
             <bpmn:flowNodeRef>Event_1eqnonp</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_0i1e5ir</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0zlve7c</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_0ecanps</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_0u4k6fr" name="HR Manager">
             <bpmn:flowNodeRef>Event_111143q</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0kvi3i3</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_01s3wdu</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_04tf7ac</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Activity_1venfvo</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Activity_1qena75</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -1591,18 +1591,6 @@
       <bpmn:incoming>Flow_1aupzky</bpmn:incoming>
       <bpmn:outgoing>Flow_08rgljp</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Activity_0ecanps" name="analyze offer and adjust the contract">
-      <bpmn:incoming>Flow_1noaayx</bpmn:incoming>
-      <bpmn:outgoing>Flow_0ujlk0o</bpmn:outgoing>
-      <bpmn:property id="Property_0k9wk7u" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_1vl24e0">
-        <bpmn:sourceRef>DataObjectReference_0myejoj</bpmn:sourceRef>
-        <bpmn:targetRef>Property_0k9wk7u</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ju0s57">
-        <bpmn:targetRef>DataObjectReference_1np8k91</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_0fwtvq7" name="contract cycled 3 times">
       <bpmn:incoming>Flow_0ksevcv</bpmn:incoming>
       <bpmn:outgoing>Flow_1noaayx</bpmn:outgoing>
@@ -1656,13 +1644,6 @@
       <bpmn:dataOutputAssociation id="DataOutputAssociation_073n7hy">
         <bpmn:targetRef>DataObjectReference_0fkpks1</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
-    </bpmn:userTask>
-    <bpmn:userTask id="Activity_1qena75" name="create job standards">
-      <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_3gnpdkt" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0lryadi</bpmn:incoming>
-      <bpmn:outgoing>Flow_1eymdsw</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:dataObjectReference id="DataObjectReference_0z8cupr" name="Job Type" dataObjectRef="DataObject_146kgks" />
     <bpmn:dataObject id="DataObject_146kgks" />
@@ -1843,13 +1824,6 @@
       <bpmn:incoming>Flow_0c2354q</bpmn:incoming>
       <bpmn:outgoing>Flow_0sr8yz7</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:userTask id="Activity_1nn88fy" name="inquire status">
-      <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_2v7kb91" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0i1a4r4</bpmn:incoming>
-      <bpmn:outgoing>Flow_1sif83x</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="Event_0f8d7of" name="inquiry finished">
       <bpmn:incoming>Flow_1sif83x</bpmn:incoming>
     </bpmn:endEvent>
@@ -2043,15 +2017,6 @@
         <bpmn:outgoing>Flow_1pf9a2x</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:dataStoreReference id="DataStoreReference_0e6pgue" name="Candidate" />
-      <bpmn:userTask id="Activity_0ndeici" name="checking candidate">
-        <bpmn:incoming>Flow_17i1zdb</bpmn:incoming>
-        <bpmn:outgoing>Flow_0bmt7nh</bpmn:outgoing>
-        <bpmn:property id="Property_0jnpq6u" name="__targetRef_placeholder" />
-        <bpmn:dataInputAssociation id="DataInputAssociation_18uxqux">
-          <bpmn:sourceRef>DataStoreReference_0e6pgue</bpmn:sourceRef>
-          <bpmn:targetRef>Property_0jnpq6u</bpmn:targetRef>
-        </bpmn:dataInputAssociation>
-      </bpmn:userTask>
       <bpmn:startEvent id="Event_0a3vf8n" name="start selection">
         <bpmn:outgoing>Flow_0il15uk</bpmn:outgoing>
       </bpmn:startEvent>
@@ -2101,6 +2066,15 @@
       <bpmn:sequenceFlow id="Flow_0il15uk" sourceRef="Event_0a3vf8n" targetRef="Activity_08rut70" />
       <bpmn:sequenceFlow id="Flow_0mqtnvl" sourceRef="Activity_0nrnnz6" targetRef="Event_1f90k1f" />
       <bpmn:sequenceFlow id="Flow_08sgdnj" sourceRef="Activity_08648xi" targetRef="Activity_0nrnnz6" />
+      <bpmn:receiveTask id="Activity_0ndeici" name="checking candidate" messageRef="Message_016sh2f">
+        <bpmn:incoming>Flow_17i1zdb</bpmn:incoming>
+        <bpmn:outgoing>Flow_0bmt7nh</bpmn:outgoing>
+        <bpmn:property id="Property_0fs92bt" name="__targetRef_placeholder" />
+        <bpmn:dataInputAssociation id="DataInputAssociation_18uxqux">
+          <bpmn:sourceRef>DataStoreReference_0e6pgue</bpmn:sourceRef>
+          <bpmn:targetRef>Property_0fs92bt</bpmn:targetRef>
+        </bpmn:dataInputAssociation>
+      </bpmn:receiveTask>
     </bpmn:subProcess>
     <bpmn:subProcess id="Activity_0186dg5" name="Selecting Interview Dates">
       <bpmn:incoming>Flow_0n66ph9</bpmn:incoming>
@@ -2462,6 +2436,26 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_1sz545w" sourceRef="Gateway_0zlve7c" targetRef="Activity_0qdlhuo" />
     <bpmn:sequenceFlow id="Flow_14604cx" sourceRef="Event_0i1e5ir" targetRef="Gateway_0zlve7c" />
+    <bpmn:receiveTask id="Activity_0ecanps" name="analyze offer and adjust the contract" messageRef="Message_3d3rsg3">
+      <bpmn:incoming>Flow_1noaayx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ujlk0o</bpmn:outgoing>
+      <bpmn:property id="Property_1tptmwr" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_1vl24e0">
+        <bpmn:sourceRef>DataObjectReference_0myejoj</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1tptmwr</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ju0s57">
+        <bpmn:targetRef>DataObjectReference_1np8k91</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:receiveTask>
+    <bpmn:receiveTask id="Activity_1qena75" name="create job standards" messageRef="Message_3fhf3jv">
+      <bpmn:incoming>Flow_0lryadi</bpmn:incoming>
+      <bpmn:outgoing>Flow_1eymdsw</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:receiveTask id="Activity_1nn88fy" name="inquire status" messageRef="Message_3i1u5l1">
+      <bpmn:incoming>Flow_0i1a4r4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1sif83x</bpmn:outgoing>
+    </bpmn:receiveTask>
     <bpmn:textAnnotation id="TextAnnotation_1xlcfpr">
       <bpmn:text>muss an adjusted contract gehen, also andere Stelle</bpmn:text>
     </bpmn:textAnnotation>
@@ -2631,6 +2625,26 @@
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_21rtd4p" name="okayLetsGo" />
+  <bpmn:message id="Message_3d3rsg3" name="analyzeContract">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processIDforFrontend" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_3fhf3jv" name="createJobStandards">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processIDforFrontend" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_3i1u5l1" name="checkStatusInvoice">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processIDforFrontend" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_016sh2f" name="checkCandidates">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processIDforFrontend" />
+    </bpmn:extensionElements>
+  </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1191td1">
       <bpmndi:BPMNShape id="Participant_1fzour1_di" bpmnElement="Participant_1fzour1" isHorizontal="true">
@@ -2921,10 +2935,6 @@
       <bpmndi:BPMNShape id="Gateway_1ow7yy4_di" bpmnElement="Gateway_1ow7yy4" isMarkerVisible="true">
         <dc:Bounds x="1945" y="1555" width="50" height="50" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1f0uw4z_di" bpmnElement="Activity_0ecanps" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="2870" y="1270" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0fwtvq7_di" bpmnElement="Gateway_0fwtvq7" isMarkerVisible="true" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="2895" y="1385" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -2977,9 +2987,6 @@
       <bpmndi:BPMNShape id="Activity_05xqwb1_di" bpmnElement="Activity_0qdlhuo" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="490" y="1540" width="100" height="80" />
         <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0zfsf9k_di" bpmnElement="Activity_1qena75" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="3405" y="635" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0z8cupr_di" bpmnElement="DataObjectReference_0z8cupr">
         <dc:Bounds x="1467" y="1411" width="36" height="50" />
@@ -3135,9 +3142,6 @@
         <dc:Bounds x="13025" y="2530" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_15c24wf" bpmnElement="Activity_1nn88fy">
-        <dc:Bounds x="12780" y="2440" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0f8d7of_di" bpmnElement="Event_0f8d7of">
         <dc:Bounds x="12942" y="2462" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -3292,6 +3296,15 @@
           <dc:Bounds x="319" y="1605" width="87" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uiypf3_di" bpmnElement="Activity_0ecanps" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="2870" y="1270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jumflf_di" bpmnElement="Activity_1qena75" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="3405" y="635" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_067xn9c_di" bpmnElement="Activity_1nn88fy">
+        <dc:Bounds x="12780" y="2440" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04tf7ac_di" bpmnElement="Activity_04tf7ac" isExpanded="true">
         <dc:Bounds x="6255" y="385" width="805" height="362" />
         <bpmndi:BPMNLabel />
@@ -3307,10 +3320,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="6579" y="424" width="51" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1lq655a" bpmnElement="Activity_0ndeici" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
-        <dc:Bounds x="6555" y="617" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0a3vf8n_di" bpmnElement="Event_0a3vf8n">
         <dc:Bounds x="6277" y="639" width="36" height="36" />
@@ -3338,6 +3347,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1xivw9o_di" bpmnElement="Activity_08rut70" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="6375" y="617" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cyuk55_di" bpmnElement="Activity_0ndeici" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="6555" y="617" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_0eph2b3" bpmnElement="Flow_0bmt7nh">
         <di:waypoint x="6655" y="657" />
