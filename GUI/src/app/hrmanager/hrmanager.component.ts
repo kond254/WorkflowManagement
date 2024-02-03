@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
@@ -111,10 +110,6 @@ export class HrmanagerComponent implements OnInit {
   // acceptedJobsWithCandidates: { job: any; candidates: any[] }[] = [];
   // selectedJob: { job: any; candidates: any[] } | null = null;
 
-  // ... deine anderen Deklarationen hier ...
-
- // nach dem vorbild des HR Department angelegt wo auch jobOffer so angelegt wurde
-
  jobStandards: JobStandards = {
   ProcessID: 0,
   JobTitle: '',
@@ -159,10 +154,6 @@ newjobStandards: {
   Language: string;
   numberOfPositions: number
 }[] = [];
-
-// newjobOffer: JobOffer[] = [];
-
-
 
 step = 0;
 candidateSteps=0
@@ -258,29 +249,11 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     );
   }
   
-
-// alte Verwsion von Konstantin
-  // sendData(item: JobStandards) {
-  //   this.dataServiceInterface.sendJobStandards(item).subscribe(
-  //     response => {
-  //       console.log('Data sent successfully', response);
-  //       this.snackbarService.showSuccess('New job standards sented');
-  //       this.jobStandards = {} as JobStandards;
-  //     },
-  //     error => {
-  //       console.error('Error sending data', error);
-  //       // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-  //     }
-  //   );
-  // }
-
-
-  //Alternative 1
   sendData(jobOffer: JobOffer) {
     this.jobStandards.ProcessID = (jobOffer.processID); 
     this.jobStandards.JobTitle = (jobOffer.professionTitel); 
     this.jobStandards.JobType = (jobOffer.professionType); 
-    this.jobStandards.numberOfPositions = (jobOffer.numberProfessions);
+    this.jobStandards.numberOfPositions = (jobOffer.numberProfessions);   //Problem wird nicht mitgegeben
     console.log(this.jobStandards) 
     this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
       response => {
@@ -294,25 +267,6 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
-
-  //Alternative 2
-
-  // sendData(item: JobStandards) {
-  //   this.dataServiceInterface.sendJobStandards(item).subscribe(
-  //     response => {
-  //       console.log('Data sent successfully', response);
-  //       this.snackbarService.showSuccess('New job standards sented');
-  //       this.jobStandards = {} as JobStandards;
-  //     },
-  //     error => {
-  //       console.error('Error sending data', error);
-  //       // Hier kannst du Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
-  //     }
-  //   );
-  // }
-  
-  
-  
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
@@ -349,117 +303,72 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   }
 
 
-
-  
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
   acceptJob(item: JobOffer): void {
-    // Annahme-Logik hier implementieren
     console.log('Job accepted:', item);
-  
-    // Die Variable hrmanagerAccepted auf true setzen
     item.hrmanagerAccepted = true;
-  
-    // Die aktualisierten Daten an die Datenbank senden
     this.updateJobOffer(item);
   }
 
   rejectJob(item: JobOffer): void {
-    // Ablehnungs-Logik hier implementieren
     console.log('Job rejected:', item);
-  
-    // Das Job-Angebot aus der Datenbank löschen
     this.deleteJobOffer(item);
   }
 
-
-  // Methode zum Aktualisieren eines Job-Angebots in der Datenbank
 updateJobOffer(item: JobOffer): void {
   this.dataServiceInterface.updateJobOffer(item).subscribe(
     response => {
       console.log('Job offer updated successfully', response);
       this.snackbarService.showSuccess('Job offer accepted');
-      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
       this.getJobOffer();
       this.getJobOfferAccapted();
     },
     error => {
       console.error('Error updating job offer', error);
-      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
     }
   );
-
 }
 
-// Methode zum Löschen eines Job-Angebots aus der Datenbank
 deleteJobOffer(item: JobOffer): void {
   this.dataServiceInterface.deleteJobOffer(item).subscribe(
     response => {
       console.log('Job offer delete successfully', response);
       this.snackbarService.showSuccess('Job offer rejected');
-      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
       this.getJobOffer();
       this.getJobOfferAccapted();
     },
     error => {
       console.error('Error delete job offer', error);
-      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
     }
   );
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 acceptTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
-  // Annahme-Logik hier implementieren
   console.log('Top candidate accepted:', item);
   item.hrmanagerAccepted = true; 
   this.dataServiceInterface.updateTopCandidate(item).subscribe(
     response => {
       console.log('Top candidate updated successfully', response);
       this.snackbarService.showSuccess('Top candidate accepted');
-      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
       this.getJobStandardsWithTopCandidates(jobStandards);
-      //this.getTopCandidateAccapted();
     },
     error => {
       console.error('Error updating top candidate', error);
-      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
     }
   );
  
 }
 
 rejectTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
-  // Ablehnungs-Logik hier implementieren
   console.log('Top candidate rejected:', item);
   this.dataServiceInterface.deleteTopCandidate(item).subscribe(
     response => {
       console.log('Top candidate delete successfully', response);
       this.snackbarService.showSuccess('Top candidate rejected');
-      // Hier können Sie weitere Aktionen nach der Aktualisierung durchführen
       this.getJobStandardsWithTopCandidates(jobStandards);
-      //this.getTopCandidateAccapted();
     },
     error => {
       console.error('Error delete Top Candidate', error);
-      // Hier können Sie Aktionen im Fehlerfall durchführen, z.B., eine Fehlermeldung anzeigen
     }
-    
   );
-
-
-  // Das Job-Angebot aus der Datenbank löschen
-
 }
-
-
-
-/////////////////////////////////////////////////////////////
-
-
-
-
 }

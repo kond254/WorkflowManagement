@@ -107,6 +107,20 @@ body{
     border-radius: 10px;
 }
 
+.matpanelJobOffer{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+}
+
+.matpanelJobStandards{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+}
+
 .divButton {
     width: 15%;
     height: 45px;
@@ -136,50 +150,6 @@ body{
     color: #555555;
 }
 
-.divNoNews{   
-    background-color: rgb(247, 247, 247);
-    border-radius: 10px;
-    width: 100%;
-    height: 48px;
-    margin: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.divNoNews p em{
-    margin: 0;
-}
-
-.divNoNews p{
-    color: #777777;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0;
-}
-
-.divmatfield1 {
-    margin-top: 30px;
-    width: 50%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column; 
-    flex: 1;
-    float:left;
-    height: 350px;
-    
-}
-
-.divmatfield2 {
-    margin-top: 30px;
-    width: 50%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column; 
-    flex: 1;
-    float:right;
-    height: 350px;
-}
 
 
 .divmatfieldneu {
@@ -187,7 +157,6 @@ body{
     flex-direction: column;
     width: 100%;
  
-
 
 }
 .divmatfieldrow{
@@ -199,3 +168,56 @@ body{
     display: flex;
     float: right;
 }
+
+
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .box {
+    width: 48%; 
+    margin-bottom: 15px;
+  }
+  
+  .box-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .box-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .box-item {
+    width: calc(48% - 10px); 
+    box-sizing: border-box; 
+    margin-bottom: 15px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .item-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .item-box-description {
+    max-height: 100px; 
+    overflow-y: auto; 
+    white-space: pre-wrap; 
+    box-sizing: border-box; 
+  }
+  
+ .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  
