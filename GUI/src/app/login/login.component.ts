@@ -56,14 +56,19 @@ export class LoginComponent {
             this.unvalidusername = true;
             this.unvalidpassword = true;
           } else {
-              this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
-              console.log("User login is saved");});
+            this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
+              console.log("User login has been recorded!");});
+              this.dataServiceInterface.getLoginUsers().subscribe(login_users => {
+                console.log(login_users)});
+              sessionStorage.setItem('currentLoggedUser',this.username);
               this.loginService.setloginUser(this.username);
               this.loginService.setloginValue(true);
-              this.role = result;
-              console.log('Login of username ' + this.username + ' successful!');      
+              sessionStorage.setItem('currentRoleUser',result);
+              this.role = result;   
               this.handleSuccessfulLogin(result); 
               this.handle();
+              console.log('Login of username ' + this.username + ' was successful!');
+              console.log('The user has the right: ' + this.role);
             }
         });
       }
@@ -77,7 +82,6 @@ export class LoginComponent {
     const routerLink = [''];
     this.router.navigate(routerLink);
     this.roleservice.setRoleVariable(this.role);
-    console.log('Rights: ', role);
     this.snackbarService.showSuccess('Login successful!');
     }
 

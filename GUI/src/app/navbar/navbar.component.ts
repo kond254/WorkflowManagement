@@ -1,4 +1,4 @@
-import { Component, inject} from '@angular/core';
+import { Component, OnInit, inject} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -15,17 +15,49 @@ import { DataServiceInterface } from '../data.service';
   styleUrl: './navbar.component.css'
 })
 
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
 
+  home: boolean = false;
   showHome: boolean = false;
   hrdepartment: boolean = false;
   hrmanagement: boolean = false;
   accounting: boolean = false;
+  role: string = '';
 
   constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService, private dataroleservice: DataRoleService, private loginservice: LoginService,  private dataServiceInterface: DataServiceInterface) {
   }
 
   private breakpointObserver = inject(BreakpointObserver);
+
+  ngOnInit(): void {
+    this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
+      const userIsLoggedIn = loginUsers.some(user => user.username == sessionStorage.getItem('currentLoggedUser') && user.isLoggedIn);
+      if (userIsLoggedIn) {
+        this.loginService.setloginValue(true);
+        this.role = sessionStorage.getItem('currentRoleUser') as string || 'defaultRole';
+        this.roleservice.setRoleVariable(this.role);
+        this.updateRole();
+      }
+      else{
+        console.log('Currently no User is logged in!');
+        this.loginService.setloginValue(false);
+        this.role = '';
+      }
+  });
+}
+
+// Funktion ruft die Rechtes des eingeloggten Nutzer aus roleData.json ab und übergibt an dataRole.service.ts
+private updateRole(){
+  const role: string = this.roleservice.getRoleVariable();
+  this.dataroleservice.getRoleData(role).subscribe((data: any) => {
+      this.home = data[role].home;
+      this.hrdepartment = data[role].hrdepartment;
+      this.hrmanagement = data[role].hrmanagement;
+      this.accounting = data[role].accounting;
+      this.dataroleservice.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
+    });
+  }
+
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -52,17 +84,19 @@ export class NavbarComponent{
    // Funktion wird ausgeführt, wenn logout Button gedrückt wird und setzt dropdown Seiten auf standard false
    logout(){
     this.loginService.setloginValue(false);
-    this.snackbarService.showSuccess('Logout successful!');
     this.roleservice.setRoleVariable('');
-    console.log('Logout successful!');
     this.dataroleservice.updateRechte(this.showHome , this.hrdepartment, this.hrmanagement, this.accounting);
 
-    const usernameDelete = this.loginService.getloginUser();
+    const usernameDelete = sessionStorage.getItem('currentLoggedUser') as string || 'defaultUser';;
     this.dataServiceInterface.deleteLoginUser(usernameDelete).subscribe(response => {
       console.log(response);
     }, error => {
       console.error(error);
       });
+      sessionStorage.removeItem('currentLoggedUser');
+      sessionStorage.removeItem('currentRoleUser');
+      console.log('Logout successful: ' + usernameDelete);
+      this.snackbarService.showSuccess('Logout successful!');
     }  
 
 }
