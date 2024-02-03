@@ -1,0 +1,165 @@
+header{
+    margin-top: 5px;
+    height: 150px;
+    background-color: #157067;
+}
+
+header div{
+    padding-top: 60px;
+    margin-left: 18%;
+    margin-right: 18%;
+    color: #fff;
+}
+
+h1{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h2{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#backImage {
+    margin-top: 60px;
+    width: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+body{
+    margin-left: 18%;
+    margin-right: 18%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: auto;
+}
+
+.card {
+    margin-top: 20px;
+    margin-bottom: 100px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #157067;
+    max-height: 1000px;
+    overflow-y: auto;
+}
+
+.cardcontent{
+    padding-bottom: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between; 
+    align-items: stretch; 
+}
+
+.matpanel{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+}
+
+.createIcon{
+    margin-right: 25px;
+    color: #ffff;
+    background-color: #555555;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+.paneldiscription{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.divmatfield1 {
+    margin-top: 30px;
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+    flex: 1;
+    float:left;
+    height: 350px;
+    
+}
+
+.divmatfield2 {
+    margin-top: 30px;
+    width: 50%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+    flex: 1;
+    float:right;
+    height: 350px;
+}
+
+.matfield{
+    width: 300px;
+    height: 80px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.divButton {
+    width: 15%;
+    height: 45px;
+    display: flex;
+    padding-right: 10px;
+    float: right;
+  }
+  
+.divButton mat-action-row {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button {
+    margin: 10px 0;
+    float:left;
+  }
+
+.disabled-button {
+    color: #8f8f8f;
+  }
+
+.personIcon{
+    color: #555555;
+}
+
+.divNoNews{   
+    background-color: rgb(247, 247, 247);
+    border-radius: 10px;
+    width: 100%;
+    height: 48px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divNoNews p em{
+    margin: 0;
+}
+
+.divNoNews p{
+    color: #777777;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}

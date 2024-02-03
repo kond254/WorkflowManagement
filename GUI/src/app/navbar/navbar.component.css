@@ -1,0 +1,118 @@
+.mat-sidenav-content{
+  height: 80px;
+}
+.sidenav-container {
+  height: 60px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+.sidenav {
+  width: 200px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
+
+.sidenav .mat-toolbar {
+  background: #54595F;
+}
+
+.mat-sidenav{
+  background: #e2e2e2;
+}
+
+.sidenavButtons a:hover{
+  background: rgb(226, 226, 226);
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  background: #54595F;
+  padding-left:30px;
+  padding-right: 30px;
+  color: #ffff;
+}
+
+.mat-toolbar a{
+  display: inline-block;
+  margin: 0 10px;
+  color:aqua;
+  text-decoration: none;
+}
+
+.divIcon{
+  padding-right: 30px;
+}
+
+.icon{
+  color: aqua;
+  padding-left: 40px;
+  padding-right: 20px;
+}
+
+.buttonMenu{
+  padding-right: 20px;
+  color: aqua;
+}
+
+.logo{
+  height: 50px;
+  margin-top: 5px;
+  cursor:pointer;
+}
+
+#buttonSignIn{
+  color: #ffff;
+}
+
+.dropdown{
+  width: 170px;
+  height: 75px;
+  padding-top: 17px;
+  padding-right: 0px;
+  font-size: 13px;
+}
+
+.dropdownlabel{
+  color: black;
+  font-size: 13px;
+}
+
+.dropdownfields{
+  color: black;
+  font-size:13px;
+}
+
+.dropdownfields:hover{
+  font-weight: 600;
+}
+
+
+@media (min-width: 780px){
+  /** Ausblenden von Seiten-Menu**/
+  .sidenav{
+    display: none;
+  }
+}
+
+
+@media (max-width: 780px){
+  
+  /** Ausblenden von Menu Buttons**/
+  .mat-toolbar a{
+    display: none;
+  }
+
+  .dropdown{
+    display: none;
+  }
+
+}

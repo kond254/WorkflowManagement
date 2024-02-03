@@ -1,0 +1,10 @@
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+
+  <div class= "divContent" mat-dialog-content>
+    <p>{{ data.message }}</p>
+  </div>
+
+  <div class ="divActions" mat-dialog-actions>
+    <button color="warn" mat-button (click)="onClose()">No</button>
+    <button color="primary" mat-button (click)="onClose()">Yes</button>
+  </div>

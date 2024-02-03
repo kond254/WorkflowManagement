@@ -1,0 +1,11 @@
+
+
+[
+  { "jobtitle": "Informatiker","number": "3", "location": "Koblenz", "salary": 80.000, "additionalinformation": "Bruder kuck mal brauchen wir wirklich wenn es sein muss reicht auch 1 ner", "id": "1"},
+  { "jobtitle": "Projektleiter","number": "1", "location": "Bonn", "salary": 30.000, "additionalinformation": "(Nichts)", "id": "2"},
+  { "jobtitle": "Berater","number": "5", "location": "München", "salary": 15.000, "additionalinformation": "Komm in die Whatsapp Gruppe", "id": "3"},
+  { "jobtitle": "Softwareentwickler","number": "2", "location": "Berlin", "salary": 65.000, "additionalinformation": "Erfahrung mit Java erforderlich", "id": "4"}
+  
+  
+]
+

@@ -1,0 +1,12 @@
+.h2 {
+    color: #333;
+  }
+  
+.divContent p {
+    color: #4e4e4e; 
+  }
+  
+.divActions{
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,56 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav 
+      #drawer 
+      class="sidenav" 
+      fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list class="sidenavButtons">
+      <a mat-list-item *ngIf="showRoleHome" [routerLink]="['/']">Home</a>
+      <a mat-list-item *ngIf="showRoleHrdepartment" [routerLink]="['/hrdepartment']">HR-Department</a>
+      <a mat-list-item *ngIf="showRoleHrmanagement" [routerLink]="['/hrmanager']">HR-Manager</a>
+      <a mat-list-item *ngIf="showRoleAccouting" [routerLink]="['/accounting']">Accouting</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+      @if (isHandset$ | async) {
+        <button 
+          class="buttonMenu"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+      }
+      <span>
+        <img routerLink="/" class="logo" src="assets/images/WBIG_Logo.png">
+      </span>
+
+      <span class="spacer"></span>
+        
+      <mat-form-field class="dropdown">
+        <mat-label class="dropdownlabel">Page selection</mat-label>
+        <mat-select panelClass="dropdownfields">
+          <mat-option *ngIf="showRoleHome" class="dropdownfields" [routerLink]="['/']" value="home">Home</mat-option>
+          <mat-option *ngIf="showRoleHrdepartment" class="dropdownfields" [routerLink]="['/hrdepartment']" value="hrdepartment">HR-Department</mat-option>
+          <mat-option *ngIf="showRoleHrmanagement" class="dropdownfields" [routerLink]="['/hrmanager']" value="hrmanager">HR-Manager</mat-option>
+          <mat-option *ngIf="showRoleAccouting" class="dropdownfields" [routerLink]="['/accounting']" value="accounting">Accounting</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <div class="divIcon">
+        <button mat-icon-button class="icon">
+            <mat-icon>mail</mat-icon>
+        </button>
+      </div>
+
+      <button *ngIf="!loginService.getloginValue()" routerLink="/login" id="buttonSignIn" mat-raised-button color="accent">Login</button>
+      <button *ngIf="loginService.getloginValue()" routerLink="/" style="cursor:pointer" id="buttonSignIn" mat-raised-button color="accent" (click)="logout()">Logout</button>
+    </mat-toolbar>
+  </mat-sidenav-content>
+
+ </mat-sidenav-container>
