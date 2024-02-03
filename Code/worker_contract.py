@@ -22,6 +22,14 @@ def main():
     worker = ZeebeWorker(channel)
 
 
+
+    #starting Process in WEPLACM to send inital contract information
+    @worker.task(task_type="setProcessIDforFrontend")
+    async def set_processid_frontend(job: Job):
+        return {'processIDforFrontend': str(job.process_instance_key)}
+        #return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": 1}
+        
+        
     #starting Process in WEPLACM to send inital contract information
     @worker.task(task_type="sendContract")
     async def send_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
@@ -35,6 +43,9 @@ def main():
         print("Rsponse: " + str(response))
         return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response}
         #return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": 1}
+        
+        
+       
 
     #check the answer and log responses
     @worker.task(task_type="checkContractAnswer")
