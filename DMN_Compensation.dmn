@@ -24,7 +24,7 @@
           <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1usmcrj">
-          <text>"Worker"</text>
+          <text>"WORKER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_08l7gff">
           <text>0.1</text>
@@ -35,7 +35,7 @@
           <text>[2..3]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1xraxjy">
-          <text>"Worker"</text>
+          <text>"WORKER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0k0w7sn">
           <text>0.08</text>
@@ -46,7 +46,7 @@
           <text>[4..5]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_19mmcdn">
-          <text>"Worker"</text>
+          <text>"WORKER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_16id8te">
           <text>0.06</text>
@@ -57,7 +57,7 @@
           <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0r1vfs4">
-          <text>"Worker"</text>
+          <text>"WORKER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1b1caz0">
           <text>0.04</text>
@@ -68,7 +68,7 @@
           <text>&gt;10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0beeh3o">
-          <text>"Worker"</text>
+          <text>"WORKER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_13lavlk">
           <text>0.02</text>
@@ -134,7 +134,7 @@
           <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1d2dnlq">
-          <text>"Intern"</text>
+          <text>"INTERN"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0holjyg">
           <text>0.08</text>
@@ -145,7 +145,7 @@
           <text>[2..3]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ntsmci">
-          <text>"Intern"</text>
+          <text>"INTERN"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1413h5q">
           <text>0.05</text>
@@ -156,7 +156,7 @@
           <text>[4..5]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1ivg3u0">
-          <text>"Intern"</text>
+          <text>"INTERN"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0cvzvvg">
           <text>0.03</text>
@@ -167,7 +167,7 @@
           <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0cc0grc">
-          <text>"Intern"</text>
+          <text>"INTERN"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1rkd1z1">
           <text>0.02</text>
@@ -178,7 +178,7 @@
           <text>&gt;10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1bu2uby">
-          <text>"Intern"</text>
+          <text>"INTERN"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0q1tapb">
           <text>0.01</text>
@@ -189,7 +189,7 @@
           <text>1</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1l7shzx">
-          <text>"Manager"</text>
+          <text>"MANAGER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_02k6quu">
           <text>0.2</text>
@@ -200,7 +200,7 @@
           <text>[2..3]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_00iiq1n">
-          <text>"Manager"</text>
+          <text>"MANAGER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1el38lz">
           <text>0.18</text>
@@ -211,7 +211,7 @@
           <text>[4..5]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1nrgl54">
-          <text>"Manager"</text>
+          <text>"MANAGER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0z7jzcx">
           <text>0.15</text>
@@ -222,7 +222,7 @@
           <text>[6..10]</text>
         </inputEntry>
         <inputEntry id="UnaryTests_159hj7e">
-          <text>"Manager"</text>
+          <text>"MANAGER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09z122o">
           <text>0.12</text>
@@ -233,7 +233,7 @@
           <text>&gt;10</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0p767yd">
-          <text>"Manager"</text>
+          <text>"MANAGER"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_132981y">
           <text>0.1</text>
