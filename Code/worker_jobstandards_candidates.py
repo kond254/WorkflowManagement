@@ -27,25 +27,28 @@ def main():
         print("-----ProcessID selected-----")
         return {"ProcessIDforFrontend": str(job.process_instance_key)}
     
+    
     #create Job standards and insert them into SystemDB
     @worker.task(task_type="sendJobStandards")
-    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
+    async def send_job_standards(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int, correlation_key_weplacm: int):
         print("-----Job standards send-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         print("Inserting into DB")
         #generating new correlation key for next recieve answer
         process_correlation_key=f"{job.process_instance_key}22"
+        await cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions, correlation_key_weplacm, process_correlation_key)
         #Insert job standards into the db using the db class (backend)
         db.insert_job_standards_in_db(job.process_instance_key, jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
-        #cW.send_job_standards_to_weplacm(jobType, JobName, required_experience, job_description, responsibilities, location, job_mode, weekly_hours, pay, pto, benefits, industry, min_education_level, language,  number_of_positions)
+        time.sleep(10)
         return {"process_correlation_key": process_correlation_key, "Reminder": False}
     
     # Insquire the status of the candidate search by the other group 
     @worker.task(task_type="inquireCandidateSearchProgress")
-    async def inquire_search(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int):
+    async def inquire_search(job: Job, jobType: str, JobName:str, required_experience: int, job_description: str, responsibilities:str, location:str, job_mode:str, weekly_hours: int, pay: int, pto: int, benefits: str, industry:str, min_education_level:str, language:str, number_of_positions: int, correlation_key_weplacm: int):
         print("-----Inquire Status for Candidate Search-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        #cW.inquire_candidate_search_progress()
+        process_correlation_key=f"{job.process_instance_key}30"
+        await cW.inquire_candidate_search_progress(correlation_key_weplacm, process_correlation_key)
         print("Inquery sent")
     
     #checks if atleast one candidate filled in a position and got employed
@@ -62,12 +65,12 @@ def main():
 
     #sending Weplacm the information that we currently employed x number of people to get the invoice 
     @worker.task(task_type="sendWeplacmInfoEmployed")
-    async def send_weplacm_info_employed(job: Job):
+    async def send_weplacm_info_employed(job: Job, correlation_key_weplacm: int, process_correlation_key: str):
         print("-----Send Weplacm info about the amount of new employees-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         amount = db.employed_candidates(job.process_instance_key)
         print(f"Amount {amount}")
-        #cW.send_Employee_Amount(amount)
+        await cW.send_Employee_Amount(amount, correlation_key_weplacm, process_correlation_key)
 
     #receive Candidates from WEPLACM
     @worker.task(task_type="storeAndSortCandidates")
@@ -82,7 +85,7 @@ def main():
             gender = candidate.get("gender")
             email = candidate.get("email")
             linkedin = candidate.get("linkedin")
-            address = candidate.get("adress")  # Note: "adress" is a typo, it should be "address"
+            address = candidate.get("address")  # Note: "adress" is a typo, it should be "address"
             city = candidate.get("city")
             zip_code = candidate.get("zip_code")
             country = candidate.get("country")
@@ -128,6 +131,8 @@ def main():
     async def fetch_TopCandidate_Data(job: Job, candidate_id: int):
         print("-----Fetch Candidate Data from Database-----")
         print("Process Instance Key: " +str(job.process_instance_key))
+        print(candidate_id)
+        print(type(candidate_id))
         #get the data from the databank
         candidate_details = db.Join_TopCandidate_with_CandidateDB(candidate_id)
         print(candidate_details[0])

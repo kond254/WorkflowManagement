@@ -1,26 +1,48 @@
-from pyzeebe import ZeebeClient, create_insecure_channel
-import asyncio
+from db import Databank
 
-async def send_contract_to_weplacm(client: ZeebeClient):
-    try:
-        response = await client.run_process(
-            bpmn_process_id="Process_0tyj0f6",  # Process ID from WEPLACM
-            variables={
-                "contract_signed": False,  # Boolean
-                "capacity": False,  # Boolean
-            }
-        )
-        print(response)
-    except Exception as e:
-        print(f"An error occurred: {e}")
+db= Databank()
 
-async def main():
-    channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
-    print("Channel created to Weplacm")
-    client = ZeebeClient(channel)
-    print("Client created to Weplacm")
+x=2251799814039178
+newEmployeeCount = db.check_Count_new_employees(x)
+Salary = db.check_annual_salary(x)
+compensation = db.select_contract_compensation(x)
+print("EmpCOunt ", newEmployeeCount)
+print("Salary ", Salary)
+print("Compensation ", compensation)
+        #WEPLACM gets payed for each candidate we employed 
+CalculatedSalarySum = newEmployeeCount*Salary*compensation
+print(CalculatedSalarySum)
+# x =2251799814034916
+# newEmployeeCount = db.check_Count_new_employees(x)
+# numberOfpositions = db.check_number_of_positions(x)
+# print(newEmployeeCount)
+# print(numberOfpositions)
+# if newEmployeeCount == numberOfpositions:
+#     print("True")
+# else:
+#     print("False")
 
-    await send_contract_to_weplacm(client)
+# x=2251799813788528
+# candidates = db.select_new_employees(x)
+# db.join_new_employee_data(candidates)
 
-# Run the async main function
-asyncio.run(main())
+
+# newEmployeeCount = db.check_Count_new_employees(x)
+# numberOfpositions = db.check_number_of_positions(x)
+# print(newEmployeeCount)
+# print(numberOfpositions)
+# if newEmployeeCount == numberOfpositions:
+#     print("a")
+# else:
+#     print("b")
+    
+# newEmployeeCount = db.check_Count_new_employees(x)
+# Salary = db.check_annual_salary(x)
+# print(newEmployeeCount)
+# print(Salary)
+# CalculatedSalarySum = newEmployeeCount*Salary[0]*Salary[1]
+# print(CalculatedSalarySum)
+# if CalculatedSalarySum == 107.68:
+#     print("True")
+# else:
+#     print("False")

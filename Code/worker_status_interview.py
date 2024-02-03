@@ -22,8 +22,8 @@ def main():
         
     @worker.task(task_type="checkEntrysInCandidateDB")
     async def check_candidates_amount(job: Job):
-        
-        return {"remainingCandidatesInDB": db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)[0][0]}
+        remainingCandidates = db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)[0][0]
+        return {"remainingCandidatesInDB": remainingCandidates}
     
     
     
@@ -81,10 +81,11 @@ def main():
     
     #Store the answer of the candidate
     @worker.task(task_type="storeDateAnswer")
-    async def store_date_answer(job: Job, candidate_id: int, InterviewAccepted: bool):
+    async def store_date_answer(job: Job, CandidateID: int, InterviewAccepted: bool):
         print("-----Answer of Candidate recieved an stored-----")
         print("Process Instance Key: " +str(job.process_instance_key))
-        db.store_answer(InterviewAccepted, candidate_id)
+        print(CandidateID)
+        db.store_answer(InterviewAccepted, CandidateID)
         
     #Check Candidates answer and calculate percentage of acceptance 
     @worker.task(task_type="checkingDateAnswers")
@@ -125,9 +126,9 @@ def main():
         print("-----Order Interviews by Date-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         #creating new corelation key for next recieving message 
-        proccess_corelation_key=f"{job.process_instance_key}2I16"
-        print(proccess_corelation_key)
-        return {"proccess_corelation_key": proccess_corelation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key)}
+        process_correlation_key=f"{job.process_instance_key}2I16"
+        print(process_correlation_key)
+        return {"process_correlation_key": process_correlation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key)}
 
 
     #Delete candidate once we get a cancelation from this candidate
