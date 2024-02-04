@@ -35,44 +35,34 @@ export class LoginComponent {
   login() {
     this.dataAuthService.checkCredentials(this.username, this.password).subscribe((result) => {
       if (result == 'invalidPassword') {
-        this.loginService.setloginValue(true);
-        this.errorType = 'invalidPassword';
-        this.unvalidusername = false;
-        this.unvalidpassword = true;
-        console.log('Login of username ' + this.username + ' not successful, because wrong password!');
+          this.loginService.setloginValue(true);
+          this.errorType = 'invalidPassword';
+          this.unvalidusername = false;
+          this.unvalidpassword = true;
+          console.log('User loggin was not successful: ' + this.username);
+          console.log('User has entered an incorrect password!');
       } else if (result == 'invalidUsername') {
-        this.loginService.setloginValue(false);
-        this.errorType = 'invalidUsername';
-        this.unvalidusername = true;
-        this.unvalidpassword = true;
-        console.log('Login of username ' + this.username + ' not successful, because unauthorized user!');
+          this.loginService.setloginValue(false);
+          this.errorType = 'invalidUsername';
+          this.unvalidusername = true;
+          this.unvalidpassword = true;
+          console.log('User loggin was not successful: ' + this.username);
+          console.log('User has entered an unauthorized username!');
       } else {
-        this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
-          console.log(loginUsers);
-          const userIsLoggedIn = loginUsers.some(user => user.username == this.username && user.isLoggedIn);
-          if (userIsLoggedIn) {
-            console.log('User is logged in: ' + this.username);
-            this.errorType = 'invalidUsername';
-            this.unvalidusername = true;
-            this.unvalidpassword = true;
-          } else {
-            this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
-              console.log("User login has been recorded!");});
-              this.dataServiceInterface.getLoginUsers().subscribe(login_users => {
-                console.log(login_users)});
-              sessionStorage.setItem('currentLoggedUser',this.username);
-              this.loginService.setloginUser(this.username);
-              this.loginService.setloginValue(true);
-              sessionStorage.setItem('currentRoleUser',result);
-              this.role = result;   
-              this.handleSuccessfulLogin(result); 
-              this.handle();
-              console.log('Login of username ' + this.username + ' was successful!');
-              console.log('The user has the right: ' + this.role);
-            }
-        });
-      }
-    });
+          this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
+          sessionStorage.setItem('currentLoggedUser',this.username);
+          this.loginService.setloginUser(this.username);
+          this.loginService.setloginValue(true);
+          sessionStorage.setItem('currentRoleUser',result);
+          this.role = result;   
+          this.handleSuccessfulLogin(result); 
+          this.handle();
+          console.log('User loggin was successful: ' + this.username);
+          console.log('User has the right: ' + this.role);
+          console.log("User login has been recorded!");
+          });   
+        }
+      });
   }
 
   // Funktion wird in oberen If-Funktion aufgerufen
