@@ -142,7 +142,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.socketService.onTopCandidatesAcceptedUpdated().subscribe(() => {
       this.getTopCandidate();
     });
-
   }
 
   //Funktion ruft alle neuen job offer vom DataServiceInterface ab
