@@ -9,22 +9,22 @@ export class LoginService {
   private isLoggedIn: boolean = false;
   private userLoggedIn: string = '';
 
-  //This method get the boolean value from the login (true/false)
+  //This method that other components call to get the boolean value from the login (true/false)
   getloginValue(): boolean {
     return this.isLoggedIn;
   }
 
-  //This method set the boolean value from the login (true/false)
+  ///This method that other components call to set the boolean value from the login (true/false)
   setloginValue(value: boolean): void {
     this.isLoggedIn = value;
   }
 
-  //This method get the string value from the login (username)
+  //This method that other components call to get the string value from the login (username)
   getloginUser(): string{
     return this.userLoggedIn;
   }
 
-  //This method set the string value from the login (username)
+  //This method that other components call to set the string value from the login (username)
   setloginUser(value: string): void {
     this.userLoggedIn = value;
   }

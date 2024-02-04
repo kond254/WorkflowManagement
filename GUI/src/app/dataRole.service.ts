@@ -34,42 +34,42 @@ export class DataRoleService {
     return this.http.get<DataRoleServiceService>(this.apiUrl);
   }
 
-  //This method get the boolean value from the home page right
+  //This method that other components call to get the boolean value from the home page right
   get showRoleHome(): boolean {
     return this.home;
   }
 
-  //This method set the boolean value from the home page right
+  //This method that other components call to set the boolean value from the home page right
   set showRoleHome(value: boolean) {
     this.home = value;
   }
 
-  //This method get the boolean value from the hrdepartment page right
+  //This method that other components call to get the boolean value from the hrdepartment page right
   get showRoleHrdepartment(): boolean {
     return this.hrdepartment;
   }
 
-  //This method set the boolean value from the hrdepartment page right
+  //This method that other components call to set the boolean value from the hrdepartment page right
   set showRoleHrdepartment(value: boolean) {
     this.hrdepartment = value;
   }
 
-  //This method get the boolean value from the hrmanagement page right
+  //This method that other components call to get the boolean value from the hrmanagement page right
   get showRoleHrmanagement(): boolean {
     return this.hrmanagement;
   }
 
-  //This method set the boolean value from the hrmanagement page right
+  //This method that other components call to set the boolean value from the hrmanagement page right
   set showRoleHrmanagement(value: boolean) {
     this.hrmanagement = value;
   }
 
-  //This method get the boolean value from the accounting page right
+  //This method that other components call to get the boolean value from the accounting page right
   get showRoleAccouting(): boolean {
     return this.accounting;
   }
 
-  //This method set the boolean value from the accounting page right
+  //This method that other components call to set the boolean value from the accounting page right
   set showRoleAccouting(value: boolean) {
     this.accounting = value;
   }
