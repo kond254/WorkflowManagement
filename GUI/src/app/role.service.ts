@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-// This class allows to store the rights of the users and other components can retrieve the rights
+//This class allows to store the rights of the users and other components can retrieve the rights
 export class RoleService {
     variable: string='';
 

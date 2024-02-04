@@ -17,7 +17,7 @@ interface DataRoleServiceService {
   providedIn: 'root',
 })
 
-// This class allows to read the rights of the users from the roleData.json and other components can set and retrieve the individual page rights as boolean
+//This class allows to read the rights of the users from the roleData.json and other components can set and retrieve the individual page rights as boolean
 export class DataRoleService {
 
   private home: boolean = false;
