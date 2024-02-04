@@ -30,6 +30,12 @@ export class NavbarComponent implements OnInit{
 
   private breakpointObserver = inject(BreakpointObserver);
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   ngOnInit(): void {
     this.dataServiceInterface.getLoginUsers().subscribe(
       loginUsers => {
@@ -53,20 +59,20 @@ export class NavbarComponent implements OnInit{
         }
         else{
           console.log('Currently no user is logged in!');
-        }
-      });
-    this.socketService.onLoginUsersUpdated().subscribe(() => {
-    this.updateLoginUsers();
-  });
-}
+          }
+        });
+      this.socketService.onLoginUsersUpdated().subscribe(() => {
+      this.updateLoginUsers();
+    });
+  }
 
+  //function is called in ngOnInit() and calls the dataserviceInterface, which returns the array of logged-in users from the backend and return the status of the logged-in user in the console
   updateLoginUsers(){
     this.dataServiceInterface.getLoginUsers().subscribe(
       loginUsers => {
         const isAnyUserLoggedIn = loginUsers.length;
         if(isAnyUserLoggedIn){
           console.log('Currently some users are logged in!');
-
         }
         else{
           console.log('Currently no user is logged in!');
@@ -75,27 +81,20 @@ export class NavbarComponent implements OnInit{
   }
 
 
-// Funktion ruft die Rechtes des eingeloggten Nutzer aus roleData.json ab und übergibt an dataRole.service.ts
-private updateRole(){
-  const role: string = this.roleservice.getRoleVariable();
-  this.dataroleservice.getRoleData(role).subscribe((data: any) => {
+  // Function calls up the rights of the logged-in user and has the user's roles output by role.service.ts
+  private updateRole(){
+    const role: string = this.roleservice.getRoleVariable();
+    this.dataroleservice.getRoleData(role).subscribe((data: any) => {
       this.home = data[role].home;
       this.hrdepartment = data[role].hrdepartment;
       this.hrmanagement = data[role].hrmanagement;
       this.accounting = data[role].accounting;
-      this.dataroleservice.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
+      this.dataroleservice.updateRoles(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
     });
   }
 
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
-    
-
-  // Funktion ruft die boolean Werte von dataRole.service auf
+  // Function returns the boolean values of dataRole.service to enable/disable the rights for the user in UI
   get showRoleHome(): boolean {
     return this.dataroleservice.showRoleHome;
   }
@@ -110,11 +109,11 @@ private updateRole(){
   }
 
 
-   // Funktion wird ausgeführt, wenn logout Button gedrückt wird und setzt dropdown Seiten auf standard false
+   // Function is executed when the logout button is pressed and deletes the logged-in user in sessionstorage and from the database
    logout(){
     this.loginService.setloginValue(false);
     this.roleservice.setRoleVariable('');
-    this.dataroleservice.updateRechte(this.showHome , this.hrdepartment, this.hrmanagement, this.accounting);
+    this.dataroleservice.updateRoles(this.showHome , this.hrdepartment, this.hrmanagement, this.accounting);
 
     const usernameDelete = sessionStorage.getItem('currentLoggedUser') as string || 'defaultUser';;
     this.dataServiceInterface.deleteLoginUser(usernameDelete).subscribe(response => {

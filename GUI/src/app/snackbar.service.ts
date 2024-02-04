@@ -5,9 +5,11 @@ import { MatSnackBar, MatSnackBarConfig  } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 
+//This class defines the SnackbarService (PopUp Window for hint messages)
 export class SnackbarService {
   constructor(private snackBar: MatSnackBar) {}
 
+  //This method that other components call up to display the pop-up message window with the corresponding message
   showSuccess(message: string): void {
     const snackBarConfig: MatSnackBarConfig = {  
       duration: 3000,
