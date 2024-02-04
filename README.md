@@ -8,7 +8,13 @@
 6.
 ....
 
+Right:
+These following rights have been defined and can be entered in the login window
 
+username: hrdepartment, password: 1234
+username: hrmanager, password: 1234
+username: accounting, password: 1234
+username: admin, password: 1234
 
 #############################################################################
 Features:
