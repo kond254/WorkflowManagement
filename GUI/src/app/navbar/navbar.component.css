@@ -38,10 +38,10 @@
   background: #54595F;
   padding-left:30px;
   padding-right: 30px;
-  color: #ffff;
 }
 
 .mat-toolbar a{
+  height: 80px;
   display: inline-block;
   margin: 0 10px;
   color:aqua;
