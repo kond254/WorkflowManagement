@@ -10,6 +10,14 @@ interface JobOffer {
   description: string;
 }
 
+interface Contract{
+  ProcessID: number,
+  numberProfessions: number,
+  suggestion: number,
+  compensation: number,
+  professionType: string
+}
+
 interface JobStandards{
   ProcessID: number;
   JobTitle: string;
@@ -205,6 +213,17 @@ export class DataServiceInterface {
       console.log("Data delete job offer sent to backend");
       return this.http.post<any>(this.apiUrl + "/delete_top_candidate", topCandidate); 
     }
+
+    //FUnktion die die aktuellen Contract suggestions gibt
+    getCurrentSuggestions(): Observable<any[]>{
+      return this.http.get<any[]>(`${this.apiUrl}/get_current_contracts_suggestions`);
+    }
+
+    //Send current suggestion of contract to Backend
+    postCurrentContractSuggestion(data: Contract): Observable<any []>{
+      return this.http.post<any>(`${this.apiUrl}/post_current_contracts_suggestions`, data);
+    }
+
 
 //Funktion die top Candidates zu den passenden JobStandards ausgibt
     getJobStandardsWithCandidates(jobStandards: number): Observable<any[]> {

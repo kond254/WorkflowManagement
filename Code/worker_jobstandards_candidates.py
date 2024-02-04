@@ -22,11 +22,6 @@ def main():
     # Initialize a Zeebe worker with the created channel
     worker = ZeebeWorker(channel)
     
-    @worker.task(task_type="getProcessIDforCamunda")
-    async def retrieveProcessId(job:Job):
-        print("-----ProcessID selected-----")
-        return {"ProcessIDforFrontend": str(job.process_instance_key)}
-    
     
     #create Job standards and insert them into SystemDB
     @worker.task(task_type="sendJobStandards")

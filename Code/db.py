@@ -12,6 +12,31 @@ class Databank:
         # Aktiviere Fremdschlüssel-Unterstützung
         cur.execute("PRAGMA foreign_keys = ON")
 
+
+
+    #insert contract suggestion for frontend 
+    def insert_contract_in_contract_phase(self, process_id: int, compensation: float, suggestion: float):
+        with con: 
+            #insert into table
+            cur.execute("""
+                        INSERT INTO ContractPhase (processID, suggestion, compensation)
+                        VALUES (?, ?, ?)
+                        """, (process_id, suggestion, compensation))
+            con.commit()
+            print("Inserted into ContractPhase Table")
+            
+    
+    #delete contract in ContractPhase table as it is not important anymore because contract was sent to weplacm or process is canceld
+    def delete_contract_in_contract_phase(self, process_id: int):
+        with con:
+            cur.execute("""
+                        DELETE FROM ContractPhase
+                        WHERE processID=?
+                        """, (process_id, ))
+            con.commit()
+            print("Deleted from ContractPhase Table") 
+    
+    
     # insert Contract to System Table
     def insert_contract_in_systemdb(self, process_id: int, contract_signed: str, compensation: float):
         with con:
