@@ -14,10 +14,10 @@
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
-              {{ item.professionTitel}} 
+              Job Title: {{ item.professionTitel}} 
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{ item.numberProfessions}}
+              Number of Professions: {{ item.numberProfessions}}
               <mat-icon class ="personIcon">find_in_page</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>  
@@ -72,10 +72,10 @@
             <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
-               {{ item.professionTitel}} 
+                Job Title: {{ item.professionTitel}} 
               </mat-panel-title>
               <mat-panel-description class = "paneldiscription">
-                ID: {{ item.processID }}
+                Process ID: {{ item.processID }}
                 <mat-icon class ="createIcon">create</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -175,16 +175,18 @@
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
+
+
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
               <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i);getJobStandardsWithTopCandidates(item)" hideToggle>
                 <mat-expansion-panel-header class = "matheader">
                   <mat-panel-title>
-                    {{item.JobTitle}}
+                    Job Title: {{item.JobTitle}}
                   </mat-panel-title>
                   <mat-panel-description class = "paneldiscription">
-                    {{item.ProcessID}}
+                    Process ID: {{item.ProcessID}}
                   </mat-panel-description>
                   <mat-icon class ="personIcon">description</mat-icon>
                 </mat-expansion-panel-header>
