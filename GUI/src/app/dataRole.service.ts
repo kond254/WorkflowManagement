@@ -63,7 +63,7 @@ export class DataRoleService {
     this.accounting = value;
   }
   
-  updateRechte(showRoleHome: boolean, showRoleHrdepartment: boolean, showRoleHrmanagement: boolean, howRoleAccouting: boolean): void {
+  updateRoles(showRoleHome: boolean, showRoleHrdepartment: boolean, showRoleHrmanagement: boolean, howRoleAccouting: boolean): void {
     this.home = showRoleHome;
     this.hrdepartment = showRoleHrdepartment;
     this.hrmanagement = showRoleHrmanagement;

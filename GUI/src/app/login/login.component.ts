@@ -84,7 +84,7 @@ export class LoginComponent {
         this.hrdepartment = data[role].hrdepartment;
         this.hrmanagement = data[role].hrmanagement;
         this.accounting = data[role].accounting;
-        this.dataroleservice.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
+        this.dataroleservice.updateRoles(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
       });
     }
   
