@@ -24,4 +24,7 @@ export class SocketService {
     return this.socket.fromEvent('top_candidates_updated');
   }
 
+  onLoginUsersUpdated(): Observable<any> {
+    return this.socket.fromEvent('temp_login_users_updated');
+  }
 }

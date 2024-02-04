@@ -7,6 +7,7 @@ import { RoleService } from '../role.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataRoleService } from '../dataRole.service';
 import { DataServiceInterface } from '../data.service';
+import { SocketService } from '../socket.service';
 
 
 @Component({
@@ -24,27 +25,55 @@ export class NavbarComponent implements OnInit{
   accounting: boolean = false;
   role: string = '';
 
-  constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService, private dataroleservice: DataRoleService, private loginservice: LoginService,  private dataServiceInterface: DataServiceInterface) {
+  constructor(public loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService, private dataroleservice: DataRoleService, private loginservice: LoginService,  private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {
   }
 
   private breakpointObserver = inject(BreakpointObserver);
 
   ngOnInit(): void {
-    this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
-      const userIsLoggedIn = loginUsers.some(user => user.username == sessionStorage.getItem('currentLoggedUser') && user.isLoggedIn);
-      if (userIsLoggedIn) {
-        this.loginService.setloginValue(true);
-        this.role = sessionStorage.getItem('currentRoleUser') as string || 'defaultRole';
-        this.roleservice.setRoleVariable(this.role);
-        this.updateRole();
-      }
-      else{
-        console.log('Currently no User is logged in!');
-        this.loginService.setloginValue(false);
-        this.role = '';
-      }
+    this.dataServiceInterface.getLoginUsers().subscribe(
+      loginUsers => {
+        const isAnyUserLoggedIn = loginUsers.length;
+        if(isAnyUserLoggedIn){
+          console.log('Currently some users are logged in!');
+          this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
+            const userIsLoggedIn = loginUsers.some(user => user.username == sessionStorage.getItem('currentLoggedUser') && user.isLoggedIn);
+            if (userIsLoggedIn) {
+              this.loginService.setloginValue(true);
+              this.role = sessionStorage.getItem('currentRoleUser') as string || 'defaultRole';
+              this.roleservice.setRoleVariable(this.role);
+              this.updateRole();
+            }
+            else{
+              this.loginService.setloginValue(false);
+              this.role = '';
+            }
+          }); 
+
+        }
+        else{
+          console.log('Currently no user is logged in!');
+        }
+      });
+    this.socketService.onLoginUsersUpdated().subscribe(() => {
+    this.updateLoginUsers();
   });
 }
+
+  updateLoginUsers(){
+    this.dataServiceInterface.getLoginUsers().subscribe(
+      loginUsers => {
+        const isAnyUserLoggedIn = loginUsers.length;
+        if(isAnyUserLoggedIn){
+          console.log('Currently some users are logged in!');
+
+        }
+        else{
+          console.log('Currently no user is logged in!');
+        }
+      });
+  }
+
 
 // Funktion ruft die Rechtes des eingeloggten Nutzer aus roleData.json ab und übergibt an dataRole.service.ts
 private updateRole(){
