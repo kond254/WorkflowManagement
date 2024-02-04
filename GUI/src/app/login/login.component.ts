@@ -14,6 +14,7 @@ import { DataServiceInterface } from '../data.service';
   styleUrl: './login.component.css'
 })
 
+//This class handles the login process and checks the access rights and sets roles rights and stores the logged in users
 export class LoginComponent {
 
   hide = true;
@@ -31,7 +32,7 @@ export class LoginComponent {
 
   constructor(private router: Router, private dataAuthService: DataAuthService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService, private dataServiceInterface: DataServiceInterface) {}
 
-  // Funktion überprüft, ob das Einloggen des Nutzer passt (nutzt den data.service.ts)
+  //This method checks the results from dataAuth.service and decides whether the user has rights or not and displays the incorrect inputs as a hint message
   login() {
     this.dataAuthService.checkCredentials(this.username, this.password).subscribe((result) => {
       if (result == 'invalidPassword') {
@@ -56,7 +57,7 @@ export class LoginComponent {
           sessionStorage.setItem('currentRoleUser',result);
           this.role = result;   
           this.handleSuccessfulLogin(result); 
-          this.handle();
+          this.updateRole();
           console.log('User loggin was successful: ' + this.username);
           console.log('User has the right: ' + this.role);
           console.log("User login has been recorded!");
@@ -65,7 +66,7 @@ export class LoginComponent {
       });
   }
 
-  // Funktion wird in oberen If-Funktion aufgerufen
+  //This method calls the home page with successful login and sets boolean values to false
   private handleSuccessfulLogin(role: string) {
     this.unvalidusername = false;
     this.unvalidpassword = false;
@@ -76,8 +77,8 @@ export class LoginComponent {
     }
 
     
-  // Funktion ruft die Rechtes des eingeloggten Nutzer aus roleData.json ab und übergibt an dataRole.service.ts
-  private handle(){
+  //This method updates the current role rights of the logged-in user and saves them in dataRole.service.ts
+  private updateRole(){
     const role: string = this.roleservice.getRoleVariable();
     this.dataroleservice.getRoleData(role).subscribe((data: any) => {
         this.home = data[role].home;

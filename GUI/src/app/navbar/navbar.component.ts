@@ -16,6 +16,7 @@ import { SocketService } from '../socket.service';
   styleUrl: './navbar.component.css'
 })
 
+//This class displays a user input for create job offer and adjust contract as well as the current news from Process
 export class NavbarComponent implements OnInit{
 
   home: boolean = false;
@@ -36,6 +37,7 @@ export class NavbarComponent implements OnInit{
       shareReplay()
     );
 
+  //This method calls up the current logged-in users and checks whether users are already logged in
   ngOnInit(): void {
     this.dataServiceInterface.getLoginUsers().subscribe(
       loginUsers => {
@@ -66,7 +68,7 @@ export class NavbarComponent implements OnInit{
     });
   }
 
-  //function is called in ngOnInit() and calls the dataserviceInterface, which returns the array of logged-in users from the backend and return the status of the logged-in user in the console
+  //Function is called in ngOnInit() and calls the dataserviceInterface, which returns the array of logged-in users from the backend and return the status of the logged-in user in the console
   updateLoginUsers(){
     this.dataServiceInterface.getLoginUsers().subscribe(
       loginUsers => {
@@ -81,7 +83,7 @@ export class NavbarComponent implements OnInit{
   }
 
 
-  // Function calls up the rights of the logged-in user and has the user's roles output by role.service.ts
+  //Function calls up the rights of the logged-in user and has the user's roles output by role.service.ts
   private updateRole(){
     const role: string = this.roleservice.getRoleVariable();
     this.dataroleservice.getRoleData(role).subscribe((data: any) => {
@@ -94,7 +96,7 @@ export class NavbarComponent implements OnInit{
   }
 
 
-  // Function returns the boolean values of dataRole.service to enable/disable the rights for the user in UI
+  //Function returns the boolean values of dataRole.service to enable/disable the rights for the user in UI
   get showRoleHome(): boolean {
     return this.dataroleservice.showRoleHome;
   }
@@ -109,7 +111,7 @@ export class NavbarComponent implements OnInit{
   }
 
 
-   // Function is executed when the logout button is pressed and deletes the logged-in user in sessionstorage and from the database
+   //Function is executed when the logout button is pressed and deletes the logged-in user in sessionstorage and from the database
    logout(){
     this.loginService.setloginValue(false);
     this.roleservice.setRoleVariable('');
@@ -126,5 +128,4 @@ export class NavbarComponent implements OnInit{
       console.log('Logout successful: ' + usernameDelete);
       this.snackbarService.showSuccess('Logout successful!');
     }  
-
 }
