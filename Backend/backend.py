@@ -16,6 +16,7 @@ from pyzeebe import ZeebeClient, create_insecure_channel
 
 login_users = []
 
+##This method starts the camunda process
 async def startProcess(data):
     channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
     client = ZeebeClient(channel)
@@ -30,6 +31,7 @@ async def startProcess(data):
         print(f"An error occurred: {e}")
 
 
+##This method sent the jobOffer which comes from frontend data.service.ts to the camunda task
 async def reviewJobOpening(data, decision:bool):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
@@ -45,7 +47,7 @@ async def reviewJobOpening(data, decision:bool):
             print(f"An error occurred: {e}")
 
 
-#Neue Funktion 03.02, fehlt noch datenbank und rest
+##This method sent the contract suggestion which comes from frontend data.service.ts to the camunda task
 async def analyzeContractSuggestion(data, compensation:float):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
@@ -60,7 +62,7 @@ async def analyzeContractSuggestion(data, compensation:float):
             print(f"An error occurred: {e}")
 
 
-#Neue Funktion 03.02 finished
+##This method sent the created job standards by hr manager which comes from frontend data.service.ts to the camunda task
 async def createJobStandards(data):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
@@ -138,6 +140,7 @@ CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 
+##This method stored the contract suggestion from backend in the sql contract phase table
 @app.route('/api/data/get_current_contracts_suggestions', methods=['GET'])
 def get_current_contracts_suggestions():
     try:
@@ -156,7 +159,9 @@ def get_current_contracts_suggestions():
         return jsonify(result)
     finally:
         lock.release()
-        
+
+
+##This method receive the contract suggestion from backend and return the contract to the frontend data.service.ts and display in the hr department page
 @app.route('/api/data/post_current_contracts_suggestions', methods=['POST'])
 def post_current_contracts_suggestions():
     try: 
@@ -167,6 +172,7 @@ def post_current_contracts_suggestions():
         return jsonify({'success': False, 'error': str(e)})
     
 
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the topcandidate to the frontend data.service.ts
 @app.route('/api/data/get_top_candidates', methods=['GET'])
 def get_top_candidates():
     try:
@@ -185,8 +191,9 @@ def get_top_candidates():
         return jsonify(result)
     finally:
         lock.release()
-        
 
+
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the jobStandards to the frontend data.service.ts
 @app.route('/api/data/get_job_standards', methods=['GET'])
 def get_job_standards():
     try:
@@ -205,8 +212,9 @@ def get_job_standards():
         return jsonify(result)
     finally:
         lock.release()
-        
 
+
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the jobOffer where hrmanager status is accepted to the frontend data.service.ts
 @app.route('/api/data/get_job_offer', methods=['GET'])
 def get_job_offer():
     try:
@@ -225,6 +233,8 @@ def get_job_offer():
     finally:
         lock.release()
 
+
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the accepted jobOffers to the frontend data.service.ts
 @app.route('/api/data/get_job_offer_accepted', methods=['GET'])
 def get_job_offer_accepted():
     try:
@@ -245,8 +255,7 @@ def get_job_offer_accepted():
         lock.release()
 
 
-
-
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the accepted topCandidates to the frontend data.service.ts
 @app.route('/api/data/get_top_candidates_accepted', methods=['GET'])
 def get_top_candidates_accepted():
     try:
@@ -269,7 +278,7 @@ def get_top_candidates_accepted():
         lock.release()
 
 
-
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the newEmployees sql table to the frontend data.service.ts
 @app.route('/api/data/get_new_employees', methods=['GET'])
 def get_new_employees():
     try:
@@ -287,6 +296,8 @@ def get_new_employees():
     finally:
         lock.release()
 
+
+##This flask wait for a post request from frontend data.service.ts and add for the variable in the JobOffers sql table, wich are sent by the frondent
 @app.route('/api/data/add_job_offer', methods=['POST'])
 def add_job_offer():
     try:
@@ -318,6 +329,7 @@ def add_job_offer():
         return jsonify({'success': False, 'error': str(e)})
     
 
+##This flask wait for a post request from frontend data.service.ts and add for the variable in the JobStandard sql table, wich are sent by the frondent
 @app.route('/api/data/add_job_standards', methods=['POST'])
 def add_job_standards():
     try:
@@ -347,7 +359,7 @@ def add_job_standards():
         lock.release()
 
 
-
+##This flask wait for a post request from frontend data.service.ts and add for the variable hrmanagerAccepted = 1 in the jobOffers sql table
 @app.route('/api/data/update_job_offer', methods=['POST'])
 def update_job_offer():
     #decision
@@ -376,6 +388,7 @@ def update_job_offer():
 
 ###########################
     
+##This flask wait for a post request from frontend data.service.ts and set the variable jobStandardSent = 1 in the JobOffer sql table
 @app.route('/api/data/update_job_offer_after_send', methods=['POST'])
 def update_job_offer_after_send():
     #decision
@@ -403,8 +416,7 @@ def update_job_offer_after_send():
 ############################
 
 
-
-
+##This flask wait for a post request from frontend data.service.ts and delete the jobOffer in the JobOffer sql table  
 @app.route('/api/data/delete_job_offer', methods=['POST'])
 def delete_job_offer():
     try:
@@ -431,6 +443,7 @@ def delete_job_offer():
 
 # //////////////////////////////////////////////// 01.02 ///////////////////////////////////////////////////////////////////////////////
 
+##This flask wait for a post request from frontend data.service.ts and add for the variable hrmanagerAccepted the number 1 in the topCandidate sql table
 @app.route('/api/data/update_top_candidates', methods=['POST'])
 def update_top_candidates():
     try:
@@ -453,7 +466,9 @@ def update_top_candidates():
     finally:
         lock.release()
     
-# Noch ändern!!!
+
+
+##This flask wait for a post request from frontend data.service.ts and delete the candidate in the candidate sql table  
 @app.route('/api/data/delete_top_candidate', methods=['POST'])
 def delete_top_candidates():
     try:
@@ -483,7 +498,7 @@ def delete_top_candidates():
         lock.release()
 
 
-# NEU: Soll Jobstandarts und die passenden topcandidaten ausgeben.
+##This flask wait for a get request from frontend and returns the variables from the sql command execution for the frontend data.service.ts 
 @app.route('/api/data/get_jobstandards_with_top_candidates', methods=['GET'])
 def get_jobstandards_with_top_candidates():
     try:
@@ -509,6 +524,8 @@ def get_jobstandards_with_top_candidates():
     finally:
         lock.release()
 
+
+##This flask wait for a post request from frontend and the server add the current logged-in user
 @app.route('/api/data/add_login_user', methods=['POST'])
 def add_login_user():
     try:
@@ -528,6 +545,8 @@ def add_login_user():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
+
+##This flask wait for a get request from frontend and returns the list of logged-in users for the frontend data.service.ts 
 @app.route('/api/data/get_login_users', methods=['GET'])
 def get_login_users():
     try:
@@ -535,6 +554,8 @@ def get_login_users():
     except Exception as e:
         return jsonify({'error': str(e)})
 
+
+##This flask wait for a post request from frontend data.service.ts and the server delete the current logged-in user
 @app.route('/api/data/delete_login_user', methods=['POST'])
 def delete_login_user():
     try:
