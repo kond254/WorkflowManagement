@@ -6,10 +6,9 @@
 
   <body>
     
+    <!--Here the job offers from the HR department that have not yet been accepted are shown. The HR manager can view these individually and either reject or accept them -->
     <mat-card class = "card">
         <mat-card-content class = "cardcontent"><h2>Job Openings For Review</h2></mat-card-content>
-              <!--Hier kommt die JobOffer zurück-->
-    
       <div class ="panel">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
@@ -65,11 +64,11 @@
      </div>
   </mat-card>
 
-
+<!-- Here the JobOffers that have already been accepted by the HR Manager and for which there are no JobStandards are displayed. In addition, the individual panels contain the corresponding input fields for entering the job standards -->
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Fill in Job Standards</h2></mat-card-content>
       <mat-accordion #accordion>
-            <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+            <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStepJobStandard(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Job Title: {{ item.professionTitel}} 
@@ -175,6 +174,8 @@
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
+
+    <!--Here the various job standards with the corresponding top candidates are shown. The HR manager can view these individually and either reject or accept them. -->
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">

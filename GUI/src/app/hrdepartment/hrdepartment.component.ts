@@ -7,6 +7,7 @@ import { AfterContentChecked } from '@angular/core';
 import { SocketService } from '../socket.service';
 import { DialogService } from '../dialog.service';
 
+//This interface defines the structure of the JobStandards Object
 interface JobStandards{
   ProcessID: number;
   JobTitle: string;
@@ -26,7 +27,7 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
-
+//This interface defines the structure of the Contract Object
 interface Contract{
   ProcessID: number,
   numberProfessions: number,
@@ -35,6 +36,7 @@ interface Contract{
   professionType: string
 }
 
+//This interface defines the structure of the TopCandidateAccepted Object
 interface TopCandidateAccepted {
   CandidateID: number;
   adress: string;
@@ -53,6 +55,7 @@ interface TopCandidateAccepted {
   InterviewDate: Date;
 }
 
+//This interface defines the structure of the JobOffer Object
 interface JobOffer {
   description: string;
   numberProfessions: number;
@@ -60,7 +63,7 @@ interface JobOffer {
   professionTitel: string;
   professionType: string;
 }
-
+//This interface defines the structure of the NewEmployees Object
 interface NewEmployees{
   CandidateID: number;
   JopType: string;
@@ -106,11 +109,13 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   dataNewEmployees: NewEmployees[]=[];
   dataContract: Contract[]=[];
 
+  // These variables are used to control progress within the user interface
   stepJO = 0;
   stepJS = 0;
   stepTC= 0;
   stepNE = 0;
 
+  // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
   constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
 
   ngAfterContentChecked(): void {
@@ -159,9 +164,8 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle akzeptierten job offer vom DataServiceInterface ab
+  // The getJobOfferAccapted() method retrieves the job offers already accapted by the HrManager via the DataServiceInterface and stores it in dataJobOfferAccapted
   getJobOfferAccepted() {
-    
     this.dataServiceInterface.getJobOfferAccepted().subscribe(
       data => {
         this.dataJobOfferAccepted = data as JobOffer[];
@@ -173,7 +177,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle job standards vom DataServiceInterface ab
+  // The getjobStandards() method retrieves the job standards via the DataServiceInterface and stores it in dataJobStandards
   getjobStandards(){
     this.dataServiceInterface.getJobStandards().subscribe(
       data => {
@@ -199,7 +203,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
+  // The getTopCandidate method retrieves the top candidates via the DataServiceInterface and stores it in dataJobOffer dataTopCandidate
   getTopCandidate() {
     this.dataServiceInterface.getTopCandidateAccepted().subscribe(
       data => {
@@ -212,7 +216,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle new employees vom DataServiceInterface ab
+  // The getnewEmployees method retrieves the new Employees via the DataServiceInterface and stores it in dataNewEmployees
   getnewEmployees(){
     this.dataServiceInterface.getNewEmployees().subscribe(
       data => {
@@ -259,7 +263,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
 
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the job offer card
   setStepJO(index: number) {
     this.stepJO = index;
   }
@@ -270,7 +274,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepJO--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the job standards card
   setStepJS(index: number) {
     this.stepJS = index;
   }
@@ -281,7 +285,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepJS--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the top candidates card
   setStepTC(index: number) {
     this.stepTC = index;
   }
@@ -292,7 +296,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepTC--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the new employee card
   setStepNE(index: number) {
     this.stepNE = index;
   }
