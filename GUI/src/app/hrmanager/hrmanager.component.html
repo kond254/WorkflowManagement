@@ -194,14 +194,14 @@
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Job Title: </p>
-                         <p>{{item.JobTitle}}</p>
-                            </div>
+                        <p>Job Type:</p> 
+                        <p>{{item.JobType}}</p>
+                      </div>
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Job Type:</p> 
-                        <p>{{item.JobType}}</p>
+                        <p>Number of Positions: </p>
+                        <p>{{item.numberOfPositions}}</p>
                       </div>
                     </div>
                   </div>
@@ -214,36 +214,8 @@
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Annual Salary:</p> 
-                        <p>{{item.AnnualSalary}}€</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Benefits: </p>
-                         <p>{{item.Benefits}}</p>
-                      </div>
-                    </div>
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Graduation Level:</p> 
-                        <p>{{item.GraduationLevel}}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
                         <p>Industry: </p>
-                         <p>{{item.Industry}}</p>
-                      </div>
-                    </div>
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Language:</p> 
-                        <p>{{item.Language}}</p>
+                        <p>{{item.Industry}}</p>
                       </div>
                     </div>
                   </div>
@@ -256,30 +228,30 @@
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Paid Time Off:</p> 
-                        <p>{{item.PaidTimeOff}} Days</p>
+                        <p>Language:</p> 
+                        <p>{{item.Language}}</p>
                       </div>
                     </div>
                   </div>
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Process ID: </p>
-                         <p>{{item.ProcessID}}</p>
+                        <p>Graduation Level:</p> 
+                        <p>{{item.GraduationLevel}}</p>
                       </div>
                     </div>
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Annual Salary:</p> 
+                        <p>{{item.AnnualSalary}}€</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
                         <p>Required Experience:</p> 
                         <p>{{item.RequiredExperience}} Years</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Responsibilities: </p>
-                         <p>{{item.Responsibilities}}</p>
                       </div>
                     </div>
                     <div class="box-item full-width">
@@ -292,8 +264,22 @@
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Number of Positions: </p>
-                         <p>{{item.numberOfPositions}}</p>
+                        <p>Benefits: </p>
+                        <p>{{item.Benefits}}</p>
+                      </div>
+                    </div>
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Paid Time Off:</p> 
+                        <p>{{item.PaidTimeOff}} Days</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-row">
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Responsibilities: </p>
+                         <p>{{item.Responsibilities}}</p>
                       </div>
                     </div>
                     <div class="box-item full-width">
@@ -313,7 +299,6 @@
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
-
                   <div class="box-content">
                     <div class="box-row">
                       <div class="box-item full-width">
@@ -414,7 +399,6 @@
                       </div>
                     </div>
                   </div>
-
                     <div style="display: flex; justify-content: space-between;">
                       <mat-action-row>
                         <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>
