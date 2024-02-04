@@ -8,12 +8,12 @@ import { Injectable } from '@angular/core';
 export class RoleService {
     variable: string='';
 
-  //Function that other components call to get the user role rights as a string
+  //This method that other components call to get the user role rights as a string
   getRoleVariable(): string {
     return this.variable;
   }
 
-  //Function that other components call to set the user role rights as a string
+  //This method that other components call to set the user role rights as a string
   setRoleVariable(value: string): void {
     this.variable = value;
   }
