@@ -54,7 +54,7 @@
         <div style="display: flex; justify-content: space-between;">
           <mat-action-row>
             <button mat-button color="primary" (click)="acceptJob(item)">Accept</button>
-            <button mat-button color="primary" (click)="rejectJob(item)">Reject</button>
+            <button mat-button color="warn" (click)="rejectJob(item)">Reject</button>
           </mat-action-row>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
@@ -162,7 +162,7 @@
             <div class="matfieldfulltext"> 
               <div class="divButton">
                 <mat-action-row>
-                  <button class="button" mat-button color="primary" (click)="sendData(item)">Send</button>
+                  <button class="button" mat-button color="primary" (click)="sendData(item);  updateJobOfferAfterSend(item)">Send</button>
                 </mat-action-row>
               </div>
               <mat-action-row class="StepButton">
@@ -416,7 +416,7 @@
                     <div style="display: flex; justify-content: space-between;">
                       <mat-action-row>
                         <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>
-                        <button mat-button color="primary" (click)="rejectTopCandidate(candidate, item)">Reject</button>
+                        <button mat-button color="warn" (click)="rejectTopCandidate(candidate, item)">Reject</button>
                       </mat-action-row>
                       <mat-action-row>
                         <button mat-button color="warn" (click)="prevStepCandidates()">Previous</button>

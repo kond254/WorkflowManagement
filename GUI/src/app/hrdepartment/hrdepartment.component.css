@@ -281,7 +281,11 @@ body{
   .item-box {
     border: 1px solid #ccc;
     padding: 10px;
+    min-height: 75px;
+    background-color: #fff;
+    
   }
+  
   
   .item-box-description {
     max-height: 100px; 

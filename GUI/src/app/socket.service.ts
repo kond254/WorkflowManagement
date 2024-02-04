@@ -27,4 +27,15 @@ export class SocketService {
   onLoginUsersUpdated(): Observable<any> {
     return this.socket.fromEvent('temp_login_users_updated');
   }
+
+  onJobOfferUpdatedAfterSend(): Observable<any> {
+    return this.socket.fromEvent('job_offer_updated_after_send');
+  }
+
+
+  
+
+
+
+
 }

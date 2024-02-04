@@ -3,6 +3,7 @@ import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 
+
 interface JobStandards{
   ProcessID: number;
   JobTitle: string;
@@ -46,6 +47,7 @@ interface JobOffer {
   professionTitel: string;
   professionType: string;
   hrmanagerAccepted: boolean;
+  jobStandardSent: boolean;
 }
 
 interface TopCandidate {
@@ -254,19 +256,31 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.jobStandards.JobTitle = (jobOffer.professionTitel); 
     this.jobStandards.JobType = (jobOffer.professionType); 
     this.jobStandards.numberOfPositions = (jobOffer.numberProfessions);   //Problem wird nicht mitgegeben
+
+    //UpperCase wegen WEPLACM!
+    this.jobStandards.JobMode = this.jobStandards.JobMode.toUpperCase();
+    this.jobStandards.Location = this.jobStandards.Location.toUpperCase();
+
+
     console.log(this.jobStandards) 
     this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(
       response => {
         console.log('Data sent successfully', response);
-        this.snackbarService.showSuccess('New job standards sented');
+        this.snackbarService.showSuccess('New job standards sent');
         this.jobStandards = {} as JobStandards;
+       
       },
       error => {
         console.error('Error sending data', error);
         
       }
+
     );
+
   }
+
+
+
 
   // Funktion setzt die Nummer der Pannel, für die Funktion Zurück/Vor
   setStep(index: number) {
@@ -327,6 +341,21 @@ updateJobOffer(item: JobOffer): void {
     }
   );
 }
+
+updateJobOfferAfterSend(item: JobOffer): void {
+  this.dataServiceInterface.updateJobOfferAfterSend(item).subscribe(
+    response => {
+      console.log('Job offer updated successfully', response);
+      this.snackbarService.showSuccess('Job offer accepted');
+      this.getJobOfferAccapted();
+    },
+    error => {
+      console.error('Error updating job offer', error);
+    }
+  );
+}
+
+
 
 deleteJobOffer(item: JobOffer): void {
   this.dataServiceInterface.deleteJobOffer(item).subscribe(

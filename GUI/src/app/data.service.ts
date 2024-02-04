@@ -137,6 +137,18 @@ export class DataServiceInterface {
     return this.http.post<any>(this.apiUrl + "/update_job_offer", jobOffer); 
   }
 
+// Funktion die job offer nachdem dazu ein Jobstandard erstellt wurde updated
+  updateJobOfferAfterSend(jobOffer: JobOffer): Observable<any> {
+    console.log(jobOffer.professionTitel);
+    console.log(jobOffer.professionType);
+    console.log(jobOffer.numberProfessions);
+    console.log(jobOffer.description);
+    console.log(jobOffer.processID)
+    console.log("Data update job offer sent to backend");
+    return this.http.post<any>(this.apiUrl + "/update_job_offer_after_send", jobOffer); 
+  }
+
+
   // Funktion die job offer delete ans backend sendet
   deleteJobOffer(jobOffer: JobOffer): Observable<any> {
     console.log(jobOffer.professionTitel);

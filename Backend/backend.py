@@ -199,7 +199,7 @@ def get_job_offer_accepted():
         cur.execute(
             """
             SELECT * FROM JobOffers
-            where hrmanagerAccepted = 1
+            where hrmanagerAccepted = 1 and jobStandardSent = 0
                     """)
         data= cur.fetchall()
 
@@ -338,6 +338,38 @@ def update_job_offer():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
     
+
+
+###########################
+    
+@app.route('/api/data/update_job_offer_after_send', methods=['POST'])
+def update_job_offer_after_send():
+    #decision
+    try:
+        data = request.json
+        data['decision']=True
+        print(data["processID"])
+        asyncio.run(reviewJobOpening(data, True))
+        cur.execute(
+            """
+            Update JobOffers
+             set jobStandardSent = 1
+             where processID = ?
+            """, (data['processID'],)
+        )
+
+        con.commit()
+        socketio.emit('job_offer_updated_after_send', {'message': 'Job Offer updated successfully'})
+
+        print(data['processID'])
+        return jsonify({'success': True, 'message': 'Job Offer added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+############################
+
+
+
 
 @app.route('/api/data/delete_job_offer', methods=['POST'])
 def delete_job_offer():

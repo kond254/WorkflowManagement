@@ -205,6 +205,10 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   
   //Funktion sendet neuen Job Offer ans DataServiceInterface
   sendData() {
+
+    //UpperCase wegen WEPLACM!
+    this.jobOffer.professionType = this.jobOffer.professionType.toUpperCase();
+
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
       response => {
         console.log('Data job offer sent successfully', response);
