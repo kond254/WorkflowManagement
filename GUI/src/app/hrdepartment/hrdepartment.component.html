@@ -74,7 +74,7 @@
     
     <div class="panel" *ngIf="dataContract.length>0">
       <mat-expansion-panel *ngFor="let contract  of dataContract; let y = index" class="matpanelJobStandards"
-        [expanded]="stepJS === y" (opened)="setStepJS(y)" hideToggle>
+        [expanded]="stepJS == y" (opened)="setStepJS(y)" hideToggle>
         <mat-expansion-panel-header class="matheader">
           <mat-panel-title>
             Contract
@@ -186,7 +186,7 @@
               Job Offer
             </mat-panel-title>
             <mat-panel-description class="paneldiscription">
-              accepted
+              accepted from HR-Manager
             </mat-panel-description>
             <mat-icon class="doneIcon">done_all</mat-icon>
             <mat-icon class="personIcon">find_in_page</mat-icon>
@@ -231,13 +231,13 @@
       <!--Here displays the accepted JobStandards in a card-->
       <div class="panel" *ngIf="dataJobStandards.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards"
-          [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
+          [expanded]="stepJS == i" (opened)="setStepJS(i)" hideToggle>
           <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Job Standard
             </mat-panel-title>
             <mat-panel-description class="paneldiscription">
-              accepted
+              accepted from HR-Manager
             </mat-panel-description>
             <mat-icon class="doneIcon">done_all</mat-icon>
             <mat-icon class="personIcon">description</mat-icon>
@@ -366,13 +366,13 @@
       <!--Here displays the TopCandidates in a card-->
       <div class="panel" *ngIf="dataTopCandidateAccepted.length > 0">
         <mat-expansion-panel *ngFor="let item of dataTopCandidateAccepted; let i = index" class="matpanelTopCandidates"
-          [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
+          [expanded]="stepTC == i" (opened)="setStepTC(i)" hideToggle>
           <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Top Candidate
             </mat-panel-title>
             <mat-panel-description class="paneldiscription">
-              accepted
+              accepted from HR-Manager
             </mat-panel-description>
             <mat-icon class="doneIcon">done_all</mat-icon>
             <mat-icon class="personIcon">account_circle</mat-icon>
@@ -496,7 +496,7 @@
       <!--Here displays the newEmployees in a card-->
       <div class="panel" *ngIf="dataNewEmployees.length > 0">
         <mat-expansion-panel *ngFor="let item of dataNewEmployees; let i = index" class="matpanelNewEmployees"
-          [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
+          [expanded]="stepNE == i" (opened)="setStepNE(i)" hideToggle>
           <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               New Employee
