@@ -46,15 +46,14 @@ async def reviewJobOpening(data, decision:bool):
 
 
 #Neue Funktion 03.02, fehlt noch datenbank und rest
-async def analyzeContract(data, decision:bool):
+async def analyzeContractSuggestion(data, compensation:float):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
         try:
             await client.publish_message(name="analyzeContract", # Process ID from WEPLACM
                                     correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
                                     variables={
-                                            "decision": decision
+                                            "compensation": float(compensation)
                                 }
                             )
         except Exception as e:
@@ -122,7 +121,13 @@ async def checkStatusInvoice(data):
         except Exception as e:
             print(f"An error occurred: {e}")
 
-
+#
+#
+#API ROUTES
+#
+#
+#
+#
 
 con = sqlite3.connect("../wbig.db", timeout=10,check_same_thread=False)
 cur = con.cursor()
@@ -132,6 +137,35 @@ app = Flask(__name__)
 CORS(app) 
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+
+@app.route('/api/data/get_current_contracts_suggestions', methods=['GET'])
+def get_current_contracts_suggestions():
+    try:
+        lock.acquire(True)
+        cur.execute(
+            """
+            SELECT *
+            FROM ContractPhase
+            JOIN JobOffers ON JobOffers.processID = ContractPhase.processID
+            """)
+        data= cur.fetchall()
+
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
+        
+@app.route('/api/data/post_current_contracts_suggestions', methods=['POST'])
+def post_current_contracts_suggestions():
+    try: 
+        data = request.json
+        asyncio.run(analyzeContractSuggestion(data, data["compensation"]))
+        return jsonify({'success': True, 'message': 'Job Offer added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+    
 
 @app.route('/api/data/get_top_candidates', methods=['GET'])
 def get_top_candidates():
@@ -151,7 +185,7 @@ def get_top_candidates():
         return jsonify(result)
     finally:
         lock.release()
-
+        
 
 @app.route('/api/data/get_job_standards', methods=['GET'])
 def get_job_standards():

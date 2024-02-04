@@ -1,7 +1,11 @@
 [
-	{ "username": "johannes","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "vicepresident" },
-	{ "username": "florian","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "vicepresident" },
-	{ "username": "marian","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "vicepresident" },
+	{ "username": "johannes","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "admin" },
+	{ "username": "florian","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "admin" },
+	{ "username": "marian","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "admin" },
 	{ "username": "jan","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "accounting" },
-	{ "username": "konstantin","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "hrdepartment" }
+	{ "username": "konstantin","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "hrdepartment" },
+	{ "username": "hrdepartment","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "hrdepartment" },
+	{ "username": "hrmanager","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "hrmanager" },
+	{ "username": "accounting","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "accounting" },
+	{ "username": "admin","password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4", "role": "admin"}
 ]

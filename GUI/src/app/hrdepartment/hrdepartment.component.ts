@@ -26,6 +26,15 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
+
+interface Contract{
+  ProcessID: number,
+  numberProfessions: number,
+  suggestion: number,
+  compensation: number,
+  professionType: string
+}
+
 interface TopCandidateAccepted {
   CandidateID: number;
   adress: string;
@@ -95,6 +104,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   dataJobOfferAccepted: JobOffer[]=[];
   dataTopCandidateAccepted: TopCandidateAccepted[]=[];
   dataNewEmployees: NewEmployees[]=[];
+  dataContract: Contract[]=[];
 
   stepJO = 0;
   stepJS = 0;
@@ -113,6 +123,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     await this.getjobStandards();
     await this.getTopCandidate();
     await this.getnewEmployees();  
+    await this.getCurrentContractSuggestions();
 
     this.socketService.onJobOfferUpdated().subscribe(() => {
       this.getJobOffer();
@@ -175,6 +186,18 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       }
     );
   }
+  //Funktion ruft alle Contracts vom DataServiceInterface ab
+  getCurrentContractSuggestions() {
+    this.dataServiceInterface.getCurrentSuggestions().subscribe(
+      data => {
+        this.dataContract = data as Contract[];
+        console.log("Data accepted contracts retrieved");
+      },
+      error => {
+        console.log("Error fetching accepted contracts data");
+      }
+    );
+  }
 
   //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
   getTopCandidate() {
@@ -223,14 +246,19 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
 
 
    //Funktion für Dialog Popup Pay
-   openDialogPay(): void {
-    this.dialogService.openDialog('Adjust Contract', 'Are you sure to accept the defined contract?');
+   openDialogPay(contract: Contract): void {
+    console.log(contract);
+    this.dataServiceInterface.postCurrentContractSuggestion(contract).subscribe(
+      response => {
+        console.log('Contract offer sent successfully', response);
+        this.snackbarService.showSuccess('Contract sent');
+      },
+      error => {
+        console.log('Error sending Contract');
+      }
+    );
   }
 
-  //Funktion für Dialog Popup Reject
-  openDialogReject(): void {
-    this.dialogService.openDialog('Adjust Contract', 'Are you sure to reject the contract and change the payment?');
-  }
 
   // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
   setStepJO(index: number) {
