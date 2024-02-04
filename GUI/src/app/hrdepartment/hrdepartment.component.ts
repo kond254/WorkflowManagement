@@ -100,6 +100,14 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     description: ''
   };
 
+  // exampleContract: Contract = {
+  //   ProcessID: 1,
+  //   numberProfessions: 3,
+  //   suggestion: 123,
+  //   compensation: 5000,
+  //   professionType: 'Engineer',
+  // };
+
   percentage: number = 0;
 
   dataJobStandards: JobStandards[]=[];
@@ -114,6 +122,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepJS = 0;
   stepTC= 0;
   stepNE = 0;
+  stepCO = 0;
 
   // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
   constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
@@ -147,6 +156,9 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.socketService.onTopCandidatesAcceptedUpdated().subscribe(() => {
       this.getTopCandidate();
     });
+    
+      // this.dataContract.push(this.dataContract[]);
+    
   }
 
   //Funktion ruft alle neuen job offer vom DataServiceInterface ab
@@ -194,6 +206,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   getCurrentContractSuggestions() {
     this.dataServiceInterface.getCurrentSuggestions().subscribe(
       data => {
+        // this.exampleContract;
         this.dataContract = data as Contract[];
         console.log("Data accepted contracts retrieved");
       },
@@ -304,6 +317,17 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepNE++;
   }
   prevStepNE() {
+    this.stepNE--;
+  }
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepCO(index: number) {
+    this.stepNE = index;
+  }
+  nextStepCO() {
+    this.stepNE++;
+  }
+  prevStepCO() {
     this.stepNE--;
   }
 

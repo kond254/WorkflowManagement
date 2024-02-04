@@ -66,6 +66,67 @@
         <hr>
       </div>
     </div> -->
+
+
+    <!--Here displays the invoice news in a card-->
+    <mat-card class="card">
+      <mat-card-content class="cardcontent">
+        <h2>Invoice News</h2>
+      </mat-card-content>
+  
+      <mat-accordion #accordion>
+  
+        
+        <div class="panel">
+          <mat-expansion-panel class="matpanelInvoice" hideToggle>
+            <mat-expansion-panel-header class="matheader">
+              <mat-panel-title>
+                Invoice
+              </mat-panel-title>
+              <mat-panel-description class="paneldiscription">
+                answer from WEPLACM
+              </mat-panel-description>
+              <mat-icon class="personIcon">payment</mat-icon>
+            </mat-expansion-panel-header>
+            <div class="box-content">
+              <div class="box-row">
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Profession Titel: </p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Profession Type:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="box-row">
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Number of needed Professions:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Description:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStepInvoice()">Previous</button>
+              <button mat-button color="primary" (click)="nextStepInvoice()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </div>
+  
+      </mat-accordion>
+    </mat-card>
           
   </body>
 

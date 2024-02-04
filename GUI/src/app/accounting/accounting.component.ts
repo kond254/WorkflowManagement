@@ -118,4 +118,15 @@ export class AccountingComponent implements OnInit {
     this.dialogService.openDialog('Invoice', 'Are you sure to reject the invoices?');
   }
 
+   // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+   setStepInvoice(index: number) {
+    this.step = index;
+  }
+  nextStepInvoice() {
+    this.step++;
+  }
+  prevStepInvoice() {
+    this.step--;
+  }
+
 }
