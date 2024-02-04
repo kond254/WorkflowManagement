@@ -370,6 +370,141 @@
       </div>
 
 
+      <!--Hier kommen akzeptierte JobStandards zurück-->
+      <div class="panel" *ngIf="dataJobStandards.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards"
+          [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
+            <mat-panel-title>
+              Job Standard
+            </mat-panel-title>
+            <mat-panel-description class="paneldiscription">
+              accepted
+            </mat-panel-description>
+            <mat-icon class="doneIcon">done_all</mat-icon>
+            <mat-icon class="personIcon">description</mat-icon>
+          </mat-expansion-panel-header>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Title: </p>
+                  <p>{{item.JobTitle}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Type:</p>
+                  <p>{{item.JobType}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Mode: </p>
+                  <p>{{item.JobMode}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Annual Salary:</p>
+                  <p>{{item.AnnualSalary}}€</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Benefits: </p>
+                  <p>{{item.Benefits}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Graduation Level:</p>
+                  <p>{{item.GraduationLevel}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Industry: </p>
+                  <p>{{item.Industry}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Language:</p>
+                  <p>{{item.Language}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Location: </p>
+                  <p>{{item.Location}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Paid Time Off:</p>
+                  <p>{{item.PaidTimeOff}} Days</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Process ID: </p>
+                  <p>{{item.ProcessID}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Required Experience:</p>
+                  <p>{{item.RequiredExperience}} Years</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Responsibilities: </p>
+                  <p>{{item.Responsibilities}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Weekly Hours:</p>
+                  <p>{{item.WeeklyHours}} Hours</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Number of Positions: </p>
+                  <p>{{item.numberOfPositions}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Job Description:</p>
+                  <p>{{item.JobDescription}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStepJS()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJS()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+
       <!--Hier kommen TopCandidates zurück-->
       <div class="panel" *ngIf="dataTopCandidateAccepted.length > 0">
         <mat-expansion-panel *ngFor="let item of dataTopCandidateAccepted; let i = index" class="matpanelTopCandidates"

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
+import { SocketService } from '../socket.service';
 
 
 interface JobStandards{
@@ -161,7 +162,7 @@ step = 0;
 candidateSteps=0
 
 
-constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface) {}
+constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
 
   async ngOnInit(): Promise<any> {
     await this.getCandidate();
@@ -170,7 +171,10 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     await this.getjobStandards();
     await this.getJobOfferAccapted();
     await this.getTopCandidate();
-    
+
+    this.socketService.onJobOfferUpdated().subscribe(() => {
+      this.getJobOffer();
+    });
   }
 
 
