@@ -23,6 +23,14 @@ def main():
 
 
 
+        
+    @worker.task(task_type="getProcessIDforCamunda")
+    async def retrieveProcessId(job:Job):
+        print("-----ProcessID selected-----")
+        return {"ProcessIDforFrontend": str(job.process_instance_key)}
+    
+    
+
     #starting Process in WEPLACM to send inital contract information
     @worker.task(task_type="setProcessIDforFrontend")
     async def set_processid_frontend(job: Job):
@@ -61,11 +69,13 @@ def main():
         
         #validate correctness of answer
         if((compensation==suggestion) & contract_signed & capacity): 
+            db.delete_contract_in_contract_phase(job.process_instance_key)
             return {"compensation": suggestion,
                     "contract_signed": contract_signed,
                     "capacity": capacity
                     }
         else:
+            db.insert_contract_in_contract_phase(job.process_instance_key, compensation, suggestion)
             return {"suggestion": suggestion,
                     "contract_signed": False,
                     "capacity": capacity,
@@ -80,6 +90,7 @@ def main():
         print("-----Send Adjusted Contract-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         process_correlation_key=f"{job.process_instance_key}21{contract_cycle}"
+        db.delete_contract_in_contract_phase(job.process_instance_key)
         await cW.send_adjusted_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key, correlation_key_weplacm)
         print("Contract send")
         print("Job Type: "+jobType)
@@ -91,6 +102,7 @@ def main():
     #Cancel Contract nagotiation because it cycled too many times
     @worker.task(task_type="cancelContract")
     async def cancel_contract_negotiation(job: Job, correlation_key_weplacm: int):
+        db.delete_contract_in_contract_phase(job.process_instance_key)
         print("-----Cancel Contract nagotiation with WEPLACM-----")
         print("Process Instance Key: " +str(job.process_instance_key))
         await cW.cancel_contract(correlation_key_weplacm)

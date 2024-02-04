@@ -1,131 +1,159 @@
 <header>
   <div>
     <h1>HUMAN RESOURCE DEPARTMENT</h1>
-  <!-- <img id="backImage" src="assets/images/hrdepartment.jpg" alt="backgroundBanner"> -->
+    <!-- <img id="backImage" src="assets/images/hrdepartment.jpg" alt="backgroundBanner"> -->
   </div>
 </header>
 
 <body>
 
-  <mat-card class = "card">
-    <mat-card-content class = "cardcontent"><h2>Creat new Job offer</h2></mat-card-content>
-  
-      <mat-expansion-panel class ="matpanel">
-        <mat-expansion-panel-header class = "matheader">
-          <mat-panel-title>
-            <mat-icon class = "createIcon">create</mat-icon>
-              Fill in the Fields
-            </mat-panel-title>
-          <mat-panel-description class = "paneldiscription">
-            send to HR Manager
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        
-    <div class="mat-expansion-panel-body.ng-tns-c330948415-3">
-    <div class="divmatfield1">
-      <mat-form-field class = "matfield">
-        <mat-label>Profession Titel</mat-label>
-        <input [(ngModel)]="jobOffer.professionTitel" matInput required>
-      </mat-form-field>
+  <mat-card class="card">
+    <mat-card-content class="cardcontent">
+      <h2>Creat new Job offer</h2>
+    </mat-card-content>
 
-      <mat-form-field class = "matfield">
-        <mat-label>Profession Type</mat-label>
+    <mat-expansion-panel class="matpanel">
+      <mat-expansion-panel-header class="matheader">
+        <mat-panel-title>
+          <mat-icon class="createIcon">create</mat-icon>
+          Fill in the Fields
+        </mat-panel-title>
+        <mat-panel-description class="paneldiscription">
+          send to HR Manager
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="mat-expansion-panel-body.ng-tns-c330948415-3">
+        <div class="divmatfield1">
+          <mat-form-field class="matfield">
+            <mat-label>Profession Titel</mat-label>
+            <input [(ngModel)]="jobOffer.professionTitel" matInput required>
+          </mat-form-field>
+
+          <mat-form-field class="matfield">
+            <mat-label>Profession Type</mat-label>
             <mat-select [(ngModel)]="jobOffer.professionType" placeholder="">
               <mat-option value="CEO">CEO</mat-option>
               <mat-option value="Worker">Worker</mat-option>
               <mat-option value="Manager">Manager</mat-option>
               <mat-option value="Intern">Intern</mat-option>
             </mat-select>
-      </mat-form-field>
-
-        <mat-form-field class = "matfield">
-          <mat-label>Number of Positions</mat-label>
-          <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1" required>
-        </mat-form-field>
-    </div>
-
-    <div class="divmatfield2">
-        <mat-form-field class = "matfieldDiscription">
-          <mat-label>Discription</mat-label>
-          <textarea class = "textareaDiscription" [(ngModel)]="jobOffer.description" matInput></textarea>
           </mat-form-field>
-    </div>
 
-    <div class="divButton">
-      <mat-action-row>
-      <button class = "button" mat-button color="primary" (click)= "sendData()" [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions || jobOffer.numberProfessions < 1">Send</button>
-      </mat-action-row>
-    </div>
-  </div>
-   
-  </mat-expansion-panel>
+          <mat-form-field class="matfield">
+            <mat-label>Number of Positions</mat-label>
+            <input [(ngModel)]="jobOffer.numberProfessions" matInput type="number" min="1" required>
+          </mat-form-field>
+        </div>
+
+        <div class="divmatfield2">
+          <mat-form-field class="matfieldDiscription">
+            <mat-label>Discription</mat-label>
+            <textarea class="textareaDiscription" [(ngModel)]="jobOffer.description" matInput></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="divButton">
+          <mat-action-row>
+            <button class="button" mat-button color="primary" (click)="sendData()"
+              [disabled]="!jobOffer.professionTitel|| !jobOffer.professionType || !jobOffer.numberProfessions || jobOffer.numberProfessions < 1">Send</button>
+          </mat-action-row>
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-card>
+
+
+
+  <mat-card class="card">
     
-</mat-card>
-
-
-<mat-card class = "card">
-  <mat-card-content class = "cardcontent"><h2>Adjust Contract</h2></mat-card-content>
-
-    <mat-expansion-panel class ="matpanel">
-      <mat-expansion-panel-header class = "matheader">
-        <mat-panel-title>
-          <mat-icon class = "createIcon">create</mat-icon>
-            Fill in the Fields
+    <mat-card-content class="cardcontent">
+      <h2>Adjust Contract</h2>
+    </mat-card-content>
+    
+    <div class="panel" *ngIf="dataContract.length>0">
+      <mat-expansion-panel *ngFor="let contract  of dataContract; let y = index" class="matpanelJobStandards"
+        [expanded]="stepJS === y" (opened)="setStepJS(y)" hideToggle>
+        <mat-expansion-panel-header class="matheader">
+          <mat-panel-title>
+            Contract
           </mat-panel-title>
-        <mat-panel-description class = "paneldiscription">
-          send to WEPLACM
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-        <p>Contract from WEPLACM: {{'Hier kommt die Nachricht rein'}}</p>
-      <mat-form-field class = "matfieldContract">
-        <mat-label class = "field">Percentage for Contract</mat-label>
-        <input class = "field" [(ngModel)]="percentage" matInput type="number" min="0.00" step="0.01" required>
-      </mat-form-field>
+          <mat-panel-description class="paneldiscription">
+            {{contract.professionType}}
+          </mat-panel-description>
+          <mat-panel-description class="paneldiscription">
+            {{contract.numberProfessions}}
+          </mat-panel-description>
 
-    <div class="divButtonBoth">
-      <mat-action-row>
-        <button mat-button color="primary" (click)="openDialogPay()">Accept</button>
-        <button mat-button color="warn" (click)="openDialogReject()" [disabled]="percentage <= 0 ">Reject</button>
-     </mat-action-row>
+        </mat-expansion-panel-header>
+        <div class="box-content">
+          <div class="box-row">
+            <div class="box-item full-width">
+              <div class="item-box">
+                <p>Compensation</p>
+                <input class="field" [(ngModel)]="contract.compensation" matInput type="float" [defaultValue]="contract.compensation" min="0.00" step="0.01" required>
+              </div>
+            </div>
+            <div class="box-item full-width">
+              <div class="item-box">
+                <p>WEPLACM suggestion:</p>
+                <p>{{contract.suggestion}}</p>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="divButtonBoth">
+            <mat-action-row>
+              <button mat-button color="Send Contract to WEPLACM" (click)="openDialogPay(contract)">Accept</button>
+            </mat-action-row>
+          </div>
+        </div>
+      </mat-expansion-panel>
     </div>
- 
-  </mat-expansion-panel>
-
-</mat-card>
 
 
-<mat-card class = "card">
-    <mat-card-content class = "cardcontent"><h2>Current News</h2></mat-card-content>
+  </mat-card>
+
+
+  <mat-card class="card">
+    <mat-card-content class="cardcontent">
+      <h2>Current News</h2>
+    </mat-card-content>
     <!-- <div class="divNoNews" *ngIf="emptyData">   
        <p><em>No current news are available!</em></p> 
     </div> -->
 
-    
+
     <mat-accordion #accordion>
 
       <!--Hier kommt die JobOffer zurück-->
-      <div class ="panel" *ngIf="dataJobOffer.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
-          <mat-expansion-panel-header class = "matheader">
+      <div class="panel" *ngIf="dataJobOffer.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer"
+          [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Job Offer
             </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
+            <mat-panel-description class="paneldiscription">
               wait for answer from HR Department
             </mat-panel-description>
-            <mat-icon class ="personIcon">find_in_page</mat-icon>
+            <mat-icon class="personIcon">find_in_page</mat-icon>
           </mat-expansion-panel-header>
           <div class="box-content">
             <div class="box-row">
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Profession Titel: </p>
-                   <p>{{ item.professionTitel}}</p>
+                  <p>{{ item.professionTitel}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Profession Type:</p> 
+                  <p>Profession Type:</p>
                   <p>{{ item.professionType}}</p>
                 </div>
               </div>
@@ -133,64 +161,13 @@
             <div class="box-row">
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Number of needed Professions:</p> 
-                  <p>{{ item.numberProfessions}}</p> 
+                  <p>Number of needed Professions:</p>
+                  <p>{{ item.numberProfessions}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Description:</p> 
-                  <p>{{ item.description}}</p>
-                </div>
-              </div>
-            </div>
-          </div>  
-          <mat-action-row>
-            <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
-            <button mat-button color="primary" (click)="nextStepJO()">Next</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </div>     
-
-
-      <!--Hier kommt die akzeptierten JobOffer zurück-->
-      <div class ="panel" *ngIf="dataJobOfferAccepted.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataJobOfferAccepted let i = index" class="matpanelJobOffer" [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
-          <mat-expansion-panel-header class = "matheader">
-            <mat-panel-title>
-              Job Offer
-            </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
-              accepted
-            </mat-panel-description>
-            <mat-icon class ="doneIcon">done_all</mat-icon>
-            <mat-icon class ="personIcon">find_in_page</mat-icon>
-          </mat-expansion-panel-header>  
-          <div class="box-content">
-            <div class="box-row">
-              <div class="box-item full-width">
-                <div class="item-box">
-                  <p>Profession Titel: </p>
-                   <p>{{ item.professionTitel}}</p>
-                </div>
-              </div>
-              <div class="box-item full-width">
-                <div class="item-box">
-                  <p>Profession Type:</p> 
-                  <p>{{ item.professionType}}</p>
-                </div>
-              </div>
-            </div>
-            <div class="box-row">
-              <div class="box-item full-width">
-                <div class="item-box">
-                  <p>Number of needed Professions:</p> 
-                  <p>{{ item.numberProfessions}}</p> 
-                </div>
-              </div>
-              <div class="box-item full-width">
-                <div class="item-box">
-                  <p>Description:</p> 
+                  <p>Description:</p>
                   <p>{{ item.description}}</p>
                 </div>
               </div>
@@ -201,32 +178,85 @@
             <button mat-button color="primary" (click)="nextStepJO()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
-      </div>  
+      </div>
 
-      
+
+      <!--Hier kommt die akzeptierten JobOffer zurück-->
+      <div class="panel" *ngIf="dataJobOfferAccepted.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataJobOfferAccepted let i = index" class="matpanelJobOffer"
+          [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
+            <mat-panel-title>
+              Job Offer
+            </mat-panel-title>
+            <mat-panel-description class="paneldiscription">
+              accepted
+            </mat-panel-description>
+            <mat-icon class="doneIcon">done_all</mat-icon>
+            <mat-icon class="personIcon">find_in_page</mat-icon>
+          </mat-expansion-panel-header>
+          <div class="box-content">
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Titel: </p>
+                  <p>{{ item.professionTitel}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Profession Type:</p>
+                  <p>{{ item.professionType}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="box-row">
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Number of needed Professions:</p>
+                  <p>{{ item.numberProfessions}}</p>
+                </div>
+              </div>
+              <div class="box-item full-width">
+                <div class="item-box">
+                  <p>Description:</p>
+                  <p>{{ item.description}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJO()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+
+
       <!--Hier kommen JobStandards zurück-->
-      <div class ="panel" *ngIf="dataJobStandards.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
-          <mat-expansion-panel-header class = "matheader">
+      <div class="panel" *ngIf="dataJobStandards.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards"
+          [expanded]="stepJS === i" (opened)="setStepJS(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Job Standard
             </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
+            <mat-panel-description class="paneldiscription">
               {{item.JobTitle}}
             </mat-panel-description>
-            <mat-icon class ="personIcon">description</mat-icon>
-          </mat-expansion-panel-header>  
+            <mat-icon class="personIcon">description</mat-icon>
+          </mat-expansion-panel-header>
           <div class="box-content">
             <div class="box-row">
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Job Title: </p>
-                   <p>{{item.JobTitle}}</p>
-                      </div>
+                  <p>{{item.JobTitle}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Job Type:</p> 
+                  <p>Job Type:</p>
                   <p>{{item.JobType}}</p>
                 </div>
               </div>
@@ -235,12 +265,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Job Mode: </p>
-                   <p>{{item.JobMode}}</p>
+                  <p>{{item.JobMode}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Annual Salary:</p> 
+                  <p>Annual Salary:</p>
                   <p>{{item.AnnualSalary}}€</p>
                 </div>
               </div>
@@ -249,12 +279,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Benefits: </p>
-                   <p>{{item.Benefits}}</p>
+                  <p>{{item.Benefits}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Graduation Level:</p> 
+                  <p>Graduation Level:</p>
                   <p>{{item.GraduationLevel}}</p>
                 </div>
               </div>
@@ -263,12 +293,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Industry: </p>
-                   <p>{{item.Industry}}</p>
+                  <p>{{item.Industry}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Language:</p> 
+                  <p>Language:</p>
                   <p>{{item.Language}}</p>
                 </div>
               </div>
@@ -277,12 +307,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Location: </p>
-                   <p>{{item.Location}}</p>
+                  <p>{{item.Location}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Paid Time Off:</p> 
+                  <p>Paid Time Off:</p>
                   <p>{{item.PaidTimeOff}} Days</p>
                 </div>
               </div>
@@ -291,12 +321,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Process ID: </p>
-                   <p>{{item.ProcessID}}</p>
+                  <p>{{item.ProcessID}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Required Experience:</p> 
+                  <p>Required Experience:</p>
                   <p>{{item.RequiredExperience}} Years</p>
                 </div>
               </div>
@@ -305,12 +335,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Responsibilities: </p>
-                   <p>{{item.Responsibilities}}</p>
+                  <p>{{item.Responsibilities}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Weekly Hours:</p> 
+                  <p>Weekly Hours:</p>
                   <p>{{item.WeeklyHours}} Hours</p>
                 </div>
               </div>
@@ -319,49 +349,50 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Number of Positions: </p>
-                   <p>{{item.numberOfPositions}}</p>
+                  <p>{{item.numberOfPositions}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Job Description:</p> 
+                  <p>Job Description:</p>
                   <p>{{item.JobDescription}}</p>
                 </div>
               </div>
             </div>
-            </div>
+          </div>
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStepJS()">Previous</button>
             <button mat-button color="primary" (click)="nextStepJS()">Next</button>
           </mat-action-row>
-      </mat-expansion-panel>
-    </div>
+        </mat-expansion-panel>
+      </div>
 
 
       <!--Hier kommen TopCandidates zurück-->
-      <div class ="panel" *ngIf="dataTopCandidateAccepted.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataTopCandidateAccepted; let i = index" class="matpanelTopCandidates" [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
-          <mat-expansion-panel-header class = "matheader">
+      <div class="panel" *ngIf="dataTopCandidateAccepted.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataTopCandidateAccepted; let i = index" class="matpanelTopCandidates"
+          [expanded]="stepTC === i" (opened)="setStepTC(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Top Candidate
             </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
-                accepted
+            <mat-panel-description class="paneldiscription">
+              accepted
             </mat-panel-description>
-            <mat-icon class ="doneIcon">done_all</mat-icon>
-            <mat-icon class ="personIcon">account_circle</mat-icon>
+            <mat-icon class="doneIcon">done_all</mat-icon>
+            <mat-icon class="personIcon">account_circle</mat-icon>
           </mat-expansion-panel-header>
           <div class="box-content">
             <div class="box-row">
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>CandidateID: </p>
-                   <p>{{item.CandidateID}}</p>
-                      </div>
+                  <p>{{item.CandidateID}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Last Name: </p> 
+                  <p>Last Name: </p>
                   <p>{{item.last_name}}</p>
                 </div>
               </div>
@@ -371,12 +402,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>First Name: </p>
-                   <p>{{item.first_name}}</p>
-                      </div>
+                  <p>{{item.first_name}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Age: </p> 
+                  <p>Age: </p>
                   <p>{{item.age}}</p>
                 </div>
               </div>
@@ -386,12 +417,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Gender: </p>
-                   <p>{{item.gender}}</p>
-                      </div>
+                  <p>{{item.gender}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Zip Code: </p> 
+                  <p>Zip Code: </p>
                   <p>{{item.zip_code}}</p>
                 </div>
               </div>
@@ -401,12 +432,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>City: </p>
-                   <p>{{item.city}}</p>
-                      </div>
+                  <p>{{item.city}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Adress: </p> 
+                  <p>Adress: </p>
                   <p>{{item.adress}}</p>
                 </div>
               </div>
@@ -416,12 +447,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Country: </p>
-                   <p>{{item.country}}</p>
-                      </div>
+                  <p>{{item.country}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Previous Company: </p> 
+                  <p>Previous Company: </p>
                   <p>{{item.previous_company}}</p>
                 </div>
               </div>
@@ -431,12 +462,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>E-Mail: </p>
-                   <p>{{item.email}}</p>
-                      </div>
+                  <p>{{item.email}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Rating: </p> 
+                  <p>Rating: </p>
                   <p>{{item.rating}}</p>
                 </div>
               </div>
@@ -446,17 +477,17 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Linkedin: </p>
-                   <p>{{item.linkedin}}</p>
-                      </div>
+                  <p>{{item.linkedin}}</p>
+                </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Interview Date: </p> 
+                  <p>Interview Date: </p>
                   <p>{{item.InterviewDate}}</p>
                 </div>
               </div>
             </div>
-            
+
           </div>
 
           <mat-action-row>
@@ -468,29 +499,30 @@
 
 
       <!--Hier kommen new Employees zurück-->
-      <div class ="panel" *ngIf="dataNewEmployees.length > 0">
-        <mat-expansion-panel *ngFor="let item of dataNewEmployees; let i = index" class="matpanelNewEmployees" [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
-          <mat-expansion-panel-header class = "matheader">
+      <div class="panel" *ngIf="dataNewEmployees.length > 0">
+        <mat-expansion-panel *ngFor="let item of dataNewEmployees; let i = index" class="matpanelNewEmployees"
+          [expanded]="stepNE === i" (opened)="setStepNE(i)" hideToggle>
+          <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               New Employee
             </mat-panel-title>
-            <mat-panel-description class = "paneldiscription">
+            <mat-panel-description class="paneldiscription">
               {{ item.last_name}}
             </mat-panel-description>
-            <mat-icon class ="personIcon">perm_identity</mat-icon>
+            <mat-icon class="personIcon">perm_identity</mat-icon>
           </mat-expansion-panel-header>
-          
+
           <div class="box-content">
             <div class="box-row">
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Job Title: </p>
-                   <p>{{item.JobTitle}}</p>
+                  <p>{{item.JobTitle}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Job Type: </p> 
+                  <p>Job Type: </p>
                   <p>{{item.JopType}}</p>
                 </div>
               </div>
@@ -500,12 +532,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>CandidateID: </p>
-                   <p>{{item.CandidateID}}</p>
+                  <p>{{item.CandidateID}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Last Name: </p> 
+                  <p>Last Name: </p>
                   <p>{{item.last_name }}</p>
                 </div>
               </div>
@@ -515,12 +547,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>First Name: </p>
-                   <p>{{item.first_name}}</p>
+                  <p>{{item.first_name}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Age: </p> 
+                  <p>Age: </p>
                   <p>{{item.age}}</p>
                 </div>
               </div>
@@ -530,12 +562,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Gender: </p>
-                   <p>{{item.gender}}</p>
+                  <p>{{item.gender}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Zip Code: </p> 
+                  <p>Zip Code: </p>
                   <p>{{item.zip_code}}</p>
                 </div>
               </div>
@@ -545,12 +577,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>City: </p>
-                   <p>{{item.city}}</p>
+                  <p>{{item.city}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Adress: </p> 
+                  <p>Adress: </p>
                   <p>{{item.adress}}</p>
                 </div>
               </div>
@@ -560,12 +592,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Country: </p>
-                   <p>{{item.country}}</p>
+                  <p>{{item.country}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Previous Company: </p> 
+                  <p>Previous Company: </p>
                   <p>{{item.previous_company}}</p>
                 </div>
               </div>
@@ -575,12 +607,12 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>E-Mail: </p>
-                   <p>{{item.email}}</p>
+                  <p>{{item.email}}</p>
                 </div>
               </div>
               <div class="box-item full-width">
                 <div class="item-box">
-                  <p>Rating: </p> 
+                  <p>Rating: </p>
                   <p>{{item.rating}}</p>
                 </div>
               </div>
@@ -590,10 +622,10 @@
               <div class="box-item full-width">
                 <div class="item-box">
                   <p>Linkedin: </p>
-                   <p>{{item.linkedin}}</p>
+                  <p>{{item.linkedin}}</p>
                 </div>
               </div>
-              
+
             </div>
 
 
@@ -607,8 +639,8 @@
       </div>
 
     </mat-accordion>
-  
+
 
   </mat-card>
-  
+
 </body>
