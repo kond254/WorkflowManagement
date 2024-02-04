@@ -14,10 +14,10 @@
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
-              {{ item.professionTitel}} 
+              Job Title: {{ item.professionTitel}} 
             </mat-panel-title>
             <mat-panel-description class = "paneldiscription">
-              {{ item.numberProfessions}}
+              Number of Professions: {{ item.numberProfessions}}
               <mat-icon class ="personIcon">find_in_page</mat-icon>
             </mat-panel-description>
           </mat-expansion-panel-header>  
@@ -72,10 +72,10 @@
             <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
-               {{ item.professionTitel}} 
+                Job Title: {{ item.professionTitel}} 
               </mat-panel-title>
               <mat-panel-description class = "paneldiscription">
-                ID: {{ item.processID }}
+                Process ID: {{ item.processID }}
                 <mat-icon class ="createIcon">create</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
@@ -175,16 +175,18 @@
           </mat-expansion-panel>    
       </mat-accordion>
     </mat-card>
+
+
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
               <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i);getJobStandardsWithTopCandidates(item)" hideToggle>
                 <mat-expansion-panel-header class = "matheader">
                   <mat-panel-title>
-                    {{item.JobTitle}}
+                    Job Title: {{item.JobTitle}}
                   </mat-panel-title>
                   <mat-panel-description class = "paneldiscription">
-                    {{item.ProcessID}}
+                    Process ID: {{item.ProcessID}}
                   </mat-panel-description>
                   <mat-icon class ="personIcon">description</mat-icon>
                 </mat-expansion-panel-header>
@@ -192,14 +194,14 @@
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Job Title: </p>
-                         <p>{{item.JobTitle}}</p>
-                            </div>
+                        <p>Job Type:</p> 
+                        <p>{{item.JobType}}</p>
+                      </div>
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Job Type:</p> 
-                        <p>{{item.JobType}}</p>
+                        <p>Number of Positions: </p>
+                        <p>{{item.numberOfPositions}}</p>
                       </div>
                     </div>
                   </div>
@@ -212,36 +214,8 @@
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Annual Salary:</p> 
-                        <p>{{item.AnnualSalary}}€</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Benefits: </p>
-                         <p>{{item.Benefits}}</p>
-                      </div>
-                    </div>
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Graduation Level:</p> 
-                        <p>{{item.GraduationLevel}}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
                         <p>Industry: </p>
-                         <p>{{item.Industry}}</p>
-                      </div>
-                    </div>
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Language:</p> 
-                        <p>{{item.Language}}</p>
+                        <p>{{item.Industry}}</p>
                       </div>
                     </div>
                   </div>
@@ -254,30 +228,30 @@
                     </div>
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Paid Time Off:</p> 
-                        <p>{{item.PaidTimeOff}} Days</p>
+                        <p>Language:</p> 
+                        <p>{{item.Language}}</p>
                       </div>
                     </div>
                   </div>
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Process ID: </p>
-                         <p>{{item.ProcessID}}</p>
+                        <p>Graduation Level:</p> 
+                        <p>{{item.GraduationLevel}}</p>
                       </div>
                     </div>
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Annual Salary:</p> 
+                        <p>{{item.AnnualSalary}}€</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
                         <p>Required Experience:</p> 
                         <p>{{item.RequiredExperience}} Years</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-row">
-                    <div class="box-item full-width">
-                      <div class="item-box">
-                        <p>Responsibilities: </p>
-                         <p>{{item.Responsibilities}}</p>
                       </div>
                     </div>
                     <div class="box-item full-width">
@@ -290,8 +264,22 @@
                   <div class="box-row">
                     <div class="box-item full-width">
                       <div class="item-box">
-                        <p>Number of Positions: </p>
-                         <p>{{item.numberOfPositions}}</p>
+                        <p>Benefits: </p>
+                        <p>{{item.Benefits}}</p>
+                      </div>
+                    </div>
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Paid Time Off:</p> 
+                        <p>{{item.PaidTimeOff}} Days</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box-row">
+                    <div class="box-item full-width">
+                      <div class="item-box">
+                        <p>Responsibilities: </p>
+                         <p>{{item.Responsibilities}}</p>
                       </div>
                     </div>
                     <div class="box-item full-width">
@@ -311,7 +299,6 @@
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
-
                   <div class="box-content">
                     <div class="box-row">
                       <div class="box-item full-width">
@@ -412,7 +399,6 @@
                       </div>
                     </div>
                   </div>
-
                     <div style="display: flex; justify-content: space-between;">
                       <mat-action-row>
                         <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>
