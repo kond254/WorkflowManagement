@@ -4,15 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-// Klasse ermöglicht einen string Wert zwischen Componenten auszutauschen (Rolle)
+// This class allows to store the rights of the users and other components can retrieve the rights
 export class RoleService {
     variable: string='';
-  
-    getRoleVariable(): string {
-      return this.variable;
-    }
-  
-    setRoleVariable(value: string): void {
-      this.variable = value;
-    }
+
+  //Function that other components call to get the user role rights as a string
+  getRoleVariable(): string {
+    return this.variable;
   }
+
+  //Function that other components call to set the user role rights as a string
+  setRoleVariable(value: string): void {
+    this.variable = value;
+  }
+}
