@@ -327,17 +327,17 @@ def add_job_standards():
         print(data["processID"])
         asyncio.run(createJobStandards(data))
         
-        # cur.execute(
-        #     """
-        #     INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
-        #     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        #     """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
+        cur.execute(
+            """
+            INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
            
                 
  
-        # )
+        )
 
-        # con.commit()
+        con.commit()
         socketio.emit('job_standards_updated', {'message': 'Job Standards added successfully'})
 
         return jsonify({'success': True, 'message': 'Job Standards added successfully'})
