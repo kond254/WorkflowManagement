@@ -185,6 +185,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
       }
     );
   }
+
   //Funktion ruft alle Contracts vom DataServiceInterface ab
   getCurrentContractSuggestions() {
     this.dataServiceInterface.getCurrentSuggestions().subscribe(
@@ -227,7 +228,6 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   
   //Funktion sendet neuen Job Offer ans DataServiceInterface
   sendData() {
-
     //UpperCase wegen WEPLACM!
     this.jobOffer.professionType = this.jobOffer.professionType.toUpperCase();
 
