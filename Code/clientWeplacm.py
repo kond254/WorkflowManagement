@@ -79,6 +79,16 @@ class ClientWeplacm:
                                         
                                 })
     
+    async def more_candidates(self,  correlation_key_weplacm: int, process_correlation_key: str):
+        channel = create_insecure_channel(hostname="141.26.157.73",
+                            port=26500)
+        client = ZeebeClient(channel)
+        await client.publish_message(name="MoreRequest", # Process ID from WEPLACM
+                                    correlation_key= str(correlation_key_weplacm),
+                                    variables={
+                                        "process_correlation_key": process_correlation_key
+                                })
+
     async def contract_Reminder(self,  correlation_key_weplacm: int):
         channel = create_insecure_channel(hostname="141.26.157.73",
                             port=26500)

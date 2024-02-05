@@ -174,6 +174,12 @@ def main():
         process_correlation_key=f"{job.process_instance_key}2I10"
         return {"process_correlation_key": process_correlation_key, "remainingCandidatesInTopDB": db.check_amount_of_candidates_in_TopCandidateDB(job.process_instance_key)[0][0]>0, "RemainingCandidates": candidates_in_top_db }
     
+    #Request more Candidates from WEPLACM 
+    @worker.task(task_type="MoreRequest")
+    async def request_more_candidates(job: Job, correlation_key_weplacm: int):
+            process_correlation_key=f"{job.process_instance_key}23"
+            await cW.more_candidates(correlation_key_weplacm, process_correlation_key)
+            return {"process_correlation_key": process_correlation_key}
     
        
     loop = asyncio.get_event_loop()
