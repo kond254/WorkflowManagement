@@ -264,11 +264,11 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     );
   }
 // This method uses the DataServiceInterface to transfer the job standards, which are entered in the second panel of the hrManager and derived from the ProcessID, JobTitle, JobType and numberOfPositions, from the original Job Offer to the backend
-  sendData(jobOffer: JobOffer) {
-    this.jobStandards.ProcessID = (jobOffer.processID); 
-    this.jobStandards.JobTitle = (jobOffer.professionTitel); 
-    this.jobStandards.JobType = (jobOffer.professionType); 
-    this.jobStandards.numberOfPositions = (jobOffer.numberProfessions); 
+  sendData(currentJobOffer: JobOffer) {
+    this.jobStandards.ProcessID = (currentJobOffer.processID); 
+    this.jobStandards.JobTitle = (currentJobOffer.professionTitel); 
+    this.jobStandards.JobType = (currentJobOffer.professionType); 
+    this.jobStandards.numberOfPositions = (currentJobOffer.numberProfessions); 
 
     
     this.jobStandards.JobMode = this.jobStandards.JobMode.toUpperCase();
