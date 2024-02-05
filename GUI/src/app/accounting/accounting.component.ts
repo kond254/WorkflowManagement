@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import accountingData from '../../assets/accounting.json';
-import { DataMessageService } from '../message.service'; //brauch ich das?
 import { DialogService } from '../dialog.service';
 
 @Component({
@@ -8,6 +6,7 @@ import { DialogService } from '../dialog.service';
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.css']
 })
+
 export class AccountingComponent implements OnInit {
   jobtitle:string ='';
   id:string = '';
@@ -38,7 +37,7 @@ export class AccountingComponent implements OnInit {
   }
 
   // Initialisieren Sie das candidates-Array mit den Daten aus der JSON-Datei
-  accounting: { jobtitle: string; id: string; sum: number; newEmployeeAmount: number }[] = accountingData;
+ 
 
   //Funktion speichert die Benutzer eingaben
   // saveData(): void {

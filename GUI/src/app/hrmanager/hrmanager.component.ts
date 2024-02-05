@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { SocketService } from '../socket.service';
@@ -167,7 +166,7 @@ candidateSteps=0;
 jobStandardSteps = 0
 
 // This structure initiates the four different services: DataMessageService, SnackbarService, DataServiceInterface and SocketService
-constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
+constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
 
 // In this method, various functions are called to load data.
   async ngOnInit(): Promise<any> {
@@ -265,11 +264,11 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
   }
 
 // This method uses the DataServiceInterface to transfer the job standards, which are entered in the second panel of the hrManager and derived from the ProcessID, JobTitle, JobType and numberOfPositions, from the original Job Offer to the backend
-  sendData(jobOffer: JobOffer) {
-    this.jobStandards.ProcessID = (jobOffer.processID); 
-    this.jobStandards.JobTitle = (jobOffer.professionTitel); 
-    this.jobStandards.JobType = (jobOffer.professionType); 
-    this.jobStandards.numberOfPositions = (jobOffer.numberProfessions); 
+  sendData(currentJobOffer: JobOffer) {
+    this.jobStandards.ProcessID = (currentJobOffer.processID); 
+    this.jobStandards.JobTitle = (currentJobOffer.professionTitel); 
+    this.jobStandards.JobType = (currentJobOffer.professionType); 
+    this.jobStandards.numberOfPositions = (currentJobOffer.numberProfessions); 
 
     
     this.jobStandards.JobMode = this.jobStandards.JobMode.toUpperCase();

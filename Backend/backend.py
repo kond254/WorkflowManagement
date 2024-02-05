@@ -66,10 +66,9 @@ async def analyzeContractSuggestion(data, compensation:float):
 async def createJobStandards(data):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
         try:
             await client.publish_message(name="createJobStandards", # Process ID from WEPLACM
-                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
+                                    correlation_key=str(data["ProcessID"]), #Correlation Key from WEPLACM
                                     variables={
                                             "JobName":data["JobTitle"], 
                                             "jobType":data["JobType"], 
@@ -243,6 +242,7 @@ def get_job_offer_accepted():
         cur.execute(
             """
             SELECT * FROM JobOffers
+            JOIN SystemDB on SystemDB.ProcessID=JobOffers.processID
             where hrmanagerAccepted = 1 and jobStandardSent = 0
                     """)
         data= cur.fetchall()
@@ -336,17 +336,15 @@ def add_job_standards():
         lock.acquire(True)
         data = request.json
         print(data)
-        print(data["processID"])
         asyncio.run(createJobStandards(data))
         
+       
         cur.execute(
             """
-            INSERT INTO JobStandards (ProcessID, JobType, JobTitle, numberOfPositions, RequiredExperience, JobDescription, Responsibilities, Location, JobMode, WeeklyHours, AnnualSalary, PaidTimeOff, Benefits, Industry, GraduationLevel, Language)   
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (data['ProcessID'], data['JobType'], data['JobTitle'], data['numberOfPositions'], data['RequiredExperience'], data['JobDescription'], data ['Responsibilities'], data ['Location'], data ['JobMode'], data['WeeklyHours'], data ['AnnualSalary'], data ['PaidTimeOff'], data ['Benefits'], data ['Industry'], data ['GraduationLevel'], data ['Language'])   # oben wie es in der Datenbank steht und hier wie es im Interfacer steht
-           
-                
- 
+            Update JobOffers
+             set jobStandardSent = 1
+             where processID = ?
+            """, (data['ProcessID'],)
         )
 
         con.commit()
