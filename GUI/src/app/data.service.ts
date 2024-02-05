@@ -260,6 +260,12 @@ export class DataServiceInterface {
     const data = { username: username };
     return this.http.post<any>(`${this.apiUrl}/delete_login_user`, data);
   }
+
+  getJobStandardsWithCandidatesCurrently(jobStandards: number): Observable<any[]> {
+    const params = new HttpParams().set('ProcessID', jobStandards.toString());
+    return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates_only_one`, {params} );
+  }
+  
 }
 
  

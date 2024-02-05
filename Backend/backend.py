@@ -91,21 +91,6 @@ async def createJobStandards(data):
             print(f"An error occurred: {e}")
 
 
-#Neue Funktion 03.02, schwierige SubProcess
-async def checkCandidates(data):
-        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
-        client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
-        try:
-            await client.publish_message(name="checkCandidates", # Process ID from WEPLACM
-                                    correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
-                                    variables={
-                                            
-                                }
-                            )
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
 
 #Neue Funktion 03.02, hier fehlt noch die invoice?
 async def checkStatusInvoice(data):
@@ -121,6 +106,24 @@ async def checkStatusInvoice(data):
                             )
         except Exception as e:
             print(f"An error occurred: {e}")
+
+
+##This method sent the top candidates which comes from frontend data.service.ts to the camunda task
+async def checkCandidates(data, decision:bool):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(f"TEST: {data["ProcessID"]}")
+        try:
+            await client.publish_message(name="checkCandidates", # Process ID from WEPLACM
+                                    correlation_key=str(data["ProcessID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            "final_selection_passed": decision
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
 
 #
 #
@@ -357,6 +360,7 @@ def add_job_standards():
         lock.release()
 
 
+
 ##This flask wait for a post request from frontend data.service.ts and add for the variable hrmanagerAccepted = 1 in the jobOffers sql table
 @app.route('/api/data/update_job_offer', methods=['POST'])
 def update_job_offer():
@@ -445,24 +449,23 @@ def delete_job_offer():
 @app.route('/api/data/update_top_candidates', methods=['POST'])
 def update_top_candidates():
     try:
-        lock.acquire(True)
+        # lock.acquire(True)
         data = request.json
-        cur.execute(
-            """
-            Update TopCandidate
-             set hrmanagerAccepted = 1
-             where CandidateID = ?
-            """, (data['CandidateID'],)
-        )
-
-        con.commit()
+        # cur.execute(
+        #     """
+        #     Update TopCandidate
+        #      set hrmanagerAccepted = 1
+        #      where CandidateID = ?
+        #     """, (data['CandidateID'],)
+        # )
+        asyncio.run(checkCandidates(data, True))
+        # con.commit()
         socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
         print(data['CandidateID'])
         return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-    finally:
-        lock.release()
+
     
 
 
@@ -470,30 +473,32 @@ def update_top_candidates():
 @app.route('/api/data/delete_top_candidate', methods=['POST'])
 def delete_top_candidates():
     try:
-        lock.acquire(True)
+        # lock.acquire(True)
         data = request.json
-        print(data['CandidateID'])
-        cur.execute(
-            """
-           DELETE FROM Candidate
-           WHERE CandidateID = ?
-            """, (data['CandidateID'],)  
-        )
-        cur.execute(
-            """
-           DELETE FROM TopCandidate
-           WHERE CandidateID = ?
-            """, (data['CandidateID'],)  
-        )
-        con.commit()
-        #socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
-        print(data['processID'])
+        # print(data['CandidateID'])
+        # cur.execute(
+        #     """
+        #    DELETE FROM Candidate
+        #    WHERE CandidateID = ?
+        #     """, (data['CandidateID'],)  
+        # )
+        # cur.execute(
+        #     """
+        #    DELETE FROM TopCandidate
+        #    WHERE CandidateID = ?
+        #     """, (data['CandidateID'],)  
+        # )
+        # con.commit()
+        # #socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
+        # print(data['processID'])
+        
+        asyncio.run(checkCandidates(data, False))
+        
 
         return jsonify({'success': True, 'message': 'Top candidate delete successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
-    finally:
-        lock.release()
+
 
 
 ##This flask wait for a get request from frontend and returns the variables from the sql command execution for the frontend data.service.ts 
@@ -568,6 +573,33 @@ def delete_login_user():
         return jsonify({'success': True, 'message': f'Temporary Login User {username_to_delete} deleted successfully'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
+    
+    
+##This flask wait for a get request from frontend and returns the variables from the sql command execution for the frontend data.service.ts 
+@app.route('/api/data/get_jobstandards_with_top_candidates_only_one', methods=['GET'])
+def get_jobstandards_with_top_candidates_only_one():
+    try:
+        lock.acquire(True)
+        data = request.args.get('ProcessID')
+        print(data)
+        
+        cur.execute(
+            """
+            SELECT JobStandards.*, Candidate.*
+            FROM JobStandards
+            LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
+            JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
+            WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?   AND TopCandidate.currentlyDisplayed=1              
+            """, (int(data),)  )
+    
+        data = cur.fetchall()
+
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
       
 # cur.execute("""
 #     SELECT COUNT(*) as count FROM (

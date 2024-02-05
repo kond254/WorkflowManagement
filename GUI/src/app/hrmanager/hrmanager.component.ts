@@ -252,7 +252,7 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
     console.log(typeof(jobStandards["ProcessID"])) 
     console.log((jobStandards["ProcessID"])) 
     this.dataJobStandardsWithTopCandidates=[];
-    this.dataServiceInterface.getJobStandardsWithCandidates(jobStandards["ProcessID"]).subscribe(
+    this.dataServiceInterface.getJobStandardsWithCandidatesCurrently(jobStandards["ProcessID"]).subscribe(
       data => {
         this.dataJobStandardsWithTopCandidates = data as JobStandardsWithTopCandidates [];
         console.log(this.dataJobStandardsWithTopCandidates)
@@ -261,6 +261,7 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
         console.error("Error fetching JobStandardsWithTopCandidates data:", error);
       }
     );
+    console.log(this.dataJobStandardsWithTopCandidates)
   }
 
 // This method uses the DataServiceInterface to transfer the job standards, which are entered in the second panel of the hrManager and derived from the ProcessID, JobTitle, JobType and numberOfPositions, from the original Job Offer to the backend

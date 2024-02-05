@@ -151,6 +151,7 @@ def main():
     async def switch_currently_displayed_for_frontend(job: Job, candidate_id: int):
         print("-----Switch currently Displayed-----")
         print("Process Instance Key: " +str(job.process_instance_key))
+        print(candidate_id)
        
        
         db.update_switch_for_candidate_in_frontend(candidate_id, 0)
