@@ -25,6 +25,15 @@ class Databank:
             con.commit()
             print("Inserted into ContractPhase Table")
             
+    def update_switch_for_candidate_in_frontend(self, candidate_id: int, switch: int):
+        with con:
+            cur.execute("""
+                        UPDATE TopCandidate
+                        SET currentlyDisplayed = ? WHERE CandidateID = ?;
+                        """, (switch, candidate_id))
+            con.commit()
+            print("Candidate displayed in Frontend")
+            
     
     #delete contract in ContractPhase table as it is not important anymore because contract was sent to weplacm or process is canceld
     def delete_contract_in_contract_phase(self, process_id: int):

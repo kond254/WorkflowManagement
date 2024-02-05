@@ -134,13 +134,11 @@ def main():
         data = { }
         keys = ['ProcessID', 'CandidateID', 'first_name', 'last_name', 'gender', 'email', 'linkedin', 'adress', 'city', 'zip_code', 'country', 'age', 'previous_company', 'rating']
         # Use a loop to populate the dictionary
+        db.update_switch_for_candidate_in_frontend(candidate_id, 1)
+        
         for key, value in zip(keys, candidate_details[0]):
             data[key] = value
-                
-        #
-        #
-        #delete later
-        #
+    
         data["final_selection_passed"]="True"
         #
         #
@@ -148,6 +146,15 @@ def main():
         #
         #
         return data
+    
+    @worker.task(task_type="changeSwitchForFrontendCandidate")
+    async def switch_currently_displayed_for_frontend(job: Job, candidate_id: int):
+        print("-----Switch currently Displayed-----")
+        print("Process Instance Key: " +str(job.process_instance_key))
+       
+       
+        db.update_switch_for_candidate_in_frontend(candidate_id, 0)
+    
     
     
     #Write a rejection Mail to the Candidate when HR-Manager declines Candidate
