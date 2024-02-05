@@ -1,6 +1,4 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-// import candidateData from '../../assets/candidates.json';
-import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { AfterContentChecked } from '@angular/core';
@@ -125,7 +123,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepCO = 0;
 
   // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
-  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
+  constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();

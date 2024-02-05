@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { SocketService } from '../socket.service';
@@ -167,7 +166,7 @@ candidateSteps=0;
 jobStandardSteps = 0
 
 // This structure initiates the four different services: DataMessageService, SnackbarService, DataServiceInterface and SocketService
-constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
+constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
 
 // In this method, various functions are called to load data.
   async ngOnInit(): Promise<any> {
