@@ -263,6 +263,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
       }
     );
   }
+
 // This method uses the DataServiceInterface to transfer the job standards, which are entered in the second panel of the hrManager and derived from the ProcessID, JobTitle, JobType and numberOfPositions, from the original Job Offer to the backend
   sendData(jobOffer: JobOffer) {
     this.jobStandards.ProcessID = (jobOffer.processID); 
@@ -292,7 +293,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
 
   }
 
-  // These methods set the number for the Previous Next function
+  // These methods set the number for the Previous Next function in the job offer cards
   setStep(index: number) {
     this.step = index;
   }
@@ -331,8 +332,6 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.step--;
   }
 
-  
-
 // This method is called when the accept button on the HrManager page is pressed for the job offer. It sets the hrmanagerAccepted status of the job offer to true and then calls the updateJobOffer method.
   acceptJob(item: JobOffer): void {
     console.log('Job accepted:', item);
@@ -346,6 +345,7 @@ constructor(private dataService: DataMessageService, private snackbarService: Sn
     this.deleteJobOffer(item);
   }
 
+// This method is used to update the status of an accepted job offer via the DataServiceInterface. After a successful update, the updated job offers are retrieved via the getJobOffer() and getJobOfferAccapted() methods.
 updateJobOffer(item: JobOffer): void {
   this.dataServiceInterface.updateJobOffer(item).subscribe(
     response => {
@@ -360,6 +360,7 @@ updateJobOffer(item: JobOffer): void {
   );
 }
 
+// This method is used to update the status of an accepted job offer after it has been sent via the DataServiceInterface. After a successful update, the updated accepted job offers are retrieved via the getJobOfferAccapted() method.
 updateJobOfferAfterSend(item: JobOffer): void {
   this.dataServiceInterface.updateJobOfferAfterSend(item).subscribe(
     response => {
@@ -373,8 +374,7 @@ updateJobOfferAfterSend(item: JobOffer): void {
   );
 }
 
-
-
+// This method is used to delete a rejected job offer via the DataServiceInterface.
 deleteJobOffer(item: JobOffer): void {
   this.dataServiceInterface.deleteJobOffer(item).subscribe(
     response => {
@@ -389,6 +389,7 @@ deleteJobOffer(item: JobOffer): void {
   );
 }
 
+// This method is called to accept a top candidate for a specific position. It sets the hrmanagerAccepted flag for the transferred top candidate to true and then updates the changes via the DataServiceInterface .
 acceptTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
   console.log('Top candidate accepted:', item);
   item.hrmanagerAccepted = true; 
@@ -402,9 +403,9 @@ acceptTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandar
       console.error('Error updating top candidate', error);
     }
   );
- 
 }
 
+// This method is called to reject a top candidate for a specific position via the DataServiceInterface the candidate is deleted.
 rejectTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandards): void {
   console.log('Top candidate rejected:', item);
   this.dataServiceInterface.deleteTopCandidate(item).subscribe(

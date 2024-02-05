@@ -131,6 +131,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.cdRef.detectChanges();
   }
 
+  // In this method, various functions are called to load data.
   async ngOnInit(): Promise<any> {
     await this.getJobOffer();
     await this.getJobOfferAccepted();
@@ -139,29 +140,33 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     await this.getnewEmployees();  
     await this.getCurrentContractSuggestions();
 
+    // Used to execute getJobOffer and getJobOfferAccepted when JobOfferUpdated is executed in order to automatically display new JobOffer and accepted job offers in the HRDepartment when the HrManager accepts a job offer without manually reloading the HrDepartment page
     this.socketService.onJobOfferUpdated().subscribe(() => {
       this.getJobOffer();
       this.getJobOfferAccepted();
     });
 
+    // Used to execute getJobOffer and getJobOfferAccepted when JobOfferAcceptedUpdated is executed in order to automatically display new job fffer and accepted job offers in the HRDepartment when the HrManager accepts a job offer without manually reloading the HrDepartment page
     this.socketService.onJobOfferAcceptedUpdated().subscribe(() => {
       this.getJobOffer();
       this.getJobOfferAccepted();
     });
 
+    // Used to execute getjobStandards when JobStandardsUpdated is executed in order to automatically display new job standard the HRDepartment when the HrManager creats a new job standard without manually reloading the HrDepartment page
     this.socketService.onJobStandardsUpdated().subscribe(() => {
       this.getjobStandards();
     });
 
+    // Used to execute getTopCandidate when TopCandidatesAcceptedUpdated is executed in order to automatically display new top candidates in the HRDepartment without manually reloading the HrDepartment page
     this.socketService.onTopCandidatesAcceptedUpdated().subscribe(() => {
       this.getTopCandidate();
     });
     
-      // this.dataContract.push(this.dataContract[]);
+    // this.dataContract.push(this.dataContract[]); 
     
   }
 
-  //Funktion ruft alle neuen job offer vom DataServiceInterface ab
+  // The getJobOffer() method retrieves the job offers created by the HrDepartment via the DataServiceInterface and stores it in dataJobOffer
   getJobOffer() {
     this.dataServiceInterface.getJobOffer().subscribe(
       data => {
@@ -202,7 +207,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle Contracts vom DataServiceInterface ab
+  // The getCurrentContractSuggestions() method retrieves current contract suggestions via the DataServiceInterface and saves them in dataContract.
   getCurrentContractSuggestions() {
     this.dataServiceInterface.getCurrentSuggestions().subscribe(
       data => {
@@ -243,9 +248,10 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
   
   
-  //Funktion sendet neuen Job Offer ans DataServiceInterface
+
+  // This method uses the DataServiceInterface to transfer the job offers, which are entered in the first panel of the hrdepartment to the backend
   sendData() {
-    //UpperCase wegen WEPLACM!
+    
     this.jobOffer.professionType = this.jobOffer.professionType.toUpperCase();
 
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
@@ -261,7 +267,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
 
 
-   //Funktion für Dialog Popup Pay
+   //The openDialogPay(contract: Contract) method is used to submit an offer via a the DataServiceInterface
    openDialogPay(contract: Contract): void {
     console.log(contract);
     this.dataServiceInterface.postCurrentContractSuggestion(contract).subscribe(
