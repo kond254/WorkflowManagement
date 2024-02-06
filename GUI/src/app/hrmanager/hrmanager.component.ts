@@ -199,9 +199,10 @@ newjobStandards: {
 }[] = [];
 
 // These variables are used to control progress within the user interface
-step = 0;
-candidateSteps=0;
-jobStandardSteps = 0
+JobOfferStep = 0;
+JobStandardSteps = 0
+candidateSteps = 0;
+reviewSteps = 0;
 
 // This structure initiates the four different services: DataMessageService, SnackbarService, DataServiceInterface and SocketService
 constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private socketService: SocketService) {}
@@ -349,16 +350,29 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
   }
 
   // These methods set the number for the Previous Next function in the job offer cards
-  setStep(index: number) {
-    this.step = index;
+  setStepJobOffer(index: number) {
+    this.JobOfferStep = index;
   }
 
-  nextStep() {
-    this.step++;
+  nextStepJobOffer() {
+    this.JobOfferStep++;
   }
 
-  prevStep() {
-    this.step--;
+  prevStepJobOfferJob() {
+    this.JobOfferStep--;
+  }
+
+  // These methods set the number for the Previous Next function in the job standards card
+  setStepJobStandard(index: number){
+    this.JobStandardSteps = index;
+  }
+
+  nextStepJobStandard() {
+    this.JobStandardSteps++;
+  }
+
+  prevStepJobStandard() {
+    this.JobStandardSteps--;
   }
 
   // These methods set the number for the Previous Next function in the top candidate cards
@@ -374,17 +388,17 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
     this.candidateSteps--;
   }
 
-// These methods set the number for the Previous Next function in the job standards card
-  setStepJobStandard(index: number){
-    this.jobStandardSteps = index;
+   // These methods set the number for the Previous Next function in the review candidate cards
+   setStepReview(index: number) {
+    this.reviewSteps = index;
   }
 
-  nextStepJobStandard() {
-    this.step++;
+  nextStepReview() {
+    this.reviewSteps++;
   }
 
-  prevStepJobStandard() {
-    this.step--;
+  prevStepReview() {
+    this.reviewSteps--;
   }
 
 // This method is called when the accept button on the HrManager page is pressed for the job offer. It sets the hrmanagerAccepted status of the job offer to true and then calls the updateJobOffer method.

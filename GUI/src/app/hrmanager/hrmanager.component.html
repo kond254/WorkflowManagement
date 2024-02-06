@@ -10,7 +10,7 @@
     <mat-card class = "card">
         <mat-card-content class = "cardcontent"><h2>Job Openings For Review</h2></mat-card-content>
       <div class ="panel">
-        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer" [expanded]="JobOfferStep === i" (opened)="setStepJobOffer(i)" hideToggle>
           <mat-expansion-panel-header class = "matheader">
             <mat-panel-title>
               Job Title: {{ item.professionTitel}} 
@@ -56,8 +56,8 @@
             <button mat-button color="warn" (click)="rejectJob(item)">Reject</button>
           </mat-action-row>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
+            <button mat-button color="warn" (click)="prevStepJobOfferJob()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJobOffer()">Next</button>
           </mat-action-row> 
         </div>
        </mat-expansion-panel>
@@ -68,7 +68,7 @@
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Fill in Job Standards</h2></mat-card-content>
       <mat-accordion #accordion>
-            <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let i = index" class="matpanelJobOffer" [expanded]="step === i" (opened)="setStepJobStandard(i)" hideToggle>
+            <mat-expansion-panel *ngFor="let item of dataJobOfferAccapted; let j = index" class="matpanelJobOffer" [expanded]="JobStandardSteps === j" (opened)="setStepJobStandard(j)" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Job Title: {{ item.professionTitel}} 
@@ -118,7 +118,7 @@
           <div class="divmatfieldrow"> 
              <mat-form-field class = "matfield">
               <mat-label>Required Experience</mat-label>
-               <input [(ngModel)]="jobStandards.RequiredExperience" matInput type="number">
+               <input [(ngModel)]="jobStandards.RequiredExperience" matInput type="number" min= "0" >
             </mat-form-field>
              <mat-form-field class = "matfield">
                <mat-label>Responsibilities</mat-label>
@@ -138,7 +138,7 @@
           <div class="divmatfieldrow"> 
             <mat-form-field class = "matfield">
               <mat-label>  Annual Salary:</mat-label>
-              <input [(ngModel)]="jobStandards.AnnualSalary" matInput type="number" min="0">
+              <input [(ngModel)]="jobStandards.AnnualSalary" matInput type="number" min = "0">
             </mat-form-field>
              <mat-form-field class = "matfield">
                <mat-label>Benefits</mat-label>
@@ -161,7 +161,8 @@
             <div class="matfieldfulltext"> 
               <div class="divButton">
                 <mat-action-row>
-                  <button class="button" mat-button color="primary" (click)="sendData(item)">Send</button>
+                  <!-- <button class="button" mat-button color="primary" (click)="sendData(item)">Send</button> -->
+                  <button class="button" mat-button color="primary" (click)="sendData(item)" [disabled]="!jobStandards.Location|| !jobStandards.JobMode || !jobStandards.Language || !jobStandards.GraduationLevel || jobStandards.RequiredExperience < 0 || !jobStandards.Responsibilities || !jobStandards.WeeklyHours || jobStandards.PaidTimeOff < 0 || jobStandards.AnnualSalary < 0|| !jobStandards.Benefits || !jobStandards.Industry" >Send</button>
                 </mat-action-row>
               </div>
               <mat-action-row class="StepButton">
@@ -179,7 +180,7 @@
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates For Review</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
-              <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i);getJobStandardsWithTopCandidates(item)" hideToggle>
+              <mat-expansion-panel *ngFor="let item of dataJobStandards; let k = index" class="matpanelJobStandards" [expanded]="candidateSteps === k" (opened)="setStepCandidates(k);getJobStandardsWithTopCandidates(item)" hideToggle>
                 <mat-expansion-panel-header class = "matheader">
                   <mat-panel-title>
                     Job Title: {{item.JobTitle}}
@@ -290,11 +291,12 @@
                   </div>
                   </div>
                 <mat-action-row>
-                  <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                  <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  <button mat-button color="warn" (click)="prevStepCandidates()">Previous</button>
+                  <button mat-button color="primary" (click)="nextStepCandidates()">Next</button>
                 </mat-action-row>
                 <div class ="panel" *ngIf="dataJobStandardsWithTopCandidates.length > 0">
-                  <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidates; let x = index" class="matpanelJobStandards2" [expanded]="step === x" (opened)="setStepCandidates(x)" hideToggle>
+                  <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidates "class="matpanelJobStandards2" hideToggle>
+                  <!-- <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidates; let x = index" class="matpanelJobStandards2" [expanded]="step === x" (opened)="setStepCandidates(x)" hideToggle> -->
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
@@ -403,10 +405,6 @@
                         <button mat-button color="primary" (click)="acceptTopCandidate(candidate, item)">Accept</button>
                         <button mat-button color="warn" (click)="rejectTopCandidate(candidate, item)">Reject</button>
                       </mat-action-row>
-                      <mat-action-row>
-                        <button mat-button color="warn" (click)="prevStepCandidates()">Previous</button>
-                        <button mat-button color="primary" (click)="nextStepCandidates()">Next</button>
-                      </mat-action-row>
                     </div>
                 </mat-expansion-panel>
               </div>
@@ -414,11 +412,11 @@
           </div>
     </mat-card>
 
-
+<!--Here the various job standards with the corresponding top candidates that are in a interview are shown. The HR manager can view these individually add the candidate rating. -->
     <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2>Candidates in Interview</h2></mat-card-content>
             <div class ="panel" *ngIf="dataJobStandards.length > 0">
-              <mat-expansion-panel *ngFor="let item of dataJobStandards; let i = index" class="matpanelJobStandards" [expanded]="step === i" (opened)="setStep(i);getJobStandardsWithTopCandidatesForInterview(item)" hideToggle>
+              <mat-expansion-panel *ngFor="let item of dataJobStandards; let l = index" class="matpanelJobStandards" [expanded]="reviewSteps === l" (opened)="setStepReview(l); getJobStandardsWithTopCandidatesForInterview(item)" hideToggle>
                 <mat-expansion-panel-header class = "matheader">
                   <mat-panel-title>
                     Job Title: {{item.JobTitle}}
@@ -529,11 +527,12 @@
                   </div>
                   </div>
                 <mat-action-row>
-                  <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                  <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  <button mat-button color="warn" (click)="prevStepReview()">Previous</button>
+                  <button mat-button color="primary" (click)="nextStepReview()">Next</button>
                 </mat-action-row>
                 <div class ="panel" *ngIf="dataJobStandardsWithTopCandidatesForInterview.length > 0">
-                  <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidatesForInterview; let z = index" class="matpanelJobStandards2" [expanded]="step === z" (opened)="setStepCandidates(z)" hideToggle>
+                  <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidatesForInterview "class="matpanelJobStandards2" hideToggle>
+                    <!-- <mat-expansion-panel *ngFor="let candidate of dataJobStandardsWithTopCandidatesForInterview; let z = index" class="matpanelJobStandards2" [expanded]="step === z" (opened)="setStepCandidates(z)" hideToggle></mat-expansion-panel> -->
                   <mat-expansion-panel-header>
                     <mat-panel-title>Top Candidates</mat-panel-title>
                   </mat-expansion-panel-header>
@@ -639,22 +638,26 @@
                       <div class="box-item full-width">
                         <div class="item-box">
                          <mat-label>Rating HR Manager</mat-label>
-                          <input [(ngModel)]="candidate.ratingHrManager" matInput type="number">
+                         <mat-form-field class="matfieldrating">  
+                          <input [(ngModel)]="candidate.ratingHrManager" matInput type="number" min="0.0" max="10.0" step="0.1" required>
+                        </mat-form-field>
                         </div>
                       </div>
                         <div class="box-item full-width">
                           <div class="item-box">
+                            <mat-form-field class="matfieldrating">  
                           <mat-label>Rating Representive</mat-label>
-                          <input [(ngModel)]="candidate.ratingHrRepresentative" matInput type="number">
+                          <input [(ngModel)]="candidate.ratingHrRepresentative" matInput type="number" min="0.0" max="10.0" step="0.1" required>
+                        </mat-form-field>
                         </div>
                       </div>
-                      
-               
                       <div class="box-row">
                         <div class="box-item full-width">
                           <div class="item-box">
                            <mat-label>Rating VP</mat-label>
-                            <input [(ngModel)]="candidate.ratingVP" matInput type="number">
+                           <mat-form-field class="matfieldrating">  
+                            <input [(ngModel)]="candidate.ratingVP" matInput type="number" min="0.0" max="10.0" step="0.1" required>
+                          </mat-form-field>
                           </div>
                         </div>
                         </div>
@@ -664,17 +667,7 @@
                       <mat-action-row>
                         <button mat-button color="primary" (click)="sendRating(candidate, item)">Accept</button>
                       </mat-action-row>
-                      <mat-action-row>
-                        <button mat-button color="warn" (click)="prevStepCandidates()">Previous</button>
-                        <button mat-button color="primary" (click)="nextStepCandidates()">Next</button>
-                      </mat-action-row>
                   </div>
-              
-   
-           
-
-               
-
                 </div>
                 </mat-expansion-panel>
               </div>
