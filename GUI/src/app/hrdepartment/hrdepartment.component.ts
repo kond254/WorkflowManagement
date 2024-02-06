@@ -1,12 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-// import candidateData from '../../assets/candidates.json';
-import { DataMessageService } from '../message.service';
 import { SnackbarService } from '../snackbar.service';
 import { DataServiceInterface } from '../data.service';
 import { AfterContentChecked } from '@angular/core';
 import { SocketService } from '../socket.service';
 import { DialogService } from '../dialog.service';
 
+//This interface defines the structure of the JobStandards Object
 interface JobStandards{
   ProcessID: number;
   JobTitle: string;
@@ -26,6 +25,16 @@ interface JobStandards{
   numberOfPositions: number;
 }
 
+//This interface defines the structure of the Contract Object
+interface Contract{
+  ProcessID: number,
+  numberProfessions: number,
+  suggestion: number,
+  compensation: number,
+  professionType: string
+}
+
+//This interface defines the structure of the TopCandidateAccepted Object
 interface TopCandidateAccepted {
   CandidateID: number;
   adress: string;
@@ -44,6 +53,7 @@ interface TopCandidateAccepted {
   InterviewDate: Date;
 }
 
+//This interface defines the structure of the JobOffer Object
 interface JobOffer {
   description: string;
   numberProfessions: number;
@@ -51,7 +61,7 @@ interface JobOffer {
   professionTitel: string;
   professionType: string;
 }
-
+//This interface defines the structure of the NewEmployees Object
 interface NewEmployees{
   CandidateID: number;
   JopType: string;
@@ -88,6 +98,14 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     description: ''
   };
 
+  // exampleContract: Contract = {
+  //   ProcessID: 1,
+  //   numberProfessions: 3,
+  //   suggestion: 123,
+  //   compensation: 5000,
+  //   professionType: 'Engineer',
+  // };
+
   percentage: number = 0;
 
   dataJobStandards: JobStandards[]=[];
@@ -95,46 +113,58 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   dataJobOfferAccepted: JobOffer[]=[];
   dataTopCandidateAccepted: TopCandidateAccepted[]=[];
   dataNewEmployees: NewEmployees[]=[];
+  dataContract: Contract[]=[];
 
+  // These variables are used to control progress within the user interface
   stepJO = 0;
   stepJS = 0;
   stepTC= 0;
   stepNE = 0;
+  stepCO = 0;
 
-  constructor(private dataService: DataMessageService, private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
+  // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
+  constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
 
   ngAfterContentChecked(): void {
     this.cdRef.detectChanges();
   }
 
+  // In this method, various functions are called to load data.
   async ngOnInit(): Promise<any> {
     await this.getJobOffer();
     await this.getJobOfferAccepted();
     await this.getjobStandards();
     await this.getTopCandidate();
     await this.getnewEmployees();  
+    await this.getCurrentContractSuggestions();
 
+    // Used to execute getJobOffer and getJobOfferAccepted when JobOfferUpdated is executed in order to automatically display new JobOffer and accepted job offers in the HRDepartment when the HrManager accepts a job offer without manually reloading the HrDepartment page
     this.socketService.onJobOfferUpdated().subscribe(() => {
       this.getJobOffer();
       this.getJobOfferAccepted();
     });
 
+    // Used to execute getJobOffer and getJobOfferAccepted when JobOfferAcceptedUpdated is executed in order to automatically display new job fffer and accepted job offers in the HRDepartment when the HrManager accepts a job offer without manually reloading the HrDepartment page
     this.socketService.onJobOfferAcceptedUpdated().subscribe(() => {
       this.getJobOffer();
       this.getJobOfferAccepted();
     });
 
+    // Used to execute getjobStandards when JobStandardsUpdated is executed in order to automatically display new job standard the HRDepartment when the HrManager creats a new job standard without manually reloading the HrDepartment page
     this.socketService.onJobStandardsUpdated().subscribe(() => {
       this.getjobStandards();
     });
 
+    // Used to execute getTopCandidate when TopCandidatesAcceptedUpdated is executed in order to automatically display new top candidates in the HRDepartment without manually reloading the HrDepartment page
     this.socketService.onTopCandidatesAcceptedUpdated().subscribe(() => {
       this.getTopCandidate();
     });
-
+    
+    // this.dataContract.push(this.dataContract[]); 
+    
   }
 
-  //Funktion ruft alle neuen job offer vom DataServiceInterface ab
+  // The getJobOffer() method retrieves the job offers created by the HrDepartment via the DataServiceInterface and stores it in dataJobOffer
   getJobOffer() {
     this.dataServiceInterface.getJobOffer().subscribe(
       data => {
@@ -149,9 +179,8 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle akzeptierten job offer vom DataServiceInterface ab
+  // The getJobOfferAccapted() method retrieves the job offers already accapted by the HrManager via the DataServiceInterface and stores it in dataJobOfferAccapted
   getJobOfferAccepted() {
-    
     this.dataServiceInterface.getJobOfferAccepted().subscribe(
       data => {
         this.dataJobOfferAccepted = data as JobOffer[];
@@ -163,7 +192,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle job standards vom DataServiceInterface ab
+  // The getjobStandards() method retrieves the job standards via the DataServiceInterface and stores it in dataJobStandards
   getjobStandards(){
     this.dataServiceInterface.getJobStandards().subscribe(
       data => {
@@ -176,7 +205,21 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle neuen top candidates vom DataServiceInterface ab
+  // The getCurrentContractSuggestions() method retrieves current contract suggestions via the DataServiceInterface and saves them in dataContract.
+  getCurrentContractSuggestions() {
+    this.dataServiceInterface.getCurrentSuggestions().subscribe(
+      data => {
+        // this.exampleContract;
+        this.dataContract = data as Contract[];
+        console.log("Data accepted contracts retrieved");
+      },
+      error => {
+        console.log("Error fetching accepted contracts data");
+      }
+    );
+  }
+
+  // The getTopCandidate method retrieves the top candidates via the DataServiceInterface and stores it in dataJobOffer dataTopCandidate
   getTopCandidate() {
     this.dataServiceInterface.getTopCandidateAccepted().subscribe(
       data => {
@@ -189,7 +232,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     );
   }
 
-  //Funktion ruft alle new employees vom DataServiceInterface ab
+  // The getnewEmployees method retrieves the new Employees via the DataServiceInterface and stores it in dataNewEmployees
   getnewEmployees(){
     this.dataServiceInterface.getNewEmployees().subscribe(
       data => {
@@ -203,8 +246,12 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
   
   
-  //Funktion sendet neuen Job Offer ans DataServiceInterface
+
+  // This method uses the DataServiceInterface to transfer the job offers, which are entered in the first panel of the hrdepartment to the backend
   sendData() {
+    
+    this.jobOffer.professionType = this.jobOffer.professionType.toUpperCase();
+
     this.dataServiceInterface.sendJobOffer(this.jobOffer).subscribe(
       response => {
         console.log('Data job offer sent successfully', response);
@@ -218,17 +265,22 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
 
 
-   //Funktion für Dialog Popup Pay
-   openDialogPay(): void {
-    this.dialogService.openDialog('Adjust Contract', 'Are you sure to accept the defined contract?');
+   //The openDialogPay(contract: Contract) method is used to submit an offer via a the DataServiceInterface
+   openDialogPay(contract: Contract): void {
+    console.log(contract);
+    this.dataServiceInterface.postCurrentContractSuggestion(contract).subscribe(
+      response => {
+        console.log('Contract offer sent successfully', response);
+        this.snackbarService.showSuccess('Contract sent');
+      },
+      error => {
+        console.log('Error sending Contract');
+      }
+    );
   }
 
-  //Funktion für Dialog Popup Reject
-  openDialogReject(): void {
-    this.dialogService.openDialog('Adjust Contract', 'Are you sure to reject the contract and change the payment?');
-  }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the job offer card
   setStepJO(index: number) {
     this.stepJO = index;
   }
@@ -239,7 +291,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepJO--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the job standards card
   setStepJS(index: number) {
     this.stepJS = index;
   }
@@ -250,7 +302,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepJS--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the top candidates card
   setStepTC(index: number) {
     this.stepTC = index;
   }
@@ -261,7 +313,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepTC--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the new employee card
   setStepNE(index: number) {
     this.stepNE = index;
   }
@@ -269,6 +321,17 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepNE++;
   }
   prevStepNE() {
+    this.stepNE--;
+  }
+
+  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  setStepCO(index: number) {
+    this.stepNE = index;
+  }
+  nextStepCO() {
+    this.stepNE++;
+  }
+  prevStepCO() {
     this.stepNE--;
   }
 

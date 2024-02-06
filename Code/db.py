@@ -12,6 +12,42 @@ class Databank:
         # Aktiviere Fremdschlüssel-Unterstützung
         cur.execute("PRAGMA foreign_keys = ON")
 
+
+
+    #insert contract suggestion for frontend 
+    def insert_contract_in_contract_phase(self, process_id: int, compensation: float, suggestion: float):
+        with con: 
+            #insert into table
+            cur.execute("""
+                        INSERT INTO ContractPhase (processID, suggestion, compensation)
+                        VALUES (?, ?, ?)
+                        """, (process_id, suggestion, compensation))
+            con.commit()
+            print("Inserted into ContractPhase Table")
+            
+    def update_switch_for_candidate_in_frontend(self, candidate_id: int, switch: int):
+        with con:
+            print(switch)
+            print(candidate_id)
+            cur.execute("""
+                        UPDATE TopCandidate
+                        SET currentlyDisplayed = ? WHERE CandidateID = ?;
+                        """, (switch, candidate_id))
+            con.commit()
+            print("Candidate displayed in Frontend")
+            
+    
+    #delete contract in ContractPhase table as it is not important anymore because contract was sent to weplacm or process is canceld
+    def delete_contract_in_contract_phase(self, process_id: int):
+        with con:
+            cur.execute("""
+                        DELETE FROM ContractPhase
+                        WHERE processID=?
+                        """, (process_id, ))
+            con.commit()
+            print("Deleted from ContractPhase Table") 
+    
+    
     # insert Contract to System Table
     def insert_contract_in_systemdb(self, process_id: int, contract_signed: str, compensation: float):
         with con:
@@ -98,11 +134,23 @@ class Databank:
             print("Top 10 Candidates moved")
 
     #remove candidate from top candidate db
+    ##############
+    #######?######
+    ##############  
+    #
+    #
     def remove_candidate_from_topCandidateDB(self, candidate_id:int):
         #deletes the candidate from candidate db because candidate table and top candidate table are linked to one another 
-        with open('SQL/deleteCandidateFromTopCandidateDB.sql', 'r') as sql_file:
-            sql_content = sql_file.read()
-            cur.execute(sql_content, (candidate_id,))
+        #with open('SQL/deleteCandidateFromTopCandidateDB.sql', 'r') as sql_file:
+        with con:
+
+            cur.execute("""DELETE FROM TopCandidate
+            WHERE TopCandidate.CandidateID=?""", 
+            (candidate_id,))
+            con.commit()
+            cur.execute("""DELETE FROM Candidate
+            WHERE Candidate.CandidateID=?""", 
+            (candidate_id,))
             con.commit()
             print("Candidate removed from TopCandidateDatabase")
 

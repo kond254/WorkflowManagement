@@ -1,7 +1,7 @@
 header{
-    margin-top: 5px;
+    margin-top: 0px;
     height: 150px;
-    background-color: #185872;
+    background-color: #44641a;
 }
 
 header div{
@@ -46,7 +46,7 @@ body{
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #185872;
+    background-color: #44641a;
     max-height: 1000px;
     overflow-y: auto;
 }
@@ -107,4 +107,89 @@ body{
     width: 150px;
     height: 50px;
     float:right;
+  }
+
+
+
+
+/*********NEU*************/
+
+.panel{
+    padding-top: 20px;
+}
+
+.matpanelInvoice{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 6px;
+    background-color: rgb(238, 255, 200);
+    border-radius: 10px;
+}
+
+.matheader{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.paneldiscription{
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+  .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .box {
+    width: 48%; 
+    margin-bottom: 15px;
+  }
+  
+  
+  .box-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .box-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .box-item {
+    width: calc(48% - 10px); 
+    box-sizing: border-box; 
+    margin-bottom: 15px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .item-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 75px;
+    background-color: #fff;
+    
+  }
+  
+  
+  .item-box-description {
+    max-height: 100px; 
+    overflow-y: auto; 
+    white-space: pre-wrap; 
+    box-sizing: border-box; 
+  }
+  
+ .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }

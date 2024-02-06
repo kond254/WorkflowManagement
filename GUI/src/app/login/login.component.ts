@@ -14,6 +14,7 @@ import { DataServiceInterface } from '../data.service';
   styleUrl: './login.component.css'
 })
 
+//This class handles the login process and checks the access rights and sets roles rights and stores the logged in users
 export class LoginComponent {
 
   hide = true;
@@ -31,66 +32,60 @@ export class LoginComponent {
 
   constructor(private router: Router, private dataAuthService: DataAuthService, private loginService: LoginService, private snackbarService: SnackbarService, private roleservice: RoleService,  private dataroleservice: DataRoleService, private dataServiceInterface: DataServiceInterface) {}
 
-  // Funktion überprüft, ob das Einloggen des Nutzer passt (nutzt den data.service.ts)
+  //This method checks the results from dataAuth.service and decides whether the user has rights or not and displays the incorrect inputs as a hint message
   login() {
     this.dataAuthService.checkCredentials(this.username, this.password).subscribe((result) => {
       if (result == 'invalidPassword') {
-        this.loginService.setloginValue(true);
-        this.errorType = 'invalidPassword';
-        this.unvalidusername = false;
-        this.unvalidpassword = true;
-        console.log('Login of username ' + this.username + ' not successful, because wrong password!');
+          this.loginService.setloginValue(true);
+          this.errorType = 'invalidPassword';
+          this.unvalidusername = false;
+          this.unvalidpassword = true;
+          console.log('User loggin was not successful: ' + this.username);
+          console.log('User has entered an incorrect password!');
       } else if (result == 'invalidUsername') {
-        this.loginService.setloginValue(false);
-        this.errorType = 'invalidUsername';
-        this.unvalidusername = true;
-        this.unvalidpassword = true;
-        console.log('Login of username ' + this.username + ' not successful, because unauthorized user!');
+          this.loginService.setloginValue(false);
+          this.errorType = 'invalidUsername';
+          this.unvalidusername = true;
+          this.unvalidpassword = true;
+          console.log('User loggin was not successful: ' + this.username);
+          console.log('User has entered an unauthorized username!');
       } else {
-        this.dataServiceInterface.getLoginUsers().subscribe(loginUsers => {
-          console.log(loginUsers);
-          const userIsLoggedIn = loginUsers.some(user => user.username == this.username && user.isLoggedIn);
-          if (userIsLoggedIn) {
-            console.log('User is logged in: ' + this.username);
-            this.errorType = 'invalidUsername';
-            this.unvalidusername = true;
-            this.unvalidpassword = true;
-          } else {
-              this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
-              console.log("User login is saved");});
-              this.loginService.setloginUser(this.username);
-              this.loginService.setloginValue(true);
-              this.role = result;
-              console.log('Login of username ' + this.username + ' successful!');      
-              this.handleSuccessfulLogin(result); 
-              this.handle();
-            }
-        });
-      }
-    });
+          this.dataServiceInterface.setLoginUser(this.username, true).subscribe(response => {
+          sessionStorage.setItem('currentLoggedUser',this.username);
+          this.loginService.setloginUser(this.username);
+          this.loginService.setloginValue(true);
+          sessionStorage.setItem('currentRoleUser',result);
+          this.role = result;   
+          this.handleSuccessfulLogin(result); 
+          this.updateRole();
+          console.log('User loggin was successful: ' + this.username);
+          console.log('User has the right: ' + this.role);
+          console.log("User login has been recorded!");
+          });   
+        }
+      });
   }
 
-  // Funktion wird in oberen If-Funktion aufgerufen
+  //This method calls the home page with successful login and sets boolean values to false
   private handleSuccessfulLogin(role: string) {
     this.unvalidusername = false;
     this.unvalidpassword = false;
     const routerLink = [''];
     this.router.navigate(routerLink);
     this.roleservice.setRoleVariable(this.role);
-    console.log('Rights: ', role);
     this.snackbarService.showSuccess('Login successful!');
     }
 
     
-  // Funktion ruft die Rechtes des eingeloggten Nutzer aus roleData.json ab und übergibt an dataRole.service.ts
-  private handle(){
+  //This method updates the current role rights of the logged-in user and saves them in dataRole.service.ts
+  private updateRole(){
     const role: string = this.roleservice.getRoleVariable();
     this.dataroleservice.getRoleData(role).subscribe((data: any) => {
         this.home = data[role].home;
         this.hrdepartment = data[role].hrdepartment;
         this.hrmanagement = data[role].hrmanagement;
         this.accounting = data[role].accounting;
-        this.dataroleservice.updateRechte(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
+        this.dataroleservice.updateRoles(this.home , this.hrdepartment, this.hrmanagement, this.accounting);
       });
     }
   

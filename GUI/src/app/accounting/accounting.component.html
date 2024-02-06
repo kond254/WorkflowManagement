@@ -7,37 +7,35 @@
 
 <body>
   
-  <mat-card class = "card">
+  <!-- <mat-card class = "card">
       <mat-card-content class = "cardcontent"><h2> Incoming Invoices</h2></mat-card-content>
   
-      <!-- <div class="example-action-buttons">
+      <div class="example-action-buttons">
           <button mat-button (click)="openAll()">Expand All</button>
           <button mat-button (click)="closeAll()">Collapse All</button>
-      </div> -->
+      </div>
   
       <mat-accordion class="example-headers-align" #accordion>
-          <mat-expansion-panel *ngFor="let item of accounting; let i = index" class="matpanel" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+          <mat-expansion-panel class="matpanel" hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{ item.jobtitle}}
+                {{""}}
               </mat-panel-title>
               <mat-panel-description class = "paneldiscription">
                 <br>
                 <mat-icon>account_circle</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>  
-            <p>Payment-ID: {{ item.id}}</p>
-            <p>Total Payment: {{ item.sum }}</p>
-            <p>New Employees: {{item.newEmployeeAmount}}</p>
+            <p>Payment-ID: {{""}}</p>
+            <p>Total Payment: {{""}}</p>
+            <p>New Employees: {{""}}</p>
             
-
-                      <!-- Buttons innerhalb der Kachel -->
 
             <div style="display: flex; justify-content: space-between;">
               <mat-action-row>
-                <button mat-button color="primary" (click)="acceptPayment(item); openDialogPay()">Pay</button>
-                <button mat-button color="primary" (click)="acceptPayment(item)">Show Invoice</button>
-                <button mat-button color="warn" (click)="rejectPayment(item); openDialogReject()">Reject</button>
+                <button mat-button color="primary" (click)="openDialogReject()">Pay</button>
+                <button mat-button color="primary"(click)="openDialogReject()">Show Invoice</button>
+                <button mat-button color="warn" (click)="openDialogReject()">Reject</button>
               </mat-action-row>
 
               <mat-action-row>
@@ -51,7 +49,7 @@
                
       </mat-accordion>
   
-    </mat-card>
+    </mat-card> -->
 
     <!--Hier wird die daten übergeben NEU
     <div>
@@ -66,6 +64,67 @@
         <hr>
       </div>
     </div> -->
+
+
+    <!--Here displays the invoice news in a card-->
+    <mat-card class="card">
+      <mat-card-content class="cardcontent">
+        <h2>Invoice News</h2>
+      </mat-card-content>
+  
+      <mat-accordion #accordion>
+  
+        
+        <div class="panel">
+          <mat-expansion-panel class="matpanelInvoice" hideToggle>
+            <mat-expansion-panel-header class="matheader">
+              <mat-panel-title>
+                Invoice
+              </mat-panel-title>
+              <mat-panel-description class="paneldiscription">
+                answer from WEPLACM
+              </mat-panel-description>
+              <mat-icon class="personIcon">payment</mat-icon>
+            </mat-expansion-panel-header>
+            <div class="box-content">
+              <div class="box-row">
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Profession Titel: </p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Profession Type:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="box-row">
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Number of needed Professions:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+                <div class="box-item full-width">
+                  <div class="item-box">
+                    <p>Description:</p>
+                    <p>{{""}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <mat-action-row>
+              <button mat-button color="warn" (click)="prevStepInvoice()">Previous</button>
+              <button mat-button color="primary" (click)="nextStepInvoice()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </div>
+  
+      </mat-accordion>
+    </mat-card>
           
   </body>
 

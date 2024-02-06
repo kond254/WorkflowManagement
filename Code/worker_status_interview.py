@@ -22,7 +22,7 @@ def main():
         
     @worker.task(task_type="checkEntrysInCandidateDB")
     async def check_candidates_amount(job: Job):
-        remainingCandidates = db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)[0][0]
+        remainingCandidates = db.check_amount_of_candidates_in_CandidateDB(job.process_instance_key)
         return {"remainingCandidatesInDB": remainingCandidates}
     
     

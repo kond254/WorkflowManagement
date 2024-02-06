@@ -11,9 +11,10 @@
         <div class="footerSectionLinks">
             <h2>Links</h2>
             <ul>
-                <li><a routerLink="/">Home</a></li>
-                <li><a routerLink="/">Products</a></li>
-                <li><a href="">Etc.</a></li>
+                <li><a [routerLink]="['/']">Home</a></li>
+                <li *ngIf="showRoleHrdepartment" class="dropdownfields"><a [routerLink]="['/hrdepartment']">HR-Department</a></li>
+                <li *ngIf="showRoleHrmanagement" class="dropdownfields"><a [routerLink]="['/hrmanager']">HR-Manager</a></li>
+                <li *ngIf="showRoleAccouting" class="dropdownfields"><a [routerLink]="['/accounting']">Accounting</a></li>
             </ul>
         </div>
 
