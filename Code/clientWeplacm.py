@@ -14,10 +14,7 @@ class ClientWeplacm:
                                 port=26500)
         client = ZeebeClient(channel)
         try:
-            channel = create_insecure_channel(hostname="141.26.157.73",
-                                port=26500)
-            client = ZeebeClient(channel)
-            response = await client.publish_message(name="ReceiveContract",  
+            await client.publish_message(name="ReceiveContract",  
                                 correlation_key='',
                                 variables={
                                     "process_correlation_key": process_correlation_key,
@@ -30,8 +27,6 @@ class ClientWeplacm:
                                     }   
                                 }
                                 )
-            print(response)
-            return response 
         except Exception as e:
             print(f"An error occurred: {e}")
     
@@ -58,7 +53,6 @@ class ClientWeplacm:
         channel = create_insecure_channel(hostname="141.26.157.73",
                             port=26500)
         client = ZeebeClient(channel)
-        
         await client.publish_message(name="jobStandards", # Process ID from WEPLACM
                                     correlation_key= str(correlation_key_weplacm),
                                     variables={
@@ -152,10 +146,10 @@ class ClientWeplacm:
                                     variables={ 
                                 })
 
-    async def sendContract(self, job_type: str, amount_of_workers: int, compensation_per_worker: float):
-        print("Start Send Contract to Weplacm")
-        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
-        print("Channel created to Weplacm") #
-        client = ZeebeClient(channel)
-        print("Client created to Weplacm") # 
-        await self.send_contract_to_weplacm(client, job_type, amount_of_workers, compensation_per_worker)
+    # async def sendContract(self, job_type: str, amount_of_workers: int, compensation_per_worker: float):
+    #     print("Start Send Contract to Weplacm")
+    #     channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+    #     print("Channel created to Weplacm") #
+    #     client = ZeebeClient(channel)
+    #     print("Client created to Weplacm") # 
+    #     await self.send_contract_to_weplacm(client, job_type, amount_of_workers, compensation_per_worker)

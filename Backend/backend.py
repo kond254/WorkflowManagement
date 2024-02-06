@@ -35,7 +35,6 @@ async def startProcess(data):
 async def reviewJobOpening(data, decision:bool):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
         try:
             await client.publish_message(name="reviewJobOpening", # Process ID from WEPLACM
                                     correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
@@ -96,7 +95,6 @@ async def createJobStandards(data):
 async def checkStatusInvoice(data):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
         try:
             await client.publish_message(name="checkStatusInvoice", # Process ID from WEPLACM
                                     correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
@@ -115,7 +113,6 @@ async def setRatingForCandidate(data, ratingHrManager: int, ratingHrRepresentive
         print(ratingHrManager)
         print("TEst")
         print(ratingHrRepresentive)
-        print(f"TEST: {data["ProcessID"]}")
         try:
             await client.publish_message(name="rateCandidate", # Process ID from WEPLACM
                                     correlation_key=str(data["ProcessID"]), #Correlation Key from WEPLACM
@@ -131,7 +128,6 @@ async def setRatingForCandidate(data, ratingHrManager: int, ratingHrRepresentive
 async def checkCandidates(data, decision:bool):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["ProcessID"]}")
         try:
             await client.publish_message(name="checkCandidates", # Process ID from WEPLACM
                                     correlation_key=str(data["ProcessID"]), #Correlation Key from WEPLACM
