@@ -121,6 +121,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepTC= 0;
   stepNE = 0;
   stepCO = 0;
+  stepJOAC = 0;
 
   // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
   constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
@@ -173,8 +174,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log(this.dataJobOffer);
       },
       error => {
-        console.log("Error fetching job offer data");
-        console.log(this.dataJobOffer);
+        console.error("Error fetching job offer data:", error);
       }
     );
   }
@@ -187,7 +187,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted job offer retrieved");
       },
       error => {
-        console.log("Error fetching accepted job offer data");
+        console.error("Error fetching accepted job offer data:", error);
       }
     );
   }
@@ -200,7 +200,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data job standards retrieved");
       },
       error => {
-        console.log("Error fetching job standards data");
+        console.error("Error fetching job standards data:", error);
       }
     );
   }
@@ -214,7 +214,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted contracts retrieved");
       },
       error => {
-        console.log("Error fetching accepted contracts data");
+        console.error("Error fetching accepted contracts data:", error);
       }
     );
   }
@@ -227,7 +227,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted top candidates retrieved");
       },
       error => {
-        console.log("Error fetching accepted top candidate data");
+        console.error("Error fetching accepted top candidate data:", error);
       }
     );
   }
@@ -240,7 +240,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data new employees retrieved");
       },
       error => {
-        console.log("Error fetching new employee data");
+        console.error("Error fetching new employee data:", error);
       }
     );
   }
@@ -259,7 +259,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         this.jobOffer = {} as JobOffer;
       },
       error => {
-        console.log('Error sending job offer data');
+        console.error('Error sending job offer data:', error);
       }
     );
   }
@@ -274,7 +274,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         this.snackbarService.showSuccess('Contract sent');
       },
       error => {
-        console.log('Error sending Contract');
+        console.error('Error sending Contract:', error);
       }
     );
   }
@@ -289,6 +289,17 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   }
   prevStepJO() {
     this.stepJO--;
+  }
+
+  // These methods set the number for the Previous Next function in the accepted job offer card
+  setStepJOAC(index: number) {
+    this.stepJOAC = index;
+  }
+  nextStepJOAC() {
+    this.stepJOAC++;
+  }
+  prevStepJOAC() {
+    this.stepJOAC--;
   }
 
   // These methods set the number for the Previous Next function in the job standards card
@@ -324,15 +335,15 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepNE--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the contract card
   setStepCO(index: number) {
-    this.stepNE = index;
+    this.stepCO = index;
   }
   nextStepCO() {
-    this.stepNE++;
+    this.stepCO++;
   }
   prevStepCO() {
-    this.stepNE--;
+    this.stepCO--;
   }
 
 }

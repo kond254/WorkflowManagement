@@ -74,8 +74,8 @@
     <mat-accordion #accordion>
       
       <div class="panel" *ngIf="dataContract.length>0">
-        <mat-expansion-panel *ngFor="let contract  of dataContract; let y = index" class="matpanelJobStandards"
-          [expanded]="stepJS == y" (opened)="setStepCO(y)" hideToggle>
+        <mat-expansion-panel *ngFor="let contract  of dataContract; let i = index" class="matpanelJobStandards"
+          [expanded]="stepCO == i" (opened)="setStepCO(i)" hideToggle>
           <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               <mat-icon class="createIcon">create</mat-icon>
@@ -256,7 +256,7 @@
       <!--Here displays the accepted JobOffers in a card-->
       <div class="panel" *ngIf="dataJobOfferAccepted.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobOfferAccepted let i = index" class="matpanelJobOffer"
-          [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
+          [expanded]="stepJOAC == i" (opened)="setStepJOAC(i)" hideToggle>
           <mat-expansion-panel-header class="matheader">
             <mat-panel-title>
               Job Offer
@@ -298,8 +298,8 @@
             </div>
           </div>
           <mat-action-row>
-            <button mat-button color="warn" (click)="prevStepJO()">Previous</button>
-            <button mat-button color="primary" (click)="nextStepJO()">Next</button>
+            <button mat-button color="warn" (click)="prevStepJOAC()">Previous</button>
+            <button mat-button color="primary" (click)="nextStepJOAC()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
       </div>
