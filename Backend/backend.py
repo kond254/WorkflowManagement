@@ -35,7 +35,6 @@ async def startProcess(data):
 async def reviewJobOpening(data, decision:bool):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
-        print(f"TEST: {data["processID"]}")
         try:
             await client.publish_message(name="reviewJobOpening", # Process ID from WEPLACM
                                     correlation_key=str(data["processID"]), #Correlation Key from WEPLACM
