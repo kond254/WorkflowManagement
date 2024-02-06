@@ -307,6 +307,12 @@ export class DataServiceInterface {
     return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates_only_one_for_interview`, {params} );
   }
 
+  // The getInvoices() method is used to retrieve current invoices from the backend.
+  getInvoices(): Observable<any[]> {
+    console.log("Data invoices from backend retrieved")
+    return this.http.get<any[]>(this.apiUrl+"/get_invoices")
+  }
+  
     // This method sets interview results
     set_interview_results(topCandidate: JobStandardsWithTopCandidatesRating): Observable<any> {
       console.log("Data delete job offer sent to backend");
@@ -314,5 +320,3 @@ export class DataServiceInterface {
     }
 
 }
-
- 

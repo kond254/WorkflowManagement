@@ -313,6 +313,23 @@ def get_new_employees():
     finally:
         lock.release()
 
+##This flask wait for a get request from frontend data.service.ts and returns the variables from the invoices sql table to the frontend data.service.ts
+@app.route('/api/data/get_invoices', methods=['GET'])
+def get_invoices():
+    try:
+        lock.acquire(True)
+            
+        cur.execute(
+            """
+            SELECT * FROM Invoice
+                    """)
+        data= cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
 
 ##This flask wait for a post request from frontend data.service.ts and add for the variable in the JobOffers sql table, wich are sent by the frondent
 @app.route('/api/data/add_job_offer', methods=['POST'])
