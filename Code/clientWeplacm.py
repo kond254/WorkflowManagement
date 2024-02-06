@@ -6,14 +6,13 @@ client=None
 
 class ClientWeplacm:
 
-    
-    channel = create_insecure_channel(hostname="141.26.157.73",
-                                port=26500)
-    client = ZeebeClient(channel)
 
     async def send_contract_to_weplacm(self, job_type: str, amount_of_workers: int, compensation_per_worker: float, process_correlation_key: str):
-
+        
         try:
+            channel = create_insecure_channel(hostname="141.26.157.73",
+                                port=26500)
+            client = ZeebeClient(channel)
             response = await client.publish_message(name="ReceiveContract",  
                                 correlation_key='',
                                 variables={
