@@ -1,13 +1,43 @@
-# WorkflowManagement
+# WBIG
 
-1.
-2.
-3.
-4.
-5.
-6.
-....
+Step-By-Step-Installation:
+1. Install Python: sudo apt-get install python3-pip
+2. Check if Python is installed successfully: python --version
+3. Install node: https://nodejs.org/dist/v20.11.0/node-v20.11.0-x64.msi -> standard intallation (recommended to install via browser)
+4. Check if node is installed successfully: node --version
+5. Install Angular CLI globally with npm: npm install -g @angular/cli
+6. Install Angular: npm install --save-dev @angular-devkit/build-angular (Florian entered npm install @angular/cli)
+7. Check if angular installed successfully: ng version
+8. Here you can check again Angular version, Node version, Package Manager (npm) version
+9. Install flask: pip install flask
+10. Check if flask was installed successfully: pip show flask
+11. Install pyzeebe: pip install pyzeebe
+12. Check if pyzeebe was installed successfully: pip show pyzeebe
 
+
+Start-Instruction:
+1. Download project as zip via github: https://github.com/kond254/WorkflowManagement
+2. Unpack zip folder
+3. Start the one console for backend
+4. Call up path for backend file: cd C:\Users\nameX\Desktop\WorkflowManagement\Backend
+5. Execute backend file: python backend.py
+5. Backend file should now be running
+6. Start new console for frontend
+7. Call up path for frontend file: cd C:\Users\nameX\\Desktop\WorkflowManagement\GUI\src\app
+8. Run fronend with: ng serve -o
+9. Frontend should now be running
+10. Now a browser should open automatically with the gui. If not, then manually open the generated link in the frontend console: http://localhost:4200/ (by default)
+11. Now start the camunda operator to display the process: http://141.26.157.71:8081/login
+12. Login with the data: username:demo, password: demo
+13. Click the tab "dashboard and you can the process instances
+14. Next, login a user via login button in browser (see the login data in chapter "right")
+
+
+#############################################################################
+Hier fehlen noch die API links die Nice to know sind:
+
+
+#############################################################################
 Right:
 These following rights have been defined and can be entered in the login window
 
