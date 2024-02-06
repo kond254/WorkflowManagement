@@ -325,11 +325,12 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
     this.jobStandards.JobTitle = (currentJobOffer.professionTitel); 
     this.jobStandards.JobType = (currentJobOffer.professionType); 
     this.jobStandards.numberOfPositions = (currentJobOffer.numberProfessions); 
-
+    
     
     this.jobStandards.JobMode = this.jobStandards.JobMode.toUpperCase();
     this.jobStandards.Location = this.jobStandards.Location.toUpperCase();
-
+    this.jobStandards.Language = this.jobStandards.Language.toUpperCase();
+    console.log(this.jobStandards.Language)
 
     console.log(this.jobStandards) 
     this.dataServiceInterface.sendJobStandards(this.jobStandards).subscribe(

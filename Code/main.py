@@ -38,13 +38,15 @@ def main():
         async def send_contract(job: Job, jobType: str, number_of_positions:int, compensation: float):
                 print("-----Starting contract nagotiation-----")
                 process_correlation_key=f"{job.process_instance_key}21" #generating correlation key for the following recieve message task
-                response = await cW.send_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key)
+       
+                await cW.send_contract_to_weplacm(jobType, number_of_positions, compensation, process_correlation_key)
+
                 print("Contract send")
                 print("Job Type: "+jobType)
                 print("Number of Positions: "+ str(number_of_positions))
                 print("compensation: "+str(compensation))
-                print("Rsponse: " + str(response))
-                return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": response}
+
+                return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key}
                 #return{"contract_cycle": 0, "Reminder": False, "process_correlation_key": process_correlation_key, "correlation_key_weplacm": 1}
                 
                 
@@ -550,6 +552,8 @@ def main():
                 compensation = db.select_contract_compensation(job.process_instance_key)
                 #WEPLACM gets payed for each candidate we employed 
                 calculated_salary_sum = new_employee_count*salary*compensation
+                print(f"Invoice:{calculated_salary_sum}")
+                print(f"Invoice from WEPLACM:{salarie_sum}")
                 #does the invoice add up to our callculations
                 if calculated_salary_sum == salarie_sum:
                         return{"invoiceCorrect": True}
