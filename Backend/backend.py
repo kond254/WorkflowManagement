@@ -109,6 +109,25 @@ async def checkStatusInvoice(data):
 
 
 ##This method sent the top candidates which comes from frontend data.service.ts to the camunda task
+async def setRatingForCandidate(data, ratingHrManager: int, ratingHrRepresentive: int, ratingVP: int):
+        channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
+        client = ZeebeClient(channel)
+        print(ratingHrManager)
+        print("TEst")
+        print(ratingHrRepresentive)
+        print(f"TEST: {data["ProcessID"]}")
+        try:
+            await client.publish_message(name="rateCandidate", # Process ID from WEPLACM
+                                    correlation_key=str(data["ProcessID"]), #Correlation Key from WEPLACM
+                                    variables={
+                                            "ratingHrManager": ratingHrManager,
+                                            "ratingHrRepresentive": ratingHrRepresentive,
+                                            "ratingVP": ratingVP
+                                }
+                            )
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
 async def checkCandidates(data, decision:bool):
         channel = create_insecure_channel(hostname="141.26.157.71", port=26500)
         client = ZeebeClient(channel)
@@ -122,7 +141,6 @@ async def checkCandidates(data, decision:bool):
                             )
         except Exception as e:
             print(f"An error occurred: {e}")
-
 
 
 #
@@ -445,6 +463,29 @@ def delete_job_offer():
 
 # //////////////////////////////////////////////// 01.02 ///////////////////////////////////////////////////////////////////////////////
 
+##This flask wait for a post request from frontend data.service.ts and add for the variable for interview calculation
+@app.route('/api/data/set_interview_results_for_candidate', methods=['POST'])
+def set_interview_results_for_candidate():
+    try:
+        # lock.acquire(True)
+        data = request.json
+        # cur.execute(
+        #     """
+        #     Update TopCandidate
+        #      set hrmanagerAccepted = 1
+        #      where CandidateID = ?
+        #     """, (data['CandidateID'],)
+        # )
+        asyncio.run(setRatingForCandidate(data, int(data['ratingHrManager']), int(data['ratingHrRepresentative']),int(data['ratingVP'])))
+        # con.commit()
+        socketio.emit('top_candidates_updated', {'message': 'Top Candidates updated successfully'})
+        print(data['CandidateID'])
+        return jsonify({'success': True, 'message': 'Top Candidates added successfully'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)})
+
+    
+
 ##This flask wait for a post request from frontend data.service.ts and add for the variable hrmanagerAccepted the number 1 in the topCandidate sql table
 @app.route('/api/data/update_top_candidates', methods=['POST'])
 def update_top_candidates():
@@ -590,6 +631,36 @@ def get_jobstandards_with_top_candidates_only_one():
             LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
             JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
             WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?   AND TopCandidate.currentlyDisplayed=1              
+            """, (int(data),)  )
+    
+        data = cur.fetchall()
+
+        columns = [desc[0] for desc in cur.description]
+        result = [dict(zip(columns, row)) for row in data]
+        print(result)
+        return jsonify(result)
+    finally:
+        lock.release()
+        
+        
+@app.route('/api/data/get_jobstandards_with_top_candidates_only_one_for_interview', methods=['GET'])
+def get_jobstandards_with_top_candidates_only_one_for_interview():
+    print("TEST____")
+    try:
+        lock.acquire(True)
+        data = request.args.get('ProcessID')
+        print("TEST____")
+        print(data)
+        
+        cur.execute(
+            """
+            SELECT JobStandards.*, Candidate.*
+            FROM JobStandards
+            LEFT JOIN Candidate ON JobStandards.ProcessID = Candidate.ProcessID
+            JOIN TopCandidate ON TopCandidate.CandidateID = Candidate.CandidateID
+            JOIN Kalender ON Kalender.CandidateID=TopCandidate.CandidateID
+            WHERE TopCandidate.hrmanagerAccepted = 0 AND Candidate.ProcessID = ?   AND TopCandidate.currentlyDisplayed=1      
+            LIMIT 1        
             """, (int(data),)  )
     
         data = cur.fetchall()

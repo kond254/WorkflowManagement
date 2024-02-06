@@ -136,7 +136,7 @@ class Databank:
     #remove candidate from top candidate db
     ##############
     #######?######
-    ##############
+    ##############  
     #
     #
     def remove_candidate_from_topCandidateDB(self, candidate_id:int):

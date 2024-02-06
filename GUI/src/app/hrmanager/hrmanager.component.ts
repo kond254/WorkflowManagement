@@ -103,6 +103,42 @@ interface JobStandardsWithTopCandidates {
   hrmanagerAccepted: boolean;
 }
 
+interface JobStandardsWithTopCandidatesRating{
+  AnnualSalary: number;
+  Benefits: string;
+  CandidateID: number;
+  GraduationLevel: string;
+  Industry: string;
+  JobDescription: string;
+  JobMode: string;
+  JobTitle: string;
+  JobType: string;
+  Language: string;
+  Location: string;
+  PaidTimeOff: number;
+  ProcessID: number;
+  RequiredExperience: number;
+  Responsibilities: string;
+  WeeklyHours: number;
+  address: string;
+  age: number;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  linkedin: string;
+  numberOfPositions: number | null;
+  previous_company: string;
+  rating: number;
+  zip_code: string;
+  hrmanagerAccepted: boolean;
+  ratingHrManager: number;
+  ratingHrRepresentative: number;
+  ratingVP: number;
+}
+
 
 @Component({
   selector: 'app-hrmanager',
@@ -140,6 +176,8 @@ dataJobOfferAccapted: JobOffer[]=[];
 // datacandidate: Candidate[]=[];  
 dataTopCandidate: TopCandidate[]=[];
 dataJobStandardsWithTopCandidates: JobStandardsWithTopCandidates []=[];
+dataJobStandardsWithTopCandidatesForInterview: JobStandardsWithTopCandidatesRating []=[];
+
 
 newjobStandards: {
   ProcessID: number;
@@ -256,6 +294,23 @@ constructor(private snackbarService: SnackbarService,private dataServiceInterfac
       data => {
         this.dataJobStandardsWithTopCandidates = data as JobStandardsWithTopCandidates [];
         console.log(this.dataJobStandardsWithTopCandidates)
+      },
+      error => {
+        console.error("Error fetching JobStandardsWithTopCandidates data:", error);
+      }
+    );
+    console.log(this.dataJobStandardsWithTopCandidates)
+  }
+
+  async getJobStandardsWithTopCandidatesForInterview(jobStandards: JobStandards) {
+    console.log(typeof(jobStandards["ProcessID"])) 
+    console.log((jobStandards["ProcessID"])) 
+    this.dataJobStandardsWithTopCandidatesForInterview=[];
+    this.dataServiceInterface.getJobStandardsWithCandidatesCurrentlyForInterview(jobStandards["ProcessID"]).subscribe(
+      data => {
+        this.dataJobStandardsWithTopCandidatesForInterview = data as JobStandardsWithTopCandidatesRating [];
+        console.log("Hier ein Fehler?")
+        console.log(this.dataJobStandardsWithTopCandidatesForInterview)
       },
       error => {
         console.error("Error fetching JobStandardsWithTopCandidates data:", error);
@@ -416,6 +471,21 @@ rejectTopCandidate(item: JobStandardsWithTopCandidates, jobStandards: JobStandar
     },
     error => {
       console.error('Error delete Top Candidate', error);
+    }
+  );
+}
+
+sendRating(item: JobStandardsWithTopCandidatesRating, jobStandards: JobStandards){
+  console.log('Top candidate accepted:', item);
+  console.log(item)
+  this.dataServiceInterface.set_interview_results(item).subscribe(
+    response => {
+      console.log('Top candidate updated successfully', response);
+      this.snackbarService.showSuccess('Top candidate accepted');
+      this.getJobStandardsWithTopCandidates(jobStandards);
+    },
+    error => {
+      console.error('Error updating top candidate', error);
     }
   );
 }

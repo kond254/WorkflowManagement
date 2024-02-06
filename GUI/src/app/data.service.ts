@@ -74,6 +74,42 @@ interface JobStandardsWithTopCandidates {
   hrmanagerAccepted: boolean;
 }
 
+interface JobStandardsWithTopCandidatesRating{
+  AnnualSalary: number;
+  Benefits: string;
+  CandidateID: number;
+  GraduationLevel: string;
+  Industry: string;
+  JobDescription: string;
+  JobMode: string;
+  JobTitle: string;
+  JobType: string;
+  Language: string;
+  Location: string;
+  PaidTimeOff: number;
+  ProcessID: number;
+  RequiredExperience: number;
+  Responsibilities: string;
+  WeeklyHours: number;
+  address: string;
+  age: number;
+  city: string;
+  country: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  last_name: string;
+  linkedin: string;
+  numberOfPositions: number | null;
+  previous_company: string;
+  rating: number;
+  zip_code: string;
+  hrmanagerAccepted: boolean;
+  ratingHrManager: number;
+  ratingHrRepresentative: number;
+  ratingVP: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -265,7 +301,18 @@ export class DataServiceInterface {
     const params = new HttpParams().set('ProcessID', jobStandards.toString());
     return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates_only_one`, {params} );
   }
-  
+
+  getJobStandardsWithCandidatesCurrentlyForInterview(jobStandards: number): Observable<any[]> {
+    const params = new HttpParams().set('ProcessID', jobStandards.toString());
+    return this.http.get<any[]>(`${this.apiUrl}/get_jobstandards_with_top_candidates_only_one_for_interview`, {params} );
+  }
+
+    // This method sets interview results
+    set_interview_results(topCandidate: JobStandardsWithTopCandidatesRating): Observable<any> {
+      console.log("Data delete job offer sent to backend");
+      return this.http.post<any>(this.apiUrl + "/set_interview_results_for_candidate", topCandidate); 
+    }
+
 }
 
  
