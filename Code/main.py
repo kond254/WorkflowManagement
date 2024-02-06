@@ -405,9 +405,13 @@ def main():
                 print("-----Order Interviews by Date-----")
                 print("Process Instance Key: " +str(job.process_instance_key))
                 #creating new corelation key for next recieving message 
+                array = db.interview_multi_instance(job.process_instance_key)
+                print(array)
+                
+
                 process_correlation_key=f"{job.process_instance_key}2I16"
                 print(process_correlation_key)
-                return {"process_correlation_key": process_correlation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key)}
+                return {"process_correlation_key": process_correlation_key, "InterviewOrder": db.order_by_interview(job.process_instance_key), "TopTenCandidatesIDs": array}
 
 
         #Delete candidate once we get a cancelation from this candidate
@@ -569,19 +573,6 @@ def main():
                 print("Payment send")
                 
                 
-        @worker.task(task_type="collectingAnswers")
-        async def collecting_answers(job: Job):
-            print("waiting")
-            time.sleep(600)
-    
-        @worker.task(task_type="waitForInterviews")
-        async def wait_for_interviews(job: Job):
-                print("waiting")
-                time.sleep(6)
-                array = db.interview_multi_instance(job.process_instance_key)
-                print(array)
-                return {"TopTenCandidatesIDs": array}
-
         
         loop = asyncio.get_event_loop()
         try:
