@@ -173,8 +173,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log(this.dataJobOffer);
       },
       error => {
-        console.log("Error fetching job offer data");
-        console.log(this.dataJobOffer);
+        console.error("Error fetching job offer data:", error);
       }
     );
   }
@@ -187,7 +186,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted job offer retrieved");
       },
       error => {
-        console.log("Error fetching accepted job offer data");
+        console.error("Error fetching accepted job offer data:", error);
       }
     );
   }
@@ -200,7 +199,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data job standards retrieved");
       },
       error => {
-        console.log("Error fetching job standards data");
+        console.error("Error fetching job standards data:", error);
       }
     );
   }
@@ -214,7 +213,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted contracts retrieved");
       },
       error => {
-        console.log("Error fetching accepted contracts data");
+        console.error("Error fetching accepted contracts data:", error);
       }
     );
   }
@@ -227,7 +226,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data accepted top candidates retrieved");
       },
       error => {
-        console.log("Error fetching accepted top candidate data");
+        console.error("Error fetching accepted top candidate data:", error);
       }
     );
   }
@@ -240,7 +239,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         console.log("Data new employees retrieved");
       },
       error => {
-        console.log("Error fetching new employee data");
+        console.error("Error fetching new employee data:", error);
       }
     );
   }
@@ -259,7 +258,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         this.jobOffer = {} as JobOffer;
       },
       error => {
-        console.log('Error sending job offer data');
+        console.error('Error sending job offer data:', error);
       }
     );
   }
@@ -274,7 +273,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
         this.snackbarService.showSuccess('Contract sent');
       },
       error => {
-        console.log('Error sending Contract');
+        console.error('Error sending Contract:', error);
       }
     );
   }
