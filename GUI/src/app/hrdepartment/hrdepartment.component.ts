@@ -121,6 +121,7 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
   stepTC= 0;
   stepNE = 0;
   stepCO = 0;
+  stepJOAC = 0;
 
   // This structure initiates the six different services: DataMessageService, SnackbarService, DataServiceInterface, ChangeDetectorRef,   SocketService and DialogService 
   constructor(private snackbarService: SnackbarService,private dataServiceInterface: DataServiceInterface, private cdRef: ChangeDetectorRef, private socketService: SocketService, private dialogService: DialogService) {}
@@ -290,6 +291,17 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepJO--;
   }
 
+  // These methods set the number for the Previous Next function in the accepted job offer card
+  setStepJOAC(index: number) {
+    this.stepJOAC = index;
+  }
+  nextStepJOAC() {
+    this.stepJOAC++;
+  }
+  prevStepJOAC() {
+    this.stepJOAC--;
+  }
+
   // These methods set the number for the Previous Next function in the job standards card
   setStepJS(index: number) {
     this.stepJS = index;
@@ -323,15 +335,15 @@ export class HrdepartmentComponent implements OnInit, AfterContentChecked{
     this.stepNE--;
   }
 
-  // Funktion setzt die Nummer des Pannels, für die Funktion Zurück/Vor
+  // These methods set the number for the Previous Next function in the contract card
   setStepCO(index: number) {
-    this.stepNE = index;
+    this.stepCO = index;
   }
   nextStepCO() {
-    this.stepNE++;
+    this.stepCO++;
   }
   prevStepCO() {
-    this.stepNE--;
+    this.stepCO--;
   }
 
 }
