@@ -26,22 +26,16 @@ export class DataAuthService {
 
   //This method compares the user input from the login window with the user data from the userData.json file and returns the strings invalidPassword/invalidUsername
   checkCredentials(username: string, password: string): Observable<string> {
-    console.log(username)
-    console.log("checkCred: "+ password)
-    return from(this.hashService.hashPassword(password)).pipe(
-      mergeMap((hashedPassword) => {
-        return this.getUsers().pipe(
-          map((users) => {
-            const user = users.find((u) => u.username == username && u.password == hashedPassword);
-            if (users.some((u) => u.username == username && u.password == hashedPassword)) {
-              return user.role;
-            } else if (users.some((u) => u.username == username && u.password != hashedPassword)) {
-              return 'invalidPassword';
-            } else {
-              return 'invalidUsername';
-            }
-          })
-        );
+    return this.getUsers().pipe(
+      map((users) => {
+        const user = users.find((u) => u.username === username && u.password === password);
+        if (user) {
+          return user.role;
+        } else if (users.some((u) => u.username === username)) {
+          return 'invalidPassword';
+        } else {
+          return 'invalidUsername';
+        }
       })
     );
   }
