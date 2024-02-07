@@ -422,7 +422,8 @@ def main():
                 print("-----Delete Candidate and generate new Order-----")
                 print("Process Instance Key: " +str(job.process_instance_key))
                 db.delete_TopCandidate_due_Candidate_rejection(CandidateID)
-                return {"InterviewOrder": db.order_by_interview(job.process_instance_key)}
+                array = db.interview_multi_instance(job.process_instance_key)
+                return {"InterviewOrder": db.order_by_interview(job.process_instance_key), "TopTenCandidatesIDs": array}
 
         #
         #worker
