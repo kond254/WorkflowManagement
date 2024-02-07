@@ -30,7 +30,7 @@ Start-Instruction:
 11. Now start the camunda operator to display the process: http://141.26.157.71:8081/login
 12. Login with the data: username:demo, password: demo
 13. Click the tab "dashboard and you can the process instances
-14. Next, login a user via login button in browser (see the login data in chapter "right")
+14. Next, login a user via login button in browser (see the login data in chapter "right") (the backend must be run to use the login)
 
 
 #############################################################################
