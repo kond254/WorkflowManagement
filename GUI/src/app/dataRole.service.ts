@@ -24,11 +24,9 @@ export class DataRoleService {
   private hrdepartment: boolean = false;
   private hrmanagement: boolean = false;
   private accounting: boolean = false;
-  private apiUrl;
+  private apiUrl='/assets/roleData.json';
 
-  constructor(private http: HttpClient) {
-    this.apiUrl= '/assets/roleData.json';
-  }
+  constructor(private http: HttpClient) {}
 
   
   //This method retrieve the boolean values of the respective role rights from the roleData.json
