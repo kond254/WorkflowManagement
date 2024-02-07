@@ -525,7 +525,7 @@
                       </div>
                     </div>
                   </div>
-                  </div>
+                </div>
                 <mat-action-row>
                   <button mat-button color="warn" (click)="prevStepReview()">Previous</button>
                   <button mat-button color="primary" (click)="nextStepReview()">Next</button>
@@ -634,7 +634,8 @@
                           <p>{{candidate.zip_code}}</p>
                         </div>
                       </div>
-                      <div class="box-row">
+                    </div>
+                    <div class="box-row">
                       <div class="box-item full-width">
                         <div class="item-box">
                          <mat-label>Rating HR Manager</mat-label>
@@ -645,30 +646,29 @@
                       </div>
                         <div class="box-item full-width">
                           <div class="item-box">
+                            <mat-label>Rating Representive</mat-label>
                             <mat-form-field class="matfieldrating">  
-                          <mat-label>Rating Representive</mat-label>
-                          <input [(ngModel)]="candidate.ratingHrRepresentative" matInput type="number" min="0.0" max="10.0" step="0.1" required>
-                        </mat-form-field>
+                              <input [(ngModel)]="candidate.ratingHrRepresentative" matInput type="number" min="0.0" max="10.0" step="0.1" required>
+                            </mat-form-field>
                         </div>
                       </div>
-                      <div class="box-row">
+                    </div>
+                    <div class="box-row">
                         <div class="box-item full-width">
                           <div class="item-box">
                            <mat-label>Rating VP</mat-label>
                            <mat-form-field class="matfieldrating">  
                             <input [(ngModel)]="candidate.ratingVP" matInput type="number" min="0.0" max="10.0" step="0.1" required>
                           </mat-form-field>
-                          </div>
-                        </div>
                         </div>
                       </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between;">
-                      <mat-action-row>
-                        <button mat-button color="primary" (click)="sendRating(candidate, item)">Accept</button>
-                      </mat-action-row>
                   </div>
-                </div>
+                  <div style="display: flex; justify-content: space-between;">
+                    <mat-action-row>
+                      <button mat-button color="primary" (click)="sendRating(candidate, item)">Accept</button>
+                    </mat-action-row>
+                  </div>
                 </mat-expansion-panel>
               </div>
             </mat-expansion-panel>
