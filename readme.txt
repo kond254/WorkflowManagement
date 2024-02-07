@@ -18,6 +18,7 @@ Step-By-Step-Installation via the commandline (Windows: press windows-button and
 7. Check if angular installed successfully by using: ng version
 
 8. Here you can check again Angular version, Node version, Package Manager (npm) version
+	Und welche solls sein???
 
 9. Install flask: pip install flask
 
@@ -26,7 +27,7 @@ Step-By-Step-Installation via the commandline (Windows: press windows-button and
 11. Install flask socketio: pip install flask_socketio
 
 12. Check if flask was installed successfully: pip show flask
-
+	Was soll gezeigt werden?
 13. Install pyzeebe: pip install pyzeebe
 
 14. Check if pyzeebe was installed successfully: pip show pyzeebe
@@ -38,10 +39,12 @@ Start-Instruction:
 3. Start the one console for backend
 4. Call up path for backend file: cd C:\Users\nameX\Desktop\WorkflowManagement\Backend
 5. Execute backend file: python backend.py
+	ist pyhton3, oder?
 5. Backend file should now be running
 6. Start new console for frontend
 7. Call up path for frontend file: cd C:\Users\nameX\\Desktop\WorkflowManagement\GUI\src\app
-8. Run fronend with: ng serve --o
+8. Run fronend with: ng serve --o 
+	#Aufm Server kanns anders sien prüfen
 9. Frontend should now be running
 10. Now a browser should open automatically with the gui. If not, then manually open the generated link in the frontend console: http://localhost:4200/ (by default)
 11. Now start the camunda operator to display the process: http://141.26.157.71:8081/login
