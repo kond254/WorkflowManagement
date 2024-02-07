@@ -12,7 +12,7 @@ import { from } from 'rxjs';
 
 //This class is used to compare the entered username and password with the stored user data in userData.json
 export class DataAuthService {
-  private usersDataJson = '/assets/userData.json';
+  private usersDataJson = 'userData.json';
 
   constructor(private http: HttpClient, private hashService: HashService) {}
 

@@ -42,7 +42,7 @@ import { DialogComponent } from './dialog/dialog.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://127.0.0.1:5000', options: {} };
+const config: SocketIoConfig = { url: 'http://141.26.157.71:5000', options: {} };
 
 
 @NgModule({

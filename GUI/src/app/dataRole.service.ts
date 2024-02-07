@@ -24,7 +24,7 @@ export class DataRoleService {
   private hrdepartment: boolean = false;
   private hrmanagement: boolean = false;
   private accounting: boolean = false;
-  private apiUrl = 'assets/roleData.json';
+  private apiUrl = 'roleData.json';
 
   constructor(private http: HttpClient) {}
 
