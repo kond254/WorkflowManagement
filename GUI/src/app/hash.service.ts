@@ -13,8 +13,10 @@ export class HashService {
     const data = encoder.encode(password);
 
     return crypto.subtle.digest('SHA-256', data).then((buffer) => {
+      console.log(data)
       const hashArray = Array.from(new Uint8Array(buffer));
       const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+      console.log(hashHex)
       return hashHex;
     });
   }

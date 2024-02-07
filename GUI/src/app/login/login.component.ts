@@ -34,6 +34,8 @@ export class LoginComponent {
 
   //This method checks the results from dataAuth.service and decides whether the user has rights or not and displays the incorrect inputs as a hint message
   login() {
+    console.log(this.username);
+    console.log(this.password)
     this.dataAuthService.checkCredentials(this.username, this.password).subscribe((result) => {
       if (result == 'invalidPassword') {
           this.loginService.setloginValue(true);
