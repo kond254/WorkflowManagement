@@ -12,12 +12,13 @@ import { from } from 'rxjs';
 
 //This class is used to compare the entered username and password with the stored user data in userData.json
 export class DataAuthService {
-  private usersDataJson = '\assets\userData.json';
+  private usersDataJson = '/assets/userData.json';
 
   constructor(private http: HttpClient, private hashService: HashService) {}
 
   //This method will be receive the specified username and password hash from the userData.json file
   getUsers(): Observable<any[]> {
+    console.log(this.usersDataJson)
     return this.http.get<any[]>(this.usersDataJson);
   }
 
