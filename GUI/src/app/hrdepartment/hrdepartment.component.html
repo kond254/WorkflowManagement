@@ -138,72 +138,12 @@
   </mat-card>
 
 
-
-  <!-- Here the adjust contract input displayes in a card
-  <mat-card class="card">
-    
-    <mat-card-content class="cardcontent">
-      <h2>Adjust Contract</h2>
-    </mat-card-content>
-    
-    <div class="panel" *ngIf="dataContract.length>0">
-      <mat-expansion-panel *ngFor="let contract  of dataContract; let y = index" class="matpanelJobStandards"
-        [expanded]="stepJS == y" (opened)="setStepJS(y)" hideToggle>
-        <mat-expansion-panel-header class="matheader">
-          <mat-panel-title>
-            Contract
-          </mat-panel-title>
-
-          <mat-panel-description class="paneldiscription">
-            {{contract.professionType}}
-          </mat-panel-description>
-          <mat-panel-description class="paneldiscription">
-            {{contract.numberProfessions}}
-          </mat-panel-description>
-
-
-        </mat-expansion-panel-header>
-        <div class="box-content">
-          <div class="box-row">
-            <div class="box-item full-width">
-              <div class="item-box">
-                <p>Compensation</p>
-                <input class="field" [(ngModel)]="contract.compensation" matInput type="float" [defaultValue]="contract.compensation" min="0.00" step="0.01" required>
-              </div>
-            </div>
-            <div class="box-item full-width">
-              <div class="item-box">
-                <p>WEPLACM suggestion:</p>
-                <p>{{contract.suggestion}}</p>
-              </div>
-            </div>
-
-          </div>
-
-
-          <div class="divButtonBoth">
-            <mat-action-row>
-              <button mat-button color="Send Contract to WEPLACM" (click)="openDialogPay(contract)">Accept</button>
-            </mat-action-row>
-          </div>
-        </div>
-      </mat-expansion-panel>
-    </div>
-
-
-  </mat-card> -->
-
-
-
-
+  <!--Here displays the not accepted JobOffers in a card-->
   <mat-card class="card">
     <mat-card-content class="cardcontent">
       <h2>Current News</h2>
     </mat-card-content>
-
     <mat-accordion #accordion>
-
-      <!--Here displays the not accepted JobOffers in a card-->
       <div class="panel" *ngIf="dataJobOffer.length > 0">
         <mat-expansion-panel *ngFor="let item of dataJobOffer; let i = index" class="matpanelJobOffer"
           [expanded]="stepJO == i" (opened)="setStepJO(i)" hideToggle>
@@ -710,8 +650,6 @@
       </div>
 
     </mat-accordion>
-
-
   </mat-card>
-
+  
 </body>
