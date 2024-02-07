@@ -447,3 +447,12 @@ class Databank:
             cur.execute(sql_content, (process_id, ))
             result = cur.fetchall()
             return result[0][0] 
+        
+    #saves invoice for frontend display    
+    def save_invoice(self, process_id: int, compensation: float, salarie_sum: int, number_of_positions: int):
+        with con:
+            cur.execute("""INSERT INTO Invoice (ProcessID, numberOfPosition, compensation, sumPay)
+                        VALUES (?,?,?,?)""", (process_id, number_of_positions, compensation, salarie_sum))
+            con.commit()
+            print("Invoice stored in DB")
+        

@@ -570,11 +570,13 @@ def main():
 
         #sending WEPLACM info about payment
         @worker.task(task_type="sendWeplacmInfoPayment")
-        async def send_payment(job: Job, correlation_key_weplacm: int):
+        async def send_payment(job: Job, correlation_key_weplacm: int, compensation: float, salarie_sum: int, number_of_positions: int):
                 print("-----Sending WEPLACM information that payment in on the way-----")
                 print("Process Instance Key: " +str(job.process_instance_key))
                 await cW.sendPayment(correlation_key_weplacm)
                 print("Payment send")
+                db.save_invoice(job.process_instance_key, compensation, salarie_sum, number_of_positions)
+                
                 
                 
         
