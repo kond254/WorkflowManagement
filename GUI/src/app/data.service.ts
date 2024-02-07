@@ -116,7 +116,7 @@ interface JobStandardsWithTopCandidatesRating{
 })
 export class DataServiceInterface {
 
-  private apiUrl = 'http://127.0.0.1:5000/api/data';
+  private apiUrl = 'http://141.26.157.71:5000/api/data';
 
   constructor(private http: HttpClient) { }
 
