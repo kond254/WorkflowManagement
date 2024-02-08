@@ -1,5 +1,25 @@
 # WBIG
 
+Server Configuration:
+1. Login onto wfm server with username: "wfm" and password: "mnFD6dfd"
+2. Install Git if it isnt on the server 
+3. Clone the repository https://github.com/kond254/WorkflowManagement with "git clone 	https://github.com/kond254/WorkflowManagement"
+4. Install npm and pip
+5. install and activate venv in WorkflowManagement/Code and WorkflowManagement/Backend and type in "pip install -r requirements.txt"
+6. Move to the frontend repository with cd WorkflowManagement/GUI/src/app and install nodejs v20.x with 
+	"curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
+	sudo apt-get install -y nodejs"
+7. Move to cd WorkflowManagement/GUI and install Angular/CLI with "npm install -g @angular/cli"
+
+
+Server Start-Instruction:
+1. Login onto wfm server with username: "wfm" and password: "mnFD6dfd"
+2. To start the System type cd WorkflowManagement/Backend and type "python3 backend.py" 
+3. Then type cd WorkflowManagement/GUI/src/app and type "ng serve --host=0.0.0.0
+4. Finally move to cd WorkflowManagement/Code and type "python3 main.py"
+5. The frontend can be accessed via the URL: http:141.26.157.71:4200
+
+
 Installation Locally:
 	Note: Change the URL in Line 119 from GUI the data.service.ts to the URL the backend runs on locally!
 1. Install Python by using the follwing command: sudo apt-get install python3-pip
@@ -34,26 +54,6 @@ Start-Instruction Locally:
 13. Login with the data: username: demo, password: demo
 14. Click the tab "dashboard and you can the process instances
 15. Next, login a user via login button in browser (see the login data in chapter "right")
-
-
-Server Configuration:
-1. Login onto wfm server with username: "wfm" and password: "mnFD6dfd"
-2. Install Git if it isnt on the server 
-3. Clone the repository https://github.com/kond254/WorkflowManagement with "git clone 	https://github.com/kond254/WorkflowManagement"
-4. Install npm and pip
-5. install and activate venv in WorkflowManagement/Code and WorkflowManagement/Backend and type in "pip install -r requirements.txt"
-6. Move to the frontend repository with cd WorkflowManagement/GUI/src/app and install nodejs v20.x with 
-	"curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&\
-	sudo apt-get install -y nodejs"
-7. Move to cd WorkflowManagement/GUI and install Angular/CLI with "npm install -g @angular/cli"
-
-
-Server Start-Instruction:
-1. Login onto wfm server with username: "wfm" and password: "mnFD6dfd"
-2. To start the System type cd WorkflowManagement/Backend and type "python3 backend.py" 
-3. Then type cd WorkflowManagement/GUI/src/app and type "ng serve --host=0.0.0.0
-4. Finally move to cd WorkflowManagement/Code and type "python3 main.py"
-5. The frontend can be accessed via the URL: http:141.26.157.71:4200
 
 
 #############################################################################
