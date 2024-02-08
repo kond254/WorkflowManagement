@@ -1,0 +1,48 @@
+In the Process are 3 instances where the candidates are able to communicate with the Process. 
+These tasks are:
+	1. After the Interview date has been set.
+		-Task description: "waiting for answers"
+		-Task name: "waiting"
+	2. After the candidates habe agreed to the interview date and now want to cancle the interview
+		-Task description: "Waiting for first Interview to take place"
+		-Task name: "waiting2"
+	3. After the candidates have passed the Interview and now have to accapt or decline the job offer
+		-Task descritpion: "waiting for answers"
+		-Task name: "collectingAnswers"
+
+In each of these task is a interrupting Timer boundary event which waits for a designated time where the candidates
+can answer.
+The candidate answers are simulated with postman. In the following are the postman details for task 1 to 3 described.
+
+1.
+{
+    "name": "candidateInterviewDateAnswer",
+    "correlationKey": "22517998138432092I10",
+    "variables": "{\"InterviewAccepted\":true, \"CandidateID\": 177}"
+}
+
+
+The correlation key has to be copied from the running instance under Process ID. Futhermore the correlation key consists
+of a fixed endpart so that the different candidate interactions in task 1 to 3 are expected and collected at the right task.
+The endpart here is "2I10"
+For the variables the "InterviewAccepted" can be either true or false. For the "CandidateID" the correct CandidateID has to 
+be written there. You find the Candidate IDs under the variable "TopTenCandidatesIDs"
+
+2. 
+{
+    "name": "candidateCancels",
+    "correlationKey": "22517998139256562I16",
+    "variables": "{\"CandidateID\" :220}"
+}
+
+As explained above the correlation key has to manually written here with the endpart "2I16" aswell as the correct "CandidateID"
+
+
+3. 
+{
+    "name": "receiveAnswerFromCandidate",
+    "correlationKey": "22517998139228432I15",
+    "variables": "{\"JobAccepted\":true, \"CandidateID\" :207}"
+}
+
+See explaination for task 1. Endpart here is "2I15"
